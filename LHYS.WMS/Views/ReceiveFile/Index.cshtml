@@ -1,0 +1,271 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>收货方档案</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="ReceiveFileController">
+        <div class="row">
+            <form ng-submit="btnSave()">
+                <div class="col-xs-11 table-responsive">
+                    <table class="table table-bordered table-condensed" style="table-layout:unset;">
+                        <tr>
+                            <td colspan="17" style="text-align:center;border:none"><h2>收货方档案</h2></td>
+                        </tr>
+                        <tr>
+                            <td style="border:none" colspan="2"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                            <td style="border:none"></td>
+                            <td colspan="14" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
+                        </tr>
+                        <tr>
+                            <th style="width:90px;">收货方编码</th>
+                            <th>收货方名称</th>
+                            <th style="width:60px;">联系人</th>
+                            <th style="width:60px;">邮编</th>
+                            <th>电话</th>
+                            <th>手机</th>
+                            <th>地址</th>
+                            <th>邮箱</th>
+                            <th style="width:60px;">传真</th>
+                            <th>部门</th>
+                            <th>部门ID</th>
+                            <th>公司</th>
+                            <th>公司ID</th>
+                            <th>建档人</th>
+                            <th>建档日期</th>
+                            <th>编辑</th>
+                            <th>删除</th>
+                        </tr>
+                        <tr ng-repeat="record in info | filter:searchstr">
+                            <td>{{record.Id}}</td>
+                            <td>{{record.Name}}</td>
+                            <td>{{record.Contacts}}</td>
+                            <td>{{record.Emailcode}}</td>
+                            <td>{{record.Phone}}</td>
+                            <td>{{record.Tel}}</td>
+                            <td style="word-break: break-all;word-wrap: break-word" width="250px;">{{record.Address}}</td>
+                            <td>{{record.Email}}</td>
+                            <td>{{record.Fax}}</td>
+                            <td>{{record.Department}}</td>
+                            <td>{{record.DepartmentId}}</td>
+                            <td>{{record.Company}}</td>
+                            <td>{{record.CompanyId}}</td>
+                            <td>{{record.CreateBy}}</td>
+                            <td>{{record.CreateDate}}</td>
+                            <td style="width:70px"><button type="button" class="btn btn-info btn-xs" ng-click="btnEdit(record)">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button></td>
+                            <td style="width:70px"><button type="button" class="btn btn-danger btn-xs" ng-click="btnDelete(record)">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button></td>
+                        </tr>
+                    </table>
+                    @*-------------------------------------收货方档案模态框-----------------------------------------*@
+                    <div class="modal fade" id="personchoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请填写收货方档案信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width:90px">收货方名称</td>
+                                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:80px">联系人</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Contacts" required /></td>
+                                            <td style="width:80px">邮编</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Emailcode" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:80px">电话</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Phone" required /></td>
+                                            <td style="width:80px">手机</td>
+                                            <td>
+                                                <input class="form-control" type="text" name="name" ng-model="source.Tel" required />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:80px">地址</td>
+                                            <td><textarea class="form-control" type="text" name="name" ng-model="source.Address" required></textarea></td>
+                                            <td>所属部门</td>
+                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required></select></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:80px">邮件</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Email" /></td>
+                                            <td style="width:80px">传真</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Fax" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:80px">建档人</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" required /></td>
+                                            <td style="width:80px">建档日期</td>
+                                            <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" required /></td>
+                                        </tr>
+                                    </table>
+                                    <table class="table" style="border:none">
+                                        <tr>
+                                            <td style="text-align:right"><button type="submit" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button></td>
+                                            <td style="width:60px;"><button type="button" class="btn btn-default btn-md" ng-click="btnCancel()">&nbsp;&nbsp;&nbsp;取&nbsp;&nbsp;&nbsp;消&nbsp;&nbsp;&nbsp;</button></td>
+                                        </tr>
+                                    </table>
+                                    <div class="alert alert-success" role="alert" style="text-align:center" ng-show="!showmsg == ''">{{showmsg}}</div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-------------------------------------收货方档案模态框end-----------------------------------------*@
+                    @*-------------------------------------编辑模态框-----------------------------------------*@
+                    <div class="modal fade" id="deletecom">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">确定要删除吗？</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" ng-click="delcom()">确认</button>
+                                    <div class="alert alert-success" role="alert" style="text-align:center" ng-show="!delmsg == ''">{{delmsg}}</div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-------------------------------------编辑模态框end-----------------------------------------*@
+                </div>
+                </form>
+</div>
+    </div>
+    <script>
+        //日期格式
+        //json日期格式转换为正常格式
+        function jsonDateFormat(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                return date.getFullYear() + "-" + month + "-" + day;
+                // return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+            } catch (ex) {
+                return "";
+            }
+        }
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //数据控制器
+        myApp.controller('ReceiveFileController', function ($scope, $http, $timeout) {
+            //初始化提示消息
+            $scope.showmsg = '';
+            $scope.delmsg = '';
+            /*
+            $http.post("/GoodItem/GetData", {}, {}).success(function (response) {
+                response.CreateDate = jsonDateFormat(response.CreateDate);
+                response.IsBatch = response.IsBatch == "1" ? "是" : "否";
+                //绑定数据源
+                $scope.info = response;
+            });*/
+            //---------------------------------------------------------------------------
+            //刷新数据
+            $scope.GetData = function () {
+                $http.post("/ReceiveFile/GetData", {}, {}).success(function (response) {
+                    //绑定数据源
+                    for (var i = 0; i < response.length; i++) {
+                        response[i].CreateDate = jsonDateFormat(response[i].CreateDate);
+                    }
+                    $scope.info = response;
+                });
+            }
+            //点击添加按钮事件
+            $scope.btnAdd = function () {
+                $scope.state = 'add';
+                $('#personchoose').modal('show');
+            }
+            //保存数据
+            $scope.btnSave = function () {
+                //给部门赋值   注意源数据字段的拼写和现在不同
+                $scope.source.DepartmentId = $scope.currentDept.DeptCode;
+                $scope.source.Department = $scope.currentDept.DeptName;
+                $scope.source.CompanyId = $scope.currentDept.CmopanyCode;
+                $scope.source.Company = $scope.currentDept.CompanyAbbr;
+                $scope.currentDept = null;
+                $http.post("/ReceiveFile/SaveData", {}, { params: { "ReceiveFile": $scope.source, "savetype": $scope.state } }).success(function (response) {
+                    if (response) {
+                        $scope.showmsg = '保存成功！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                            $scope.source = null;//清空数据
+                            $('#personchoose').modal('hide');
+                        }, 800);   //该函数延迟1.5秒执行
+                    }
+                    else {
+                        $scope.showmsg = '保存失败！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                            $('#personchoose').modal('hide');
+                        }, 800);   //该函数延迟1.5秒执行
+                    }
+                    $scope.GetData();
+                });
+            }
+            //编辑事件
+            $scope.btnEdit = function (item) {
+                item.CreateDate = new Date(item.CreateDate);
+                $scope.source = item;
+                //遍历公司部门数组  找出默认值
+                var departmentId = item.DepartmentId;
+                for (var i = 0; i < $scope.companyDepts.length; i++) {
+                    if (departmentId == $scope.companyDepts[i].DeptCode) {
+                        $scope.currentDept = $scope.companyDepts[i]; //保存当前部门作为默认值
+                        break;
+                    }
+                }
+                $scope.state = 'edit';
+                $('#personchoose').modal('show');
+            }
+            //取消按钮
+            $scope.btnCancel = function () {
+                $scope.source = null;
+                $scope.currentDept = null;
+                $('#personchoose').modal('hide');
+                $scope.GetData();
+            }
+            //删除按钮
+            $scope.btnDelete = function (item) {
+                $scope.delitem = item; //存值
+                $('#deletecom').modal('show');
+            }
+            //确认删除
+            $scope.delcom = function () {
+                $http.post("/ReceiveFile/DeleteData", {}, { params: { "DeleteItem": $scope.delitem } }).success(function (response) {
+                    $scope.delmsg = response;
+                    $timeout(function () {
+                        $scope.delmsg = '';
+                        $('#deletecom').modal('hide');
+                    }, 800);   //该函数延迟1.5秒执行
+                    $scope.GetData();//导入数据
+                });
+            };
+            $scope.GetData();//导入数据
+            //获取当前人员的权限
+            $http.post("/UserFramework/GetOnesCompanyAndDept").success(function (response) {
+                $scope.companyDepts = response;
+            });
+        })
+    </script>
+</body>
+</html>

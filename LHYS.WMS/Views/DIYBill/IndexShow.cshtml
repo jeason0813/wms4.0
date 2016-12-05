@@ -1,0 +1,193 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>查看和审批加工单</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <style>
+        .tdname2 {
+            width: 90px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
+        <div class="row">
+                <div class="col-xs-11 table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td colspan="8" style="text-align:center">
+                                <h2>加工单</h2>
+                                <span class="label label-info" ng-show="info.BillState==1">已保存</span>
+                                <span class="label label-success" ng-show="info.BillState==2">已审核</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdname2">加工单号：</td>
+                            <td>{{info.BillCode}}</td>
+                            <td class="tdname2">加工日期：</td>
+                            <td>{{info.CreateDate}}</td>
+                            <td class="tdname2">加工人：</td>
+                            <td>{{info.ChargePerson}}</td>
+                            <td class="tdname2">部门：</td>
+                            <td>{{info.Department}}</td>
+                        </tr>
+                        <tr>
+                            <td>制单人：</td>
+                            <td>{{info.MakePerson}}</td>
+                            <td>审核人：</td>
+                            <td>{{info.ExaminePerson}}</td>
+                            <td>审核日期：</td>
+                            <td>{{info.ExamineDate}}</td>
+                            <td>备注：</td>
+                            <td>{{info.Remark}}</td>
+                        </tr>
+                    </table>
+                    <div style="color:#ff6a00">加工前</div>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <th>编号</th>
+                            <th>物料编码</th>
+                            <th>产品线</th>
+                            <th>产品名称</th>
+                            <th>包装规格</th>
+                            <th>单位</th>
+                            <th>单位重量</th>
+                            <th>数量</th>
+                            <th>重量</th>
+                            <th>批次</th>
+                            <th>仓库</th>
+                            <th>货位</th>
+                        </tr>
+                        <tr ng-repeat="record1 in Record1">
+                            <td>{{$index+1}}</td>  @*编号*@
+                            <td>{{record1.ItemCode}}</td>
+                            <td>{{record1.ItemLine}}</td>
+                            <td>{{record1.ItemName}}</td>
+                            <td>{{record1.ItemSpecifications}}</td>
+                            <td>{{record1.ItemUnit}}</td>
+                            <td>{{record1.UnitWeight}}</td>
+                            <td>{{record1.Count}}</td>
+                            <td>{{record1.Weight}}</td>
+                            <td>{{record1.ItemBatch}}</td>
+                            <td>{{record1.Warehouse}}</td>
+                            <td>{{record1.ItemLocation}}</td>
+                        </tr>
+                    </table>
+                     <div style="color:#09751f">加工后</div>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <th>编号</th>
+                            <th>物料编码</th>
+                            <th>产品线</th>
+                            <th>产品名称</th>
+                            <th>包装规格</th>
+                            <th>单位</th>
+                            <th>单位重量</th>
+                            <th>数量</th>
+                            <th>重量</th>
+                            <th>批次</th>
+                            <th>仓库</th>
+                            <th>货位</th>
+                        </tr>
+                        <tr ng-repeat="record2 in Record2">
+                            <td>{{$index+1}}</td>  @*编号*@
+                            <td>{{record2.ItemCode}}</td>
+                            <td>{{record2.ItemLine}}</td>
+                            <td>{{record2.ItemName}}</td>
+                            <td>{{record2.ItemSpecifications}}</td>
+                            <td>{{record2.ItemUnit}}</td>
+                            <td>{{record2.UnitWeight}}</td>
+                            <td>{{record2.Count}}</td>
+                            <td>{{record2.Weight}}</td>
+                            <td>{{record2.ItemBatch}}</td>
+                            <td>{{record2.Warehouse}}</td>
+                            <td>{{record2.ItemLocation}}</td>
+                        </tr>
+                    </table>
+                    <div style="text-align:center">
+                        <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-info btn-md" ng-click="submit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <script>
+        //json日期格式转换为正常格式
+        function jsonDateFormat(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                return date.getFullYear() + "-" + month + "-" + day;
+            } catch (ex) {
+                return "";
+            }
+        }
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //数据控制器
+        myApp.controller('recordController', function ($scope, $http) {
+            $http.post("/DIYBill/GetData", {}, { params: { "DIYBillId": "@ViewBag.DIYBillId" } }).success(function (response) {
+                //修改时间格式
+                response.diybill.CreateDate = jsonDateFormat(response.diybill.CreateDate);
+                response.diybill.ExamineDate = jsonDateFormat(response.diybill.ExamineDate);
+                //绑定数据源
+                //绑定数据源
+                $scope.info = response.diybill;
+                $scope.Record1 = response.recordlist1;
+                $scope.Record2 = response.recordlist2;
+            });
+            //---------------------------------------------------------------------------
+            //审核（examine）
+            $scope.submit = function () {
+                $http.post("/DIYBill/Examine", {}, { params: { "DIYBillId": "@ViewBag.DIYBillId" } }).success(function (response) {
+                    if (response == "审核成功！") {
+                        alert("审核成功！");
+                        window.location.href = 'IndexShow?DIYBillId=@ViewBag.DIYBillId';
+                    }
+                    else if (response == "审核失败！") {
+                        alert("审核失败！");
+                    } else if (response == "-3") {
+                        alert("库存数小于出库数，请重新填写！");
+                    }
+                    else {
+                        alert(response);
+                    }
+                });
+            }
+            //跳转到编辑页
+            $scope.edit = function () {
+                window.location.href = 'Index?DIYBillId=@ViewBag.DIYBillId';
+            }
+            //弃审
+            $scope.giveupexamine = function () {
+                $http.post("/DIYBill/GiveupExamine", { billCode: "@ViewBag.DIYBillId" }).success(function (response) {
+                    if (response == '操作成功') {
+                        alert(response);
+                        window.location.href = 'IndexShow?DIYBillId=@ViewBag.DIYBillId';
+                    } else {
+                        alert(response);
+                    }
+
+                })
+
+            }
+        })
+    </script>
+</body>
+</html>

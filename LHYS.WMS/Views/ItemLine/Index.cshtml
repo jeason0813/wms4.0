@@ -1,0 +1,203 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>产品线管理</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="MainController">
+        <div class="row">
+            <div class="col-xs-11 table-responsive">
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr><th colspan="8" style="text-align:center"><h1>产品线</h1></th></tr>
+                    <tr>
+                        <th colspan="4" style="text-align:center"><input type="text" class="form-control" placeholder="请输入过滤条件" value="" ng-model="searchStr" /></th>
+                        <th colspan="4"><button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#editwindow" ng-click="edit()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></th>
+                    </tr>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>分类</th>
+                        <th>创建公司</th>
+                        <th>创建部门</th>
+                        <th>备注</th>
+                        <th>编辑</th>
+                        <th>删除</th>
+                    </tr>
+                    <tr ng-repeat="item in source |filter:searchStr">
+                        <td>{{item.Id}}</td>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.ItemLineType}}</td>
+                        <td>{{item.Company}}</td>
+                        <td>{{item.Department}}</td>
+                        <td>{{item.Remark}}</td>
+                        <td><button type="button" class="btn btn-info btn-xs" ng-click="edit(item)" data-toggle="modal" data-target="#editwindow">编辑</button></td>
+                        <td><button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deletecom" ng-click="del(item)">删除</button></td>
+
+                </table>
+            </div>
+        </div>
+
+
+        @*-------------------------------------编辑模态框-----------------------------------------*@
+        <div class="modal fade" id="editwindow">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">编辑</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered table-striped table-condensed">
+                            <tr>
+                                <td>编号</td>
+                                <td>{{editItem.Id}}</td>
+                            </tr>
+                            <tr>
+                                <td>名称</td>
+                                <td><input type="text" class="form-control" name="name" value="" ng-model="editItem.Name" /></td>
+                            </tr>
+                            <tr>
+                                <td>分类</td>
+                                <td>
+                                    <input type="radio" id="tp1" name="name" value="原料" ng-model="editItem.ItemLineType" /><label for="tp1">原料</label>
+                                    <input type="radio" id="tp2" name="name" value="辅料" ng-model="editItem.ItemLineType" /><label for="tp2">辅料</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>所属部门</td>
+                                <td>
+                                    <select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>备注</td>
+                                <td><input type="text" class="form-control" name="name" value="" ng-model="editItem.Remark" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveData()">保存</button>
+                        <div class="alert alert-success" role="alert" style="text-align:center" ng-show="!showmsg == ''">{{showmsg}}</div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        @*-------------------------------------编辑模态框end-----------------------------------------*@
+
+        @*-------------------------------------删除确认模态框-----------------------------------------*@
+        <div class="modal fade" id="deletecom">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">确定要删除吗？</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="delcom()">确认</button>
+                        <div class="alert alert-success" role="alert" style="text-align:center" ng-show="!delmsg == ''">{{delmsg}}</div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        @*-------------------------------------删除确认模态框end-----------------------------------------*@
+
+
+
+    </div>
+    <script>
+        var myApp = angular.module('myApp', []);
+        myApp.controller('MainController', function ($scope, $http, $timeout) {
+            //初始化提示消息
+            $scope.showmsg = '';
+            $scope.delmsg = '';
+
+            //模态框关闭重新加载数据
+            $('#editwindow').on('hide.bs.modal', function () {
+                $scope.getdata();//重新加载数据
+                $scope.editItem = null;//清空编辑栏数据
+                $scope.currentDept = null;
+            })
+            //获取数据
+            $scope.getdata = function () {
+                $http.post("/ItemLine/GetData").success(function (response) {
+                    $scope.source = response;
+                });
+            }
+            //新增/编辑
+            $scope.edit = function (item) {
+                if (item == null) {
+                    $scope.state = 'add';
+                } else {
+                    $scope.state = 'edit';
+                    $scope.editItem = item;
+                    //遍历公司部门数组  找出默认值
+                    var departmentId = item.DepartmentId;
+                    for (var i = 0; i < $scope.companyDepts.length; i++) {
+                        if (departmentId == $scope.companyDepts[i].DeptCode) {
+                            $scope.currentDept = $scope.companyDepts[i]; //保存当前部门作为默认值
+                            break;
+                        }
+                    }
+                }
+            };
+            //保存数据
+            $scope.saveData = function () {
+                //给部门赋值   注意源数据字段的拼写和现在不同
+                $scope.editItem.DepartmentId = $scope.currentDept.DeptCode;
+                $scope.editItem.Department = $scope.currentDept.DeptName;
+                $scope.editItem.CompanyId = $scope.currentDept.CmopanyCode;
+                $scope.editItem.Company = $scope.currentDept.CompanyAbbr;
+                $scope.currentDept = null;
+                $http.post("/ItemLine/SaveData", {}, { params: { "SaveItem": $scope.editItem, 'state': $scope.state } }).success(function (response) {
+                    $scope.showmsg = response;
+                    $timeout(function () {
+                        $scope.showmsg = '';
+                        $('#editwindow').modal('hide');
+                    }, 800);   //该函数延迟1.5秒执行
+                });
+            }
+            //点击删除按钮
+            $scope.del = function (item) {
+                $scope.delitem = item; //存值
+            }
+
+            //确认删除
+            $scope.delcom = function () {
+                $http.post("/ItemLine/DeleteData", {}, { params: { "DeleteItem": $scope.delitem } }).success(function (response) {
+                    $scope.delmsg = response;
+                    $timeout(function () {
+                        $scope.delmsg = '';
+                        $('#deletecom').modal('hide');
+                    }, 800);   //该函数延迟1.5秒执行
+                    $scope.getdata();//导入数据
+                });
+            };
+            $scope.getdata();//导入数据
+            //获取当前人员的权限
+            $http.post("/UserFramework/GetOnesCompanyAndDept").success(function (response) {
+                $scope.companyDepts = response;
+            });
+        });
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

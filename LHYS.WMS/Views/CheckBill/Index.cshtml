@@ -1,0 +1,155 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>盘点单</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
+        <div class="row" style="width:100%">
+            <form ng-submit="save()">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td colspan="7" style="text-align:center">
+                                <h2>盘点单</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>仓库：</td>
+                            <td>
+                                <select ng-disabled="Warehousedisabled" class="form-control" ng-options="Warehouse.Name for Warehouse in Warehouses" ng-model="CurrentWarehouse" ng-change="search()"></select>
+                            </td>
+                            <td>在结果中筛选：</td>
+                            <td><input type="text" class="form-control" name="name" value="" placeholder="在结果中筛选" ng-model="ressearchstr" /></td>
+                            <td>排序：</td>
+                            <td>
+                                <input type="radio" id="sele1" name="name" value="ItemCode" ng-model="sort" /><label for="sele1">按品项</label>
+                                <input type="radio" id="sele2" name="name" value="ItemBatch" ng-model="sort" /><label for="sele2">按批次</label>
+                                <input type="radio" id="sele3" name="name" value="ItemLocation" ng-model="sort" /><label for="sele3">按货位</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>盘点单号：</td>
+                            <td><input type="text" class="form-control" name="name" value="" ng-model="info.BillCode" required /></td>
+                            <td>所属部门：</td>
+                            <td>
+                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr style="border:1px solid #9b9595;margin-bottom:3px;margin-top:3px;" />
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <th>编号</th>
+                            <th>物料编码</th>
+                            <th>产品线</th>
+                            <th>产品名称</th>
+                            <th>包装规格</th>
+                            <th>单位</th>
+                            <th>批次</th>
+                            <th>货位</th>
+                            <th>账面数量</th>
+                            <th>盘点数量</th>
+                        </tr>
+                        <tr ng-repeat="record in Records| filter:ressearchstr|orderBy:sort:false">
+                            <td>{{$index+1}}</td>  @*编号*@
+                            <td>{{record.ItemCode}}</td>
+                            <td>{{record.ItemLine}}</td>
+                            <td>{{record.ItemName}}</td>
+                            <td>{{record.ItemSpecifications}}</td>
+                            <td>{{record.ItemUnit}}</td>
+                            <td>{{record.ItemBatch}}</td>
+                            <td>{{record.ItemLocation}}</td>
+                            <td>{{record.Count}}</td>
+                            <td><input type="number" class="form-control" name="name" value="" ng-model="record.ChangeCount" /></td>
+                        </tr>
+                    </table>
+                    <div style="text-align:center">
+                        <button type="submit" class="btn btn-success btn-md">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //数据控制器
+        myApp.controller('recordController', function ($scope, $http) {
+            $http.post('/Warehouse/GetData').success(function (response) {
+                $scope.Warehouses = response;//仓库信息
+            });
+            $http.post('/UserFramework/GetCompanyAndDeptBaseUser').success(function (response) {
+                $scope.Departents = response;//部门信息
+                //如果有单号 获取单据内容
+                $http.post("/CheckBill/GetData", {}, { params: { "CheckBillId": "@ViewBag.CheckBillId" } }).success(function (response) {
+                    //绑定数据源
+                    $scope.info = response;
+                    $scope.Records = $scope.info.CheckDetail;//子表数据
+                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
+                    {
+                        //禁用仓库修改
+                        $scope.Warehousedisabled = true;
+                        //给当前仓库赋值
+                        for (var i = 0; i < $scope.Warehouses.length; i++) {
+                            if ($scope.Warehouses[i].Id == $scope.info.WarehouseId) {
+                                $scope.CurrentWarehouse = $scope.Warehouses[i];
+                            }
+                        }
+                        //给当前部门赋值
+                        for (var i = 0; i < $scope.Departents.length; i++) {
+                            if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                $scope.CurrentDepartment = $scope.Departents[i];
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+            //选择了仓库  保存数据   加载库存信息
+            $scope.search = function () {
+                if ($scope.CurrentWarehouse == undefined) {
+                    alert('请选择仓库！'); return;
+                }
+                $scope.info.Warehouse = $scope.CurrentWarehouse.Name;
+                $scope.info.WarehouseId = $scope.CurrentWarehouse.Id;
+                $http.post('/InWarehouse/GetDataByWarehouseId', { WarehouseId: $scope.CurrentWarehouse.Id }).success(function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        response[i].ChangeCount = response[i].Count;
+                    }
+                    $scope.Records = response;
+                });
+            }
+            //选择了部门
+            $scope.departentChange = function (CurrentDepartment) {
+                $scope.info.Department = CurrentDepartment.DeptName;
+                $scope.info.DepartmentId = CurrentDepartment.DeptCode;
+                $scope.info.Company = CurrentDepartment.CompanyAbbr;
+                $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
+            }
+            //保存数据
+            $scope.save = function () {
+                $scope.info.CheckDetail = $scope.Records; //子表数据合进去
+                $http.post('/CheckBill/Save', { CheckBill: $scope.info}).success(function (response) {
+                    if (response == 'no') {
+                        alert('保存失败');
+                    } else {
+                        window.location.href = 'IndexShow?CheckBillId=' + response;
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+</html>

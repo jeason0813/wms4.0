@@ -1,0 +1,436 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>加工单</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <style>
+        .tdname2 {
+            width: 90px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
+        <div class="row" style="width:100%">
+            <form ng-submit="submit()">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td colspan="8" style="text-align:center"><h2>加工单</h2></td>
+                        </tr>
+                        <tr>
+                            <td class="tdname2">加工单号：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" required /></td>
+                            <td class="tdname2">加工日期：</td>
+                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
+                            <td class="tdname2">加工人：</td>
+                            <td><input class="form-control" type="text" name="name" data-toggle="modal" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" data-target="#personchoose" required /></td>
+                            <td class="tdname2">部门：</td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
+                        </tr>
+                        <tr>
+                            <td>制单人：</td>
+                            <td><input class="form-control" type="text" name="name" data-toggle="modal" ng-model="info.MakePerson" ng-click="loadperson('MakePerson')" data-target="#personchoose" disabled /></td>
+                            <td>审核人：</td>
+                            <td><input class="form-control" type="text" name="name" data-toggle="modal" ng-model="info.ExaminePerson" ng-click="loadperson('ExaminePerson')" data-target="#personchoose" disabled /></td>
+                            <td>审核日期：</td>
+                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                            <td>备注：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark" required /></td>
+                        </tr>
+                    </table>
+                    <div style="color:#ff6a00">加工前</div>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <th>编号</th>
+                            <th>物料编码</th>
+                            <th>产品线</th>
+                            <th>产品名称</th>
+                            <th>包装规格</th>
+                            <th>单位</th>
+                            <th>单位重量</th>
+                            <th>数量</th>
+                            <th>重量</th>
+                            <th>批次</th>
+                            <th>仓库</th>
+                            <th>货位</th>
+                            <th>删除</th>
+                        </tr>
+                        <tr ng-repeat="record1 in Record1">
+                            <td>{{$index+1}}</td>  @*编号*@                            
+                            <td><input data-toggle="modal" data-target="#itemchoose" class="form-control item-code" type="text" ng-model="record1.ItemCode" ng-click="loadItem($index,'item1')" required /></td>
+                            <td><input class="form-control item-code" type="text" ng-model="record1.ItemLine"/></td>
+                            <td><input class="form-control" type="text" ng-model="record1.ItemName" /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.ItemSpecifications " /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.ItemUnit" /></td>
+                            <td><input class="form-control" type="number" ng-model="record1.UnitWeight" /></td>
+                            <td><input class="form-control" type="number" ng-model="record1.Count" ng-change="changeCount1(record1)" required /></td>
+                            <td><input class="form-control" type="number" ng-model="record1.Weight" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.ItemBatch" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="record1.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse1')" required /></td>
+                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record1.ItemLocation" ng-click="clickLocation($index,'location1')" required /></td>
+                            <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index,'del1')">删除</button></td>
+                        </tr>
+                    </table>
+                    <div>
+                        <span style="color:#09751f">加工后</span>
+                        <button type="button" class="btn btn-info btn-sm" ng-click="add('add1')" style="float:right">添&nbsp;加</button>
+                    </div>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <th>编号</th>
+                            <th>物料编码</th>
+                            <th>产品线</th>
+                            <th>产品名称</th>
+                            <th>包装规格</th>
+                            <th>单位</th>
+                            <th>单位重量</th>
+                            <th>数量</th>
+                            <th>重量</th>
+                            <th>批次</th>
+                            <th>仓库</th>
+                            <th>货位</th>
+                            <th>删除</th>
+                        </tr>
+                        <tr ng-repeat="record2 in Record2">
+                            <td>{{$index+1}}</td>  @*编号*@
+                            <td><input data-toggle="modal" data-target="#itemchoose" class="form-control item-code" type="text" ng-model="record2.ItemCode" ng-click="loadItem($index,'item2')" required /></td>
+                            <td><input class="form-control item-code" type="text" ng-model="record2.ItemLine" /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.ItemName" /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.ItemSpecifications " /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.ItemUnit" /></td>
+                            <td><input class="form-control" type="number" ng-model="record2.UnitWeight" /></td>
+                            <td><input class="form-control" type="number" ng-model="record2.Count" ng-change="changeCount2(record2)" required /></td>
+                            <td><input class="form-control" type="number" ng-model="record2.Weight" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.ItemBatch" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="record2.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse2')" required /></td>
+                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record2.ItemLocation" ng-click="clickLocation($index,'location2')" required /></td>
+                            <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index,'del2')">删除</button></td>
+                        </tr>
+                    </table>
+                    <div>
+                        <button type="button" class="btn btn-info btn-sm" ng-click="add('add2')" style="float:right">添&nbsp;加</button>
+                    </div>
+                    <div style="text-align:center">
+                        <button type="submit" class="btn btn-success btn-md">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                    @*-------------------------------------品项选择模态框-----------------------------------------*@
+                    <div class="modal fade" id="itemchoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择品项</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>物料编码</th>
+                                            <th>产品线</th>
+                                            <th>产品名称</th>
+                                            <th>包装规格</th>
+                                            <th>单位</th>
+                                            <th>单位重量</th>
+                                        </tr>
+                                        <tr ng-repeat="goodItem in GoodItems | filter:searchstr " ng-dblclick="selectItem(goodItem)">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{goodItem.ItemCode}}</td>
+                                            <td>{{goodItem.ItemLine}}</td>
+                                            <td>{{goodItem.ItemName}}</td>
+                                            <td>{{goodItem.ItemSpecifications}}</td>
+                                            <td>{{goodItem.ItemUnit}}</td>
+                                            <td>{{goodItem.UnitWeight}}</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-------------------------------------品项选择模态框end-----------------------------------------*@
+
+                    @*-------------------------------------人员选择模态框-----------------------------------------*@
+                    <div class="modal fade" id="personchoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择人员</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrperson" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>工号</th>
+                                            <th>姓名</th>
+                                        </tr>
+                                        <tr ng-repeat="person in UserFrameworks | filter:searchstrperson " ng-dblclick="selectPerson(person)">
+                                            <td>{{person.UserCode}}</td>
+                                            <td>{{person.UserName}}</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-------------------------------------人员选择模态框end-----------------------------------------*@
+                    @*-----------------------------------仓库选择模态框------------------------------------------------*@
+                    <div class="modal fade" id="wareHousechoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择仓库</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrwarehouse" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>仓库</th>
+                                            <th>所属部门</th>
+                                        </tr>
+                                        <tr ng-repeat="warehouse in Warehouses | filter:searchstrwarehouse " ng-dblclick="selectWarehouse(warehouse)">
+                                            <td>{{warehouse.Name}}</td>
+                                            <td>{{warehouse.Department}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-----------------------------------仓库选择模态框end------------------------------------------------*@
+
+                    @*-----------------------------------货位选择模态框------------------------------------------------*@
+                    <div class="modal fade" id="locationchoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择货位</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>货位名称</th>
+                                        </tr>
+                                        <tr ng-repeat="location in locationlist | filter:searchstrlocation " ng-dblclick="selectlocation(location)">
+                                            <td>{{location.Name}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-----------------------------------货位选择模态框end------------------------------------------------*@
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //json日期格式转换为正常格式
+        function jsonDateFormat(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                var date = date.getFullYear() + "-" + month + "-" + day;
+                return new Date(date);
+            } catch (ex) {
+                return "";
+            }
+        }
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //自定义时间转换过滤器
+        //myApp.filter("jsDate", function () { return function (x) { if (null == x) { return null; } else { return new Date(parseInt(x.substr(6))); } }; });
+        //数据控制器
+        myApp.controller('recordController', function ($scope, $http) {
+            //获取基础数据
+            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+                $scope.Warehouses = response.Warehouse;
+                $scope.GoodItems = response.GoodItem;
+                $scope.UserFrameworks = response.UserFramework;
+                $scope.LoadGoodsTypes = response.LoadGoodsType;
+                $scope.BusinessTypes = response.BusinessType;
+                $scope.InOutTypes = response.InOutType;
+                $scope.Departents = response.Departent;
+            });
+            //如果有单号 获取单据内容
+            $http.post("/DIYBill/GetData", {}, { params: { "DIYBillId": "@ViewBag.DIYBillId" } }).success(function (response) {
+                //绑定数据源
+                $scope.info = response.diybill;
+                $scope.Record1 = response.recordlist1;
+                $scope.Record2 = response.recordlist2;
+                if (response.diybill.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
+                {
+                    //修改时间格式
+                    $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                    $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+
+                    //给当前部门赋值
+                    for (var i = 0; i < $scope.Departents.length; i++) {
+                        if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                            $scope.CurrentDepartment = $scope.Departents[i];
+                            break;
+                        }
+                    }
+                }
+            });
+            //添加行
+            $scope.add = function (type) {
+                if (type == 'add1') {
+                    var obj = new Object();
+                    $scope.Record1.push(obj);
+                }
+                if (type == 'add2') {
+                    var obj = new Object();
+                    $scope.Record2.push(obj);
+                }
+            }
+            //删除行
+            $scope.del = function (idx, type) {
+                if (type == 'del1') {
+                    $scope.Record1.splice(idx, 1);
+                }
+                if (type == 'del2') {
+                    $scope.Record2.splice(idx, 1);
+                }
+            }
+            //自动填重量
+            $scope.changeCount1 = function (record1) {
+                record1.Weight = record1.Count * record1.UnitWeight;
+            }
+            //自动填重量
+            $scope.changeCount2 = function (record2) {
+                record2.Weight = record2.Count * record2.UnitWeight;
+            }
+            //选择了部门  给对应的字段赋值
+            $scope.departentChange = function (CurrentDepartment) {
+                $scope.info.Department = CurrentDepartment.DeptName;
+                $scope.info.DepartmentId = CurrentDepartment.DeptCode;
+                $scope.info.Company = CurrentDepartment.CompanyAbbr;
+                $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
+            }
+            //-------------------------------------------------------------------------
+            //开始选择品项
+            $scope.loadItem = function (idx, itype) {
+                $scope.itemType = itype;
+                $scope.currentItemInput = idx;//当前品项是第几行
+            }
+            //选择了品项  传进goodItem对象
+            $scope.selectItem = function (goodItem) {
+                $scope.searchstr = '';//清空搜索框
+                //赋值
+                if ($scope.itemType=='item1') {
+                    $scope.Record1[$scope.currentItemInput].ItemCode = goodItem.ItemCode;
+                    $scope.Record1[$scope.currentItemInput].ItemLine = goodItem.ItemLine;
+                    $scope.Record1[$scope.currentItemInput].ItemName = goodItem.ItemName;
+                    $scope.Record1[$scope.currentItemInput].ItemSpecifications = goodItem.ItemSpecifications;
+                    $scope.Record1[$scope.currentItemInput].ItemUnit = goodItem.ItemUnit;
+                    $scope.Record1[$scope.currentItemInput].UnitWeight = goodItem.UnitWeight;
+                }
+                if ($scope.itemType == 'item2') {
+                    $scope.Record2[$scope.currentItemInput].ItemCode = goodItem.ItemCode;
+                    $scope.Record2[$scope.currentItemInput].ItemLine = goodItem.ItemLine;
+                    $scope.Record2[$scope.currentItemInput].ItemName = goodItem.ItemName;
+                    $scope.Record2[$scope.currentItemInput].ItemSpecifications = goodItem.ItemSpecifications;
+                    $scope.Record2[$scope.currentItemInput].ItemUnit = goodItem.ItemUnit;
+                    $scope.Record2[$scope.currentItemInput].UnitWeight = goodItem.UnitWeight;
+                }
+                //模态框关闭
+                $('#itemchoose').modal('hide');
+            }
+            //-------------------------------------------------------------------------
+            //开始选择人员
+            $scope.loadperson = function (personType) {
+                $scope.currentPerson = personType;//当前处理哪个人
+            }
+            //选择了人员数据
+            $scope.selectPerson = function (person) {
+                $scope.searchstrperson = '';//清空搜索框
+                //模态框关闭
+                $('#personchoose').modal('hide');
+                //赋值
+                switch ($scope.currentPerson) {
+                    case 'ChargePerson': $scope.info.ChargePerson = person.UserName; break;
+                    case 'MakePerson': $scope.info.MakePerson = person.UserName; break;
+                    case 'ExaminePerson': $scope.info.ExaminePerson = person.UserName; break;
+                    default:
+                }
+            }
+            //-------------------------------------------------------------------------
+            //开始选择仓库
+            $scope.loadWarehouse = function (idx, warehouseType) {
+                $scope.currentWarehouseIdx = idx;
+                $scope.currentWarehouse = warehouseType;
+            }
+            //选择了仓库数据
+            $scope.selectWarehouse = function (warehouse) {
+                if ($scope.currentWarehouse == 'warehouse1') {
+                    $scope.searchstrwarehouse = '';
+                    $scope.Record1[$scope.currentWarehouseIdx].Warehouse = warehouse.Name;
+                    $scope.Record1[$scope.currentWarehouseIdx].WarehouseId = warehouse.Id;
+                    $scope.locationlist = warehouse.Location;
+                    $('#wareHousechoose').modal('hide');
+                }
+                if ($scope.currentWarehouse == 'warehouse2') {
+                    $scope.searchstrwarehouse = '';
+                    $scope.Record2[$scope.currentWarehouseIdx].Warehouse = warehouse.Name;
+                    $scope.Record2[$scope.currentWarehouseIdx].WarehouseId = warehouse.Id;
+                    $scope.locationlist = warehouse.Location;//设置了货位数据
+                    $('#wareHousechoose').modal('hide');
+                }
+            }
+            //---------------------------------------------------------------------------
+            //开始选择货位信息
+            $scope.clickLocation = function (idx, ltype) {
+                $scope.locationType = ltype;
+                $scope.currentlocation = idx;
+            }
+            //选择了货位数据
+            $scope.selectlocation = function (location) {
+                if ($scope.locationType == 'location1') {
+                    $scope.Record1[$scope.currentlocation].ItemLocation = location.Name; //保存货位信息
+                    $scope.Record1[$scope.currentlocation].ItemLocationId = location.Id;
+                }
+                if ($scope.locationType == 'location2') {
+                    $scope.Record2[$scope.currentlocation].ItemLocation = location.Name; //保存货位信息
+                    $scope.Record2[$scope.currentlocation].ItemLocationId = location.Id;
+                }
+                $scope.currentlocation = null;
+                $('#locationchoose').modal('hide');
+                $scope.searchstrlocation = '';
+            }
+            //-------------------------------------------------------------------------------------
+            //提交表单
+            $scope.submit = function () {
+                $http.post("/DIYBill/SaveData", { DIYBill: $scope.info, recordlist1:$scope.Record1,recordlist2:$scope.Record2 }).success(function (response) {
+                    if (response == 'no') {
+                        alert('保存失败');
+                    } else {
+                        window.location.href = 'IndexShow?DIYBillId=' + response;
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+</html>

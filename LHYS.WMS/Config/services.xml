@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="MenuAService" type="BLL.MenuAService, BLL" singleton="false" >
+  </object>
+  <object name="TransferBillService" type="BLL.TransferBillService, BLL" singleton="false" >
+  </object>
+  <object name="GoodItemService" type="BLL.GoodItemService, BLL" singleton="false" >
+  </object>
+  <object name="RecordService" type="BLL.RecordService, BLL" singleton="false" >
+  </object>
+  <object name="UserService" type="BLL.UserService, BLL" singleton="false" >
+  </object>
+  <object name="LoadGoodsTypeService" type="BLL.LoadGoodsTypeService, BLL" singleton="false" >
+  </object>
+  <object name="ItemLineService" type="BLL.ItemLineService, BLL" singleton="false" >
+  </object>
+  <object name="CostItemService" type="BLL.CostItemService, BLL" singleton="false" >
+  </object>
+  <object name="LineWayService" type="BLL.LineWayService, BLL" singleton="false" >
+  </object>
+  <object name="BusinessTypeService" type="BLL.BusinessTypeService, BLL" singleton="false" >
+  </object>
+  <object name="InOutTypeService" type="BLL.InOutTypeService, BLL" singleton="false" >
+  </object>
+  <object name="SendFileService" type="BLL.SendFileService, BLL" singleton="false" >
+  </object>
+  <object name="ReceiveFileService" type="BLL.ReceiveFileService, BLL" singleton="false" >
+  </object>
+  <object name="WarehouseService" type="BLL.WarehouseService, BLL" singleton="false" >
+  </object>
+  <object name="CompanyService" type="BLL.CompanyService, BLL" singleton="false" >
+  </object>
+  <object name="UserFrameworkService" type="BLL.UserFrameworkService, BLL" singleton="false" >
+  </object>
+  <object name="LocationService" type="BLL.LocationService, BLL" singleton="false" >
+  </object>
+  <object name="BackInputService" type="BLL.BackInputService, BLL" singleton="false" >
+  </object>
+  <object name="GiveBillService" type="BLL.GiveBillService, BLL" singleton="false" >
+  </object>
+  <object name="TaskBillService" type="BLL.TaskBillService, BLL" singleton="false" >
+  </object>
+  <object name="BackOutputService" type="BLL.BackOutputService, BLL" singleton="false" >
+  </object>
+  <object name="OtherInputService" type="BLL.OtherInputService, BLL" singleton="false" >
+  </object>
+  <object name="OtherOutputService" type="BLL.OtherOutputService, BLL" singleton="false" >
+  </object>
+  <object name="DIYBillService" type="BLL.DIYBillService, BLL" singleton="false" >
+  </object>
+  <object name="CheckBillService" type="BLL.CheckBillService, BLL" singleton="false" >
+  </object>
+  <object name="LocationChangeService" type="BLL.LocationChangeService, BLL" singleton="false" >
+  </object>
+  <object name="InWarehouseService" type="BLL.InWarehouseService, BLL" singleton="false" >
+  </object>
+  <object name="DepartentService" type="BLL.DepartentService, BLL" singleton="false" >
+  </object>
+</objects>

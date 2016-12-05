@@ -1,0 +1,187 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>交货回执单</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
+        <div class="row" style="width:100%">
+            <div class="col-xs-12 table-responsive">
+                <table class="table">
+                    <tr>
+                        <td colspan="1">交货单号：</td><td colspan="3"><input type="text" class="form-control" name="name" value="" ng-model="giveBillCode" placeholder="交货单号"/><td><td colspan="4"><button class="btn btn-success" ng-click="loadData()">查询</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align:center">
+                            <h2>交货回执单</h2>
+                            <span class="label label-info" ng-show="info.BillState==1">已保存</span>
+                            <span class="label label-success" ng-show="info.BillState==2">已审核</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdname">立邦客户编号：</td>
+                        <td>{{info.LBCustomerCode}}</td>
+                        <td class="tdname">联系人：</td>
+                        <td>{{info.LBContacts}}</td>
+                        <td class="tdname">任务单号：</td>
+                        <td>{{info.TaskBillCode}}</td>
+                        <td class="tdname">交货日期：</td>
+                        <td>{{info.LBBillDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>立邦客户名称：</td>
+                        <td>{{info.LBCustomerName}}</td>
+                        <td>电话：</td>
+                        <td>{{info.LBPhone}}</td>
+                        <td>交货单号：</td>
+                        <td>{{info.LBBillCode}}</td>
+                        <td>备注：</td>
+                        <td>{{info.LBRemark}}</td>
+                    </tr>
+                    <tr>
+                        <td>邮编：</td>
+                        <td>{{info.LBMailCode}}</td>
+                        <td>送货地址：</td>
+                        <td colspan="5">{{info.LBSendAddress}}</td>
+                    </tr>
+                </table>
+                <hr style="border:1px solid #9b9595;margin-bottom:3px;margin-top:3px;" />
+                <table class="table">
+                    <tr>
+                        <td class="tdname2">出库单号：</td>
+                        <td>{{info.BillCode}}</td>
+                        <td class="tdname2">出库日期：</td>
+                        <td>{{info.CreateDate}}</td>
+                        <td class="tdname2">出库类别：</td>
+                        <td>{{info.OutputType}}</td>
+                        <td class="tdname2">仓库：</td>
+                        <td>{{info.Warehouse}}</td>
+                        <td class="tdname2">业务模式：</td>
+                        <td>{{info.BusinessType}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>装卸类型：</td>
+                        <td>{{info.LoadGoodsType}}</td>
+                        <td>仓管员：</td>
+                        <td>{{info.ChargePerson}}</td>
+                        <td>部门：</td>
+                        <td>{{info.Department}}</td>
+                        <td>审核人：</td>
+                        <td>{{info.ExaminePerson}}</td>
+                        <td>审核日期：</td>
+                        <td>{{info.ExamineDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>线路：</td>
+                        <td colspan="3">{{info.LineWay}}</td>
+                        <td>备注：</td>
+                        <td colspan="3">{{info.Remark}}</td>
+                        <td>制单人：</td>
+                        <td>{{info.MakePerson}}</td>
+                    </tr>
+                </table>
+                <hr style="border:1px solid #9b9595;margin-bottom:3px;margin-top:3px;" />
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr>
+                        <th>编号</th>
+                        <th>物料编码</th>
+                        <th>产品线</th>
+                        <th>产品名称</th>
+                        <th>包装规格</th>
+                        <th>单位</th>
+                        <th>批次</th>
+                        <th>货位</th>
+                        <th>单位重量</th>
+                        <th>数量</th>
+                        <th>重量</th>
+                        <th>接收数量</th>
+                        <th>接收重量</th>
+                    </tr>
+                    <tr ng-repeat="record in info.Record">
+                        <td>{{$index+1}}</td>  @*编号*@
+                        <td>{{record.ItemCode}}</td>
+                        <td>{{record.ItemLine}}</td>
+                        <td>{{record.ItemName}}</td>
+                        <td>{{record.ItemSpecifications}}</td>
+                        <td>{{record.ItemUnit}}</td>
+                        <td>{{record.ItemBatch}}</td>
+                        <td>{{record.ItemLocation}}</td>
+                        <td>{{record.UnitWeight}}</td>
+                        <td>{{record.Count}}</td>
+                        <td>{{record.Weight}}</td>
+                        <td><input style="width:70px;" type="number" name="name" value="" class="form-control" ng-model="record.ReceiveCount" ng-change="receiveCount(record)"/></td>
+                        <td><input style="width:70px;" type="number" name="name" value="" class="form-control" ng-model="record.ReceiveWeight"/></td>
+                    </tr>
+                </table>
+                <div style="text-align:center">
+                    <div style="text-align:center">
+                        <button type="button" class="btn btn-success btn-md" ng-click="save()" ng-show="info!=undefined">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //json日期格式转换为正常格式
+        function jsonDateFormat(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                return date.getFullYear() + "-" + month + "-" + day;
+            } catch (ex) {
+                return "";
+            }
+        }
+        
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //数据控制器
+        myApp.controller('recordController', function ($scope, $http) {
+            $scope.loadData = function () {
+                if ($scope.giveBillCode == undefined) return;
+                $http.post("/GiveBackBill/GetDataBaseBillCode", { billCode: $scope.giveBillCode }).success(function (response) {
+                    if (response =='')
+                    {
+                        alert("查无数据！");
+                        return;
+                    }
+                    //修改时间格式
+                    response.LBBillDate = jsonDateFormat(response.LBBillDate);
+                    response.CreateDate = jsonDateFormat(response.CreateDate);
+                    response.ExamineDate = jsonDateFormat(response.ExamineDate);
+                    //绑定数据源
+                    $scope.info = response;
+                });
+            };
+            //---------------------------------------------------------------------------
+            //自动填充接收重量字段
+            $scope.receiveCount = function (record) {
+                record.ReceiveWeight = record.ReceiveCount * record.UnitWeight;
+            }
+            //保存数据
+            $scope.save = function () {
+                $http.post("/GiveBackBill/SaveData", { record: $scope.info.Record }).success(function (response) {
+                    alert(response);
+                });
+            }
+        })
+    </script>
+</body>
+</html>

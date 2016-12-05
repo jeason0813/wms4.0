@@ -1,0 +1,119 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>权限设置</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="MainController">
+        <div class="row" style="text-align:center">
+            <h2>权限设置</h2>
+            <div class="col-xs-4 table-responsive">
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr><th colspan="4" style="text-align:center"><input type="text" class="form-control" placeholder="请输入过滤条件" value="" ng-model="searchStr" /></th></tr>
+                    <tr>
+                        <th>编号</th>
+                        <th>工号</th>
+                        <th>姓名</th>
+                        <th>权限</th>
+                    </tr>
+                    <tr ng-repeat="person in persons |filter: searchStr">
+                        <td>{{$index+1}}</td>  @*编号*@
+                        <td>{{person.UserCode}}</td>
+                        <td>{{person.UserName}}</td>
+                        <td><button type="button" class="btn btn-info btn-xs" ng-click="setPower(person)">权限设置</button></td>
+                </table>
+            </div>
+
+            <div  class="col-xs-4 table-responsive">
+                <h4>当前用户：{{currentPerson.UserName}}&nbsp;<button type="button" class="btn btn-success btn-sm" ng-click="SavePower()">保存设置</button></h4>
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr>
+                        <th>序号</th><th>权限</th><th>删除</th>
+                    </tr>
+                    <tr ng-repeat="power in currentPersonPowers">
+                        <td>{{$index+1}}</td>
+                        <td>{{power.DeptName}}</td>
+                        <td><button type="button" class="btn btn-danger btn-xs" ng-click="deletePower($index)">删除</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-4 table-responsive">
+                <h4>新增权限</h4>
+                <select class="form-control" ng-options="company.CompanyAbbr for company in companys" ng-model="selectedCompany">
+                </select>
+                <input type="text" class="form-control" name="name" value="" placeholder="请输入查找条件" ng-model="searchCompany"/>
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr>
+                        <th>序号</th>
+                        <th>权限</th>
+                        <th>添加</th>
+                    </tr>
+                    <tr ng-repeat="departent  in selectedCompany.Departent |filter:searchCompany">
+                        <td>{{$index+1}}</td>
+                        <td>{{departent.DeptName}}</td>
+                        <td><button type="button" class="btn btn-info btn-xs" ng-click="addPower(departent)">添加</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var myApp = angular.module('myApp', []);
+        myApp.controller('MainController', function ($scope, $http) {
+            //点击设置权限按钮   传过来当前用户编号  获取他的权限
+            $scope.setPower = function (Person) {
+                $scope.currentPerson = null;
+                $scope.currentPersonPowers = null;
+                $scope.currentPerson = Person;//当前选择人员
+                $http.post("/UserFramework/GetPower", {}, { params: { UserCode: Person.UserCode } }).success(function (response) {
+                    $scope.currentPersonPowers = response;//当前人员的权限
+                });
+            }
+            //删除权限
+            $scope.deletePower = function (index) {
+                $scope.currentPersonPowers.splice(index, 1); 
+            }
+            //添加权限
+            $scope.addPower = function (power) {
+                $scope.currentPersonPowers.push(power);
+            }
+            //保存设置
+            $scope.SavePower = function () {
+                if ($scope.currentPerson == null || $scope.currentPerson == undefined) {
+                    return false;
+                }
+                var savePowers='';
+                for (var i = 0; i < $scope.currentPersonPowers.length; i++) {
+                    savePowers+=$scope.currentPersonPowers[i].DeptCode+'|';
+                }
+                $http.post("/UserFramework/SavePower", {}, { params: { UserCode: $scope.currentPerson.UserCode, Powers: savePowers } }).success(function (response) {
+                    alert(response);
+                });
+
+            }
+            //获取人员并保存
+            $http.post("/UserFramework/GetData").success(function (response) {
+                $scope.persons = response;
+            });
+            //获取公司部门并保存
+            $http.post("/UserFramework/GetCompanyAndDept").success(function (response) {
+                $scope.companys = response;
+            });
+           
+        });
+
+    </script>
+</body>
+</html>

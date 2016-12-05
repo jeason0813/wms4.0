@@ -1,0 +1,2313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BackInput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="LoadGoodsType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeId" Type="int" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LineWay" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LBBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBBillDate" Type="datetime" />
+          <Property Name="LBBackWarehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBMoveType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBRemark" Type="nvarchar" MaxLength="500" />
+          <Property Name="LBBackAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="LBContacts" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBPhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BackOutput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="LoadGoodsType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputTypeId" Type="int" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LineWay" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LBBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBGiveBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBBillDate" Type="datetime" />
+          <Property Name="LBCustomerCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBCustomerName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LBSendAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBContacts" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBPhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBMailCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBReson" Type="nvarchar" MaxLength="500" />
+          <Property Name="LBRemark" Type="nvarchar" MaxLength="500" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BusinessType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CheckBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputTypeId" Type="int" />
+          <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeId" Type="int" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CheckDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLine" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocationId" Type="int" />
+          <Property Name="ItemBatch" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemUnit" Type="nvarchar" MaxLength="100" />
+          <Property Name="Count" Type="float" />
+          <Property Name="ChangeCount" Type="float" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputTypeId" Type="int" />
+          <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeId" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="State" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="UnitWeight" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="CostItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DIYBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputTypeId" Type="int" />
+          <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeId" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="GiveBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="TaskBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="LoadGoodsType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeId" Type="int" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LineWay" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LBBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBBillDate" Type="datetime" />
+          <Property Name="LBTaskBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBLine" Type="nvarchar" MaxLength="200" />
+          <Property Name="LBContacts" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBPhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBMailCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBCustomerCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBCustomerName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LBSendAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBRemark" Type="nvarchar" MaxLength="500" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="GoodItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLine" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemUnit" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsBatch" Type="nvarchar" MaxLength="100" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UnitWeight" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="InOutType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="InoutType" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="InWarehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLine" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocationId" Type="int" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="ItemBatch" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemUnit" Type="nvarchar" MaxLength="100" />
+          <Property Name="Count" Type="float" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ItemLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLineType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ItemUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LineWay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LoadGoodsType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarehouseId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LocationChange">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputTypeId" Type="int" />
+          <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeId" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MenuA">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrderNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="MenuB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuAId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Url" Type="nvarchar" MaxLength="500" />
+          <Property Name="OrderNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="OtherInput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputTypeId" Type="int" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LineWay" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="OtherOutput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeId" Type="int" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LineWay" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ReceiveFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Contacts" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Emailcode" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Tel" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Fax" Type="nvarchar(max)" />
+          <Property Name="CreateBy" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="InOutTypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="MainTableType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InOutTypeId" Type="int" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLine" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocationId" Type="int" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="ItemBatch" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemUnit" Type="nvarchar" MaxLength="100" />
+          <Property Name="UnitWeight" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Count" Type="float" />
+          <Property Name="CurrentCount" Type="float" />
+          <Property Name="InOrOut" Type="int" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="ReceiveCount" Type="float" />
+          <Property Name="ReceiveWeight" Type="float" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="State" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="SendFileSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Contacts" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Emailcode" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Tel" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Fax" Type="nvarchar(max)" />
+          <Property Name="CreateBy" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TaskBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TransferBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ChargePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="LoadGoodsType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InputTypeId" Type="int" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LineWay" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LBBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBBillDate" Type="datetime" />
+          <Property Name="LBFrom" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBMoveType" Type="nvarchar" MaxLength="100" />
+          <Property Name="LBRemark" Type="nvarchar" MaxLength="500" />
+          <Property Name="BillState" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="50" />
+          <Property Name="DeptCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsManage" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Owner" Type="nvarchar" MaxLength="100" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“WMS.dbo.Company”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CmopanyCode" />
+          </Key>
+          <Property Name="CmopanyCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CompanyAbbr" Type="varchar" MaxLength="30" />
+          <Property Name="CompanyFullName" Type="varchar" MaxLength="60" />
+          <Property Name="Corporate" Type="varchar" MaxLength="50" />
+          <Property Name="FoundDT" Type="date" />
+          <Property Name="Address" Type="varchar" MaxLength="120" />
+          <Property Name="Remark" Type="varchar" MaxLength="100" />
+          <Property Name="IsCenter" Type="char" MaxLength="1" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="30" />
+          <Property Name="CreateDT" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“WMS.dbo.Departent”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Departent">
+          <Key>
+            <PropertyRef Name="DeptCode" />
+          </Key>
+          <Property Name="DeptCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeptType" Type="int" />
+          <Property Name="CompanyCode" Type="varchar" MaxLength="50" />
+          <Property Name="DeptName" Type="varchar" MaxLength="50" />
+          <Property Name="TEL" Type="varchar" MaxLength="50" />
+          <Property Name="ContractType" Type="int" />
+          <Property Name="IsCenter" Type="char" MaxLength="1" />
+          <Property Name="Address" Type="varchar" MaxLength="120" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="30" />
+          <Property Name="CreateDT" Type="datetime" />
+          <Property Name="Area" Type="nvarchar" MaxLength="100" />
+          <Property Name="Longitude" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="Latitude" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="ProvinceCode" Type="int" />
+          <Property Name="CityCode" Type="int" />
+          <Property Name="AreaCode" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“WMS.dbo.User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserCode" />
+          </Key>
+          <Property Name="UserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="50" />
+          <Property Name="TEL" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="EMail" Type="varchar" MaxLength="50" />
+          <Property Name="Takedt" Type="date" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsVail" Type="char" MaxLength="1" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="30" />
+          <Property Name="CreateDT" Type="datetime" />
+          <Property Name="ModifyPwdDt" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“WMS.dbo.UserFramework”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="UserFramework">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="DeptCode" Type="varchar" MaxLength="50" />
+          <Property Name="DeptName" Type="varchar" MaxLength="50" />
+          <Property Name="CmopanyCode" Type="varchar" MaxLength="30" />
+          <Property Name="CompanyAbbr" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK_CheckBillCheckDetail">
+          <End Role="CheckBill" Type="Self.CheckBill" Multiplicity="0..1" />
+          <End Role="CheckDetail" Type="Self.CheckDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckBill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CheckDetail">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuAMenuB">
+          <End Role="MenuA" Type="Self.MenuA" Multiplicity="1" />
+          <End Role="MenuB" Type="Self.MenuB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuA">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuB">
+              <PropertyRef Name="MenuAId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarehouseLocation">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBStoreContainer">
+          <EntitySet Name="BackInput" EntityType="Self.BackInput" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BackOutput" EntityType="Self.BackOutput" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessType" EntityType="Self.BusinessType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckBill" EntityType="Self.CheckBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckDetail" EntityType="Self.CheckDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CostItem" EntityType="Self.CostItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIYBill" EntityType="Self.DIYBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GiveBill" EntityType="Self.GiveBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodItem" EntityType="Self.GoodItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InOutType" EntityType="Self.InOutType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InWarehouse" EntityType="Self.InWarehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemLine" EntityType="Self.ItemLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemUnit" EntityType="Self.ItemUnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LineWay" EntityType="Self.LineWay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoadGoodsType" EntityType="Self.LoadGoodsType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocationChange" EntityType="Self.LocationChange" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuA" EntityType="Self.MenuA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuB" EntityType="Self.MenuB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherInput" EntityType="Self.OtherInput" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherOutput" EntityType="Self.OtherOutput" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReceiveFile" EntityType="Self.ReceiveFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SendFileSet" EntityType="Self.SendFileSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskBill" EntityType="Self.TaskBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransferBill" EntityType="Self.TransferBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRelation" EntityType="Self.UserRelation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Company].[CmopanyCode] AS [CmopanyCode], 
+    [Company].[CompanyAbbr] AS [CompanyAbbr], 
+    [Company].[CompanyFullName] AS [CompanyFullName], 
+    [Company].[Corporate] AS [Corporate], 
+    [Company].[FoundDT] AS [FoundDT], 
+    [Company].[Address] AS [Address], 
+    [Company].[Remark] AS [Remark], 
+    [Company].[IsCenter] AS [IsCenter], 
+    [Company].[CreateBy] AS [CreateBy], 
+    [Company].[CreateDT] AS [CreateDT]
+    FROM [dbo].[Company] AS [Company]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Departent" EntityType="Self.Departent" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Departent].[DeptCode] AS [DeptCode], 
+    [Departent].[DeptType] AS [DeptType], 
+    [Departent].[CompanyCode] AS [CompanyCode], 
+    [Departent].[DeptName] AS [DeptName], 
+    [Departent].[TEL] AS [TEL], 
+    [Departent].[ContractType] AS [ContractType], 
+    [Departent].[IsCenter] AS [IsCenter], 
+    [Departent].[Address] AS [Address], 
+    [Departent].[CreateBy] AS [CreateBy], 
+    [Departent].[CreateDT] AS [CreateDT], 
+    [Departent].[Area] AS [Area], 
+    [Departent].[Longitude] AS [Longitude], 
+    [Departent].[Latitude] AS [Latitude], 
+    [Departent].[ProvinceCode] AS [ProvinceCode], 
+    [Departent].[CityCode] AS [CityCode], 
+    [Departent].[AreaCode] AS [AreaCode]
+    FROM [dbo].[Departent] AS [Departent]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="User" EntityType="Self.User" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [User].[UserCode] AS [UserCode], 
+    [User].[UserName] AS [UserName], 
+    [User].[UserPassword] AS [UserPassword], 
+    [User].[TEL] AS [TEL], 
+    [User].[Phone] AS [Phone], 
+    [User].[EMail] AS [EMail], 
+    [User].[Takedt] AS [Takedt], 
+    [User].[Sex] AS [Sex], 
+    [User].[Birthday] AS [Birthday], 
+    [User].[Address] AS [Address], 
+    [User].[IsVail] AS [IsVail], 
+    [User].[Remark] AS [Remark], 
+    [User].[CreateBy] AS [CreateBy], 
+    [User].[CreateDT] AS [CreateDT], 
+    [User].[ModifyPwdDt] AS [ModifyPwdDt]
+    FROM [dbo].[User] AS [User]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserFramework" EntityType="Self.UserFramework" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserFramework].[Id] AS [Id], 
+    [UserFramework].[UserCode] AS [UserCode], 
+    [UserFramework].[UserName] AS [UserName], 
+    [UserFramework].[DeptCode] AS [DeptCode], 
+    [UserFramework].[DeptName] AS [DeptName], 
+    [UserFramework].[CmopanyCode] AS [CmopanyCode], 
+    [UserFramework].[CompanyAbbr] AS [CompanyAbbr]
+    FROM [dbo].[UserFramework] AS [UserFramework]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CheckBillCheckDetail" Association="Self.FK_CheckBillCheckDetail">
+            <End Role="CheckBill" EntitySet="CheckBill" />
+            <End Role="CheckDetail" EntitySet="CheckDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuAMenuB" Association="Self.FK_MenuAMenuB">
+            <End Role="MenuA" EntitySet="MenuA" />
+            <End Role="MenuB" EntitySet="MenuB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarehouseLocation" Association="Self.FK_WarehouseLocation">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DBContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TransferBill" EntityType="DB.TransferBill" />
+          <EntitySet Name="BackInput" EntityType="DB.BackInput" />
+          <EntitySet Name="OtherInput" EntityType="DB.OtherInput" />
+          <EntitySet Name="DIYBill" EntityType="DB.DIYBill" />
+          <EntitySet Name="LocationChange" EntityType="DB.LocationChange" />
+          <EntitySet Name="CheckBill" EntityType="DB.CheckBill" />
+          <EntitySet Name="GiveBill" EntityType="DB.GiveBill" />
+          <EntitySet Name="BackOutput" EntityType="DB.BackOutput" />
+          <EntitySet Name="OtherOutput" EntityType="DB.OtherOutput" />
+          <EntitySet Name="Record" EntityType="DB.Record" />
+          <AssociationSet Name="TransferBillRecord" Association="DB.TransferBillRecord">
+            <End Role="TransferBill" EntitySet="TransferBill" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="BackInputRecord" Association="DB.BackInputRecord">
+            <End Role="BackInput" EntitySet="BackInput" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="OtherInputRecord" Association="DB.OtherInputRecord">
+            <End Role="OtherInput" EntitySet="OtherInput" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="CheckBillRecord" Association="DB.CheckBillRecord">
+            <End Role="CheckBill" EntitySet="CheckBill" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="GiveBillRecord" Association="DB.GiveBillRecord">
+            <End Role="GiveBill" EntitySet="GiveBill" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="BackOutputRecord" Association="DB.BackOutputRecord">
+            <End Role="BackOutput" EntitySet="BackOutput" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="OtherOutputRecord" Association="DB.OtherOutputRecord">
+            <End Role="OtherOutput" EntitySet="OtherOutput" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <EntitySet Name="MenuA" EntityType="DB.MenuA" />
+          <EntitySet Name="MenuB" EntityType="DB.MenuB" />
+          <AssociationSet Name="MenuAMenuB" Association="DB.MenuAMenuB">
+            <End Role="MenuA" EntitySet="MenuA" />
+            <End Role="MenuB" EntitySet="MenuB" />
+          </AssociationSet>
+          <EntitySet Name="InWarehouse" EntityType="DB.InWarehouse" />
+          <EntitySet Name="Location" EntityType="DB.Location" />
+          <EntitySet Name="Warehouse" EntityType="DB.Warehouse" />
+          <AssociationSet Name="WarehouseLocation" Association="DB.WarehouseLocation">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <EntitySet Name="TaskBill" EntityType="DB.TaskBill" />
+          <EntitySet Name="GoodItem" EntityType="DB.GoodItem" />
+          <EntitySet Name="CheckDetail" EntityType="DB.CheckDetail" />
+          <AssociationSet Name="CheckBillCheckDetail" Association="DB.CheckBillCheckDetail">
+            <End Role="CheckBill" EntitySet="CheckBill" />
+            <End Role="CheckDetail" EntitySet="CheckDetail" />
+          </AssociationSet>
+          <EntitySet Name="InOutType" EntityType="DB.InOutType" />
+          <EntitySet Name="BusinessType" EntityType="DB.BusinessType" />
+          <EntitySet Name="LineWay" EntityType="DB.LineWay" />
+          <EntitySet Name="LoadGoodsType" EntityType="DB.LoadGoodsType" />
+          <EntitySet Name="ItemLine" EntityType="DB.ItemLine" />
+          <EntitySet Name="ItemUnit" EntityType="DB.ItemUnit" />
+          <EntitySet Name="CostItem" EntityType="DB.CostItem" />
+          <EntitySet Name="ReceiveFile" EntityType="DB.ReceiveFile" />
+          <EntitySet Name="SendFileSet" EntityType="DB.SendFile" />
+          <EntitySet Name="Company" EntityType="DB.Company" />
+          <EntitySet Name="Departent" EntityType="DB.Departent" />
+          <EntitySet Name="User" EntityType="DB.User" />
+          <EntitySet Name="UserRelation" EntityType="DB.UserRelation" />
+          <EntitySet Name="UserFramework" EntityType="DB.UserFramework" />
+          <AssociationSet Name="CompanyDepartent" Association="DB.CompanyDepartent">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Departent" EntitySet="Departent" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TransferBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Record" Relationship="DB.TransferBillRecord" FromRole="TransferBill" ToRole="Record" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="InputType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LineWay" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="LBFrom" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBMoveType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBRemark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LoadGoodsType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BackInput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Record" Relationship="DB.BackInputRecord" FromRole="BackInput" ToRole="Record" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="OutputType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LineWay" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="LBBackWarehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBMoveType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBRemark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="LBBackAddress" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="LBContacts" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBPhone" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LoadGoodsType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OtherInput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Record" Relationship="DB.OtherInputRecord" FromRole="OtherInput" ToRole="Record" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="InputType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LineWay" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="InputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DIYBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="InputType" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="InputTypeId" Type="Int32" />
+          <Property Name="OutputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LocationChange">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="InputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InputTypeId" Type="Int32" />
+          <Property Name="OutputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CheckBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Record" Relationship="DB.CheckBillRecord" FromRole="CheckBill" ToRole="Record" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="CheckDetail" Relationship="DB.CheckBillCheckDetail" FromRole="CheckBill" ToRole="CheckDetail" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="InputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InputTypeId" Type="Int32" />
+          <Property Name="OutputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GiveBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Record" Relationship="DB.GiveBillRecord" FromRole="GiveBill" ToRole="Record" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="OutputType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LineWay" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="LBTaskBillCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBLine" Type="String" Nullable="true" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="LBContacts" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBPhone" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBMailCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBCustomerCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBCustomerName" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="LBSendAddress" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBRemark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LoadGoodsType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TaskBillCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BackOutput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Record" Relationship="DB.BackOutputRecord" FromRole="BackOutput" ToRole="Record" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="InputType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LineWay" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBGiveBillCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBBillDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="LBCustomerCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBCustomerName" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="LBSendAddress" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBContacts" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBPhone" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBMailCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LBReson" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="LBRemark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LoadGoodsType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OtherOutput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Record" Relationship="DB.OtherOutputRecord" FromRole="OtherOutput" ToRole="Record" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="OutputType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LineWay" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="BillState" Type="Int32" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="OutputTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="MainTableId" Type="Guid" Nullable="true" />
+          <Property Name="ItemCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLine" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemName" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemSpecifications" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLocation" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Warehouse" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="true" />
+          <Property Name="ItemBatch" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemUnit" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Count" Type="Double" Nullable="true" />
+          <Property Name="Weight" Type="Double" Nullable="true" />
+          <Property Name="ReceiveCount" Type="Double" Nullable="true" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="State" Type="Int32" Nullable="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="2" Nullable="true" />
+          <Property Name="ItemLocationId" Type="Int32" />
+          <Property Name="InOrOut" Type="Int32" />
+          <Property Name="ReceiveWeight" Type="Double" />
+          <Property Name="InOutTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InOutTypeId" Type="Int32" />
+          <Property Name="CurrentCount" Type="Double" />
+          <Property Name="MainTableType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="TransferBillRecord">
+          <End Type="DB.TransferBill" Role="TransferBill" Multiplicity="0..1" />
+          <End Type="DB.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransferBill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BackInputRecord">
+          <End Type="DB.BackInput" Role="BackInput" Multiplicity="0..1" />
+          <End Type="DB.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackInput">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OtherInputRecord">
+          <End Type="DB.OtherInput" Role="OtherInput" Multiplicity="0..1" />
+          <End Type="DB.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OtherInput">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CheckBillRecord">
+          <End Type="DB.CheckBill" Role="CheckBill" Multiplicity="0..1" />
+          <End Type="DB.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckBill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GiveBillRecord">
+          <End Type="DB.GiveBill" Role="GiveBill" Multiplicity="0..1" />
+          <End Type="DB.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiveBill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BackOutputRecord">
+          <End Type="DB.BackOutput" Role="BackOutput" Multiplicity="0..1" />
+          <End Type="DB.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackOutput">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OtherOutputRecord">
+          <End Type="DB.OtherOutput" Role="OtherOutput" Multiplicity="0..1" />
+          <End Type="DB.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OtherOutput">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MenuA">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="MenuB" Relationship="DB.MenuAMenuB" FromRole="MenuA" ToRole="MenuB" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="MenuB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuAId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Url" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="MenuAMenuB">
+          <End Type="DB.MenuA" Role="MenuA" Multiplicity="1" />
+          <End Type="DB.MenuB" Role="MenuB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuA">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuB">
+              <PropertyRef Name="MenuAId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InWarehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="ItemCode" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLine" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemSpecifications" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLocation" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemBatch" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemUnit" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Count" Type="Double" Nullable="true" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLocationId" Type="Int32" />
+          <Property Name="Warehouse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="CreateBy" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Location" Relationship="DB.WarehouseLocation" FromRole="Warehouse" ToRole="Location" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="IsManage" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateBy" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="Owner" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="WarehouseLocation">
+          <End Type="DB.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="DB.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TaskBill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="BillCode" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="MakePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ExaminePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ChargePerson" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Warehouse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseId" Type="Int32" />
+          <Property Name="BillState" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GoodItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemCode" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLine" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemName" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemSpecifications" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLocation" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemUnit" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="IsBatch" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="2" />
+          </EntityType>
+        <EntityType Name="CheckDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="MainTableId" Type="Guid" Nullable="true" />
+          <Property Name="ItemCode" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLine" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemSpecifications" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLocation" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemBatch" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemUnit" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Double" Nullable="true" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" Nullable="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="ChangeCount" Type="Double" />
+          <Property Name="ItemLocationId" Type="Int32" />
+          <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InputTypeId" Type="Int32" />
+          <Property Name="OutputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeId" Type="Int32" />
+        </EntityType>
+        <Association Name="CheckBillCheckDetail">
+          <End Type="DB.CheckBill" Role="CheckBill" Multiplicity="0..1" />
+          <End Type="DB.CheckDetail" Role="CheckDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckBill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CheckDetail">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InOutType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="InoutType" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="BusinessType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="LineWay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="LoadGoodsType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ItemLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLineType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ItemUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="CostItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Type" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ReceiveFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Contacts" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Emailcode" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Tel" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SendFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Contacts" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Emailcode" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Tel" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CmopanyCode" />
+          </Key>
+          <Property Name="CmopanyCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyAbbr" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyFullName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Corporate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FoundDT" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsCenter" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Departent" Relationship="DB.CompanyDepartent" FromRole="Company" ToRole="Departent" />
+        </EntityType>
+        <EntityType Name="Departent">
+          <Key>
+            <PropertyRef Name="DeptCode" />
+          </Key>
+          <Property Name="DeptCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptType" Type="Int32" />
+          <Property Name="CompanyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContractType" Type="Int32" />
+          <Property Name="IsCenter" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDT" Type="DateTime" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Latitude" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ProvinceCode" Type="Int32" />
+          <Property Name="CityCode" Type="Int32" />
+          <Property Name="AreaCode" Type="Int32" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserCode" />
+          </Key>
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Takedt" Type="DateTime" Precision="0" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsVail" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDT" Type="DateTime" Precision="3" />
+          <Property Name="ModifyPwdDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserFramework">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CmopanyCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyAbbr" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="CompanyDepartent">
+          <End Type="DB.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="DB.Departent" Role="Departent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CmopanyCode" />
+            </Principal>
+            <Dependent Role="Departent">
+              <PropertyRef Name="CompanyCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBStoreContainer" CdmEntityContainer="DBContainer">
+    <EntitySetMapping Name="TransferBill">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.TransferBill)">
+        <MappingFragment StoreEntitySet="TransferBill">
+          <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
+                <ScalarProperty Name="LoadGoodsType" ColumnName="LoadGoodsType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="InputType" ColumnName="InputType" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="LineWay" ColumnName="LineWay" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="LBBillCode" ColumnName="LBBillCode" />
+          <ScalarProperty Name="LBBillDate" ColumnName="LBBillDate" />
+          <ScalarProperty Name="LBFrom" ColumnName="LBFrom" />
+          <ScalarProperty Name="LBMoveType" ColumnName="LBMoveType" />
+          <ScalarProperty Name="LBRemark" ColumnName="LBRemark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BackInput">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.BackInput)">
+        <MappingFragment StoreEntitySet="BackInput">
+          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+                <ScalarProperty Name="LoadGoodsType" ColumnName="LoadGoodsType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="LineWay" ColumnName="LineWay" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="LBBillCode" ColumnName="LBBillCode" />
+          <ScalarProperty Name="LBBillDate" ColumnName="LBBillDate" />
+          <ScalarProperty Name="LBBackWarehouse" ColumnName="LBBackWarehouse" />
+          <ScalarProperty Name="LBMoveType" ColumnName="LBMoveType" />
+          <ScalarProperty Name="LBRemark" ColumnName="LBRemark" />
+          <ScalarProperty Name="LBBackAddress" ColumnName="LBBackAddress" />
+          <ScalarProperty Name="LBContacts" ColumnName="LBContacts" />
+          <ScalarProperty Name="LBPhone" ColumnName="LBPhone" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OtherInput">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.OtherInput)">
+        <MappingFragment StoreEntitySet="OtherInput">
+          <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="InputType" ColumnName="InputType" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="LineWay" ColumnName="LineWay" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIYBill">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.DIYBill)">
+        <MappingFragment StoreEntitySet="DIYBill">
+          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+                <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="InputType" ColumnName="InputType" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationChange">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.LocationChange)">
+        <MappingFragment StoreEntitySet="LocationChange">
+          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+                <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
+                <ScalarProperty Name="InputType" ColumnName="InputType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckBill">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.CheckBill)">
+        <MappingFragment StoreEntitySet="CheckBill">
+          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+                <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
+                <ScalarProperty Name="InputType" ColumnName="InputType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GiveBill">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.GiveBill)">
+        <MappingFragment StoreEntitySet="GiveBill">
+          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+                <ScalarProperty Name="TaskBillCode" ColumnName="TaskBillCode" />
+                <ScalarProperty Name="LoadGoodsType" ColumnName="LoadGoodsType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="LineWay" ColumnName="LineWay" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="LBBillCode" ColumnName="LBBillCode" />
+          <ScalarProperty Name="LBBillDate" ColumnName="LBBillDate" />
+          <ScalarProperty Name="LBTaskBillCode" ColumnName="LBTaskBillCode" />
+          <ScalarProperty Name="LBLine" ColumnName="LBLine" />
+          <ScalarProperty Name="LBContacts" ColumnName="LBContacts" />
+          <ScalarProperty Name="LBPhone" ColumnName="LBPhone" />
+          <ScalarProperty Name="LBMailCode" ColumnName="LBMailCode" />
+          <ScalarProperty Name="LBCustomerCode" ColumnName="LBCustomerCode" />
+          <ScalarProperty Name="LBCustomerName" ColumnName="LBCustomerName" />
+          <ScalarProperty Name="LBSendAddress" ColumnName="LBSendAddress" />
+          <ScalarProperty Name="LBRemark" ColumnName="LBRemark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BackOutput">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.BackOutput)">
+        <MappingFragment StoreEntitySet="BackOutput">
+          <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
+                <ScalarProperty Name="LoadGoodsType" ColumnName="LoadGoodsType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="InputType" ColumnName="InputType" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="LineWay" ColumnName="LineWay" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="LBBillCode" ColumnName="LBBillCode" />
+          <ScalarProperty Name="LBGiveBillCode" ColumnName="LBGiveBillCode" />
+          <ScalarProperty Name="LBBillDate" ColumnName="LBBillDate" />
+          <ScalarProperty Name="LBCustomerCode" ColumnName="LBCustomerCode" />
+          <ScalarProperty Name="LBCustomerName" ColumnName="LBCustomerName" />
+          <ScalarProperty Name="LBSendAddress" ColumnName="LBSendAddress" />
+          <ScalarProperty Name="LBContacts" ColumnName="LBContacts" />
+          <ScalarProperty Name="LBPhone" ColumnName="LBPhone" />
+          <ScalarProperty Name="LBMailCode" ColumnName="LBMailCode" />
+          <ScalarProperty Name="LBReson" ColumnName="LBReson" />
+          <ScalarProperty Name="LBRemark" ColumnName="LBRemark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OtherOutput">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.OtherOutput)">
+        <MappingFragment StoreEntitySet="OtherOutput">
+          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="LineWay" ColumnName="LineWay" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Record">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Record)">
+        <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="MainTableType" ColumnName="MainTableType" />
+                <ScalarProperty Name="CurrentCount" ColumnName="CurrentCount" />
+                <ScalarProperty Name="InOutTypeId" ColumnName="InOutTypeId" />
+                <ScalarProperty Name="InOutTypeName" ColumnName="InOutTypeName" />
+          <ScalarProperty Name="ReceiveWeight" ColumnName="ReceiveWeight" />
+                <ScalarProperty Name="InOrOut" ColumnName="InOrOut" />
+                <ScalarProperty Name="ItemLocationId" ColumnName="ItemLocationId" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemSpecifications" ColumnName="ItemSpecifications" />
+          <ScalarProperty Name="ItemLocation" ColumnName="ItemLocation" />
+          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="ItemBatch" ColumnName="ItemBatch" />
+          <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="ReceiveCount" ColumnName="ReceiveCount" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuA">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.MenuA)">
+        <MappingFragment StoreEntitySet="MenuA">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuB">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.MenuB)">
+        <MappingFragment StoreEntitySet="MenuB">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MenuAId" ColumnName="MenuAId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InWarehouse">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.InWarehouse)">
+        <MappingFragment StoreEntitySet="InWarehouse">
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+                <ScalarProperty Name="ItemLocationId" ColumnName="ItemLocationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemSpecifications" ColumnName="ItemSpecifications" />
+          <ScalarProperty Name="ItemLocation" ColumnName="ItemLocation" />
+          <ScalarProperty Name="ItemBatch" ColumnName="ItemBatch" />
+          <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Location)">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouse">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Warehouse)">
+        <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaskBill">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.TaskBill)">
+        <MappingFragment StoreEntitySet="TaskBill">
+          <ScalarProperty Name="BillState" ColumnName="BillState" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+          <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodItem">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.GoodItem)">
+        <MappingFragment StoreEntitySet="GoodItem">
+          <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemSpecifications" ColumnName="ItemSpecifications" />
+          <ScalarProperty Name="ItemLocation" ColumnName="ItemLocation" />
+          <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+          <ScalarProperty Name="IsBatch" ColumnName="IsBatch" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckDetail">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.CheckDetail)">
+        <MappingFragment StoreEntitySet="CheckDetail">
+          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+                <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
+                <ScalarProperty Name="InputType" ColumnName="InputType" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="ItemLocationId" ColumnName="ItemLocationId" />
+                <ScalarProperty Name="ChangeCount" ColumnName="ChangeCount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemSpecifications" ColumnName="ItemSpecifications" />
+          <ScalarProperty Name="ItemLocation" ColumnName="ItemLocation" />
+          <ScalarProperty Name="ItemBatch" ColumnName="ItemBatch" />
+          <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InOutType">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.InOutType)">
+        <MappingFragment StoreEntitySet="InOutType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="InoutType" ColumnName="InoutType" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessType">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.BusinessType)">
+        <MappingFragment StoreEntitySet="BusinessType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineWay">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.LineWay)">
+        <MappingFragment StoreEntitySet="LineWay">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoadGoodsType">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.LoadGoodsType)">
+        <MappingFragment StoreEntitySet="LoadGoodsType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemLine">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.ItemLine)">
+        <MappingFragment StoreEntitySet="ItemLine">
+          <ScalarProperty Name="ItemLineType" ColumnName="ItemLineType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemUnit">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.ItemUnit)">
+        <MappingFragment StoreEntitySet="ItemUnit">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CostItem">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.CostItem)">
+        <MappingFragment StoreEntitySet="CostItem">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReceiveFile">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.ReceiveFile)">
+        <MappingFragment StoreEntitySet="ReceiveFile">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Contacts" ColumnName="Contacts" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Emailcode" ColumnName="Emailcode" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SendFileSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.SendFile)">
+        <MappingFragment StoreEntitySet="SendFileSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Contacts" ColumnName="Contacts" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Emailcode" ColumnName="Emailcode" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Company">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Company)">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="CmopanyCode" ColumnName="CmopanyCode" />
+          <ScalarProperty Name="CompanyAbbr" ColumnName="CompanyAbbr" />
+          <ScalarProperty Name="CompanyFullName" ColumnName="CompanyFullName" />
+          <ScalarProperty Name="Corporate" ColumnName="Corporate" />
+          <ScalarProperty Name="FoundDT" ColumnName="FoundDT" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="IsCenter" ColumnName="IsCenter" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDT" ColumnName="CreateDT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departent">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.Departent)">
+        <MappingFragment StoreEntitySet="Departent">
+          <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+          <ScalarProperty Name="DeptType" ColumnName="DeptType" />
+          <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+          <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+          <ScalarProperty Name="TEL" ColumnName="TEL" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+          <ScalarProperty Name="IsCenter" ColumnName="IsCenter" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDT" ColumnName="CreateDT" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+          <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+          <ScalarProperty Name="AreaCode" ColumnName="AreaCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="IsTypeOf(DB.User)">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="TEL" ColumnName="TEL" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+          <ScalarProperty Name="Takedt" ColumnName="Takedt" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="IsVail" ColumnName="IsVail" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDT" ColumnName="CreateDT" />
+          <ScalarProperty Name="ModifyPwdDt" ColumnName="ModifyPwdDt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="UserRelation">
+            <EntityTypeMapping TypeName="DB.UserRelation">
+              <MappingFragment StoreEntitySet="UserRelation">
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFramework">
+            <EntityTypeMapping TypeName="DB.UserFramework">
+              <MappingFragment StoreEntitySet="UserFramework">
+                <ScalarProperty Name="CompanyAbbr" ColumnName="CompanyAbbr" />
+                <ScalarProperty Name="CmopanyCode" ColumnName="CmopanyCode" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

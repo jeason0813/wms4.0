@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  
+  <object type="LHYS.WMS.Controllers.HomeController,LHYS.WMS" singleton="false" >
+    <property name="MenuAService" ref="MenuAService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.TransferBillController,LHYS.WMS" singleton="false" >
+    <property name="TransferBillService" ref="TransferBillService" />
+    <property name="RecordService" ref="RecordService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.GoodItemController,LHYS.WMS" singleton="false" >
+    <property name="GoodItemService" ref="GoodItemService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.ItemLineController,LHYS.WMS" singleton="false" >
+    <property name="ItemLineService" ref="ItemLineService" />
+  </object>
+ 
+  <object type="LHYS.WMS.Controllers.LoadGoodsTypeController,LHYS.WMS" singleton="false" >
+    <property name="LoadGoodsTypeService" ref="LoadGoodsTypeService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.CostItemController,LHYS.WMS" singleton="false" >
+    <property name="CostItemService" ref="CostItemService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.LineWayController,LHYS.WMS" singleton="false" >
+    <property name="LineWayService" ref="LineWayService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.BusinessTypeController,LHYS.WMS" singleton="false" >
+    <property name="BusinessTypeService" ref="BusinessTypeService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.InOutTypeController,LHYS.WMS" singleton="false" >
+    <property name="InOutTypeService" ref="InOutTypeService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.SendFileSetController,LHYS.WMS" singleton="false" >
+    <property name="SendFileService" ref="SendFileService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.ReceiveFileController,LHYS.WMS" singleton="false" >
+    <property name="ReceiveFileService" ref="ReceiveFileService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.WarehouseController,LHYS.WMS" singleton="false" >
+    <property name="WarehouseService" ref="WarehouseService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.UserFrameworkController,LHYS.WMS" singleton="false" >
+    <property name="UserService" ref="UserService" />
+    <property name="CompanyService" ref="CompanyService" />
+    <property name="UserFrameworkService" ref="UserFrameworkService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.LoginController,LHYS.WMS" singleton="false" >
+    <property name="UserService" ref="UserService" />
+    <property name="UserFrameworkService" ref="UserFrameworkService" />
+  </object>
+  
+  <object type="LHYS.WMS.Controllers.LocationController,LHYS.WMS" singleton="false" >
+    <property name="LocationService" ref="LocationService" />
+    <property name="WarehouseService" ref="WarehouseService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.BaseInfoController,LHYS.WMS" singleton="false" >
+    <property name="WarehouseService" ref="WarehouseService" />
+    <property name="GoodItemService" ref="GoodItemService" />
+    <property name="UserFrameworkService" ref="UserFrameworkService" />
+    <property name="LoadGoodsTypeService" ref="LoadGoodsTypeService" />
+    <property name="BusinessTypeService" ref="BusinessTypeService" />
+    <property name="InOutTypeService" ref="InOutTypeService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.OtherOutputController,LHYS.WMS" singleton="false" >
+    <property name="OtherOutputService" ref="OtherOutputService" />
+    <property name="RecordService" ref="RecordService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.OtherInputController,LHYS.WMS" singleton="false" >
+    <property name="OtherInputService" ref="OtherInputService" />
+    <property name="RecordService" ref="RecordService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.BillsManagerController,LHYS.WMS" singleton="false" >
+    <property name="TransferBillService" ref="TransferBillService" />
+    <property name="BackInputService" ref="BackInputService" />
+    <property name="GiveBillService" ref="GiveBillService" />
+    <property name="TaskBillService" ref="TaskBillService" />
+    <property name="BackOutputService" ref="BackOutputService" />
+    <property name="OtherInputService" ref="OtherInputService" />
+    <property name="OtherOutputService" ref="OtherOutputService" />
+    <property name="DIYBillService" ref="DIYBillService" />
+    <property name="CheckBillService" ref="CheckBillService" />
+    <property name="LocationChangeService" ref="LocationChangeService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.GiveBillController,LHYS.WMS" singleton="false" >
+    <property name="GiveBillService" ref="GiveBillService" />
+    <property name="RecordService" ref="RecordService" />
+    <property name="LineWayService" ref="LineWayService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.BackOutputController,LHYS.WMS" singleton="false" >
+    <property name="BackOutputService" ref="BackOutputService" />
+    <property name="RecordService" ref="RecordService" />
+    <property name="LineWayService" ref="LineWayService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.BackInputController,LHYS.WMS" singleton="false" >
+    <property name="BackInputService" ref="BackInputService" />
+    <property name="RecordService" ref="RecordService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.TaskBillController,LHYS.WMS" singleton="false" >
+    <property name="TaskBillService" ref="TaskBillService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.InWarehouseController,LHYS.WMS" singleton="false" >
+    <property name="InWarehouseService" ref="InWarehouseService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.CheckBillController,LHYS.WMS" singleton="false" >
+    <property name="CheckBillService" ref="CheckBillService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.LocationChangeController,LHYS.WMS" singleton="false" >
+    <property name="LocationChangeService" ref="LocationChangeService" />
+    <property name="RecordService" ref="RecordService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.DIYBillController,LHYS.WMS" singleton="false" >
+    <property name="DIYBillService" ref="DIYBillService" />
+    <property name="RecordService" ref="RecordService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.GiveBackBillController,LHYS.WMS" singleton="false" >
+    <property name="GiveBillService" ref="GiveBillService" />
+    <property name="RecordService" ref="RecordService" />
+  </object>
+</objects>
+

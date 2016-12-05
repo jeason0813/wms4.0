@@ -1,0 +1,222 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>装卸类型</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <style>
+        .th {
+            width:13%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="GoodsTypeControllor"> 
+        <div class="row">
+            <form ng-submit="btnSave()">
+                <div class="col-xs-11 table-responsive">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <td colspan="9" style="text-align:center;border:none"><h2>装卸类型</h2></td>
+                        </tr>
+                        <tr>
+                            <td style="border:none" colspan="2"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                            <td style="border:none"></td>
+                            <td colspan="6" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
+                        </tr>
+                        <tr>
+                            <th class="th">装卸类型编码</th>
+                            <th class="th">装卸类型名称</th>
+                            <th class="th">部门</th>
+                            <th class="th">部门ID</th>
+                            <th class="th">公司</th>
+                            <th class="th">公司ID</th>
+                            <th>备注</th>
+                            <th>编辑</th>
+                            <th>删除</th>
+                        </tr>
+                        <tr ng-repeat="record in info | filter:searchstr">
+                            <td>{{record.Id}}</td>
+                            <td>{{record.Name}}</td>
+                            <td>{{record.Department}}</td>
+                            <td>{{record.DepartmentId}}</td>
+                            <td>{{record.Company}}</td>
+                            <td>{{record.CompanyId}}</td>
+                            <td>{{record.Remark}}</td>
+                            <td style="width:70px"><button type="button" class="btn btn-info btn-xs" ng-click="btnEdit(record)">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button></td>
+                            <td style="width:70px"><button type="button" class="btn btn-danger btn-xs" ng-click="btnDelete(record)">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button></td>
+                        </tr>
+                    </table>
+                    @*-------------------------------------装卸类型模态框-----------------------------------------*@
+                    <div class="modal fade" id="personchoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请填写装卸类型信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width:140px">装卸类型名称</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:140px">所属部门</td>
+                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required></select></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:140px">备注</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Remark" /></td>
+                                        </tr>
+                                    </table>
+                                    <table class="table" style="border:none">
+                                        <tr>
+                                            <td style="text-align:right"><button type="submit" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button></td>
+                                            <td style="width:60px;"><button type="button" class="btn btn-default btn-md" ng-click="btnCancel()">&nbsp;&nbsp;&nbsp;取&nbsp;&nbsp;&nbsp;消&nbsp;&nbsp;&nbsp;</button></td>
+                                        </tr>
+                                    </table>
+                                    <div class="alert alert-success" role="alert" style="text-align:center" ng-show="!showmsg == ''">{{showmsg}}</div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-------------------------------------装卸类型模态框end-----------------------------------------*@
+                    @*-------------------------------------编辑模态框-----------------------------------------*@
+                    <div class="modal fade" id="deletecom">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">确定要删除吗？</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" ng-click="delcom()">确认</button>
+                                    <div class="alert alert-success" role="alert" style="text-align:center" ng-show="!delmsg == ''">{{delmsg}}</div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-------------------------------------编辑模态框end-----------------------------------------*@
+                </div>
+                </form>
+</div>
+    </div>
+    <script>
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //数据控制器
+        myApp.controller('GoodsTypeControllor', function ($scope, $http, $timeout) {
+            //初始化提示消息
+            $scope.showmsg = '';
+            $scope.delmsg = '';
+
+            $http.post("/LoadGoodsType/GetLoadGoodsType", {}, {}).success(function (response) {
+                //绑定数据源
+                $scope.info = response;
+            });
+            //---------------------------------------------------------------------------
+            //刷新数据
+            $scope.GetData = function () {
+                $http.post("/LoadGoodsType/GetLoadGoodsType", {}, {}).success(function (response) {
+                    //绑定数据源
+                    $scope.info = response;
+                });
+            }
+            //点击添加按钮事件
+            $scope.btnAdd = function () {
+                $scope.state = 'add';
+                $('#personchoose').modal('show');
+            }
+            //保存数据
+            $scope.btnSave = function () {
+                //给部门赋值   注意源数据字段的拼写和现在不同
+                $scope.source.DepartmentId = $scope.currentDept.DeptCode;
+                $scope.source.Department = $scope.currentDept.DeptName;
+                $scope.source.CompanyId = $scope.currentDept.CmopanyCode;
+                $scope.source.Company = $scope.currentDept.CompanyAbbr;
+                $scope.currentDept = null;
+                $http.post("/LoadGoodsType/SaveData", {}, { params: { "LoadGoodsType": $scope.source, "savetype": $scope.state } }).success(function (response) {
+                    if (response) {
+                        $scope.showmsg = '保存成功！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                            $scope.source = null;//清空数据
+                            $('#personchoose').modal('hide');
+                        }, 800);   //该函数延迟1.5秒执行
+                    }
+                    else {
+                        $scope.showmsg = '保存失败！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                            $('#personchoose').modal('hide');
+                        }, 800);   //该函数延迟1.5秒执行
+                    }
+                    $scope.GetData();
+                });  
+            }
+            //编辑事件
+            $scope.btnEdit = function (item) {
+                $scope.source = item;
+                $scope.state = 'edit';
+                //遍历公司部门数组  找出默认值
+                var departmentId = item.DepartmentId;
+                for (var i = 0; i < $scope.companyDepts.length; i++) {
+                    if (departmentId == $scope.companyDepts[i].DeptCode) {
+                        $scope.currentDept = $scope.companyDepts[i]; //保存当前部门作为默认值
+                        break;
+                    }
+                }
+                $('#personchoose').modal('show');
+            }
+            //取消按钮
+            $scope.btnCancel = function () {
+                $scope.source = null;
+                $scope.currentDept = null;
+                $('#personchoose').modal('hide');
+            }
+            //删除按钮
+            $scope.btnDelete = function (item) {
+                $scope.delitem = item; //存值
+                $('#deletecom').modal('show');
+            }
+            //确认删除
+            $scope.delcom = function () {
+                $http.post("/LoadGoodsType/DeleteData", {}, { params: { "DeleteItem": $scope.delitem } }).success(function (response) {
+                    $scope.delmsg = response;
+                    $timeout(function () {
+                        $scope.delmsg = '';
+                        $('#deletecom').modal('hide');
+                    }, 800);   //该函数延迟1.5秒执行
+                    $scope.GetData();//导入数据
+                });
+            };
+            $scope.GetData();//导入数据
+            //获取当前人员的权限
+            $http.post("/UserFramework/GetOnesCompanyAndDept").success(function (response) {
+                $scope.companyDepts = response;
+            });
+        })
+    </script>
+   <!---提示框--alert alert-danger-->
+    <script>
+        function TiShi(msg,divclass) {
+            $("#tishi").text(msg);
+            if(divclass!=""){
+                $("#myAlert").attr("class", divclass);
+            }
+            $("#myAlert").css("display", "block");
+        }
+    </script>
+</body>
+</html>
