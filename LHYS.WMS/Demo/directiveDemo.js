@@ -1,6 +1,7 @@
 ﻿//出入库类型指令 
 //调用：
 //<inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInOutType" ></inouttypeselect>
+
 //加载初值：
 for (var i = 0; i < $scope.InOutTypes.length; i++) {
     if ($scope.InOutTypes[i].Id == $scope.info.InputTypeId) {
