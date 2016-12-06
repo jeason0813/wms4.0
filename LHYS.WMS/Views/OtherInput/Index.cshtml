@@ -13,6 +13,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angularJs")
+    @Scripts.Render("~/bundles/billsCommon")
     <style>
         .tdname {
             width: 90px;
@@ -36,13 +37,13 @@
                             <td class="tdname">仓库：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.Warehouse" data-toggle="modal" data-target="#wareHousechoose" required /></td>
                             <td class="tdname">入库类别：</td>
-                            <td><select class="form-control" ng-options=" InOutType for InOutType in InOutTypes" ng-model="info.InputType" required></select></td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInOutType"></inouttypeselect></td>
                         </tr>
                         <tr>
                             <td>部门：</td>
                             <td>
-                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)" ></select>
-                            </td>   
+                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select>
+                            </td>
                             <td>负责人：</td>
                             <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" required /></td>
                             <td>审核人：</td>
@@ -205,32 +206,11 @@
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
                     @*-----------------------------------货位选择模态框end------------------------------------------------*@
-        </div>
-                </form>
                 </div>
+            </form>
         </div>
+    </div>
     <script>
-        //json日期格式转换为正常格式
-        function jsonDateFormat(jsonDate) {
-            try {
-                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
-                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var seconds = date.getSeconds();
-                var milliseconds = date.getMilliseconds();
-                var date = date.getFullYear() + "-" + month + "-" + day;
-                return new Date(date);
-            } catch (ex) {
-                return "";
-            }
-        }
-        //主程序
-        var myApp = angular.module('myApp', []);
-        //自定义时间转换过滤器
-        //myApp.filter("jsDate", function () { return function (x) { if (null == x) { return null; } else { return new Date(parseInt(x.substr(6))); } }; });
-        //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
             //获取基础数据
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
@@ -241,31 +221,37 @@
                 $scope.BusinessTypes = response.BusinessType;
                 $scope.InOutTypes = response.InOutType;
                 $scope.Departents = response.Departent;
-            });
-            //如果有单号 获取单据内容
-            $http.post("/OtherInput/GetData", {}, { params: { "OtherInputId": "@ViewBag.OtherOutputId" } }).success(function (response) {
-                //绑定数据源
-                $scope.info = response;
-                if (response.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
-                {
-                    //修改时间格式
-                    $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
-                    $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+                //如果有单号 获取单据内容
+                $http.post("/OtherInput/GetData", {}, { params: { "OtherInputId": '@ViewBag.OtherInputId' } }).success(function (response) {
+                    //绑定数据源
+                    $scope.info = response;
+                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
+                    {
+                        //修改时间格式
+                        $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                        $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
 
-                    //给当前部门赋值
-                    for (var i = 0; i < $scope.Departents.length; i++) {
-                        if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
-                            $scope.CurrentDepartment = $scope.Departents[i];
-                            break;
+                        //给当前部门赋值
+                        for (var i = 0; i < $scope.Departents.length; i++) {
+                            if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                $scope.CurrentDepartment = $scope.Departents[i];
+                                break;
+                            }
+                        }
+                        //给当前仓库的货位赋值
+                        for (var i = 0; i < $scope.Warehouses.length; i++) {
+                            if ($scope.Warehouses[i].Id == $scope.info.WarehouseId) {
+                                $scope.locationlist = $scope.Warehouses[i].Location;
+                            }
+                        }
+                        //给出入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == $scope.info.InputTypeId) {
+                                $scope.currentInOutType = $scope.InOutTypes[i];
+                            }
                         }
                     }
-                    //给当前仓库的货位赋值
-                    for (var i = 0; i < $scope.Warehouses.length; i++) {
-                        if ($scope.Warehouses[i].Id == $scope.info.WarehouseId) {
-                            $scope.locationlist = $scope.Warehouses[i].Location;
-                        }
-                    }
-                }
+                });
             });
             //-------------------------------------------------------------------------
             //添加行

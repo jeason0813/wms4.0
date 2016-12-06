@@ -14,7 +14,7 @@ namespace DBModel
     
     public partial class Location
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public int WarehouseId { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }

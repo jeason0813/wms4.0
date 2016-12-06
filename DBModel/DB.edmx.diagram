@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="DB.GiveBill" Width="1.5" PointX="10.25" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.BackOutput" Width="1.5" PointX="2.125" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.OtherOutput" Width="1.5" PointX="13.5" PointY="0.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.Record" Width="1.5" PointX="3.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB.Record" Width="1.5" PointX="3.75" PointY="5.25" IsExpanded="false" />
         <AssociationConnector Association="DB.TransferBillRecord" />
         <AssociationConnector Association="DB.BackInputRecord" />
         <AssociationConnector Association="DB.OtherInputRecord" />

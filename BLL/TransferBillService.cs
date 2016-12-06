@@ -20,6 +20,11 @@ namespace BLL
             if (bill.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
             {
                 bill.Id = Guid.NewGuid();//生成一个id
+                bill.BillCode = GetBillCode("ZC");//生成单号
+                if (bill.BillCode == "no")
+                {
+                    bill.BillCode = GetBillCode("ZC");//再次生成单号
+                }
                 bill.BillState = 1;//保存状态
                 foreach (var item in bill.Record)//生成子表id
                 {
@@ -160,6 +165,34 @@ namespace BLL
             CurrentDal.EditEntity(bill);
             return CurrentDBSession.SaveChanges()?"操作成功":"操作失败";
         }
-       
+        /// <summary>
+        /// 生成单号
+        /// </summary>
+        /// <returns></returns>
+        public string GetBillCode(string head)
+        {
+            string res = "";
+            try
+            {
+                string temp = DateTime.Now.ToString("yyyyMM");//六位年月
+                int totalCount;//没用
+                string flowid;
+                var lastbill = CurrentDal.LoadPageEntities(a => a.BillCode.Substring(2, 6) == temp, a => a.BillCode, 1, 1, false, out totalCount).FirstOrDefault();
+                if (lastbill == null)
+                {
+                    flowid = "00001";
+                }
+                else
+                {
+                    flowid = string.Format("{0:00000}", (Convert.ToInt32(lastbill.BillCode.Substring(8, 5)) + 1));
+                }
+                res = head + temp + flowid;
+            }
+            catch
+            {
+                res = "no";
+            }
+            return res;
+        }
     }
 }

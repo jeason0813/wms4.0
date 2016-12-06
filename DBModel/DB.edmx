@@ -433,7 +433,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" StoreGeneratedPattern="None" />
           <Property Name="WarehouseId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
@@ -1479,7 +1479,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="WarehouseId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />

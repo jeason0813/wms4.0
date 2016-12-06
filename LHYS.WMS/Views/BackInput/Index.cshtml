@@ -13,6 +13,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angularJs")
+    @Scripts.Render("~/bundles/billsCommon")
     <style>
         .tdname {
             width: 110px;
@@ -57,13 +58,13 @@
                     <table >
                         <tr>
                             <td class="tdname2">退仓单号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" disabled /></td>
                             <td class="tdname2">出库日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
                             <td class="tdname2">仓库：</td>
                             <td><input class="form-control" type="text" name="name" data-toggle="modal" ng-model="info.Warehouse" ng-click="loadWarehouse('Warehouse')" data-target="#wareHousechoose" required /></td>
                             <td class="tdname2">出库类别：</td>
-                            <td><select class="form-control" ng-options=" OutputType for OutputType in InOutTypes" ng-model="info.OutputType" required></select></td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentInOutType"></inouttypeselect></td>
                         </tr>
                         <tr>
                             <td>仓管员：</td>
@@ -241,27 +242,6 @@
         </div>
     </div>
     <script>
-        //json日期格式转换为正常格式
-        function jsonDateFormat(jsonDate) {
-            try {
-                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
-                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var seconds = date.getSeconds();
-                var milliseconds = date.getMilliseconds();
-                var date = date.getFullYear() + "-" + month + "-" + day;
-                return new Date(date);
-            } catch (ex) {
-                return "";
-            }
-        }
-        //主程序
-        var myApp = angular.module('myApp', []);
-        //自定义时间转换过滤器
-        //myApp.filter("jsDate", function () { return function (x) { if (null == x) { return null; } else { return new Date(parseInt(x.substr(6))); } }; });
-        //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
             //获取基础数据
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
@@ -272,32 +252,38 @@
                 $scope.BusinessTypes = response.BusinessType;
                 $scope.InOutTypes = response.InOutType;
                 $scope.Departents = response.Departent;
-            });
-            //如果有单号 获取单据内容
-            $http.post("/BackInput/GetData", {}, { params: { "BackInputId": "@ViewBag.BackInputId" } }).success(function (response) {
-                //绑定数据源
-                $scope.info = response;
-                if (response.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
-                {
-                    //修改时间格式
-                    $scope.info.LBBillDate = jsonDateFormat($scope.info.LBBillDate);
-                    $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
-                    $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+                //如果有单号 获取单据内容
+                $http.post("/BackInput/GetData", {}, { params: { "BackInputId": "@ViewBag.BackInputId" } }).success(function (response) {
+                    //绑定数据源
+                    $scope.info = response;
+                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
+                    {
+                        //修改时间格式
+                        $scope.info.LBBillDate = jsonDateFormat($scope.info.LBBillDate);
+                        $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                        $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
 
-                    //给当前部门赋值
-                    for (var i = 0; i < $scope.Departents.length; i++) {
-                        if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
-                            $scope.CurrentDepartment = $scope.Departents[i];
-                            break;
+                        //给当前部门赋值
+                        for (var i = 0; i < $scope.Departents.length; i++) {
+                            if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                $scope.CurrentDepartment = $scope.Departents[i];
+                                break;
+                            }
+                        }
+                        //给当前仓库的货位赋值
+                        for (var i = 0; i < $scope.Warehouses.length; i++) {
+                            if ($scope.Warehouses[i].Id == $scope.info.WarehouseId) {
+                                $scope.locationlist = $scope.Warehouses[i].Location;
+                            }
+                        }
+                        //给出入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == $scope.info.OutputTypeId) {
+                                $scope.currentInOutType = $scope.InOutTypes[i];
+                            }
                         }
                     }
-                    //给当前仓库的货位赋值
-                    for (var i = 0; i < $scope.Warehouses.length; i++) {
-                        if ($scope.Warehouses[i].Id == $scope.info.WarehouseId) {
-                            $scope.locationlist = $scope.Warehouses[i].Location;
-                        }
-                    }
-                }
+                });
             });
             //添加行
             $scope.add = function () {
