@@ -139,6 +139,9 @@
     <Compile Include="LineWay.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="LineWayAndDealer.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="LoadGoodsType.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

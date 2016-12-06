@@ -124,5 +124,8 @@
     <property name="ItemLineService" ref="ItemLineService" />
     <property name="CostItemService" ref="CostItemService" />
   </object>
+  <object type="LHYS.WMS.Controllers.LineWayAndDealerController,LHYS.WMS" singleton="false" >
+    <property name="LineWayAndDealerService" ref="LineWayAndDealerService" />
+  </object>
 </objects>
 

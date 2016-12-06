@@ -39,7 +39,6 @@
                             <td class="tdname">联系人：</td>
                             <td>
                                 <input class="form-control" type="text" name="name" ng-model="info.LBContacts" required />
-                                @*<input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.LBContacts" ng-click="loadperson('LBContacts')" required />*@
                             </td>
                             <td class="tdname">退货单号：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBBillCode" disabled /></td>
@@ -90,9 +89,8 @@
                             <td><select class="form-control" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="info.BusinessType" required></select></td>
                         </tr>
                         <tr>
-                            <td>线路：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LineWay" data-toggle="modal" data-target="#lineWay" required /></td>
-
+                            <td>线路：<span class="glyphicon glyphicon-search" data-toggle="modal" data-target="#lineWay"></span></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.LineWay" required /></td>
                             <td>制单人：</td>
                             <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.MakePerson" ng-click="loadperson('MakePerson')" disabled /></td>
                             <td>审核人：</td>
@@ -128,7 +126,7 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemName" style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
-                            <td><input class="form-control" type="number" ng-model="record.UnitWeight" style="width:80px" /></td>
+                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" /></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount(record)" required /></td>
                             <td><input class="form-control" type="number" ng-model="record.Weight" style="width:80px" disabled /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" required /></td>
@@ -243,9 +241,11 @@
                                     <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
+                                            <th>货位编码</th>
                                             <th>货位名称</th>
                                         </tr>
                                         <tr ng-repeat="location in locationlist | filter:searchstrlocation " ng-dblclick="selectlocation(location)">
+                                            <td>{{location.Id}}</td>
                                             <td>{{location.Name}}</td>
                                         </tr>
                                     </table>
@@ -263,13 +263,21 @@
                                     <h4 class="modal-title">请选择货位</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlineway" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
-                                            <th>货位名称</th>
+                                            <th>线路编码</th>
+                                            <th>线路名称</th>
+                                            <th>客户名称</th>
+                                            <th>收货单位编码</th>
+                                            <th>收货单位</th>
                                         </tr>
-                                        <tr ng-repeat="lineway in lineWaylist | filter:searchstrlocation " ng-dblclick="selectlineway(lineway)">
-                                            <td>{{lineway.Name}}</td>
+                                        <tr ng-repeat="lineway in lineWaylist | filter:searchstrlineway " ng-dblclick="selectlineway(lineway)">
+                                            <td>{{lineway.SuccFulCode}}</td>
+                                            <td>{{lineway.LineName}}</td>
+                                            <td>{{lineway.CustomerAbbr}}</td>
+                                            <td>{{lineway.DealerCode}}</td>
+                                            <td>{{lineway.DealerAbbr}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -407,14 +415,19 @@
             }
             //--------------------------------------------------------------------------------
             //线路
-            $http.post("/BackOutput/GetLineWay").success(function (response) {
+            $http.post("/LineWayAndDealer/GetData").success(function (response) {
                 $scope.lineWaylist = response;
             });
             //选择了线路数据
             $scope.selectlineway = function (lineway) {
-                $scope.info.LineWay = lineway.Name; //保存货位信息
+                $scope.info.LineWay = lineway.LineName; //线路
+                $scope.info.LBCustomerCode = lineway.DealerCode; //客户编号
+                $scope.info.LBCustomerName = lineway.DealerAbbr; //客户名字
+                $scope.info.LBContacts = lineway.LinkMan; //联系人
+                $scope.info.LBPhone = lineway.Phone; //电话
+                $scope.info.LBSendAddress = lineway.Address; //地址
                 $('#lineWay').modal('hide');
-                $scope.searchstrlocation = '';
+                $scope.searchstrlineway = '';
             }
             //-------------------------------------------------------------------------------------
             //提交表单

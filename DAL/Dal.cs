@@ -107,6 +107,11 @@ namespace DAL
 
     }
 		
+	public partial class LineWayAndDealerDal :BaseDal<LineWayAndDealer>,ILineWayAndDealerDal
+    {
+
+    }
+		
 	public partial class LoadGoodsTypeDal :BaseDal<LoadGoodsType>,ILoadGoodsTypeDal
     {
 

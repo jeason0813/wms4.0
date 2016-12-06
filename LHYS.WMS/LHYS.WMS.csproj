@@ -162,6 +162,7 @@
     <Compile Include="Controllers\BaseItem\GoodItemController.cs" />
     <Compile Include="Controllers\BaseItem\InOutTypeController.cs" />
     <Compile Include="Controllers\BaseItem\ItemLineController.cs" />
+    <Compile Include="Controllers\BaseItem\LineWayAndDealerController.cs" />
     <Compile Include="Controllers\BaseItem\LineWayController.cs" />
     <Compile Include="Controllers\BaseItem\LoadGoodsTypeController.cs" />
     <Compile Include="Controllers\BaseItem\LocationController.cs" />

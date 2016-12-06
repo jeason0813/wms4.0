@@ -359,6 +359,24 @@ namespace DALFactory
 
 
 
+		private ILineWayAndDealerDal _LineWayAndDealerDal;
+        public ILineWayAndDealerDal LineWayAndDealerDal
+        {
+            get
+            {
+                if(_LineWayAndDealerDal == null)
+                {
+                    _LineWayAndDealerDal = AbstractFactory.CreateLineWayAndDealerDal();
+                }
+                return _LineWayAndDealerDal;
+            }
+            set { _LineWayAndDealerDal = value; }
+        }
+	
+
+
+
+
 		private ILoadGoodsTypeDal _LoadGoodsTypeDal;
         public ILoadGoodsTypeDal LoadGoodsTypeDal
         {

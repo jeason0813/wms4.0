@@ -105,6 +105,11 @@ namespace  IBLL
        
     }   
 	
+	public partial interface ILineWayAndDealerService : IBaseService<LineWayAndDealer>
+    {
+       
+    }   
+	
 	public partial interface ILoadGoodsTypeService : IBaseService<LoadGoodsType>
     {
        

@@ -51,6 +51,8 @@ namespace IDAL
 	
 		ILineWayDal LineWayDal{get;set;}
 	
+		ILineWayAndDealerDal LineWayAndDealerDal{get;set;}
+	
 		ILoadGoodsTypeDal LoadGoodsTypeDal{get;set;}
 	
 		ILoadingAndLaborCostDetailDal LoadingAndLaborCostDetailDal{get;set;}

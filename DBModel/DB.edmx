@@ -433,7 +433,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="WarehouseId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
@@ -757,6 +757,24 @@
           <Property Name="AreaCode" Type="int" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“WMS.dbo.LineWayAndDealer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="LineWayAndDealer">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+          </Key>
+          <Property Name="SuccFulCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LineName" Type="varchar" MaxLength="50" />
+          <Property Name="DeptCode" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerCode" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerAbbr" Type="varchar" MaxLength="50" />
+          <Property Name="DealerCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DealerAbbr" Type="varchar" MaxLength="50" />
+          <Property Name="DealerFullName" Type="varchar" MaxLength="100" />
+          <Property Name="LinkMan" Type="varchar" MaxLength="30" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“WMS.dbo.User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="User">
           <Key>
@@ -897,6 +915,21 @@
     [Departent].[CityCode] AS [CityCode], 
     [Departent].[AreaCode] AS [AreaCode]
     FROM [dbo].[Departent] AS [Departent]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LineWayAndDealer" EntityType="Self.LineWayAndDealer" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LineWayAndDealer].[SuccFulCode] AS [SuccFulCode], 
+    [LineWayAndDealer].[LineName] AS [LineName], 
+    [LineWayAndDealer].[DeptCode] AS [DeptCode], 
+    [LineWayAndDealer].[CustomerCode] AS [CustomerCode], 
+    [LineWayAndDealer].[CustomerAbbr] AS [CustomerAbbr], 
+    [LineWayAndDealer].[DealerCode] AS [DealerCode], 
+    [LineWayAndDealer].[DealerAbbr] AS [DealerAbbr], 
+    [LineWayAndDealer].[DealerFullName] AS [DealerFullName], 
+    [LineWayAndDealer].[LinkMan] AS [LinkMan], 
+    [LineWayAndDealer].[Phone] AS [Phone], 
+    [LineWayAndDealer].[Address] AS [Address]
+    FROM [dbo].[LineWayAndDealer] AS [LineWayAndDealer]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="User" EntityType="Self.User" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 

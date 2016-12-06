@@ -64,5 +64,6 @@ namespace DBModel
         public virtual DbSet<OtherExpenseList> OtherExpenseList { get; set; }
         public virtual DbSet<CostUnitListDetail> CostUnitListDetail { get; set; }
         public virtual DbSet<OtherExpenseListDetail> OtherExpenseListDetail { get; set; }
+        public virtual DbSet<LineWayAndDealer> LineWayAndDealer { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace LHYS.WMS.Controllers
             //测试数据用Session 
             Session["UserCode"] = "HR1406";
             Session["UserName"] = "朱洲";
-            Session["Power"] = "LH6220,BM0067";
+            Session["Power"] = "LH6220";
             return View();
         }
 

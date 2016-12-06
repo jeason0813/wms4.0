@@ -18,7 +18,7 @@ namespace LHYS.WMS.Controllers
         {
             Session["UserName"] = "朱洲";
             Session["UserCode"] = "HR1406";
-            Session["Power"] = "LH6220,BM0067";
+            Session["Power"] = "LH6220";
             return View();
         }
         public ActionResult GetData() {

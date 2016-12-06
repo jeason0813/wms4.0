@@ -104,6 +104,11 @@ namespace IDAL
       
     }
 	
+	public partial interface ILineWayAndDealerDal :IBaseDal<DBModel.LineWayAndDealer>
+    {
+      
+    }
+	
 	public partial interface ILoadGoodsTypeDal :IBaseDal<DBModel.LoadGoodsType>
     {
       
