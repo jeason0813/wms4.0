@@ -58,4 +58,8 @@
   </object>
   <object name="LineWayAndDealerService" type="BLL.LineWayAndDealerService, BLL" singleton="false" >
   </object>
+  <object name="CostUnitListService" type="BLL.CostUnitListService, BLL" singleton="false" >
+  </object>
+  <object name="CostUnitListDetailService" type="BLL.CostUnitListDetailService, BLL" singleton="false" >
+  </object>
 </objects>

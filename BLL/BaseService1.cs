@@ -73,6 +73,24 @@ namespace BLL
         }
     }   
 	
+	public partial class CostUnitListService :BaseService<CostUnitList>,ICostUnitListService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.CostUnitListDal;
+        }
+    }   
+	
+	public partial class CostUnitListDetailService :BaseService<CostUnitListDetail>,ICostUnitListDetailService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.CostUnitListDetailDal;
+        }
+    }   
+	
 	public partial class DepartentService :BaseService<Departent>,IDepartentService
     {
     
@@ -145,6 +163,15 @@ namespace BLL
         }
     }   
 	
+	public partial class LaborCostBillService :BaseService<LaborCostBill>,ILaborCostBillService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.LaborCostBillDal;
+        }
+    }   
+	
 	public partial class LineWayService :BaseService<LineWay>,ILineWayService
     {
     
@@ -169,6 +196,24 @@ namespace BLL
 		 public override void SetCurrentDal()
         {
             CurrentDal = this.CurrentDBSession.LoadGoodsTypeDal;
+        }
+    }   
+	
+	public partial class LoadingAndLaborCostDetailService :BaseService<LoadingAndLaborCostDetail>,ILoadingAndLaborCostDetailService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.LoadingAndLaborCostDetailDal;
+        }
+    }   
+	
+	public partial class LoadingExpensesBillService :BaseService<LoadingExpensesBill>,ILoadingExpensesBillService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.LoadingExpensesBillDal;
         }
     }   
 	
@@ -205,6 +250,24 @@ namespace BLL
 		 public override void SetCurrentDal()
         {
             CurrentDal = this.CurrentDBSession.MenuBDal;
+        }
+    }   
+	
+	public partial class OtherExpenseListService :BaseService<OtherExpenseList>,IOtherExpenseListService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.OtherExpenseListDal;
+        }
+    }   
+	
+	public partial class OtherExpenseListDetailService :BaseService<OtherExpenseListDetail>,IOtherExpenseListDetailService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.OtherExpenseListDetailDal;
         }
     }   
 	

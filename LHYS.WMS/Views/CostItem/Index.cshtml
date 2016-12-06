@@ -45,7 +45,7 @@
                             <th>删除</th>
                         </tr>
                         <tr ng-repeat="record in info | filter:searchstr">
-                            <td>{{record.Id}}</td>
+                            <td>{{record.Code}}</td>
                             <td>{{record.Name}}</td>
                             <td>{{record.Type}}</td>
                             <td>{{record.Department}}</td>
@@ -66,6 +66,10 @@
                                 </div>
                                 <div class="modal-body">
                                     <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width:140px">费用项目编号</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Code" required /></td>
+                                        </tr>
                                         <tr>
                                             <td style="width:140px">费用项目名称</td>
                                             <td><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>

@@ -47,6 +47,16 @@ namespace DAL
 
     }
 		
+	public partial class CostUnitListDal :BaseDal<CostUnitList>,ICostUnitListDal
+    {
+
+    }
+		
+	public partial class CostUnitListDetailDal :BaseDal<CostUnitListDetail>,ICostUnitListDetailDal
+    {
+
+    }
+		
 	public partial class DepartentDal :BaseDal<Departent>,IDepartentDal
     {
 
@@ -87,6 +97,11 @@ namespace DAL
 
     }
 		
+	public partial class LaborCostBillDal :BaseDal<LaborCostBill>,ILaborCostBillDal
+    {
+
+    }
+		
 	public partial class LineWayDal :BaseDal<LineWay>,ILineWayDal
     {
 
@@ -98,6 +113,16 @@ namespace DAL
     }
 		
 	public partial class LoadGoodsTypeDal :BaseDal<LoadGoodsType>,ILoadGoodsTypeDal
+    {
+
+    }
+		
+	public partial class LoadingAndLaborCostDetailDal :BaseDal<LoadingAndLaborCostDetail>,ILoadingAndLaborCostDetailDal
+    {
+
+    }
+		
+	public partial class LoadingExpensesBillDal :BaseDal<LoadingExpensesBill>,ILoadingExpensesBillDal
     {
 
     }
@@ -118,6 +143,16 @@ namespace DAL
     }
 		
 	public partial class MenuBDal :BaseDal<MenuB>,IMenuBDal
+    {
+
+    }
+		
+	public partial class OtherExpenseListDal :BaseDal<OtherExpenseList>,IOtherExpenseListDal
+    {
+
+    }
+		
+	public partial class OtherExpenseListDetailDal :BaseDal<OtherExpenseListDetail>,IOtherExpenseListDetailDal
     {
 
     }

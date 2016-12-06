@@ -1,0 +1,275 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.billTypeName</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <style>
+        .tdname {
+            width:100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="recordController"> 
+        <div class="row" style="width:100%">
+            <form>
+                <div class="col-xs-12 table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td colspan="8" style="text-align:center"><h2>@ViewBag.billTypeName</h2></td>
+                        </tr>
+                        <tr>
+                            <td class="tdname">公司：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.Company" disabled /></td>
+                            <td class="tdname">部门：</td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
+                            <td class="tdname">备注：</td>
+                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
+                        </tr>
+                        <tr>
+                            <td class="tdname">制单人：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
+                            <td class="tdname">制单日期：</td>
+                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
+                            <td class="tdname">审核人：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
+                            <td class="tdname">审核日期：</td>
+                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-condensed table-striped">
+                        <tr>
+                            <th>编号</th>
+                            <th>费用项目编码</th>
+                            <th>费用项目名称</th>
+                            <th>业务类型</th>
+                            <th>装卸类型</th>
+                            <th>产品线</th>
+                            <th>仓库</th>
+                            <th>单价</th>
+                            <th>备注</th>
+                            <th>删除</th>
+                        </tr>
+                        <tr ng-repeat="record in info.CostUnitListDetail">
+                            <td>{{$index+1}}</td>  @*编号*@
+                            <td><select class="form-control" ng-options=" CostItem.Name for CostItem in CostItems" ng-model="CurrentCostItem" ng-change="CostItemChange($index,CurrentCostItem)" required></select></td>
+                            <td><input class="form-control" type="text" ng-model="record.CostItemName" disabled /></td>
+                            <td><select class="form-control" ng-options=" BusinessType.Name for BusinessType in BusinessTypes" ng-model="CurrentBusinessTypes" ng-change="BusinessTypesChange($index,CurrentBusinessTypes)" required></select></td>
+                            <td><select class="form-control" ng-options=" LoadGoodsType.Name for LoadGoodsType in LoadGoodsTypes" ng-model="CurrentLoadGoodsType" ng-change="loadgoodtypeChange($index,CurrentLoadGoodsType)" required></select></td>
+                            <td><select class="form-control" ng-options=" ItemLine.Name for ItemLine in ItemLines" ng-model="CurrentCostItem" ng-change="ItemLineChange($index,CurrentItemLine)" required></select></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.Warehouse" data-toggle="modal" ng-click="WarehouseClick($index)" data-target="#wareHousechoose" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.UnitPrice" /></td>
+                            <td><input class="form-control" type="text" ng-model="record.Remark" /></td>
+                            <td style="width:70px"><button type="button" class="btn btn-danger btn-sm" ng-click="del($index)">删除</button></td>
+                        </tr>
+                    </table>
+                    <div>
+                        <button type="button" class="btn btn-info btn-sm" ng-click="add()" style="float:right">添&nbsp;加</button>
+                    </div>
+                    <div style="text-align:center">
+                        <button type="submit" class="btn btn-success btn-md">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                    @*-----------------------------------仓库选择模态框------------------------------------------------*@
+                    <div class="modal fade" id="wareHousechoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择仓库</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrwarehouse" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>仓库</th>
+                                            <th>所属部门</th>
+                                        </tr>
+                                        <tr ng-repeat="warehouse in Warehouses | filter:searchstrwarehouse " ng-dblclick="selectWarehouse(warehouse)">
+                                            <td>{{warehouse.Name}}</td>
+                                            <td>{{warehouse.Department}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-----------------------------------仓库选择模态框end------------------------------------------------*@
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //json日期格式转换为正常格式
+        function jsonDateFormat(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                var date = date.getFullYear() + "-" + month + "-" + day;
+                return new Date(date);
+            } catch (ex) {
+                return "";
+            }
+        }
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //自定义时间转换过滤器
+        //myApp.filter("jsDate", function () { return function (x) { if (null == x) { return null; } else { return new Date(parseInt(x.substr(6))); } }; });
+        //数据控制器
+        myApp.controller('recordController', function ($scope, $http) {
+            //获取基础数据
+            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+                alert(response);
+                $scope.Warehouses = response.Warehouse;
+                $scope.GoodItems = response.GoodItem;
+                $scope.UserFrameworks = response.UserFramework;
+                $scope.LoadGoodsTypes = response.LoadGoodsType;
+                $scope.BusinessTypes = response.BusinessType;
+                $scope.InOutTypes = response.InOutType;
+                $scope.Departents = response.Departent;
+            });
+            $http.post("/BaseCostItemAndItemLine/GetBaseData").success(function (response) {
+                $scope.CostItems = response.CostItem;
+                $scope.ItemLines = response.ItemLine;
+            });
+            //如果有单号 获取单据内容
+            $http.post("/CostUnitList/GetData", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId" } }).success(function (response) {
+                //绑定数据源
+                if (response == "没有单据类型！") {
+                    alert(response);
+                }
+                else {
+                    $scope.info = response;
+                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
+                    {
+                        //修改时间格式
+                        $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                        $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+
+                        //给当前部门赋值
+                        for (var i = 0; i < $scope.Departents.length; i++) {
+                            if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                $scope.CurrentDepartment = $scope.Departents[i];
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            //-------------------------------------------------------------------------
+            //添加行
+            $scope.add = function () {
+                var obj = new Object();
+                $scope.CostUnitListDetail.push(obj);
+            }
+            //删除行
+            $scope.del = function (idx) {
+                $scope.CostUnitListDetail.splice(idx, 1);
+            }
+            //--------------------------------------------------------------------------------
+            //选择了部门  给对应的字段赋值
+            $scope.departentChange = function (CurrentDepartment) {
+                $scope.info.Company = CurrentDepartment.CompanyAbbr;
+                $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
+                $scope.info.Department = CurrentDepartment.DeptName;
+                $scope.info.DepartmentId = CurrentDepartment.DeptCode;
+            }
+            //-------------------------------------------------------------------------
+            //选择装卸类型
+            $scope.loadgoodtypeChange = function (idx, CurrentLoadGoodsType) {
+                if(idx!=null&&idx!=""){
+                    $scope.info.CostUnitListDetail[idx].LoadGoodsTypeId = CurrentLoadGoodsType.Id;
+                    $scope.info.CostUnitListDetail[idx].LoadGoodsTypeName = CurrentLoadGoodsType.Name;
+                }
+                else {
+                    alert("请重新选择装卸类型！");
+                    return false;
+                }
+            }
+            //----------------------------------------------------------------------------
+            //选择仓库
+            $scope.WarehouseClick = function (idx) {
+                $scope.CurrentWarehouseIndex = idx;
+            }
+            $scope.selectWarehouse = function (warehouse) {
+                if ($scope.CurrentWarehouseIndex != null && $scope.CurrentWarehouseIndex!="") {
+                    $scope.searchstrwarehouse = '';
+                    $('#wareHousechoose').modal('hide');
+                    $scope.info.CostUnitListDetail[$scope.CurrentWarehouseIndex].WarehouseName = warehouse.Name;
+                    $scope.info.CostUnitListDetail[$scope.CurrentWarehouseIndex].WarehouseId = warehouse.Id;
+                }
+                else {
+                    alert("请重新选择仓库！");
+                    $scope.searchstrwarehouse = '';
+                    $('#wareHousechoose').modal('hide');
+                    return;
+                }
+            }
+            //---------------------------------------------------------------------------
+            //选择业务类型
+            $scope.BusinessTypesChange = function (idx, CurrentBusinessTypes) {
+                if (idx != null && idx != "") {
+                    $scope.info.CostUnitListDetail[idx].BusinessTypeId = CurrentBusinessTypes.Id;
+                    $scope.info.CostUnitListDetail[idx].BuniessTypeName = CurrentBusinessTypes.Name;
+                }
+                else {
+                    alert("请重新选择业务类型！");
+                    return false;
+                }
+            }
+            //----------------------------------------------------------------------------
+            //选择费用项目编码
+            $scope.CostItemChange = function (idx, CurrentCostItem) {
+                if (idx != null && idx != "") {
+                    $scope.info.CostUnitListDetail[idx].CostItemId = CurrentCostItem.Id;
+                    $scope.info.CostUnitListDetail[idx].CostItemName = CurrentCostItem.Name;
+                }
+                else {
+                    alert("请重新选择费用项目编码！");
+                    return false;
+                }
+            }
+            //----------------------------------------------------------------------------
+            //选择产品线
+            $scope.ItemLineChange = function (idx,currentItemLine) {
+                if (idx != null && idx != "") {
+                    $scope.info.CostUnitListDetail[idx].ItemLineId = currentItemLine.Id;
+                    $scope.info.CostUnitListDetail[idx].ItemLineName = currentItemLine.Name;
+                }
+                else {
+                    alert("请重新选择产品线！");
+                    return false;
+                }
+            }
+            //提交表单
+            $scope.submit = function () {
+                $http.post("/CostUnitList/SaveData", { CostUnitList: $scope.info }).success(function (response) {
+                    if (response == 'no') {
+                        alert('保存失败');
+                    }
+                    else if (response == "没有单据类型！") {
+                       alert(response);
+                    }
+                    else {
+                        window.location.href = 'IndexShow?CostUnitListId=' + response;
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+</html>

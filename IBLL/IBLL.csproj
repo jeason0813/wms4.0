@@ -57,6 +57,7 @@
       <DependentUpon>IBLL.tt</DependentUpon>
     </Compile>
     <Compile Include="ICheckBillService.cs" />
+    <Compile Include="ICostUnitListService.cs" />
     <Compile Include="IDIYBillService.cs" />
     <Compile Include="IGiveBillService.cs" />
     <Compile Include="ILocationChangeService.cs" />
