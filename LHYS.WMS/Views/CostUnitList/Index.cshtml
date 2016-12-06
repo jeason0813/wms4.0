@@ -174,11 +174,11 @@
             //添加行
             $scope.add = function () {
                 var obj = new Object();
-                $scope.CostUnitListDetail.push(obj);
+                $scope.info.CostUnitListDetail.push(obj);
             }
             //删除行
             $scope.del = function (idx) {
-                $scope.CostUnitListDetail.splice(idx, 1);
+                $scope.info.CostUnitListDetail.splice(idx, 1);
             }
             //--------------------------------------------------------------------------------
             //选择了部门  给对应的字段赋值

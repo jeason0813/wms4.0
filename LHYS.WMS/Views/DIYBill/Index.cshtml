@@ -117,7 +117,7 @@
                             <td><input class="form-control" type="text" ng-model="record2.ItemName" /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemSpecifications " /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemUnit" /></td>
-                            <td><input class="form-control" type="number" ng-model="record2.UnitWeight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.UnitWeight" /></td>
                             <td><input class="form-control" type="number" ng-model="record2.Count" ng-change="changeCount2(record2)" required /></td>
                             <td><input class="form-control" type="number" ng-model="record2.Weight" disabled /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemBatch" required /></td>
@@ -233,9 +233,11 @@
                                     <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
+                                            <th>货位编号</th>
                                             <th>货位名称</th>
                                         </tr>
                                         <tr ng-repeat="location in locationlist | filter:searchstrlocation " ng-dblclick="selectlocation(location)">
+                                            <td>{{location.Id}}</td>
                                             <td>{{location.Name}}</td>
                                         </tr>
                                     </table>

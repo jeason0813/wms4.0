@@ -39,7 +39,7 @@
                             <td class="tdname2">单据日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.LBBillDate" required /></td>
                             <td class="tdname2">返回仓库：</td>
-                            <td><input class="form-control" type="text" name="name" data-toggle="modal" ng-model="info.LBBackWarehouse" ng-click="loadWarehouse('LBBackWarehouse')" data-target="#wareHousechoose" required /></td>
+                            <td><select class="form-control" ng-options=" LBBackWarehouse.Name for LBBackWarehouse in LBBackWarehouses" ng-model="CurrentLBBackWarehouse" ng-change="LBBackWarehouseChange(CurrentLBBackWarehouse)" required></select></td>
                             <td class="tdname2">移动类型：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBMoveType"/></td>
                         </tr>
@@ -110,7 +110,7 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemName" style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
-                            <td><input class="form-control" type="number" ng-model="record.UnitWeight" style="width:80px" /></td>
+                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" /></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" ng-change="changeCount(record)" style="width:80px" required /></td>
                             <td><input class="form-control" type="number" ng-model="record.Weight" style="width:80px" disabled/></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" required /></td>
@@ -243,6 +243,10 @@
     </div>
     <script>
         myApp.controller('recordController', function ($scope, $http) {
+            //获取返回仓库数据
+            $http.post("/SendFileSet/GetData").success(function (response) {
+                $scope.LBBackWarehouses = response;
+            });
             //获取基础数据
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
                 $scope.Warehouses = response.Warehouse;
@@ -267,6 +271,13 @@
                         for (var i = 0; i < $scope.Departents.length; i++) {
                             if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
                                 $scope.CurrentDepartment = $scope.Departents[i];
+                                break;
+                            }
+                        }
+                        //返回仓库
+                        for (var i = 0; i < $scope.LBBackWarehouses.length; i++) {
+                            if ($scope.LBBackWarehouses[i].Name == $scope.info.LBBackWarehouse) {
+                                $scope.CurrentLBBackWarehouse = $scope.LBBackWarehouses[i];
                                 break;
                             }
                         }
@@ -361,6 +372,10 @@
                     $scope.info.WarehouseId = warehouse.Id;
                     $scope.locationlist = warehouse.Location;//设置了货位数据
                 }
+            }
+            //选择返回仓库
+            $scope.LBBackWarehouseChange = function (CurrentLBBackWarehouse) {
+                $scope.info.LBBackWarehouse = CurrentLBBackWarehouse.Name;
             }
             //---------------------------------------------------------------------------
             //开始选择货位信息
