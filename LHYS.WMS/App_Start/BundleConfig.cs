@@ -19,6 +19,9 @@ namespace LHYS.WMS
                         "~/Scripts/jquery.validate*"));
             bundles.Add(new ScriptBundle("~/bundles/angularJs").Include(
               "~/Scripts/angularJs/angular.js"));
+            bundles.Add(new ScriptBundle("~/bundles/billsCommon").Include(
+             "~/Scripts/billsCommon.js"));
+
 
             // 使用 Modernizr 的开发版本进行开发和了解信息。然后，当你做好
             // 生产准备时，请使用 http://modernizr.com 上的生成工具来仅选择所需的测试。

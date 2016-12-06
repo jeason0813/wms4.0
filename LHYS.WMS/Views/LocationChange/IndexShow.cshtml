@@ -22,68 +22,78 @@
 <body>
     <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
         <div class="row">
-                <div class="col-xs-11 table-responsive">
-                    <table class="table table-condensed">
-                        <tr>
-                            <td colspan="10" style="text-align:center"><h2>货位调整单</h2></td>
-                        </tr>
-                        <tr>
-                            <td class="tdname">调整单号：</td>
-                            <td>{{info.BillCode}}</td>
-                            <td class="tdname">调整日期：</td>
-                            <td>{{info.CreateDate}}</td>
-                            <td class="tdname">调整人：</td>
-                            <td>{{info.ChargePerson}}</td>
-                            <td class="tdname">部门：</td>
-                            <td>{{info.Department}}</td>
-                        </tr>
-                        <tr>
-                            <td>备注：</td>
-                            <td>{{info.Remark}}</td>
-                            <td>审核人：</td>
-                            <td>{{info.ExaminePerson}}</td>
-                            <td>审核日期：</td>
-                            <td>{{info.ExamineDate}}</td>
-                            <td>制单人：</td>
-                            <td>{{info.MakePerson}}</td>
-                        </tr>
-                    </table>
-                    <table class="table table-bordered table-striped table-condensed">
-                        <tr>
-                            <th>编号</th>
-                            <th>物料编码</th>
-                            <th>产品线</th>
-                            <th>产品名称</th>
-                            <th>包装规格</th>
-                            <th>单位</th>
-                            <th>单位重量</th>
-                            <th>数量</th>
-                            <th>重量</th>
-                            <th>批次</th>
-                            <th>调整前货位</th>
-                            <th>调整后货位</th>
-                        </tr>
-                        <tr ng-repeat="record in RecordView">
-                            <td>{{$index+1}}</td>  @*编号*@
-                            <td>{{record.ItemCode}}</td>
-                            <td>{{record.ItemLine}}</td>
-                            <td>{{record.ItemName}}</td>
-                            <td>{{record.ItemSpecifications}}</td>
-                            <td>{{record.ItemUnit}}</td>
-                            <td>{{record.UnitWeight}}</td>
-                            <td>{{record.Count}}</td>
-                            <td>{{record.Weight}}</td>
-                            <td>{{record.ItemBatch}}</td>
-                            <td>{{record.LocationChangeBefore}}</td>
-                            <td>{{record.LocationChangeAfter}}</td>
-                        </tr>
-                    </table>
-                    <div style="text-align:center">
-                        <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn btn-info btn-md" ng-click="submit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
-                        <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
-                    </div>
+            <div class="col-xs-11 table-responsive">
+                <table class="table table-condensed">
+                    <tr>
+                        <td colspan="10" style="text-align:center"><h2>货位调整单</h2></td>
+                    </tr>
+                    <tr>
+                        <td class="tdname">调整单号：</td>
+                        <td>{{info.BillCode}}</td>
+                        <td class="tdname">调整日期：</td>
+                        <td>{{info.CreateDate}}</td>
+                        <td class="tdname">调整人：</td>
+                        <td>{{info.ChargePerson}}</td>
+                        <td class="tdname">部门：</td>
+                        <td>{{info.Department}}</td>
+                    </tr>
+                    <tr>
+                        <td class="tdname">入库类别：</td>
+                        <td>{{info.InputType}}</td>
+                        <td class="tdname">出库类别：</td>
+                        <td>{{info.OutputType}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>备注：</td>
+                        <td>{{info.Remark}}</td>
+                        <td>审核人：</td>
+                        <td>{{info.ExaminePerson}}</td>
+                        <td>审核日期：</td>
+                        <td>{{info.ExamineDate}}</td>
+                        <td>制单人：</td>
+                        <td>{{info.MakePerson}}</td>
+                    </tr>
+                </table>
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr>
+                        <th>编号</th>
+                        <th>物料编码</th>
+                        <th>产品线</th>
+                        <th>产品名称</th>
+                        <th>包装规格</th>
+                        <th>单位</th>
+                        <th>单位重量</th>
+                        <th>数量</th>
+                        <th>重量</th>
+                        <th>批次</th>
+                        <th>调整前货位</th>
+                        <th>调整后货位</th>
+                    </tr>
+                    <tr ng-repeat="record in RecordView">
+                        <td>{{$index+1}}</td>  @*编号*@
+                        <td>{{record.ItemCode}}</td>
+                        <td>{{record.ItemLine}}</td>
+                        <td>{{record.ItemName}}</td>
+                        <td>{{record.ItemSpecifications}}</td>
+                        <td>{{record.ItemUnit}}</td>
+                        <td>{{record.UnitWeight}}</td>
+                        <td>{{record.Count}}</td>
+                        <td>{{record.Weight}}</td>
+                        <td>{{record.ItemBatch}}</td>
+                        <td>{{record.LocationChangeBefore}}</td>
+                        <td>{{record.LocationChangeAfter}}</td>
+                    </tr>
+                </table>
+                <div style="text-align:center">
+                    <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-info btn-md" ng-click="submit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                 </div>
+            </div>
         </div>
     </div>
     <script>

@@ -13,6 +13,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angularJs")
+    @Scripts.Render("~/bundles/billsCommon")
 </head>
 <body>
     <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
@@ -46,6 +47,12 @@
                             <td>
                                 <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select>
                             </td>
+                        </tr>
+                        <tr>
+                            <td class="tdname2">入库类别：</td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType"></inouttypeselect></td>
+                            <td class="tdname2">出库类别：</td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType"></inouttypeselect></td>
                         </tr>
                     </table>
                     <hr style="border:1px solid #9b9595;margin-bottom:3px;margin-top:3px;" />
@@ -83,40 +90,58 @@
         </div>
     </div>
     <script>
-        //主程序
-        var myApp = angular.module('myApp', []);
-        //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
-            $http.post('/Warehouse/GetData').success(function (response) {
-                $scope.Warehouses = response;//仓库信息
-            });
-            $http.post('/UserFramework/GetCompanyAndDeptBaseUser').success(function (response) {
-                $scope.Departents = response;//部门信息
-                //如果有单号 获取单据内容
-                $http.post("/CheckBill/GetData", {}, { params: { "CheckBillId": "@ViewBag.CheckBillId" } }).success(function (response) {
-                    //绑定数据源
-                    $scope.info = response;
-                    $scope.Records = $scope.info.CheckDetail;//子表数据
-                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
-                    {
-                        //禁用仓库修改
-                        $scope.Warehousedisabled = true;
-                        //给当前仓库赋值
-                        for (var i = 0; i < $scope.Warehouses.length; i++) {
-                            if ($scope.Warehouses[i].Id == $scope.info.WarehouseId) {
-                                $scope.CurrentWarehouse = $scope.Warehouses[i];
+            //$http.post('/Warehouse/GetData').success(function (response) {
+            //$scope.Warehouses = response;//仓库信息
+            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+                $scope.Warehouses = response.Warehouse;
+                $scope.GoodItems = response.GoodItem;
+                $scope.UserFrameworks = response.UserFramework;
+                $scope.LoadGoodsTypes = response.LoadGoodsType;
+                $scope.BusinessTypes = response.BusinessType;
+                $scope.InOutTypes = response.InOutType;
+                $scope.Departents = response.Departent;
+                $http.post('/UserFramework/GetCompanyAndDeptBaseUser').success(function (response) {
+                    $scope.Departents = response;//部门信息
+                    //如果有单号 获取单据内容
+                    $http.post("/CheckBill/GetData", {}, { params: { "CheckBillId": "@ViewBag.CheckBillId" } }).success(function (response) {
+                        //绑定数据源
+                        $scope.info = response;
+                        $scope.Records = $scope.info.CheckDetail;//子表数据
+                        if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
+                        {
+                            //禁用仓库修改
+                            $scope.Warehousedisabled = true;
+                            //给当前仓库赋值
+                            for (var i = 0; i < $scope.Warehouses.length; i++) {
+                                if ($scope.Warehouses[i].Id == $scope.info.WarehouseId) {
+                                    $scope.CurrentWarehouse = $scope.Warehouses[i];
+                                }
+                            }
+                            //给当前部门赋值
+                            for (var i = 0; i < $scope.Departents.length; i++) {
+                                if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                    $scope.CurrentDepartment = $scope.Departents[i];
+                                    break;
+                                }
+                            }
+                            //给出入库类型赋值
+                            for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                                if ($scope.InOutTypes[i].Id == $scope.info.InputTypeId) {
+                                    $scope.currentInPutType = $scope.InOutTypes[i];
+                                }
+                            }
+                            //给出入库类型赋值
+                            for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                                if ($scope.InOutTypes[i].Id == $scope.info.OutputTypeId) {
+                                    $scope.currentOutPutType = $scope.InOutTypes[i];
+                                }
                             }
                         }
-                        //给当前部门赋值
-                        for (var i = 0; i < $scope.Departents.length; i++) {
-                            if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
-                                $scope.CurrentDepartment = $scope.Departents[i];
-                                break;
-                            }
-                        }
-                    }
+                    });
                 });
             });
+
             //选择了仓库  保存数据   加载库存信息
             $scope.search = function () {
                 if ($scope.CurrentWarehouse == undefined) {
@@ -141,7 +166,7 @@
             //保存数据
             $scope.save = function () {
                 $scope.info.CheckDetail = $scope.Records; //子表数据合进去
-                $http.post('/CheckBill/Save', { CheckBill: $scope.info}).success(function (response) {
+                $http.post('/CheckBill/Save', { CheckBill: $scope.info }).success(function (response) {
                     if (response == 'no') {
                         alert('保存失败');
                     } else {

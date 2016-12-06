@@ -68,20 +68,20 @@
                                 <div class="modal-body">
                                     <table class="table table-bordered">
                                         <tr>
+                                            <td>货位编码</td>
+                                            <td>
+                                                <input class="form-control" type="text" name="name" ng-model="source.Id" />
+                                            </td>
                                             <td style="width:90px">货位名称</td>
                                             <td><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
-                                            <td style="width:80px">所属仓库</td>
-                                            <td>
-                                                <select class="form-control" ng-options="y.Id as y.Name  for (x, y) in  wareHouses" ng-model="warehouse" required></select>
-                                            </td>
                                         </tr>
                                         <tr>
                                         <tr>
                                             <td>所属部门</td>
                                             <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required></select></td>
-                                            <td>备注</td>
+                                            <td style="width:80px">所属仓库</td>
                                             <td>
-                                                <input class="form-control" type="text" name="name" ng-model="source.Remark" />
+                                                <select class="form-control" ng-options="y.Id as y.Name  for (x, y) in  wareHouses" ng-model="warehouse" required></select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -89,6 +89,13 @@
                                             <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" required /></td>
                                             <td style="width:80px">建档日期</td>
                                             <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>备注</td>
+                                            <td>
+                                                <input class="form-control" type="text" name="name" ng-model="source.Remark" />
+                                            </td>
+                                            <td></td><td></td>
                                         </tr>
                                     </table>
                                     <table class="table" style="border:none">
@@ -121,8 +128,8 @@
                     </div><!-- /.modal -->
                     @*-------------------------------------编辑模态框end-----------------------------------------*@
                 </div>
-                </form>
-</div>
+            </form>
+        </div>
     </div>
     <script>
         //日期格式

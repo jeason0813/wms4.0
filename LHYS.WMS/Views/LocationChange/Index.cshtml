@@ -13,6 +13,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angularJs")
+    @Scripts.Render("~/bundles/billsCommon")
     <style>
         .tdname {
             width: 90px;
@@ -39,14 +40,24 @@
                             <td><select class="form-control" ng-options="departent.DeptName for departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
                         </tr>
                         <tr>
-                            <td>备注：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
+                            <td class="tdname2">入库类别：</td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType"></inouttypeselect></td>
+                            <td class="tdname2">出库类别：</td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType"></inouttypeselect></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
                             <td>审核人：</td>
                             <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.ExaminePerson" ng-click="loadperson('ExaminePerson')" disabled /></td>
                             <td>审核日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                             <td>制单人：</td>
                             <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.MakePerson" ng-click="loadperson('MakePerson')"  disabled /></td>
+                            <td>备注：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>
                     </table>
                     <table class="table table-bordered table-striped table-condensed">
@@ -189,29 +200,7 @@
         </div>
     </div>
     <script>
-        //json日期格式转换为正常格式
-        function jsonDateFormat(jsonDate) {
-            try {
-                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
-                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var seconds = date.getSeconds();
-                var milliseconds = date.getMilliseconds();
-                var date = date.getFullYear() + "-" + month + "-" + day;
-                return new Date(date);
-            } catch (ex) {
-                return "";
-            }
-        }
-        //主程序
-        var myApp = angular.module('myApp', []);
-        //自定义时间转换过滤器
-        //myApp.filter("jsDate", function () { return function (x) { if (null == x) { return null; } else { return new Date(parseInt(x.substr(6))); } }; });
-        //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
-
             //获取基础数据
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
                 $scope.Warehouses = response.Warehouse;
@@ -221,27 +210,40 @@
                 $scope.BusinessTypes = response.BusinessType;
                 $scope.InOutTypes = response.InOutType;
                 $scope.Departents = response.Departent;
-            });
-            //如果有单号 获取单据内容
-            $http.post("/LocationChange/GetData", {}, { params: { "LocationChangeId": "@ViewBag.LocationChangeId" } }).success(function (response) {
-                //绑定数据源
-                $scope.info = response.LocationChanges;
-                $scope.RecordView = response.Records;
-                if (response.LocationChanges.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
-                {
-                    //修改时间格式
-                    $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
-                    $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+                //如果有单号 获取单据内容
+                $http.post("/LocationChange/GetData", {}, { params: { "LocationChangeId": "@ViewBag.LocationChangeId" } }).success(function (response) {
+                    //绑定数据源
+                    $scope.info = response.LocationChanges;
+                    $scope.RecordView = response.Records;
+                    if (response.LocationChanges.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
+                    {
+                        //修改时间格式
+                        $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                        $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
 
-                    //给当前部门赋值
-                    for (var i = 0; i < $scope.Departents.length; i++) {
-                        if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
-                            $scope.CurrentDepartment = $scope.Departents[i];
-                            break;
+                        //给当前部门赋值
+                        for (var i = 0; i < $scope.Departents.length; i++) {
+                            if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                $scope.CurrentDepartment = $scope.Departents[i];
+                                break;
+                            }
+                        }
+                        //给出入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == $scope.info.InputTypeId) {
+                                $scope.currentInPutType = $scope.InOutTypes[i];
+                            }
+                        }
+                        //给出入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == $scope.info.OutputTypeId) {
+                                $scope.currentOutPutType = $scope.InOutTypes[i];
+                            }
                         }
                     }
-                }
+                });
             });
+          
             //-------------------------------------------------------------------------
             //添加行
             $scope.add = function () {

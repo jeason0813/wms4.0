@@ -21,5 +21,6 @@ namespace DBModel
         public string DepartmentId { get; set; }
         public string Company { get; set; }
         public string CompanyId { get; set; }
+        public string Code { get; set; }
     }
 }

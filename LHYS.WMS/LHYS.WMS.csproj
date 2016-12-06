@@ -185,8 +185,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Home\MenuAShow.cs" />
-    <Compile Include="Models\Home\MenuBShow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1044,6 +1042,7 @@
     <Content Include="Scripts\angularJs\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\angularJs\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\angularJs\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\billsCommon.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\angular-touch.min.js" />
@@ -1077,7 +1076,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tabs-zy.js" />
-    <Content Include="Scripts\TransferBill\main-controller.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1135,7 +1133,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Home\" />
+    <Folder Include="Models\" />
     <Folder Include="Scripts\Home\" />
+    <Folder Include="Scripts\TransferBill\" />
     <Folder Include="Views\BaseInfo\" />
   </ItemGroup>
   <ItemGroup>
