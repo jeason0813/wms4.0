@@ -143,6 +143,42 @@ namespace DALFactory
 
 
 
+		private ICostUnitListDal _CostUnitListDal;
+        public ICostUnitListDal CostUnitListDal
+        {
+            get
+            {
+                if(_CostUnitListDal == null)
+                {
+                    _CostUnitListDal = AbstractFactory.CreateCostUnitListDal();
+                }
+                return _CostUnitListDal;
+            }
+            set { _CostUnitListDal = value; }
+        }
+	
+
+
+
+
+		private ICostUnitListDetailDal _CostUnitListDetailDal;
+        public ICostUnitListDetailDal CostUnitListDetailDal
+        {
+            get
+            {
+                if(_CostUnitListDetailDal == null)
+                {
+                    _CostUnitListDetailDal = AbstractFactory.CreateCostUnitListDetailDal();
+                }
+                return _CostUnitListDetailDal;
+            }
+            set { _CostUnitListDetailDal = value; }
+        }
+	
+
+
+
+
 		private IDepartentDal _DepartentDal;
         public IDepartentDal DepartentDal
         {
@@ -287,6 +323,24 @@ namespace DALFactory
 
 
 
+		private ILaborCostBillDal _LaborCostBillDal;
+        public ILaborCostBillDal LaborCostBillDal
+        {
+            get
+            {
+                if(_LaborCostBillDal == null)
+                {
+                    _LaborCostBillDal = AbstractFactory.CreateLaborCostBillDal();
+                }
+                return _LaborCostBillDal;
+            }
+            set { _LaborCostBillDal = value; }
+        }
+	
+
+
+
+
 		private ILineWayDal _LineWayDal;
         public ILineWayDal LineWayDal
         {
@@ -317,6 +371,42 @@ namespace DALFactory
                 return _LoadGoodsTypeDal;
             }
             set { _LoadGoodsTypeDal = value; }
+        }
+	
+
+
+
+
+		private ILoadingAndLaborCostDetailDal _LoadingAndLaborCostDetailDal;
+        public ILoadingAndLaborCostDetailDal LoadingAndLaborCostDetailDal
+        {
+            get
+            {
+                if(_LoadingAndLaborCostDetailDal == null)
+                {
+                    _LoadingAndLaborCostDetailDal = AbstractFactory.CreateLoadingAndLaborCostDetailDal();
+                }
+                return _LoadingAndLaborCostDetailDal;
+            }
+            set { _LoadingAndLaborCostDetailDal = value; }
+        }
+	
+
+
+
+
+		private ILoadingExpensesBillDal _LoadingExpensesBillDal;
+        public ILoadingExpensesBillDal LoadingExpensesBillDal
+        {
+            get
+            {
+                if(_LoadingExpensesBillDal == null)
+                {
+                    _LoadingExpensesBillDal = AbstractFactory.CreateLoadingExpensesBillDal();
+                }
+                return _LoadingExpensesBillDal;
+            }
+            set { _LoadingExpensesBillDal = value; }
         }
 	
 
@@ -389,6 +479,42 @@ namespace DALFactory
                 return _MenuBDal;
             }
             set { _MenuBDal = value; }
+        }
+	
+
+
+
+
+		private IOtherExpenseListDal _OtherExpenseListDal;
+        public IOtherExpenseListDal OtherExpenseListDal
+        {
+            get
+            {
+                if(_OtherExpenseListDal == null)
+                {
+                    _OtherExpenseListDal = AbstractFactory.CreateOtherExpenseListDal();
+                }
+                return _OtherExpenseListDal;
+            }
+            set { _OtherExpenseListDal = value; }
+        }
+	
+
+
+
+
+		private IOtherExpenseListDetailDal _OtherExpenseListDetailDal;
+        public IOtherExpenseListDetailDal OtherExpenseListDetailDal
+        {
+            get
+            {
+                if(_OtherExpenseListDetailDal == null)
+                {
+                    _OtherExpenseListDetailDal = AbstractFactory.CreateOtherExpenseListDetailDal();
+                }
+                return _OtherExpenseListDetailDal;
+            }
+            set { _OtherExpenseListDetailDal = value; }
         }
 	
 

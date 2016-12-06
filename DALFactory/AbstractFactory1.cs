@@ -72,6 +72,22 @@ namespace DALFactory
 
         }
 		
+	    public static ICostUnitListDal CreateCostUnitListDal()
+        {
+
+		 string fullClassName = NameSpace + ".CostUnitListDal";
+          return CreateInstance(fullClassName) as ICostUnitListDal;
+
+        }
+		
+	    public static ICostUnitListDetailDal CreateCostUnitListDetailDal()
+        {
+
+		 string fullClassName = NameSpace + ".CostUnitListDetailDal";
+          return CreateInstance(fullClassName) as ICostUnitListDetailDal;
+
+        }
+		
 	    public static IDepartentDal CreateDepartentDal()
         {
 
@@ -136,6 +152,14 @@ namespace DALFactory
 
         }
 		
+	    public static ILaborCostBillDal CreateLaborCostBillDal()
+        {
+
+		 string fullClassName = NameSpace + ".LaborCostBillDal";
+          return CreateInstance(fullClassName) as ILaborCostBillDal;
+
+        }
+		
 	    public static ILineWayDal CreateLineWayDal()
         {
 
@@ -149,6 +173,22 @@ namespace DALFactory
 
 		 string fullClassName = NameSpace + ".LoadGoodsTypeDal";
           return CreateInstance(fullClassName) as ILoadGoodsTypeDal;
+
+        }
+		
+	    public static ILoadingAndLaborCostDetailDal CreateLoadingAndLaborCostDetailDal()
+        {
+
+		 string fullClassName = NameSpace + ".LoadingAndLaborCostDetailDal";
+          return CreateInstance(fullClassName) as ILoadingAndLaborCostDetailDal;
+
+        }
+		
+	    public static ILoadingExpensesBillDal CreateLoadingExpensesBillDal()
+        {
+
+		 string fullClassName = NameSpace + ".LoadingExpensesBillDal";
+          return CreateInstance(fullClassName) as ILoadingExpensesBillDal;
 
         }
 		
@@ -181,6 +221,22 @@ namespace DALFactory
 
 		 string fullClassName = NameSpace + ".MenuBDal";
           return CreateInstance(fullClassName) as IMenuBDal;
+
+        }
+		
+	    public static IOtherExpenseListDal CreateOtherExpenseListDal()
+        {
+
+		 string fullClassName = NameSpace + ".OtherExpenseListDal";
+          return CreateInstance(fullClassName) as IOtherExpenseListDal;
+
+        }
+		
+	    public static IOtherExpenseListDetailDal CreateOtherExpenseListDetailDal()
+        {
+
+		 string fullClassName = NameSpace + ".OtherExpenseListDetailDal";
+          return CreateInstance(fullClassName) as IOtherExpenseListDetailDal;
 
         }
 		

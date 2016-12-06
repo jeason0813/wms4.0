@@ -27,6 +27,10 @@ namespace IDAL
 	
 		ICostItemDal CostItemDal{get;set;}
 	
+		ICostUnitListDal CostUnitListDal{get;set;}
+	
+		ICostUnitListDetailDal CostUnitListDetailDal{get;set;}
+	
 		IDepartentDal DepartentDal{get;set;}
 	
 		IDIYBillDal DIYBillDal{get;set;}
@@ -43,9 +47,15 @@ namespace IDAL
 	
 		IItemUnitDal ItemUnitDal{get;set;}
 	
+		ILaborCostBillDal LaborCostBillDal{get;set;}
+	
 		ILineWayDal LineWayDal{get;set;}
 	
 		ILoadGoodsTypeDal LoadGoodsTypeDal{get;set;}
+	
+		ILoadingAndLaborCostDetailDal LoadingAndLaborCostDetailDal{get;set;}
+	
+		ILoadingExpensesBillDal LoadingExpensesBillDal{get;set;}
 	
 		ILocationDal LocationDal{get;set;}
 	
@@ -54,6 +64,10 @@ namespace IDAL
 		IMenuADal MenuADal{get;set;}
 	
 		IMenuBDal MenuBDal{get;set;}
+	
+		IOtherExpenseListDal OtherExpenseListDal{get;set;}
+	
+		IOtherExpenseListDetailDal OtherExpenseListDetailDal{get;set;}
 	
 		IOtherInputDal OtherInputDal{get;set;}
 	

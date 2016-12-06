@@ -12,15 +12,20 @@ namespace DBModel
     using System;
     using System.Collections.Generic;
     
-    public partial class CostItem
+    public partial class OtherExpenseListDetail
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string Department { get; set; }
+        public System.Guid Id { get; set; }
+        public Nullable<System.Guid> MainTableId { get; set; }
+        public Nullable<int> CostItemId { get; set; }
+        public string CostItemName { get; set; }
+        public Nullable<System.DateTime> HappenDate { get; set; }
+        public string CostDescription { get; set; }
+        public Nullable<double> Amount { get; set; }
+        public string Remark { get; set; }
+        public Nullable<int> RecorkType { get; set; }
         public string DepartmentId { get; set; }
+        public string Department { get; set; }
         public string Company { get; set; }
         public string CompanyId { get; set; }
-        public string Code { get; set; }
     }
 }

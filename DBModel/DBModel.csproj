@@ -88,6 +88,12 @@
     <Compile Include="CostItem.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="CostUnitList.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CostUnitListDetail.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -127,10 +133,19 @@
     <Compile Include="ItemUnit.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="LaborCostBill.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="LineWay.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="LoadGoodsType.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoadingAndLaborCostDetail.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoadingExpensesBill.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Location.cs">
@@ -144,6 +159,12 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="MenuB.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OtherExpenseList.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OtherExpenseListDetail.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="OtherInput.cs">

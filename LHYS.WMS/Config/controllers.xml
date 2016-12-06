@@ -116,5 +116,13 @@
     <property name="GiveBillService" ref="GiveBillService" />
     <property name="RecordService" ref="RecordService" />
   </object>
+  <object type="LHYS.WMS.Controllers.CostUnitListController,LHYS.WMS" singleton="false" >
+    <property name="CostUnitListService" ref="CostUnitListService" />
+    <property name="CostUnitListDetailService" ref="CostUnitListDetailService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.BaseCostItemAndItemLineController,LHYS.WMS" singleton="false" >
+    <property name="ItemLineService" ref="ItemLineService" />
+    <property name="CostItemService" ref="CostItemService" />
+  </object>
 </objects>
 

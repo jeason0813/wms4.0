@@ -59,6 +59,7 @@
       <DependentUpon>BaseService.tt</DependentUpon>
     </Compile>
     <Compile Include="CheckBillService.cs" />
+    <Compile Include="CostUnitListService.cs" />
     <Compile Include="DIYBillService.cs" />
     <Compile Include="GiveBillService.cs" />
     <Compile Include="LocationChangeService.cs" />

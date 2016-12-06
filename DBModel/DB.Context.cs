@@ -57,5 +57,12 @@ namespace DBModel
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRelation> UserRelation { get; set; }
         public virtual DbSet<UserFramework> UserFramework { get; set; }
+        public virtual DbSet<CostUnitList> CostUnitList { get; set; }
+        public virtual DbSet<LoadingAndLaborCostDetail> LoadingAndLaborCostDetail { get; set; }
+        public virtual DbSet<LoadingExpensesBill> LoadingExpensesBill { get; set; }
+        public virtual DbSet<LaborCostBill> LaborCostBill { get; set; }
+        public virtual DbSet<OtherExpenseList> OtherExpenseList { get; set; }
+        public virtual DbSet<CostUnitListDetail> CostUnitListDetail { get; set; }
+        public virtual DbSet<OtherExpenseListDetail> OtherExpenseListDetail { get; set; }
     }
 }

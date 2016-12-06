@@ -44,6 +44,16 @@ namespace IDAL
       
     }
 	
+	public partial interface ICostUnitListDal :IBaseDal<DBModel.CostUnitList>
+    {
+      
+    }
+	
+	public partial interface ICostUnitListDetailDal :IBaseDal<DBModel.CostUnitListDetail>
+    {
+      
+    }
+	
 	public partial interface IDepartentDal :IBaseDal<DBModel.Departent>
     {
       
@@ -84,12 +94,27 @@ namespace IDAL
       
     }
 	
+	public partial interface ILaborCostBillDal :IBaseDal<DBModel.LaborCostBill>
+    {
+      
+    }
+	
 	public partial interface ILineWayDal :IBaseDal<DBModel.LineWay>
     {
       
     }
 	
 	public partial interface ILoadGoodsTypeDal :IBaseDal<DBModel.LoadGoodsType>
+    {
+      
+    }
+	
+	public partial interface ILoadingAndLaborCostDetailDal :IBaseDal<DBModel.LoadingAndLaborCostDetail>
+    {
+      
+    }
+	
+	public partial interface ILoadingExpensesBillDal :IBaseDal<DBModel.LoadingExpensesBill>
     {
       
     }
@@ -110,6 +135,16 @@ namespace IDAL
     }
 	
 	public partial interface IMenuBDal :IBaseDal<DBModel.MenuB>
+    {
+      
+    }
+	
+	public partial interface IOtherExpenseListDal :IBaseDal<DBModel.OtherExpenseList>
+    {
+      
+    }
+	
+	public partial interface IOtherExpenseListDetailDal :IBaseDal<DBModel.OtherExpenseListDetail>
     {
       
     }

@@ -45,6 +45,16 @@ namespace  IBLL
        
     }   
 	
+	public partial interface ICostUnitListService : IBaseService<CostUnitList>
+    {
+       
+    }   
+	
+	public partial interface ICostUnitListDetailService : IBaseService<CostUnitListDetail>
+    {
+       
+    }   
+	
 	public partial interface IDepartentService : IBaseService<Departent>
     {
        
@@ -85,12 +95,27 @@ namespace  IBLL
        
     }   
 	
+	public partial interface ILaborCostBillService : IBaseService<LaborCostBill>
+    {
+       
+    }   
+	
 	public partial interface ILineWayService : IBaseService<LineWay>
     {
        
     }   
 	
 	public partial interface ILoadGoodsTypeService : IBaseService<LoadGoodsType>
+    {
+       
+    }   
+	
+	public partial interface ILoadingAndLaborCostDetailService : IBaseService<LoadingAndLaborCostDetail>
+    {
+       
+    }   
+	
+	public partial interface ILoadingExpensesBillService : IBaseService<LoadingExpensesBill>
     {
        
     }   
@@ -111,6 +136,16 @@ namespace  IBLL
     }   
 	
 	public partial interface IMenuBService : IBaseService<MenuB>
+    {
+       
+    }   
+	
+	public partial interface IOtherExpenseListService : IBaseService<OtherExpenseList>
+    {
+       
+    }   
+	
+	public partial interface IOtherExpenseListDetailService : IBaseService<OtherExpenseListDetail>
     {
        
     }   
