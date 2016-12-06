@@ -762,12 +762,12 @@
           <Key>
             <PropertyRef Name="DealerCode" />
           </Key>
+          <Property Name="DealerCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SuccFulCode" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="LineName" Type="varchar" MaxLength="50" />
           <Property Name="DeptCode" Type="varchar" MaxLength="50" />
           <Property Name="CustomerCode" Type="varchar" MaxLength="50" />
           <Property Name="CustomerAbbr" Type="varchar" MaxLength="50" />
-          <Property Name="DealerCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DealerAbbr" Type="varchar" MaxLength="50" />
           <Property Name="DealerFullName" Type="varchar" MaxLength="100" />
           <Property Name="LinkMan" Type="varchar" MaxLength="30" />
@@ -918,12 +918,12 @@
           </EntitySet>
           <EntitySet Name="LineWayAndDealer" EntityType="Self.LineWayAndDealer" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [LineWayAndDealer].[DealerCode] AS [DealerCode], 
     [LineWayAndDealer].[SuccFulCode] AS [SuccFulCode], 
     [LineWayAndDealer].[LineName] AS [LineName], 
     [LineWayAndDealer].[DeptCode] AS [DeptCode], 
     [LineWayAndDealer].[CustomerCode] AS [CustomerCode], 
     [LineWayAndDealer].[CustomerAbbr] AS [CustomerAbbr], 
-    [LineWayAndDealer].[DealerCode] AS [DealerCode], 
     [LineWayAndDealer].[DealerAbbr] AS [DealerAbbr], 
     [LineWayAndDealer].[DealerFullName] AS [DealerFullName], 
     [LineWayAndDealer].[LinkMan] AS [LinkMan], 
@@ -1078,6 +1078,7 @@
             <End Role="LaborCostBill" EntitySet="LaborCostBill" />
             <End Role="LoadingAndLaborCostDetail" EntitySet="LoadingAndLaborCostDetail" />
           </AssociationSet>
+          <EntitySet Name="LineWayAndDealer" EntityType="DB.LineWayAndDealer" />
         </EntityContainer>
         <EntityType Name="TransferBill">
           <Key>
@@ -2053,6 +2054,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LineWayAndDealer">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SuccFulCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerAbbr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DealerAbbr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DealerFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LinkMan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2874,6 +2891,23 @@
                 <ScalarProperty Name="CostItemId" ColumnName="CostItemId" />
                 <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LineWayAndDealer">
+            <EntityTypeMapping TypeName="DB.LineWayAndDealer">
+              <MappingFragment StoreEntitySet="LineWayAndDealer">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
+                <ScalarProperty Name="DealerFullName" ColumnName="DealerFullName" />
+                <ScalarProperty Name="DealerAbbr" ColumnName="DealerAbbr" />
+                <ScalarProperty Name="CustomerAbbr" ColumnName="CustomerAbbr" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="LineName" ColumnName="LineName" />
+                <ScalarProperty Name="SuccFulCode" ColumnName="SuccFulCode" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

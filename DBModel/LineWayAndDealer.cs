@@ -14,12 +14,12 @@ namespace DBModel
     
     public partial class LineWayAndDealer
     {
+        public string DealerCode { get; set; }
         public string SuccFulCode { get; set; }
         public string LineName { get; set; }
         public string DeptCode { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerAbbr { get; set; }
-        public string DealerCode { get; set; }
         public string DealerAbbr { get; set; }
         public string DealerFullName { get; set; }
         public string LinkMan { get; set; }
