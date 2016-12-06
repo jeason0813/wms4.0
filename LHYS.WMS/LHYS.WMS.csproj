@@ -159,6 +159,7 @@
     <Compile Include="Controllers\BaseItem\GoodItemController.cs" />
     <Compile Include="Controllers\BaseItem\InOutTypeController.cs" />
     <Compile Include="Controllers\BaseItem\ItemLineController.cs" />
+    <Compile Include="Controllers\BaseItem\LineWayAndDealerController.cs" />
     <Compile Include="Controllers\BaseItem\LineWayController.cs" />
     <Compile Include="Controllers\BaseItem\LoadGoodsTypeController.cs" />
     <Compile Include="Controllers\BaseItem\LocationController.cs" />
@@ -195,7 +196,6 @@
     <Content Include="Content\bootstrap-treeview.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\img\20121121100749_utf84.jpeg" />
     <Content Include="Content\Login\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

@@ -144,6 +144,14 @@ namespace DALFactory
 
         }
 		
+	    public static ILineWayAndDealerDal CreateLineWayAndDealerDal()
+        {
+
+		 string fullClassName = NameSpace + ".LineWayAndDealerDal";
+          return CreateInstance(fullClassName) as ILineWayAndDealerDal;
+
+        }
+		
 	    public static ILoadGoodsTypeDal CreateLoadGoodsTypeDal()
         {
 

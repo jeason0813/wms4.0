@@ -154,6 +154,15 @@ namespace BLL
         }
     }   
 	
+	public partial class LineWayAndDealerService :BaseService<LineWayAndDealer>,ILineWayAndDealerService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.LineWayAndDealerDal;
+        }
+    }   
+	
 	public partial class LoadGoodsTypeService :BaseService<LoadGoodsType>,ILoadGoodsTypeService
     {
     

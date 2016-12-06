@@ -315,7 +315,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="WarehouseId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
@@ -602,6 +602,24 @@
           <Property Name="AreaCode" Type="int" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“WMS.dbo.LineWayAndDealer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="LineWayAndDealer">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+          </Key>
+          <Property Name="SuccFulCode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LineName" Type="varchar" MaxLength="50" />
+          <Property Name="DeptCode" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerCode" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerAbbr" Type="varchar" MaxLength="50" />
+          <Property Name="DealerCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DealerAbbr" Type="varchar" MaxLength="50" />
+          <Property Name="DealerFullName" Type="varchar" MaxLength="100" />
+          <Property Name="LinkMan" Type="varchar" MaxLength="30" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“WMS.dbo.User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="User">
           <Key>
@@ -736,6 +754,21 @@
     [Departent].[AreaCode] AS [AreaCode]
     FROM [dbo].[Departent] AS [Departent]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="LineWayAndDealer" EntityType="Self.LineWayAndDealer" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LineWayAndDealer].[SuccFulCode] AS [SuccFulCode], 
+    [LineWayAndDealer].[LineName] AS [LineName], 
+    [LineWayAndDealer].[DeptCode] AS [DeptCode], 
+    [LineWayAndDealer].[CustomerCode] AS [CustomerCode], 
+    [LineWayAndDealer].[CustomerAbbr] AS [CustomerAbbr], 
+    [LineWayAndDealer].[DealerCode] AS [DealerCode], 
+    [LineWayAndDealer].[DealerAbbr] AS [DealerAbbr], 
+    [LineWayAndDealer].[DealerFullName] AS [DealerFullName], 
+    [LineWayAndDealer].[LinkMan] AS [LinkMan], 
+    [LineWayAndDealer].[Phone] AS [Phone], 
+    [LineWayAndDealer].[Address] AS [Address]
+    FROM [dbo].[LineWayAndDealer] AS [LineWayAndDealer]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="User" EntityType="Self.User" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [User].[UserCode] AS [UserCode], 
@@ -860,6 +893,7 @@
             <End Role="Company" EntitySet="Company" />
             <End Role="Departent" EntitySet="Departent" />
           </AssociationSet>
+          <EntitySet Name="LineWayAndDealer" EntityType="DB.LineWayAndDealer" />
         </EntityContainer>
         <EntityType Name="TransferBill">
           <Key>
@@ -1628,6 +1662,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LineWayAndDealer">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+          </Key>
+          <Property Name="SuccFulCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerAbbr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DealerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DealerAbbr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DealerFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LinkMan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2287,6 +2337,23 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserCode" ColumnName="UserCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LineWayAndDealer">
+            <EntityTypeMapping TypeName="DB.LineWayAndDealer">
+              <MappingFragment StoreEntitySet="LineWayAndDealer">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
+                <ScalarProperty Name="DealerFullName" ColumnName="DealerFullName" />
+                <ScalarProperty Name="DealerAbbr" ColumnName="DealerAbbr" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+                <ScalarProperty Name="CustomerAbbr" ColumnName="CustomerAbbr" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="LineName" ColumnName="LineName" />
+                <ScalarProperty Name="SuccFulCode" ColumnName="SuccFulCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

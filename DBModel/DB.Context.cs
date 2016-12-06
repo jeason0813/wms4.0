@@ -57,5 +57,6 @@ namespace DBModel
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRelation> UserRelation { get; set; }
         public virtual DbSet<UserFramework> UserFramework { get; set; }
+        public virtual DbSet<LineWayAndDealer> LineWayAndDealer { get; set; }
     }
 }

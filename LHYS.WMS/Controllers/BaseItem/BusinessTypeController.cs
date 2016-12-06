@@ -16,7 +16,7 @@ namespace LHYS.WMS.Controllers
         {
             Session["UserName"] = "朱洲";
             Session["UserCode"] = "HR1406";
-            Session["Power"] = "LH6220,BM0067";
+            Session["Power"] = "LH6220";
             return View();
         }
         /// <summary>
@@ -28,7 +28,8 @@ namespace LHYS.WMS.Controllers
             if (Session["Power"] == null)            {                return null;            }
             //查询有权限部门的数据
             else
-            {                string Power = Session["Power"].ToString();                var list = BusinessTypeService.LoadEntities(a => Power.Contains(a.DepartmentId));                return Json(list);            }
+            {                string Power = Session["Power"].ToString();
+                var list = BusinessTypeService.LoadEntities(a => Power==a.DepartmentId);                return Json(list);            }
         }
         /// <summary>
         /// 添加和修改

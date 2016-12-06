@@ -1,4 +1,6 @@
-﻿using IDAL;
+﻿ 
+
+using IDAL;
 using DBModel;
 using System;
 using System.Collections.Generic;
@@ -86,6 +88,11 @@ namespace DAL
     }
 		
 	public partial class LineWayDal :BaseDal<LineWay>,ILineWayDal
+    {
+
+    }
+		
+	public partial class LineWayAndDealerDal :BaseDal<LineWayAndDealer>,ILineWayAndDealerDal
     {
 
     }

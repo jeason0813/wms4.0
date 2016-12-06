@@ -116,5 +116,8 @@
     <property name="GiveBillService" ref="GiveBillService" />
     <property name="RecordService" ref="RecordService" />
   </object>
+  <object type="LHYS.WMS.Controllers.LineWayAndDealerController,LHYS.WMS" singleton="false" >
+    <property name="LineWayAndDealerService" ref="LineWayAndDealerService" />
+  </object>
 </objects>
 

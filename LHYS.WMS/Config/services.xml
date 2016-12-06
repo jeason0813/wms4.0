@@ -56,4 +56,6 @@
   </object>
   <object name="DepartentService" type="BLL.DepartentService, BLL" singleton="false" >
   </object>
+  <object name="LineWayAndDealerService" type="BLL.LineWayAndDealerService, BLL" singleton="false" >
+  </object>
 </objects>

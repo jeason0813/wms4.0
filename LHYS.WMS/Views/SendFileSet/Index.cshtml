@@ -24,26 +24,26 @@
                             <td colspan="17" style="text-align:center;border:none"><h2>发运方档案</h2></td>
                         </tr>
                         <tr>
-                            <td style="border:none" colspan="2"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                            <td style="border:none" colspan="5"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
                             <td style="border:none"></td>
                             <td colspan="14" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
                         </tr>
                         <tr>
-                            <th style="width:90px;">发运方编码</th>
-                            <th>发运方名称</th>
+                            <th style="width:90px;">编码</th>
+                            <th>名称</th>
                             <th style="width:60px;">联系人</th>
-                            <th style="width:60px;">邮编</th>
+                            @*<th style="width:60px;">邮编</th>*@
                             <th>电话</th>
                             <th>手机</th>
                             <th>地址</th>
                             <th>邮箱</th>
-                            <th style="width:60px;">传真</th>
+                            @*<th style="width:60px;">传真</th>
                             <th>部门</th>
                             <th>部门ID</th>
                             <th>公司</th>
                             <th>公司ID</th>
                             <th>建档人</th>
-                            <th>建档日期</th>
+                            <th>建档日期</th>*@
                             <th>编辑</th>
                             <th>删除</th>
                         </tr>
@@ -51,18 +51,18 @@
                             <td>{{record.Id}}</td>
                             <td>{{record.Name}}</td>
                             <td>{{record.Contacts}}</td>
-                            <td>{{record.Emailcode}}</td>
+                            @*<td>{{record.Emailcode}}</td>*@
                             <td>{{record.Phone}}</td>
                             <td>{{record.Tel}}</td>
                             <td style="word-break: break-all;word-wrap: break-word" width="250px;">{{record.Address}}</td>
                             <td>{{record.Email}}</td>
-                            <td>{{record.Fax}}</td>
+                            @*<td>{{record.Fax}}</td>
                             <td>{{record.Department}}</td>
                             <td>{{record.DepartmentId}}</td>
                             <td>{{record.Company}}</td>
                             <td>{{record.CompanyId}}</td>
                             <td>{{record.CreateBy}}</td>
-                            <td>{{record.CreateDate}}</td>
+                            <td>{{record.CreateDate}}</td>*@
                             <td style="width:70px"><button type="button" class="btn btn-info btn-xs" ng-click="btnEdit(record)">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button></td>
                             <td style="width:70px"><button type="button" class="btn btn-danger btn-xs" ng-click="btnDelete(record)">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button></td>
                         </tr>
@@ -85,14 +85,14 @@
                                             <td style="width:80px">联系人</td>
                                             <td><input class="form-control" type="text" name="name" ng-model="source.Contacts" required /></td>
                                             <td style="width:80px">邮编</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Emailcode" required /></td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Emailcode"  /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">电话</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Phone" required /></td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.Phone"  /></td>
                                             <td style="width:80px">手机</td>
                                             <td>
-                                                <input class="form-control" type="text" name="name" ng-model="source.Tel" required />
+                                                <input class="form-control" type="text" name="name" ng-model="source.Tel"  />
                                             </td>
                                         </tr>
                                         <tr>
