@@ -15,7 +15,7 @@
     <script type="text/javascript">
         $(function () {
             var height = window.innerHeight;//获取网页的可见高度
-            $('#tree').css('height', height - 48 + 'px');//设置菜单栏高度
+            $('#tree').css('height', height -48 + 'px');//设置菜单栏高度
             $('#contentFather').css('height', height - 48 - 33 + 'px'); //设置iframe 高度
             //加载菜单栏
             $.ajax({
@@ -35,7 +35,25 @@
             $('#btnquit').click(function () {
                 window.location.href = "/Login/Index";
             });
+
+            //显示隐藏菜单
+            treestate = true;
+            $('#menustate').click(function () {
+                if (treestate) {
+                    $('#tree').removeClass('col-xs-2').css('display', 'none');
+                    $('#content').removeClass('col-xs-10').addClass('col-xs-12');
+                    treestate = !treestate;
+                } else {
+                    $('#tree').addClass('col-xs-2').css('display', 'block');
+                    $('#content').removeClass('col-xs-12').addClass('col-xs-10');
+                    treestate = !treestate;
+                }
+            });
         })
+        //供子窗体调用新增页签的方法
+        function sonAddTab(iframeid, name, url) {
+            addTab($('#contentFather'), $('#tabs'), iframeid, name, url);
+        }
 
         //点击菜单相当于点击前面符号 也能收缩或展开菜单
         function change_tree() {
@@ -50,26 +68,29 @@
     <nav class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="javascript:void(0)" style="font-size:30px;font-weight:900;">仓储管理系统</a>
+                <div class="navbar-brand" href="javascript:void(0)" style="font-size:30px;font-weight:900;">仓储管理系统</div>
             </div>
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="javascript:void(0)" style="font-size:15px" id="menustate"><span class="glyphicon glyphicon-align-left"></span></a></li>
+            </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="javascript:void(0)" style="font-size:15px"><span class="glyphicon glyphicon-user">@Session["UserName"]</span></a></li>
                 <li><a href="javascript:void(0)" style="font-size:15px" id="btnquit"><span class="glyphicon glyphicon-remove-sign"></span>退出登录</a></li>
             </ul>
         </div>
     </nav>
-
     @*导航栏下面的模块*@
-    <div class="row" style="margin-top:48px;">
+    <div class="row" style="margin-top:48px;padding-left:13px;">
 
         @*菜单栏*@
-        <div class="col-xs-2" id="tree" style="background-color:#222222;overflow-y:auto">
+        <div class="col-xs-2" id="tree" style="background-color:#222222;overflow-y:auto;padding:0px;">
         </div>
 
         @*内容栏*@
-        <div class="col-xs-10" style="padding:0px">
+        <div class="col-xs-10" style="padding:0px" id="content">
             @*页签*@
-            <div id="tabs" style="height:33px;padding:5px;background-color:#222222">
+            <div id="tabs" style="height:33px;padding-top:5px;background-color:#222222">
             </div>
             @*显示内容的父div*@
             <div id="contentFather" style="width: 99%;">
