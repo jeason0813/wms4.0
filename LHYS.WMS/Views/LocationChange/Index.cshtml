@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <td class="tdname">调整单号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" disabled /></td>
                             <td class="tdname">调整日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
                             <td class="tdname">调整人：</td>
@@ -120,7 +120,7 @@
                                             <th>单位重量</th>
                                         </tr>
                                         <tr ng-repeat="goodItem in GoodItems | filter:searchstr " ng-dblclick="selectItem(goodItem)">
-                                            <td>{{$index}}</td>
+                                            <td>{{$index+1}}</td>
                                             <td>{{goodItem.ItemCode}}</td>
                                             <td>{{goodItem.ItemLine}}</td>
                                             <td>{{goodItem.ItemName}}</td>

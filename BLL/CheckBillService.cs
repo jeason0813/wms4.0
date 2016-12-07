@@ -123,6 +123,8 @@ namespace BLL
                     CurrentDBSession.InWarehouseDal.EditEntity(inwarehouse);//修改库存
                 }
                 checkBill.BillState = 2;
+                checkBill.ExaminePerson = userName;//审核人
+                checkBill.ExamineDate = DateTime.Now;//审核时间
                 checkBill.Record = listRecord;
                 CurrentDal.EditEntity(checkBill);
                 return CurrentDBSession.SaveChanges() ? "审核成功！" : "审核失败！";
