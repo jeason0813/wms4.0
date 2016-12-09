@@ -172,6 +172,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="BusinessTypeId" Type="int" />
@@ -379,10 +380,12 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ListType" Type="nvarchar" MaxLength="100" />
           <Property Name="ListCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
           <Property Name="ExaminaDate" Type="datetime" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
@@ -466,6 +469,21 @@
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“WMS.dbo.Menu”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pid" Type="int" />
+          <Property Name="text" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Url" Type="nvarchar" MaxLength="500" />
+          <Property Name="icon" Type="nvarchar" MaxLength="100" />
+          <Property Name="expanded" Type="bit" />
+        </EntityType>
         <EntityType Name="MenuA">
           <Key>
             <PropertyRef Name="Id" />
@@ -509,12 +527,16 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="HappenDate" Type="datetime" />
           <Property Name="CostDescription" Type="nvarchar" MaxLength="2000" />
           <Property Name="Amount" Type="float" />
           <Property Name="Remark" Type="nvarchar" MaxLength="2000" />
+          <Property Name="State" Type="int" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="CreateDate" Type="datetime" />
           <Property Name="RecorkType" Type="int" />
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
           <Property Name="Department" Type="nvarchar" MaxLength="100" />
@@ -760,6 +782,7 @@
 警告 6002: 表/视图“WMS.dbo.LineWayAndDealer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="LineWayAndDealer">
           <Key>
+            
             <PropertyRef Name="DealerCode" />
           </Key>
           <Property Name="DealerCode" Type="varchar" MaxLength="50" Nullable="false" />
@@ -882,6 +905,18 @@
           <EntitySet Name="TransferBill" EntityType="Self.TransferBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRelation" EntityType="Self.UserRelation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Menu].[id] AS [id], 
+    [Menu].[pid] AS [pid], 
+    [Menu].[text] AS [text], 
+    [Menu].[OrderNumber] AS [OrderNumber], 
+    [Menu].[Type] AS [Type], 
+    [Menu].[Url] AS [Url], 
+    [Menu].[icon] AS [icon], 
+    [Menu].[expanded] AS [expanded]
+    FROM [dbo].[Menu] AS [Menu]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Company" EntityType="Self.Company" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Company].[CmopanyCode] AS [CmopanyCode], 
@@ -1079,6 +1114,7 @@
             <End Role="LoadingAndLaborCostDetail" EntitySet="LoadingAndLaborCostDetail" />
           </AssociationSet>
           <EntitySet Name="LineWayAndDealer" EntityType="DB.LineWayAndDealer" />
+          <EntitySet Name="Menu" EntityType="DB.Menu" />
         </EntityContainer>
         <EntityType Name="TransferBill">
           <Key>
@@ -1901,6 +1937,8 @@
           <Property Name="BillType" Type="Int32" />
           <Property Name="CurrentCount" Type="Double" />
           <Property Name="LaborCost" Type="Double" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
@@ -1987,6 +2025,7 @@
           <Property Name="ExamineDate" Type="DateTime" Precision="3" />
           <Property Name="state" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OtherExpenseListDetail">
           <Key>
@@ -2005,6 +2044,10 @@
           <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CompanyId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="ExamineDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="CostUnitListCostUnitListDetail">
           <End Type="DB.CostUnitList" Role="CostUnitList" Multiplicity="0..1" />
@@ -2069,6 +2112,19 @@
           <Property Name="LinkMan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pid" Type="Int32" />
+          <Property Name="text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="icon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="expanded" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2753,6 +2809,8 @@
           <EntitySetMapping Name="LoadingAndLaborCostDetail">
             <EntityTypeMapping TypeName="DB.LoadingAndLaborCostDetail">
               <MappingFragment StoreEntitySet="LoadingAndLaborCostDetail">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
                 <ScalarProperty Name="LaborCost" ColumnName="LaborCost" />
                 <ScalarProperty Name="CurrentCount" ColumnName="CurrentCount" />
                 <ScalarProperty Name="BillType" ColumnName="BillType" />
@@ -2850,6 +2908,7 @@
           <EntitySetMapping Name="CostUnitListDetail">
             <EntityTypeMapping TypeName="DB.CostUnitListDetail">
               <MappingFragment StoreEntitySet="CostUnitListDetail">
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
@@ -2878,6 +2937,10 @@
           <EntitySetMapping Name="OtherExpenseListDetail">
             <EntityTypeMapping TypeName="DB.OtherExpenseListDetail">
               <MappingFragment StoreEntitySet="OtherExpenseListDetail">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
@@ -2908,6 +2971,20 @@
                 <ScalarProperty Name="LineName" ColumnName="LineName" />
                 <ScalarProperty Name="SuccFulCode" ColumnName="SuccFulCode" />
                 <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="DB.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="expanded" ColumnName="expanded" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

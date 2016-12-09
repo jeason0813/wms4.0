@@ -134,6 +134,11 @@ namespace IDAL
       
     }
 	
+	public partial interface IMenuDal :IBaseDal<DBModel.Menu>
+    {
+      
+    }
+	
 	public partial interface IMenuADal :IBaseDal<DBModel.MenuA>
     {
       

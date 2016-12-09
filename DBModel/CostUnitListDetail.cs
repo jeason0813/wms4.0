@@ -36,5 +36,6 @@ namespace DBModel
         public Nullable<System.DateTime> ExamineDate { get; set; }
         public Nullable<int> state { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public string CostItemCode { get; set; }
     }
 }

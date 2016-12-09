@@ -467,6 +467,24 @@ namespace DALFactory
 
 
 
+		private IMenuDal _MenuDal;
+        public IMenuDal MenuDal
+        {
+            get
+            {
+                if(_MenuDal == null)
+                {
+                    _MenuDal = AbstractFactory.CreateMenuDal();
+                }
+                return _MenuDal;
+            }
+            set { _MenuDal = value; }
+        }
+	
+
+
+
+
 		private IMenuADal _MenuADal;
         public IMenuADal MenuADal
         {

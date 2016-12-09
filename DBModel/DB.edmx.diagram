@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7ef3817115324ae4923496c985183d22" Name="Diagram1" ZoomLevel="52" >
+      <Diagram DiagramId="7ef3817115324ae4923496c985183d22" Name="Diagram1" ZoomLevel="77" >
         <EntityTypeShape EntityType="DB.TransferBill" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.BackInput" Width="1.5" PointX="11.875" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.OtherInput" Width="1.5" PointX="3.75" PointY="0.5" IsExpanded="false" />
@@ -25,41 +25,42 @@
         <EntityTypeShape EntityType="DB.MenuA" Width="1.5" PointX="0.5" PointY="6" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.MenuB" Width="1.5" PointX="0.5" PointY="6.625" IsExpanded="false" />
         <AssociationConnector Association="DB.MenuAMenuB" />
-        <EntityTypeShape EntityType="DB.InWarehouse" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.Location" Width="1.5" PointX="7.625" PointY="7.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.InWarehouse" Width="1.5" PointX="8" PointY="4.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.Location" Width="1.5" PointX="5.875" PointY="6.375" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.Warehouse" Width="1.5" PointX="5.375" PointY="5.375" IsExpanded="false" />
         <AssociationConnector Association="DB.WarehouseLocation" />
         <EntityTypeShape EntityType="DB.TaskBill" Width="1.5" PointX="8" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.GoodItem" Width="1.5" PointX="7.875" PointY="4.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.GoodItem" Width="1.5" PointX="12.25" PointY="3.125" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.CheckDetail" Width="1.5" PointX="7.375" PointY="2" IsExpanded="false" />
         <AssociationConnector Association="DB.CheckBillCheckDetail" />
-        <EntityTypeShape EntityType="DB.InOutType" Width="1.5" PointX="12.25" PointY="4.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.BusinessType" Width="1.5" PointX="14" PointY="6.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.InOutType" Width="1.5" PointX="12.375" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.BusinessType" Width="1.5" PointX="14" PointY="3.125" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.LineWay" Width="1.5" PointX="14.25" PointY="3.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.LoadGoodsType" Width="2.625" PointX="16" PointY="3.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.ItemLine" Width="1.5" PointX="12.125" PointY="5.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.ItemUnit" Width="1.5" PointX="12.125" PointY="6.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.LoadGoodsType" Width="2.625" PointX="16" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.ItemLine" Width="1.5" PointX="17.25" PointY="3.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.ItemUnit" Width="1.5" PointX="15.625" PointY="3.125" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.CostItem" Width="1.5" PointX="14.25" PointY="5.125" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.ReceiveFile" Width="1.5" PointX="16" PointY="5.125" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.SendFile" Width="1.5" PointX="17.625" PointY="5.125" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.Company" Width="1.5" PointX="11.5" PointY="7.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.Departent" Width="1.5" PointX="9.5" PointY="7.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.Departent" Width="1.5" PointX="9.75" PointY="7.875" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.User" Width="1.5" PointX="13.375" PointY="7.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.UserRelation" Width="1.5" PointX="9.875" PointY="8.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.UserRelation" Width="1.5" PointX="9.75" PointY="8.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.UserFramework" Width="1.5" PointX="11.5" PointY="8.5" IsExpanded="false" />
         <AssociationConnector Association="DB.CompanyDepartent" />
-        <EntityTypeShape EntityType="DB.CostUnitList" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.LoadingAndLaborCostDetail" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.LoadingExpensesBill" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.LaborCostBill" Width="1.5" PointX="3.375" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.OtherExpenseList" Width="1.5" PointX="13.375" PointY="9.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.CostUnitListDetail" Width="1.5" PointX="0.5" PointY="7.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.OtherExpenseListDetail" Width="1.5" PointX="13.375" PointY="11" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.CostUnitList" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.LoadingAndLaborCostDetail" Width="1.5" PointX="6.375" PointY="9.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.LoadingExpensesBill" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.LaborCostBill" Width="1.5" PointX="6.5" PointY="10.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.OtherExpenseList" Width="1.5" PointX="10.5" PointY="9.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.CostUnitListDetail" Width="1.5" PointX="5.625" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.OtherExpenseListDetail" Width="1.5" PointX="13" PointY="9.75" IsExpanded="false" />
         <AssociationConnector Association="DB.CostUnitListCostUnitListDetail" />
         <AssociationConnector Association="DB.OtherExpenseListOtherExpenseListDetail" />
         <AssociationConnector Association="DB.LoadingExpensesBillLoadingAndLaborCostDetail" />
         <AssociationConnector Association="DB.LaborCostBillLoadingAndLaborCostDetail" />
-        <EntityTypeShape EntityType="DB.LineWayAndDealer" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="DB.LineWayAndDealer" Width="1.5" PointX="15" PointY="7.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.Menu" Width="1.5" PointX="0.5" PointY="7.375" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

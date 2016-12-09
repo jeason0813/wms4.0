@@ -46,5 +46,7 @@ namespace DBModel
         public Nullable<int> BillType { get; set; }
         public Nullable<double> CurrentCount { get; set; }
         public Nullable<double> LaborCost { get; set; }
+        public string CostItemCode { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
     }
 }

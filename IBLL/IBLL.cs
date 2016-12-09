@@ -135,6 +135,11 @@ namespace  IBLL
        
     }   
 	
+	public partial interface IMenuService : IBaseService<Menu>
+    {
+       
+    }   
+	
 	public partial interface IMenuAService : IBaseService<MenuA>
     {
        

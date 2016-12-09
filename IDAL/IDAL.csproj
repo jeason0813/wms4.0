@@ -58,9 +58,9 @@
   <ItemGroup>
     <Compile Include="IBaseDal.cs" />
     <Compile Include="IDal.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>IDal.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="IDBSession.cs" />
     <Compile Include="IDBSession1.cs">

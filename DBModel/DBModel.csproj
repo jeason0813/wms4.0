@@ -158,12 +158,16 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="LocationChangeRecordView.cs" />
+    <Compile Include="Menu.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="MenuA.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="MenuB.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="MenuView.cs" />
     <Compile Include="OtherExpenseList.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

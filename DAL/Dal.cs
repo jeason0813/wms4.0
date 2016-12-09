@@ -137,6 +137,11 @@ namespace DAL
 
     }
 		
+	public partial class MenuDal :BaseDal<Menu>,IMenuDal
+    {
+
+    }
+		
 	public partial class MenuADal :BaseDal<MenuA>,IMenuADal
     {
 

@@ -27,5 +27,9 @@ namespace DBModel
         public string Department { get; set; }
         public string Company { get; set; }
         public string CompanyId { get; set; }
+        public string CostItemCode { get; set; }
+        public Nullable<int> State { get; set; }
+        public Nullable<System.DateTime> ExamineDate { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
     }
 }

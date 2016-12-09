@@ -216,6 +216,14 @@ namespace DALFactory
 
         }
 		
+	    public static IMenuDal CreateMenuDal()
+        {
+
+		 string fullClassName = NameSpace + ".MenuDal";
+          return CreateInstance(fullClassName) as IMenuDal;
+
+        }
+		
 	    public static IMenuADal CreateMenuADal()
         {
 

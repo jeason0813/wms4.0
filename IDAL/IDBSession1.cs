@@ -63,6 +63,8 @@ namespace IDAL
 	
 		ILocationChangeDal LocationChangeDal{get;set;}
 	
+		IMenuDal MenuDal{get;set;}
+	
 		IMenuADal MenuADal{get;set;}
 	
 		IMenuBDal MenuBDal{get;set;}
