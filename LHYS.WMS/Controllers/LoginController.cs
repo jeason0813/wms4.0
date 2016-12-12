@@ -56,7 +56,7 @@ namespace LHYS.WMS.Controllers
             {
                 powerStr += list[i].DeptCode+",";
             }
-            Session["Power"] = powerStr.Substring(0, powerStr.Length-1);
+            Session["Power"] = list.Count>0? powerStr.Substring(0, powerStr.Length-1): powerStr;
             return "0";//登录成功
         }
         /// <summary>

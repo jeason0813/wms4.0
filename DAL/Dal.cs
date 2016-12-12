@@ -137,6 +137,11 @@ namespace DAL
 
     }
 		
+	public partial class MenuDal :BaseDal<Menu>,IMenuDal
+    {
+
+    }
+		
 	public partial class MenuADal :BaseDal<MenuA>,IMenuADal
     {
 
@@ -177,6 +182,16 @@ namespace DAL
 
     }
 		
+	public partial class RoleDal :BaseDal<Role>,IRoleDal
+    {
+
+    }
+		
+	public partial class RoleMenuRelationDal :BaseDal<RoleMenuRelation>,IRoleMenuRelationDal
+    {
+
+    }
+		
 	public partial class SendFileDal :BaseDal<SendFile>,ISendFileDal
     {
 
@@ -203,6 +218,11 @@ namespace DAL
     }
 		
 	public partial class UserRelationDal :BaseDal<UserRelation>,IUserRelationDal
+    {
+
+    }
+		
+	public partial class UserRoleRelationDal :BaseDal<UserRoleRelation>,IUserRoleRelationDal
     {
 
     }

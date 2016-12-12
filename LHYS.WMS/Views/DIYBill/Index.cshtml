@@ -35,7 +35,7 @@
                             <td class="tdname2">加工日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
                             <td class="tdname2">加工人：</td>
-                            <td><input class="form-control" type="text" name="name" data-toggle="modal" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" data-target="#personchoose" required /></td>
+                            <td><input class="form-control" type="text" name="name" @*data-toggle="modal" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" data-target="#personchoose"*@ required /></td>
                             <td class="tdname2">部门：</td>
                             <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
                         </tr>
@@ -81,7 +81,7 @@
                             <td><input class="form-control" type="text" ng-model="record1.ItemName" /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemSpecifications " /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemUnit" /></td>
-                            <td><input class="form-control" type="number" ng-model="record1.UnitWeight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.UnitWeight" /></td>
                             <td><input class="form-control" type="number" ng-model="record1.Count" ng-change="changeCount1(record1)" required /></td>
                             <td><input class="form-control" type="number" ng-model="record1.Weight" disabled /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemBatch" required /></td>

@@ -19,7 +19,11 @@ namespace LHYS.WMS.Controllers
         public ActionResult GetMenu()
         {
             List<MenuA> list = MenuAService.LoadEntities(a => true).ToList();//获取所有菜单记录
-            string res = JsonConvert.SerializeObject(list).Replace("Name", "text").Replace("MenuB", "nodes");
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i].MenuB = list[i].MenuB.OrderBy(a => a.OrderNumber).ToList();//按顺序排列
+            }
+            string res = JsonConvert.SerializeObject(list).Replace("Name", "text").Replace("MenuB", "nodes");//修改菜单属性
             return Content(res);
 
         }

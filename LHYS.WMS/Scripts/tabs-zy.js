@@ -77,7 +77,4 @@ function init(contentFather, tabs, tree) {
         closeTab(contentFather, tabs, iframeid);
         return false;
     })
-
-
-
 }

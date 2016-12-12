@@ -467,6 +467,24 @@ namespace DALFactory
 
 
 
+		private IMenuDal _MenuDal;
+        public IMenuDal MenuDal
+        {
+            get
+            {
+                if(_MenuDal == null)
+                {
+                    _MenuDal = AbstractFactory.CreateMenuDal();
+                }
+                return _MenuDal;
+            }
+            set { _MenuDal = value; }
+        }
+	
+
+
+
+
 		private IMenuADal _MenuADal;
         public IMenuADal MenuADal
         {
@@ -611,6 +629,42 @@ namespace DALFactory
 
 
 
+		private IRoleDal _RoleDal;
+        public IRoleDal RoleDal
+        {
+            get
+            {
+                if(_RoleDal == null)
+                {
+                    _RoleDal = AbstractFactory.CreateRoleDal();
+                }
+                return _RoleDal;
+            }
+            set { _RoleDal = value; }
+        }
+	
+
+
+
+
+		private IRoleMenuRelationDal _RoleMenuRelationDal;
+        public IRoleMenuRelationDal RoleMenuRelationDal
+        {
+            get
+            {
+                if(_RoleMenuRelationDal == null)
+                {
+                    _RoleMenuRelationDal = AbstractFactory.CreateRoleMenuRelationDal();
+                }
+                return _RoleMenuRelationDal;
+            }
+            set { _RoleMenuRelationDal = value; }
+        }
+	
+
+
+
+
 		private ISendFileDal _SendFileDal;
         public ISendFileDal SendFileDal
         {
@@ -713,6 +767,24 @@ namespace DALFactory
                 return _UserRelationDal;
             }
             set { _UserRelationDal = value; }
+        }
+	
+
+
+
+
+		private IUserRoleRelationDal _UserRoleRelationDal;
+        public IUserRoleRelationDal UserRoleRelationDal
+        {
+            get
+            {
+                if(_UserRoleRelationDal == null)
+                {
+                    _UserRoleRelationDal = AbstractFactory.CreateUserRoleRelationDal();
+                }
+                return _UserRoleRelationDal;
+            }
+            set { _UserRoleRelationDal = value; }
         }
 	
 
