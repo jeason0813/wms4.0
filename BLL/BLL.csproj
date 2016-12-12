@@ -68,6 +68,7 @@
     <Compile Include="OtherInputService.cs" />
     <Compile Include="OtherOutputService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleService.cs" />
     <Compile Include="TaskBillService.cs" />
     <Compile Include="TransferBillService.cs" />
     <Compile Include="UserFrameworkService.cs" />

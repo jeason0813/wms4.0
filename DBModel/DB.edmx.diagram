@@ -58,7 +58,7 @@
         <AssociationConnector Association="DB.OtherExpenseListOtherExpenseListDetail" />
         <EntityTypeShape EntityType="DB.LineWayAndDealer" Width="1.5" PointX="15" PointY="7.875" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.Menu" Width="1.5" PointX="0.5" PointY="7.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.Role" Width="1.5" PointX="13.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB.Role" Width="1.5" PointX="13.5" PointY="8.75" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.RoleMenuRelation" Width="1.5" PointX="15.25" PointY="8.75" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.UserRoleRelation" Width="1.5" PointX="17" PointY="8.75" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.LoadingAndLaborCostDetail" Width="1.5" PointX="5.875" PointY="10.5" IsExpanded="false" />

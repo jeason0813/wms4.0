@@ -65,6 +65,7 @@
     <Compile Include="IMenuService.cs" />
     <Compile Include="IOtherInputService.cs" />
     <Compile Include="IOtherOutputService.cs" />
+    <Compile Include="IRoleService.cs" />
     <Compile Include="ITaskBillService.cs" />
     <Compile Include="ITransferBillService.cs" />
     <Compile Include="IUserFrameworkService.cs" />

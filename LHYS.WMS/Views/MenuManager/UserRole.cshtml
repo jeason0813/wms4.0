@@ -43,9 +43,9 @@
                         <th>角色</th>
                         <th>删除</th>
                     </tr>
-                    <tr ng-repeat="power in currentPersonPowers">
+                    <tr ng-repeat="role in currentPersonRoles">
                         <td>{{$index+1}}</td>
-                        <td>{{power.DeptName}}</td>
+                        <td>{{role.Name}}</td>
                         <td><button type="button" class="btn btn-danger btn-xs" ng-click="deleteRole($index)">删除</button></td>
                     </tr>
                 </table>
@@ -61,7 +61,7 @@
                     </tr>
                     <tr ng-repeat="role in Roles |filter:searchRole">
                         <td>{{$index+1}}</td>
-                        <td>{{Role.Name}}</td>
+                        <td>{{role.Name}}</td>
                         <td><button type="button" class="btn btn-info btn-xs" ng-click="addRole(role)">添加</button></td>
                     </tr>
                 </table>
@@ -72,6 +72,10 @@
     <script type="text/javascript">
         var myApp = angular.module('myApp', []);
         myApp.controller('MainController', function ($scope, $http) {
+            //获取所有人员
+            $http.post("/UserFramework/GetData").success(function (response) {
+                $scope.persons = response;
+            });
             //获取所有权限
             $http.post("/MenuManager/GetAllRoles").success(function (response) {
                 $scope.Roles = response;
@@ -90,32 +94,25 @@
                 $scope.currentPersonRoles.splice(index, 1);
             }
             //添加权限
-            $scope.addRole = function (power) {
-                $scope.currentPersonRoles.push(power);
+            $scope.addRole = function (role) {
+                for (var i = 0; i <$scope.currentPersonRoles.length; i++) {
+                    if (role.Id ==$scope.currentPersonRoles[i].Id) { return false;}
+                }
+                $scope.currentPersonRoles.push(role);
             }
             //保存设置
             $scope.SaveRole = function () {
                 if ($scope.currentPerson == null || $scope.currentPerson == undefined) {
                     return false;
                 }
-                var savePowers = '';
+                var saveRoles = [];
                 for (var i = 0; i < $scope.currentPersonRoles.length; i++) {
-                    savePowers += $scope.currentPersonRoles[i].DeptCode + '|';
+                    saveRoles.push($scope.currentPersonRoles[i].Id);
                 }
-                $http.post("/UserFramework/SavePower", {}, { params: { UserCode: $scope.currentPerson.UserCode, Powers: savePowers } }).success(function (response) {
+                $http.post("/MenuManager/SaveRoles",{ UserCode: $scope.currentPerson.UserCode, Roles: saveRoles } ).success(function (response) {
                     alert(response);
                 });
-
             }
-            //获取人员并保存
-            $http.post("/UserFramework/GetData").success(function (response) {
-                $scope.persons = response;
-            });
-            //获取公司部门并保存
-            $http.post("/UserFramework/GetCompanyAndDept").success(function (response) {
-                $scope.companys = response;
-            });
-
         });
     </script>
 </body>
