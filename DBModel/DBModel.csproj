@@ -187,6 +187,12 @@
     <Compile Include="Record.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoleMenuRelation.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SendFile.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -203,6 +209,9 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRelation.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoleRelation.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Warehouse.cs">

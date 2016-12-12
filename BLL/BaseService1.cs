@@ -316,6 +316,24 @@ namespace BLL
         }
     }   
 	
+	public partial class RoleService :BaseService<Role>,IRoleService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.RoleDal;
+        }
+    }   
+	
+	public partial class RoleMenuRelationService :BaseService<RoleMenuRelation>,IRoleMenuRelationService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.RoleMenuRelationDal;
+        }
+    }   
+	
 	public partial class SendFileService :BaseService<SendFile>,ISendFileService
     {
     
@@ -367,6 +385,15 @@ namespace BLL
 		 public override void SetCurrentDal()
         {
             CurrentDal = this.CurrentDBSession.UserRelationDal;
+        }
+    }   
+	
+	public partial class UserRoleRelationService :BaseService<UserRoleRelation>,IUserRoleRelationService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.UserRoleRelationDal;
         }
     }   
 	

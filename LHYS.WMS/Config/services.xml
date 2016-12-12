@@ -64,4 +64,6 @@
   </object>
   <object name="MenuService" type="BLL.MenuService, BLL" singleton="false" >
   </object>
+  <object name="RoleService" type="BLL.RoleService, BLL" singleton="false" >
+  </object>
 </objects>

@@ -129,6 +129,7 @@
   </object>
   <object type="LHYS.WMS.Controllers.MenuManagerController,LHYS.WMS" singleton="false" >
     <property name="MenuService" ref="MenuService" />
+    <property name="RoleService" ref="RoleService" />
   </object>
 </objects>
 

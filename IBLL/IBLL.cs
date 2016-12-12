@@ -180,6 +180,16 @@ namespace  IBLL
        
     }   
 	
+	public partial interface IRoleService : IBaseService<Role>
+    {
+       
+    }   
+	
+	public partial interface IRoleMenuRelationService : IBaseService<RoleMenuRelation>
+    {
+       
+    }   
+	
 	public partial interface ISendFileService : IBaseService<SendFile>
     {
        
@@ -206,6 +216,11 @@ namespace  IBLL
     }   
 	
 	public partial interface IUserRelationService : IBaseService<UserRelation>
+    {
+       
+    }   
+	
+	public partial interface IUserRoleRelationService : IBaseService<UserRoleRelation>
     {
        
     }   

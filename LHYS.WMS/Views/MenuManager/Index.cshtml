@@ -10,13 +10,14 @@
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="~/Content/IntegralUI-TreeViewCheckBox/samples.css" rel="stylesheet" />
     <link href="~/Content/IntegralUI-TreeViewCheckBox/integralui.css" rel="stylesheet" />
     <link href="~/Content/IntegralUI-TreeViewCheckBox/integralui.checkbox.css" rel="stylesheet" />
     <link href="~/Content/IntegralUI-TreeViewCheckBox/integralui.treeview.css" rel="stylesheet" />
     <link href="~/Content/IntegralUI-TreeViewCheckBox/theme-flat-blue.css" rel="stylesheet" id="theme" />
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/IntegralUI-TreeViewCheckBox/theme.selector.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/angularJs/angular.js"></script>
     <script src="~/Scripts/IntegralUI-TreeViewCheckBox/angular.integralui.min.js"></script>
     <script src="~/Scripts/IntegralUI-TreeViewCheckBox/angular.integralui.lists.min.js"></script>
@@ -27,7 +28,6 @@
         .iui-treeview-item-content {
             padding: 4px;
         }
-
         .iui-checkbox-box {
             border: 0;
             width: 16px;
@@ -45,30 +45,26 @@
         .iui-checkbox-indeterminate {
             background-image: url('../../Content/resources/checkbox/checkbox-indeterminate.png');
         }
-
-        .feature-content {
-            width: 500px;
-        }
-
         .directive {
-            height: 600px;
+            height: 500px;
             width:260px
-        }
-
-        .control-panel {
-            margin-left: 35px;
-            width: 250px;
         }
     </style>
 </head>
 <body ng-app="appModule" ng-controller="appCtrl">
-        <div class="feature">
-            <div class="feature-content">
-                <iui-treeview name="{{treeName}}" class="directive" items="items" item-icon="itemIcon" show-check-boxes="true" checkbox-settings="checkBoxSettings" item-checkstate-changing="itemCheckStateChanging(e)"></iui-treeview>
-                <button ng-click="refresh()">重新加载</button>
+    <div class="container">
+        <h1>菜单权限</h1>
+        <div class="row">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+                <div>
+                    <iui-treeview name="{{treeName}}" class="directive" items="items" item-icon="itemIcon" show-check-boxes="true" checkbox-settings="checkBoxSettings" item-checkstate-changing="itemCheckStateChanging(e)"></iui-treeview>
+                </div>
             </div>
+            <div><button class="btn btn-success">保存设置</button></div>
         </div>
-   
+    </div>
+
     <script type="text/javascript">
         var appModule = angular.module("appModule", ["integralui"]);
         appModule.controller("appCtrl", ["$scope", "$http", "$timeout", "IntegralUITreeViewService", function ($scope, $http, $timeout, $treeService) {
@@ -77,24 +73,8 @@
             $scope.checkStates = ['checked', 'indeterminate', 'unchecked'];
             $scope.currentState = 'checked';
             $scope.checkList = [];
-            ////-----jquery 同步获取数据--------
-            $.ajaxSetup({
-                async: false
-            });
-            $.post("/MenuManager/GetData", function (data) {
-                $scope.items = data;
-            })
-            $.ajaxSetup({
-                async: true
-            });
-            ////-----jquery 同步获取数据--------
-
+            $scope.items = [];
             initTheme($scope, $treeService, $scope.treeName);
-            //var initTimer = $timeout(function () {
-            //    $treeService.updateCheckValues($scope.treeName);
-            //    $timeout.cancel(initTimer);
-            //}, 1);
-
             $scope.checkBoxSettings = {
                 autoCheck: true,
                 threeState: true
@@ -103,13 +83,21 @@
                 if (e.value == 'unchecked')
                     e.item.checkState = 'checked';
             }
-            //刷新数据
-            $scope.refresh = function () {
-               // $treeService.selectedItem($scope.treeName, $scope.items[0]);//选中某个项目
-                $treeService.updateView($scope.treeName);
-                $treeService.updateCheckValues($scope.treeName);
+            //重新加载数据
+            $scope.reloadData = function (RoleCode) {
+                if ($scope.items.length != 0) {
+                    $treeService.clearItems($scope.treeName);
+                }
+                $http.post("/MenuManager/GetData", { RoleCode: RoleCode }).success(function (response) {
+                    //循环添加数据
+                    for (var i = 0; i < response.length; i++) {
+                        $scope.items.push(response[i]);
+                    }
+                    $treeService.updateLayout($scope.treeName);
+                });
             }
-
+            //加载数据
+            $scope.reloadData();
         }]);
     </script>
 </body>

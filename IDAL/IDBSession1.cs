@@ -81,6 +81,10 @@ namespace IDAL
 	
 		IRecordDal RecordDal{get;set;}
 	
+		IRoleDal RoleDal{get;set;}
+	
+		IRoleMenuRelationDal RoleMenuRelationDal{get;set;}
+	
 		ISendFileDal SendFileDal{get;set;}
 	
 		ITaskBillDal TaskBillDal{get;set;}
@@ -92,6 +96,8 @@ namespace IDAL
 		IUserFrameworkDal UserFrameworkDal{get;set;}
 	
 		IUserRelationDal UserRelationDal{get;set;}
+	
+		IUserRoleRelationDal UserRoleRelationDal{get;set;}
 	
 		IWarehouseDal WarehouseDal{get;set;}
 	}	

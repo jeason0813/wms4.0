@@ -48,5 +48,10 @@ namespace DBModel
         public Nullable<double> LaborCost { get; set; }
         public string CostItemCode { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public string BillCode { get; set; }
+        public string BusinessType { get; set; }
+        public string LoadingType { get; set; }
+        public Nullable<double> LaborUnitPrice { get; set; }
+        public Nullable<double> LoadingUnitPrice { get; set; }
     }
 }

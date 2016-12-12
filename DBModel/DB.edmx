@@ -384,7 +384,7 @@
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ListType" Type="nvarchar" MaxLength="100" />
-          <Property Name="ListCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ExaminaDate" Type="datetime" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
@@ -393,9 +393,9 @@
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
           <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
           <Property Name="WarehouseId" Type="int" />
-          <Property Name="BusinessTypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
           <Property Name="BusinessTypeId" Type="int" />
-          <Property Name="LoadingTypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LoadingType" Type="nvarchar" MaxLength="100" />
           <Property Name="LoadingTypeId" Type="int" />
           <Property Name="ItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemLine" Type="nvarchar" MaxLength="100" />
@@ -410,8 +410,8 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="2000" />
           <Property Name="BillState" Type="int" />
           <Property Name="BillType" Type="int" />
-          <Property Name="CurrentCount" Type="float" />
-          <Property Name="LaborCost" Type="float" />
+          <Property Name="LaborUnitPrice" Type="float" />
+          <Property Name="LoadingUnitPrice" Type="float" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
@@ -644,6 +644,23 @@
           <Property Name="Department" Type="nvarchar" MaxLength="100" />
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="RoleMenuRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="MenuId" Type="int" />
+        </EntityType>
         <EntityType Name="SendFileSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -721,6 +738,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserCode" Type="varchar" MaxLength="50" />
           <Property Name="DeptCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserRoleRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" />
         </EntityType>
         <EntityType Name="Warehouse">
           <Key>
@@ -900,10 +925,13 @@
           <EntitySet Name="OtherOutput" EntityType="Self.OtherOutput" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReceiveFile" EntityType="Self.ReceiveFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMenuRelation" EntityType="Self.RoleMenuRelation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SendFileSet" EntityType="Self.SendFileSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskBill" EntityType="Self.TaskBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransferBill" EntityType="Self.TransferBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRelation" EntityType="Self.UserRelation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleRelation" EntityType="Self.UserRoleRelation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1115,6 +1143,9 @@
           </AssociationSet>
           <EntitySet Name="LineWayAndDealer" EntityType="DB.LineWayAndDealer" />
           <EntitySet Name="Menu" EntityType="DB.Menu" />
+          <EntitySet Name="Role" EntityType="DB.Role" />
+          <EntitySet Name="RoleMenuRelation" EntityType="DB.RoleMenuRelation" />
+          <EntitySet Name="UserRoleRelation" EntityType="DB.UserRoleRelation" />
         </EntityContainer>
         <EntityType Name="TransferBill">
           <Key>
@@ -1939,6 +1970,11 @@
           <Property Name="LaborCost" Type="Double" />
           <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="BillCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LoadingType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LaborUnitPrice" Type="Double" />
+          <Property Name="LoadingUnitPrice" Type="Double" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
@@ -2125,6 +2161,31 @@
           <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="icon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="expanded" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RoleMenuRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="MenuId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserRoleRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2809,10 +2870,13 @@
           <EntitySetMapping Name="LoadingAndLaborCostDetail">
             <EntityTypeMapping TypeName="DB.LoadingAndLaborCostDetail">
               <MappingFragment StoreEntitySet="LoadingAndLaborCostDetail">
+                <ScalarProperty Name="LoadingUnitPrice" ColumnName="LoadingUnitPrice" />
+                <ScalarProperty Name="LaborUnitPrice" ColumnName="LaborUnitPrice" />
+                <ScalarProperty Name="LoadingType" ColumnName="LoadingType" />
+                <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+                <ScalarProperty Name="BillCode" ColumnName="BillCode" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
-                <ScalarProperty Name="LaborCost" ColumnName="LaborCost" />
-                <ScalarProperty Name="CurrentCount" ColumnName="CurrentCount" />
                 <ScalarProperty Name="BillType" ColumnName="BillType" />
                 <ScalarProperty Name="BillState" ColumnName="BillState" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
@@ -2827,9 +2891,7 @@
                 <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
                 <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
                 <ScalarProperty Name="LoadingTypeId" ColumnName="LoadingTypeId" />
-                <ScalarProperty Name="LoadingTypeName" ColumnName="LoadingTypeName" />
                 <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
-                <ScalarProperty Name="BusinessTypeName" ColumnName="BusinessTypeName" />
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
                 <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
                 <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
@@ -2837,7 +2899,6 @@
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="ExaminaDate" ColumnName="ExaminaDate" />
-                <ScalarProperty Name="ListCode" ColumnName="ListCode" />
                 <ScalarProperty Name="ListType" ColumnName="ListType" />
                 <ScalarProperty Name="CostItemName" ColumnName="CostItemName" />
                 <ScalarProperty Name="CostItemId" ColumnName="CostItemId" />
@@ -2985,6 +3046,34 @@
                 <ScalarProperty Name="text" ColumnName="text" />
                 <ScalarProperty Name="pid" ColumnName="pid" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="DB.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMenuRelation">
+            <EntityTypeMapping TypeName="DB.RoleMenuRelation">
+              <MappingFragment StoreEntitySet="RoleMenuRelation">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleRelation">
+            <EntityTypeMapping TypeName="DB.UserRoleRelation">
+              <MappingFragment StoreEntitySet="UserRoleRelation">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

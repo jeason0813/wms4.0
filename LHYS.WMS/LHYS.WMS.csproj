@@ -232,7 +232,6 @@
     <Content Include="Content\IntegralUI-TreeViewCheckBox\integralui.checkbox.css" />
     <Content Include="Content\IntegralUI-TreeViewCheckBox\integralui.css" />
     <Content Include="Content\IntegralUI-TreeViewCheckBox\integralui.treeview.css" />
-    <Content Include="Content\IntegralUI-TreeViewCheckBox\samples.css" />
     <Content Include="Content\IntegralUI-TreeViewCheckBox\theme-flat-blue.css" />
     <Content Include="Content\Login\easyui.css" />
     <Content Include="Content\Login\home.css" />
@@ -1289,6 +1288,7 @@
     <Content Include="Views\CostUnitList\IndexShow.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\MenuManager\Index.cshtml" />
+    <Content Include="Views\MenuManager\UserRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

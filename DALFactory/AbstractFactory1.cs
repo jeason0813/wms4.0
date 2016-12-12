@@ -288,6 +288,22 @@ namespace DALFactory
 
         }
 		
+	    public static IRoleDal CreateRoleDal()
+        {
+
+		 string fullClassName = NameSpace + ".RoleDal";
+          return CreateInstance(fullClassName) as IRoleDal;
+
+        }
+		
+	    public static IRoleMenuRelationDal CreateRoleMenuRelationDal()
+        {
+
+		 string fullClassName = NameSpace + ".RoleMenuRelationDal";
+          return CreateInstance(fullClassName) as IRoleMenuRelationDal;
+
+        }
+		
 	    public static ISendFileDal CreateSendFileDal()
         {
 
@@ -333,6 +349,14 @@ namespace DALFactory
 
 		 string fullClassName = NameSpace + ".UserRelationDal";
           return CreateInstance(fullClassName) as IUserRelationDal;
+
+        }
+		
+	    public static IUserRoleRelationDal CreateUserRoleRelationDal()
+        {
+
+		 string fullClassName = NameSpace + ".UserRoleRelationDal";
+          return CreateInstance(fullClassName) as IUserRoleRelationDal;
 
         }
 		

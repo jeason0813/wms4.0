@@ -179,6 +179,16 @@ namespace IDAL
       
     }
 	
+	public partial interface IRoleDal :IBaseDal<DBModel.Role>
+    {
+      
+    }
+	
+	public partial interface IRoleMenuRelationDal :IBaseDal<DBModel.RoleMenuRelation>
+    {
+      
+    }
+	
 	public partial interface ISendFileDal :IBaseDal<DBModel.SendFile>
     {
       
@@ -205,6 +215,11 @@ namespace IDAL
     }
 	
 	public partial interface IUserRelationDal :IBaseDal<DBModel.UserRelation>
+    {
+      
+    }
+	
+	public partial interface IUserRoleRelationDal :IBaseDal<DBModel.UserRoleRelation>
     {
       
     }
