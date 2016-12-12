@@ -16,10 +16,12 @@ namespace DBModel
     {
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> MainTableId { get; set; }
+        public string CostItemCode { get; set; }
         public Nullable<int> CostItemId { get; set; }
         public string CostItemName { get; set; }
         public string ListType { get; set; }
-        public string ListCode { get; set; }
+        public string BillCode { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> ExaminaDate { get; set; }
         public string Company { get; set; }
         public string CompanyId { get; set; }
@@ -27,9 +29,9 @@ namespace DBModel
         public string DepartmentId { get; set; }
         public string Warehouse { get; set; }
         public Nullable<int> WarehouseId { get; set; }
-        public string BusinessTypeName { get; set; }
+        public string BusinessType { get; set; }
         public Nullable<int> BusinessTypeId { get; set; }
-        public string LoadingTypeName { get; set; }
+        public string LoadingType { get; set; }
         public Nullable<int> LoadingTypeId { get; set; }
         public string ItemCode { get; set; }
         public string ItemLine { get; set; }
@@ -44,8 +46,6 @@ namespace DBModel
         public string Remark { get; set; }
         public Nullable<int> BillState { get; set; }
         public Nullable<int> BillType { get; set; }
-        public string CostItemCode { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<double> LaborUnitPrice { get; set; }
         public Nullable<double> LoadingUnitPrice { get; set; }
     }

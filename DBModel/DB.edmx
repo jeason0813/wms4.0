@@ -384,7 +384,7 @@
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ListType" Type="nvarchar" MaxLength="100" />
-          <Property Name="ListCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ExaminaDate" Type="datetime" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
@@ -1119,7 +1119,6 @@
             <End Role="Departent" EntitySet="Departent" />
           </AssociationSet>
           <EntitySet Name="CostUnitList" EntityType="DB.CostUnitList" />
-          <EntitySet Name="LoadingAndLaborCostDetail" EntityType="DB.LoadingAndLaborCostDetail" />
           <EntitySet Name="LoadingExpensesBill" EntityType="DB.LoadingExpensesBill" />
           <EntitySet Name="LaborCostBill" EntityType="DB.LaborCostBill" />
           <EntitySet Name="OtherExpenseList" EntityType="DB.OtherExpenseList" />
@@ -1133,19 +1132,20 @@
             <End Role="OtherExpenseList" EntitySet="OtherExpenseList" />
             <End Role="OtherExpenseListDetail" EntitySet="OtherExpenseListDetail" />
           </AssociationSet>
-          <AssociationSet Name="LoadingExpensesBillLoadingAndLaborCostDetail" Association="DB.LoadingExpensesBillLoadingAndLaborCostDetail">
-            <End Role="LoadingExpensesBill" EntitySet="LoadingExpensesBill" />
-            <End Role="LoadingAndLaborCostDetail" EntitySet="LoadingAndLaborCostDetail" />
-          </AssociationSet>
-          <AssociationSet Name="LaborCostBillLoadingAndLaborCostDetail" Association="DB.LaborCostBillLoadingAndLaborCostDetail">
-            <End Role="LaborCostBill" EntitySet="LaborCostBill" />
-            <End Role="LoadingAndLaborCostDetail" EntitySet="LoadingAndLaborCostDetail" />
-          </AssociationSet>
           <EntitySet Name="LineWayAndDealer" EntityType="DB.LineWayAndDealer" />
           <EntitySet Name="Menu" EntityType="DB.Menu" />
           <EntitySet Name="Role" EntityType="DB.Role" />
           <EntitySet Name="RoleMenuRelation" EntityType="DB.RoleMenuRelation" />
           <EntitySet Name="UserRoleRelation" EntityType="DB.UserRoleRelation" />
+          <EntitySet Name="LoadingAndLaborCostDetail" EntityType="DB.LoadingAndLaborCostDetail" />
+          <AssociationSet Name="LaborCostBillLoadingAndLaborCostDetail" Association="DB.LaborCostBillLoadingAndLaborCostDetail">
+            <End Role="LaborCostBill" EntitySet="LaborCostBill" />
+            <End Role="LoadingAndLaborCostDetail" EntitySet="LoadingAndLaborCostDetail" />
+          </AssociationSet>
+          <AssociationSet Name="LoadingAndLaborCostDetailLoadingExpensesBill" Association="DB.LoadingAndLaborCostDetailLoadingExpensesBill">
+            <End Role="LoadingAndLaborCostDetail" EntitySet="LoadingAndLaborCostDetail" />
+            <End Role="LoadingExpensesBill" EntitySet="LoadingExpensesBill" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TransferBill">
           <Key>
@@ -1932,45 +1932,6 @@
           <Property Name="BillType" Type="Int32" />
           <NavigationProperty Name="CostUnitListDetail" Relationship="DB.CostUnitListCostUnitListDetail" FromRole="CostUnitList" ToRole="CostUnitListDetail" />
         </EntityType>
-        <EntityType Name="LoadingAndLaborCostDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="MainTableId" Type="Guid" />
-          <Property Name="CostItemId" Type="Int32" />
-          <Property Name="CostItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ListType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ListCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ExaminaDate" Type="DateTime" Precision="3" />
-          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Warehouse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="WarehouseId" Type="Int32" />
-          <Property Name="BusinessTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BusinessTypeId" Type="Int32" />
-          <Property Name="LoadingTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LoadingTypeId" Type="Int32" />
-          <Property Name="ItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ItemLine" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ItemSpecifications" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ItemUnit" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ItemBatch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UnitWeight" Type="Double" />
-          <Property Name="Count" Type="Double" />
-          <Property Name="Weight" Type="Double" />
-          <Property Name="AllAmount" Type="Double" />
-          <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="BillState" Type="Int32" />
-          <Property Name="BillType" Type="Int32" />
-          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="LaborUnitPrice" Type="Double" />
-          <Property Name="LoadingUnitPrice" Type="Double" />
-        </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
             <PropertyRef Name="Id" />
@@ -1989,7 +1950,7 @@
           <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="BillState" Type="Int32" />
           <Property Name="BillType" Type="Int32" />
-          <NavigationProperty Name="LoadingAndLaborCostDetail" Relationship="DB.LoadingExpensesBillLoadingAndLaborCostDetail" FromRole="LoadingExpensesBill" ToRole="LoadingAndLaborCostDetail" />
+          <NavigationProperty Name="LoadingAndLaborCostDetail" Relationship="DB.LoadingAndLaborCostDetailLoadingExpensesBill" FromRole="LoadingExpensesBill" ToRole="LoadingAndLaborCostDetail" />
         </EntityType>
         <EntityType Name="LaborCostBill">
           <Key>
@@ -2104,30 +2065,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="LoadingExpensesBillLoadingAndLaborCostDetail">
-          <End Type="DB.LoadingExpensesBill" Role="LoadingExpensesBill" Multiplicity="0..1" />
-          <End Type="DB.LoadingAndLaborCostDetail" Role="LoadingAndLaborCostDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoadingExpensesBill">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LoadingAndLaborCostDetail">
-              <PropertyRef Name="MainTableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="LaborCostBillLoadingAndLaborCostDetail">
-          <End Type="DB.LaborCostBill" Role="LaborCostBill" Multiplicity="0..1" />
-          <End Type="DB.LoadingAndLaborCostDetail" Role="LoadingAndLaborCostDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LaborCostBill">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LoadingAndLaborCostDetail">
-              <PropertyRef Name="MainTableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="LineWayAndDealer">
           <Key>
             <PropertyRef Name="DealerCode" />
@@ -2182,6 +2119,69 @@
           <Property Name="UserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RoleId" Type="Int32" />
         </EntityType>
+        <EntityType Name="LoadingAndLaborCostDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MainTableId" Type="Guid" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CostItemId" Type="Int32" />
+          <Property Name="CostItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ListType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BillCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ExaminaDate" Type="DateTime" Precision="3" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Warehouse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseId" Type="Int32" />
+          <Property Name="BusinessType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessTypeId" Type="Int32" />
+          <Property Name="LoadingType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LoadingTypeId" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLine" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemSpecifications" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemUnit" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemBatch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UnitWeight" Type="Double" />
+          <Property Name="Count" Type="Double" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="AllAmount" Type="Double" />
+          <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="BillState" Type="Int32" />
+          <Property Name="BillType" Type="Int32" />
+          <Property Name="LaborUnitPrice" Type="Double" />
+          <Property Name="LoadingUnitPrice" Type="Double" />
+        </EntityType>
+        <Association Name="LaborCostBillLoadingAndLaborCostDetail">
+          <End Type="DB.LaborCostBill" Role="LaborCostBill" Multiplicity="0..1" />
+          <End Type="DB.LoadingAndLaborCostDetail" Role="LoadingAndLaborCostDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LaborCostBill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoadingAndLaborCostDetail">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LoadingAndLaborCostDetailLoadingExpensesBill">
+          <End Type="DB.LoadingAndLaborCostDetail" Role="LoadingAndLaborCostDetail" Multiplicity="*" />
+          <End Type="DB.LoadingExpensesBill" Role="LoadingExpensesBill" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="LoadingExpensesBill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoadingAndLaborCostDetail">
+              <PropertyRef Name="MainTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2862,43 +2862,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LoadingAndLaborCostDetail">
-            <EntityTypeMapping TypeName="DB.LoadingAndLaborCostDetail">
-              <MappingFragment StoreEntitySet="LoadingAndLaborCostDetail">
-                <ScalarProperty Name="LoadingUnitPrice" ColumnName="LoadingUnitPrice" />
-                <ScalarProperty Name="LaborUnitPrice" ColumnName="LaborUnitPrice" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
-                <ScalarProperty Name="BillType" ColumnName="BillType" />
-                <ScalarProperty Name="BillState" ColumnName="BillState" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="AllAmount" ColumnName="AllAmount" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
-                <ScalarProperty Name="ItemBatch" ColumnName="ItemBatch" />
-                <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
-                <ScalarProperty Name="ItemSpecifications" ColumnName="ItemSpecifications" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
-                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-                <ScalarProperty Name="LoadingTypeId" ColumnName="LoadingTypeId" />
-                <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
-                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
-                <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="ExaminaDate" ColumnName="ExaminaDate" />
-                <ScalarProperty Name="ListType" ColumnName="ListType" />
-                <ScalarProperty Name="CostItemName" ColumnName="CostItemName" />
-                <ScalarProperty Name="CostItemId" ColumnName="CostItemId" />
-                <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LoadingExpensesBill">
             <EntityTypeMapping TypeName="DB.LoadingExpensesBill">
               <MappingFragment StoreEntitySet="LoadingExpensesBill">
@@ -3065,6 +3028,46 @@
               <MappingFragment StoreEntitySet="UserRoleRelation">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoadingAndLaborCostDetail">
+            <EntityTypeMapping TypeName="DB.LoadingAndLaborCostDetail">
+              <MappingFragment StoreEntitySet="LoadingAndLaborCostDetail">
+                <ScalarProperty Name="LoadingUnitPrice" ColumnName="LoadingUnitPrice" />
+                <ScalarProperty Name="LaborUnitPrice" ColumnName="LaborUnitPrice" />
+                <ScalarProperty Name="BillType" ColumnName="BillType" />
+                <ScalarProperty Name="BillState" ColumnName="BillState" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AllAmount" ColumnName="AllAmount" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="ItemBatch" ColumnName="ItemBatch" />
+                <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+                <ScalarProperty Name="ItemSpecifications" ColumnName="ItemSpecifications" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="LoadingTypeId" ColumnName="LoadingTypeId" />
+                <ScalarProperty Name="LoadingType" ColumnName="LoadingType" />
+                <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
+                <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="ExaminaDate" ColumnName="ExaminaDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+                <ScalarProperty Name="ListType" ColumnName="ListType" />
+                <ScalarProperty Name="CostItemName" ColumnName="CostItemName" />
+                <ScalarProperty Name="CostItemId" ColumnName="CostItemId" />
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
+                <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
