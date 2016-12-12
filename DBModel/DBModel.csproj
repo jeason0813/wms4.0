@@ -148,6 +148,7 @@
     <Compile Include="LoadingAndLaborCostDetail.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="LoadingAndLaborQueryView.cs" />
     <Compile Include="LoadingExpensesBill.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

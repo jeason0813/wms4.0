@@ -32,6 +32,13 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>单据编号：</td>
+                        <td>{{info.BillCode}}</td>
+                        <td>单据日期：</td>
+                        <td>{{info.BillDate}}</td>
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
                         <td>公司：</td>
                         <td>{{info.Company}}</td>
                         <td>部门：</td>
@@ -55,21 +62,19 @@
                         <th>编号</th>
                         <th>费用项目编码</th>
                         <th>费用项目名称</th>
-                        <th>业务类型</th>
-                        <th>装卸类型</th>
-                        <th>产品线</th>
+                        <th>发生日期</th>
+                        <th>费用说明</th>
+                        <th>金额</th>
                         <th>仓库</th>
-                        <th>单价</th>
                         <th>备注</th>
                     </tr>
-                    <tr ng-repeat="record in info.CostUnitListDetail">
+                    <tr ng-repeat="record in info.OtherExpenseListDetail">
                         <td>{{$index+1}}</td>  @*编号*@
                         <td>{{record.CostItemCode}}</td>
                         <td>{{record.CostItemName}}</td>
-                        <td>{{record.BuniessTypeName}}</td>
-                        <td>{{record.LoadGoodsTypeName}}</td>
-                        <td>{{record.ItemLineName}}</td>
-                        <td>{{record.WarehouseName}}</td>
+                        <td>{{record.HappenDate}}</td>
+                        <td>{{record.CostDescription}}</td>
+                        <td>{{record.Amount}}</td>
                         <td>{{record.UnitPrice}}</td>
                         <td>{{record.Remark}}</td>
                     </tr>
@@ -102,21 +107,24 @@
         var myApp = angular.module('myApp', []);
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
-            $http.post("/CostUnitList/GetData", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId" } }).success(function (response) {
+            $http.post("/OtherExpenseList/GetData", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
                 //修改时间格式
-                response.LBBillDate = jsonDateFormat(response.LBBillDate);
+                response.BillDate = jsonDateFormat(response.BillDate);
                 response.CreateDate = jsonDateFormat(response.CreateDate);
                 response.ExamineDate = jsonDateFormat(response.ExamineDate);
+                for (var i = 0; i < response.OtherExpenseListDetail.length; i++) {
+                    response.OtherExpenseListDetail[i].HappenDate = jsonDateFormat(response.OtherExpenseListDetail[i].HappenDate);
+                }
                 //绑定数据源
                 $scope.info = response;
             });
             //---------------------------------------------------------------------------
             //审核（examine）
             $scope.submit = function () {
-                $http.post("/CostUnitList/Examine", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId" } }).success(function (response) {
+                $http.post("/OtherExpenseList/Examine", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
-                        window.location.href = 'IndexShow?CostUnitListId=@ViewBag.CostUnitListId';
+                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
                     }
                     else {
                         alert(response);
@@ -125,14 +133,14 @@
             }
             //跳转到编辑页
             $scope.edit = function () {
-                window.location.href = 'Index?billType=@ViewBag.billType&CostUnitListId=@ViewBag.CostUnitListId';
+                window.location.href = 'Index?billType=@ViewBag.billType&OtherExpenseListId=@ViewBag.OtherExpenseListId';
             }
             //弃审
             $scope.giveupexamine = function () {
-                $http.post("/CostUnitList/GiveupExamine", { billCode: "@ViewBag.CostUnitListId" }).success(function (response) {
+                $http.post("/OtherExpenseList/GiveupExamine", { billCode: "@ViewBag.OtherExpenseListId" }).success(function (response) {
                     if (response == '操作成功') {
                         alert(response);
-                        window.location.href = 'IndexShow?CostUnitListId=@ViewBag.CostUnitListId';
+                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
                     } else {
                         alert(response);
                     }

@@ -60,19 +60,18 @@ namespace BLL
                     if (record.Id == Guid.Parse("00000000-0000-0000-0000-000000000000") || record.Id == Guid.Empty)
                     {
                         record.Id = Guid.NewGuid();//设置子表id
-                        record.MainTableId = bill.Id;//设置主表id
-                        record.Department = bill.Department;
-                        record.DepartmentId = bill.DepartmentId;
-                        record.WarehouseId = bill.WarehouseId;
-                        record.Warehouse = bill.Warehouse;
-                        record.State = bill.BillState;
-                        record.CreateDate = DateTime.Now;
-                        record.InOrOut = 1;
-                        record.MainTableType = "OtherInput";
-                        record.InOutTypeName = bill.InputType;
-                        record.InOutTypeId = bill.InputTypeId;
                     }
-
+                    record.MainTableId = bill.Id;//设置主表id
+                    record.Department = bill.Department;
+                    record.DepartmentId = bill.DepartmentId;
+                    record.WarehouseId = bill.WarehouseId;
+                    record.Warehouse = bill.Warehouse;
+                    record.State = bill.BillState;
+                    record.CreateDate = DateTime.Now;
+                    record.InOrOut = 1;
+                    record.MainTableType = "OtherInput";
+                    record.InOutTypeName = bill.InputType;
+                    record.InOutTypeId = bill.InputTypeId;
                     CurrentDBSession.RecordDal.AddEntity(record);
                     //RecordService.AddEntity(record);
                 }

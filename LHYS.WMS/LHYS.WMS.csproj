@@ -181,7 +181,9 @@
     <Compile Include="Controllers\Bills\OtherOutputController.cs" />
     <Compile Include="Controllers\Bills\TaskBillController.cs" />
     <Compile Include="Controllers\Bills\TransferBillController.cs" />
+    <Compile Include="Controllers\Finances\LoadingExpensesBillController.cs" />
     <Compile Include="Controllers\Finances\BaseCostItemAndItemLineController.cs" />
+    <Compile Include="Controllers\Finances\OtherExpenseListController.cs" />
     <Compile Include="Controllers\Finances\CostUnitListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -201,7 +203,6 @@
     <Content Include="Content\bootstrap-treeview.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\img\20121121100749_utf84.jpeg" />
     <Content Include="Content\img\images\bg_tab_x.png" />
     <Content Include="Content\img\images\close_qcode.gif" />
     <Content Include="Content\img\images\flag_qcode.gif" />
@@ -1113,6 +1114,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tabs-zy.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\LoadingExpensesBill\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1168,6 +1170,9 @@
     <Content Include="Views\CostUnitList\Index.cshtml" />
     <Content Include="Views\CostUnitList\IndexShow.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\OtherExpenseList\Index.cshtml" />
+    <Content Include="Views\OtherExpenseList\IndexShow.cshtml" />
+    <Content Include="Views\LoadingExpensesBill\IndexShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

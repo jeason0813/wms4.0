@@ -1,18 +1,17 @@
-﻿
+﻿using IBLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using IBLL;
 using BLL;
 using DBModel;
 namespace LHYS.WMS.Controllers
 {
-    public class CostUnitListController : Controller
+    public class OtherExpenseListController : Controller
     {
-        private ICostUnitListService CostUnitListService { get; set; }
-        private ICostUnitListDetailService CostUnitListDetailService { get; set; }
+        private IOtherExpenseListService OtherExpenseListService { get; set; }
+        private IOtherExpenseListDetailService OtherExpenseListDetailService { get; set; }
         public ActionResult Index()
         {
             if (Request["billType"] == null)
@@ -23,17 +22,17 @@ namespace LHYS.WMS.Controllers
             string billTypeName = "";
             switch (billType)
             {
-                case "CostUnitePriceList":
+                case "OtherExpenseReceiveList":
                 case "1":
-                    billTypeName = "成本单价表";
-                    Session["billType"] =1;
-                    Session["billTypeName"] ="成本单价表";
+                    billTypeName = "其他费用应收单";
+                    Session["billType"] = 1;
+                    Session["billTypeName"] = "其他费用应收单";
                     break;
-                case "IncomeUnitePriceList":
+                case "OtherExpenseGiveList":
                 case "2":
-                    billTypeName = "收入单价表";
+                    billTypeName = "其他费用应付单";
                     Session["billType"] = 2;
-                    Session["billTypeName"] = "收入单价表";
+                    Session["billTypeName"] = "其他费用应付单";
                     break;
                 default:
                     billTypeName = "";
@@ -44,13 +43,13 @@ namespace LHYS.WMS.Controllers
             ViewBag.billType = Session["billType"];//单据类型
             ViewBag.billTypeName = Session["billTypeName"];//单据类型名
             //如果传入单号参数  放入ViewBag
-            if (Request["CostUnitListId"] != null)
+            if (Request["OtherExpenseListId"] != null)
             {
-                ViewBag.CostUnitListId = Request["CostUnitListId"].ToString();
+                ViewBag.OtherExpenseListId = Request["OtherExpenseListId"].ToString();
             }
             else //没传参数 放入空
             {
-                ViewBag.CostUnitListId = "";
+                ViewBag.OtherExpenseListId = "";
             }
             return View();
         }
@@ -63,9 +62,9 @@ namespace LHYS.WMS.Controllers
         {
             ViewBag.billType = Session["billType"];//单据类型
             ViewBag.billTypeName = Session["billTypeName"];//单据类型名
-            if (Request["CostUnitListId"] != null)
+            if (Request["OtherExpenseListId"] != null)
             {
-                ViewBag.CostUnitListId = Request["CostUnitListId"].ToString();
+                ViewBag.OtherExpenseListId = Request["OtherExpenseListId"].ToString();
             }
             else //没传参数 放入空
             {
@@ -80,20 +79,20 @@ namespace LHYS.WMS.Controllers
             {
                 return Content("没有单据类型！");
             }
-            string str = Request.Params["CostUnitListId"];//单号
+            string str = Request.Params["OtherExpenseListId"];//单号
             //如果新单据 没有数据
             if (string.IsNullOrEmpty(str))
             {
-                return Json(new CostUnitList());//返回一个新建的空对象
+                return Json(new OtherExpenseList());//返回一个新建的空对象
             }
             int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
             //如果有数据
-            Guid CostUnitListId = new Guid(Request["CostUnitListId"]);//单据编号
-            CostUnitList bill = CostUnitListService.LoadEntities(t => t.Id == CostUnitListId&&t.BillType==billtype).FirstOrDefault();//获取表单
+            Guid OtherExpenseListId = new Guid(Request["OtherExpenseListId"]);//单据编号
+            OtherExpenseList bill = OtherExpenseListService.LoadEntities(t => t.Id == OtherExpenseListId && t.BillType == billtype).FirstOrDefault();//获取表单
             return Json(bill);
         }
         //保存表单数据
-        public ActionResult SaveData(CostUnitList CostUnitList)
+        public ActionResult SaveData(OtherExpenseList OtherExpenseList)
         {
             if (Session["billType"] == null)//是否有单据类型
             {
@@ -101,8 +100,8 @@ namespace LHYS.WMS.Controllers
             }
             int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
             //参数对象可以对应接受数据
-            CostUnitList.MakePerson = Session["UserName"].ToString();//保存制单人
-            string result = CostUnitListService.SaveData(CostUnitList,billtype);//保存数据
+            OtherExpenseList.MakePerson = Session["UserName"].ToString();//保存制单人
+            string result = OtherExpenseListService.SaveData(OtherExpenseList, billtype);//保存数据
             return Content(result.ToString());
         }
 
@@ -113,14 +112,14 @@ namespace LHYS.WMS.Controllers
         public ActionResult Examine()
         {
             string res = "";
-            string CostUnitListId = Request.Params["CostUnitListId"];
-            if (string.IsNullOrEmpty(CostUnitListId))
+            string OtherExpenseListId = Request.Params["OtherExpenseListId"];
+            if (string.IsNullOrEmpty(OtherExpenseListId))
             {
                 res = "参数错误";
             }
             else
             {
-                res = CostUnitListService.Examine(Guid.Parse(CostUnitListId), Session["UserName"].ToString());
+                res = OtherExpenseListService.Examine(Guid.Parse(OtherExpenseListId), Session["UserName"].ToString());
             }
             return Content(res);
         }
@@ -139,7 +138,7 @@ namespace LHYS.WMS.Controllers
             }
             else
             {
-                res = CostUnitListService.GiveupExamine(Guid.Parse(billCode), Session["UserName"].ToString());
+                res = OtherExpenseListService.GiveupExamine(Guid.Parse(billCode), Session["UserName"].ToString());
             }
             return Content(res);
 

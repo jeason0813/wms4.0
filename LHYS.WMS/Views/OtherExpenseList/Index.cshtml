@@ -1,0 +1,209 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.billTypeName</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <style>
+        .tdname {
+            width:100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="recordController"> 
+        <div class="row" style="width:100%">
+            <form ng-submit="submit()">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td colspan="8" style="text-align:center"><h2>@ViewBag.billTypeName</h2></td>
+                        </tr>
+                        <tr>
+                            <td>单据编号：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" required /></td>
+                            <td>单据日期</td>
+                            <td><input class="form-control" type="date" name="name" ng-model="info.BillDate" required /></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td class="tdname">公司：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.Company" disabled /></td>
+                            <td class="tdname">部门：</td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
+                            <td class="tdname">备注：</td>
+                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
+                        </tr>
+                        <tr>
+                            <td class="tdname">制单人：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
+                            <td class="tdname">制单日期：</td>
+                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
+                            <td class="tdname">审核人：</td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
+                            <td class="tdname">审核日期：</td>
+                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-condensed table-striped">
+                        <tr>
+                            <th>编号</th>
+                            <th>费用项目编码</th>
+                            <th>费用项目名称</th>
+                            <th>发生日期</th>
+                            <th>费用说明</th>
+                            <th>金额</th>
+                            <th>备注</th>
+                            <th>删除</th>
+                        </tr>
+                        <tr ng-repeat="record in info.OtherExpenseListDetail">
+                            <td>{{$index+1}}</td>  @*编号*@
+                            <td><select class="form-control" ng-options=" CostItem.Code for CostItem in CostItems" ng-model="record.CurrentCostItem" ng-click="CostItemClick($index)" ng-change="CostItemChange(record.CurrentCostItem)" required></select></td>
+                            <td><input class="form-control" type="text" ng-model="record.CostItemName"  disabled /></td>
+                            <td><input class="form-control" type="date" ng-model="record.HappenDate" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.CostDescription" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.Amount" placeholder="整数或小数" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.Remark" /></td>
+                            <td style="width:70px"><button type="button" class="btn btn-danger btn-sm" ng-click="del($index)">删除</button></td>
+                        </tr>
+                    </table>
+                    <div>
+                        <button type="button" class="btn btn-info btn-sm" ng-click="add()" style="float:right">添&nbsp;加</button>
+                    </div>
+                    <div style="text-align:center">
+                        <button type="submit" class="btn btn-success btn-md">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //json日期格式转换为正常格式
+        function jsonDateFormat(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                var date = date.getFullYear() + "-" + month + "-" + day;
+                return new Date(date);
+            } catch (ex) {
+                return "";
+            }
+        }
+        //主程序
+        var myApp = angular.module('myApp', []);
+        //自定义时间转换过滤器
+        //myApp.filter("jsDate", function () { return function (x) { if (null == x) { return null; } else { return new Date(parseInt(x.substr(6))); } }; });
+        //数据控制器
+        myApp.controller('recordController', function ($scope, $http) {
+            //获取基础数据
+            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+                $scope.Departents = response.Departent;
+                $http.post("/BaseCostItemAndItemLine/GetBaseData").success(function (response) {
+                    $scope.CostItems = response.CostItem;
+                    $scope.ItemLines = response.ItemLine;
+                    //如果有单号 获取单据内容
+                    $http.post("/OtherExpenseList/GetData", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
+                        //绑定数据源
+                        if (response == "没有单据类型！") {
+                            alert(response);
+                        }
+                        else {
+                            $scope.info = response;
+                            if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
+                            {
+                                //修改时间格式
+                                $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                                $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+                                response.BillDate = jsonDateFormat(response.BillDate);
+                                for (var i = 0; i < $scope.info.OtherExpenseListDetail.length; i++) {
+                                    $scope.info.OtherExpenseListDetail[i].HappenDate = jsonDateFormat($scope.info.OtherExpenseListDetail[i].HappenDate);
+                                }
+                                //给当前部门赋值
+                                for (var i = 0; i < $scope.Departents.length; i++) {
+                                    if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                        $scope.CurrentDepartment = $scope.Departents[i];
+                                        break;
+                                    }
+                                }
+                                //给当前费用项目赋值
+                                for (var j = 0; j < $scope.info.OtherExpenseListDetail.length; j++) {
+                                    for (var i = 0; i < $scope.CostItems.length; i++) {
+                                        if ($scope.CostItems[i].Id == $scope.info.OtherExpenseListDetail[j].CostItemId) {
+                                            $scope.info.OtherExpenseListDetail[j].CurrentCostItem = $scope.CostItems[i];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+            //-------------------------------------------------------------------------
+            //添加行
+            $scope.add = function () {
+                var obj = new Object();
+                $scope.info.OtherExpenseListDetail.push(obj);
+            }
+            //删除行
+            $scope.del = function (idx) {
+                $scope.info.OtherExpenseListDetail.splice(idx, 1);
+            }
+            //--------------------------------------------------------------------------------
+            //选择了部门  给对应的字段赋值
+            $scope.departentChange = function (CurrentDepartment) {
+                $scope.info.Company = CurrentDepartment.CompanyAbbr;
+                $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
+                $scope.info.Department = CurrentDepartment.DeptName;
+                $scope.info.DepartmentId = CurrentDepartment.DeptCode;
+            }
+            //-----------------------------------------------------------------------
+            //----------------------------------------------------------------------------
+            //选择费用项目编码
+            $scope.CostItemClick = function (idx) {
+                $scope.currentCostItemIndex = idx;
+            }
+            $scope.CostItemChange = function (CurrentCostItem) {
+                if ($scope.currentCostItemIndex != null) {
+                    $scope.info.OtherExpenseListDetail[$scope.currentCostItemIndex].CostItemId = CurrentCostItem.Id;
+                    $scope.info.OtherExpenseListDetail[$scope.currentCostItemIndex].CostItemName = CurrentCostItem.Name;
+                    $scope.info.OtherExpenseListDetail[$scope.currentCostItemIndex].CostItemCode = CurrentCostItem.Code;
+                }
+                else {
+                    alert("请重新选择费用项目编码！");
+                    return false;
+                }
+            }
+            //----------------------------------------------------------------------------
+            //提交表单
+            $scope.submit = function () {
+                $http.post("/OtherExpenseList/SaveData", { OtherExpenseList: $scope.info }).success(function (response) {
+                    if (response == 'no') {
+                        alert('保存失败');
+                    }
+                    else if (response == "没有单据类型！") {
+                       alert(response);
+                    }
+                    else {
+                        window.location.href = 'IndexShow?OtherExpenseListId=' + response;
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+</html>

@@ -172,6 +172,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="BusinessTypeId" Type="int" />
@@ -379,10 +380,12 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ListType" Type="nvarchar" MaxLength="100" />
           <Property Name="ListCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
           <Property Name="ExaminaDate" Type="datetime" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
@@ -407,8 +410,8 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="2000" />
           <Property Name="BillState" Type="int" />
           <Property Name="BillType" Type="int" />
-          <Property Name="CurrentCount" Type="float" />
-          <Property Name="LaborCost" Type="float" />
+          <Property Name="LaborUnitPrice" Type="float" />
+          <Property Name="LoadingUnitPrice" Type="float" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
@@ -509,12 +512,16 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="HappenDate" Type="datetime" />
           <Property Name="CostDescription" Type="nvarchar" MaxLength="2000" />
           <Property Name="Amount" Type="float" />
           <Property Name="Remark" Type="nvarchar" MaxLength="2000" />
+          <Property Name="State" Type="int" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="CreateDate" Type="datetime" />
           <Property Name="RecorkType" Type="int" />
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
           <Property Name="Department" Type="nvarchar" MaxLength="100" />
@@ -760,6 +767,7 @@
 警告 6002: 表/视图“WMS.dbo.LineWayAndDealer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="LineWayAndDealer">
           <Key>
+            
             <PropertyRef Name="DealerCode" />
           </Key>
           <Property Name="DealerCode" Type="varchar" MaxLength="50" Nullable="false" />
@@ -1899,8 +1907,10 @@
           <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="BillState" Type="Int32" />
           <Property Name="BillType" Type="Int32" />
-          <Property Name="CurrentCount" Type="Double" />
-          <Property Name="LaborCost" Type="Double" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="LaborUnitPrice" Type="Double" />
+          <Property Name="LoadingUnitPrice" Type="Double" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
@@ -1987,6 +1997,7 @@
           <Property Name="ExamineDate" Type="DateTime" Precision="3" />
           <Property Name="state" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OtherExpenseListDetail">
           <Key>
@@ -2005,6 +2016,10 @@
           <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CompanyId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="ExamineDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="CostUnitListCostUnitListDetail">
           <End Type="DB.CostUnitList" Role="CostUnitList" Multiplicity="0..1" />
@@ -2753,8 +2768,10 @@
           <EntitySetMapping Name="LoadingAndLaborCostDetail">
             <EntityTypeMapping TypeName="DB.LoadingAndLaborCostDetail">
               <MappingFragment StoreEntitySet="LoadingAndLaborCostDetail">
-                <ScalarProperty Name="LaborCost" ColumnName="LaborCost" />
-                <ScalarProperty Name="CurrentCount" ColumnName="CurrentCount" />
+                <ScalarProperty Name="LoadingUnitPrice" ColumnName="LoadingUnitPrice" />
+                <ScalarProperty Name="LaborUnitPrice" ColumnName="LaborUnitPrice" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
                 <ScalarProperty Name="BillType" ColumnName="BillType" />
                 <ScalarProperty Name="BillState" ColumnName="BillState" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
@@ -2850,6 +2867,7 @@
           <EntitySetMapping Name="CostUnitListDetail">
             <EntityTypeMapping TypeName="DB.CostUnitListDetail">
               <MappingFragment StoreEntitySet="CostUnitListDetail">
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
@@ -2878,6 +2896,10 @@
           <EntitySetMapping Name="OtherExpenseListDetail">
             <EntityTypeMapping TypeName="DB.OtherExpenseListDetail">
               <MappingFragment StoreEntitySet="OtherExpenseListDetail">
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="Department" ColumnName="Department" />

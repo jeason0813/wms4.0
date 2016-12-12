@@ -27,7 +27,7 @@ namespace LHYS.WMS.Controllers
                 var list1 = ItemLineService.LoadEntities(a => Power.Contains(a.DepartmentId));//物料档案
                 var res = new
                 {
-                    CostItem = list.Select(a => new { a.Id, a.Name }),
+                    CostItem = list.Select(a => new { a.Id, a.Name,a.Code }),
                     ItemLine = list1.Select(a => new { a.Id, a.Name })
                 };
                 return Json(res);

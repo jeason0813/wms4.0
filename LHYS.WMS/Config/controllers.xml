@@ -127,5 +127,12 @@
   <object type="LHYS.WMS.Controllers.LineWayAndDealerController,LHYS.WMS" singleton="false" >
     <property name="LineWayAndDealerService" ref="LineWayAndDealerService" />
   </object>
+  <object type="LHYS.WMS.Controllers.OtherExpenseListController,LHYS.WMS" singleton="false" >
+    <property name="OtherExpenseListService" ref="OtherExpenseListService" />
+    <property name="OtherExpenseListDetailService" ref="OtherExpenseListDetailService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.LoadingExpensesBillController,LHYS.WMS" singleton="false" >
+    <property name="LoadingExpensesBillService" ref="LoadingExpensesBillService" />
+  </object>
 </objects>
 

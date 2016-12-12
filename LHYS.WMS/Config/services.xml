@@ -62,4 +62,10 @@
   </object>
   <object name="CostUnitListDetailService" type="BLL.CostUnitListDetailService, BLL" singleton="false" >
   </object>
+<object name="OtherExpenseListDetailService" type="BLL.OtherExpenseListDetailService, BLL" singleton="false" >
+  </object>
+<object name="OtherExpenseListService" type="BLL.OtherExpenseListService, BLL" singleton="false" >
+  </object>
+  <object name="LoadingExpensesBillService" type="BLL.LoadingExpensesBillService, BLL" singleton="false" >
+  </object>
 </objects>

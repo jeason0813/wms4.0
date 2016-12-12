@@ -63,6 +63,7 @@
     <Compile Include="DIYBillService.cs" />
     <Compile Include="GiveBillService.cs" />
     <Compile Include="LocationChangeService.cs" />
+    <Compile Include="OtherExpenseListService.cs" />
     <Compile Include="OtherInputService.cs" />
     <Compile Include="OtherOutputService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
