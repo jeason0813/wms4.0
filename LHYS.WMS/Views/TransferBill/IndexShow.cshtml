@@ -97,8 +97,8 @@
                             <td>{{record.ItemLocation}}</td>
                     </table>
                     <div style="text-align:center">
-                        <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn btn-info btn-md" ng-click="examine()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1&&btnPower.indexOf(51)!=-1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-info btn-md" ng-click="examine()" ng-show="info.BillState==1&&btnPower.indexOf(52)!=-1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
                         <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                     </div>
                 </div>
@@ -126,6 +126,9 @@
         var myApp = angular.module('myApp', []);
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
+            //设置按钮权限
+            $scope.btnPower=@Session["btnPower"];
+            //请求表单数据
             $http.post("/TransferBill/GetData", {}, { params: { "TransferBillId": "@ViewBag.TransferBillId" } }).success(function (response) {
                 //修改时间格式
                 response.LBBillDate = jsonDateFormat(response.LBBillDate);

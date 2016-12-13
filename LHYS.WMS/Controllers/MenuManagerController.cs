@@ -42,11 +42,13 @@ namespace LHYS.WMS.Controllers
         /// 获取某人的菜单权限
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetOnesMenu(string UserCode)
+        public ActionResult GetOnesMenu()
         {
+            if (Session["UserCode"] == null) {
+                return null;
+            }
+            string UserCode = Session["UserCode"].ToString();
             return Json(MenuService.GetOnesMenu(UserCode));
-
-
         }
         /// <summary>
         /// 获取所有角色

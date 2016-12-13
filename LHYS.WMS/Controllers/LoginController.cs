@@ -4,6 +4,7 @@ using IBLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace LHYS.WMS.Controllers
         // GET: Login
         private IUserService UserService { get; set; }
         private IUserFrameworkService UserFrameworkService { get; set; }
+        private IMenuService MenuService { get; set; }
         /// <summary>
         /// 登录界面
         /// </summary>
@@ -54,9 +56,27 @@ namespace LHYS.WMS.Controllers
             string powerStr = "";
             for (int i = 0; i < list.Count; i++)
             {
-                powerStr += list[i].DeptCode+",";
+                powerStr += list[i].DeptCode + ",";
             }
-            Session["Power"] = list.Count>0? powerStr.Substring(0, powerStr.Length-1): powerStr;
+            Session["Power"] = list.Count > 0 ? powerStr.Substring(0, powerStr.Length - 1) : powerStr;
+            //获取按钮权限
+            var buttons = MenuService.GetButtonPower(user.UserCode).ToList();
+            if (buttons.Count == 0)
+            {
+                Session["btnPower"] = "[]";
+            }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    sb.Append(buttons[i]);
+                    sb.Append(",");
+                }
+                string temp = sb.ToString();
+                temp = "["+temp.Substring(0, temp.Length - 1)+"]";
+                Session["btnPower"] = temp;
+            }
             return "0";//登录成功
         }
         /// <summary>

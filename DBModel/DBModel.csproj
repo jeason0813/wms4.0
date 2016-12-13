@@ -169,6 +169,7 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="MenuView.cs" />
+    <Compile Include="MenuViewForMainPage.cs" />
     <Compile Include="OtherExpenseList.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

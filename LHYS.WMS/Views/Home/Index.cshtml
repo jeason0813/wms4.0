@@ -21,7 +21,8 @@
             //加载菜单栏
             $.ajax({
                 type: "post",
-                url: "/Home/GetMenu",
+                //url: "/Home/GetMenu",
+                url: "/MenuManager/GetOnesMenu",
                 success: function (data) {
                     $('#tree').treeview({ data: data });
                     //初始化控件
