@@ -15,7 +15,7 @@ namespace DBModel
         /// <summary>
         /// 调整后货位id
         /// </summary>
-        public int? LocationChangeAfterId { get; set; }
+        public string LocationChangeAfterId { get; set; }
         /// <summary>
         /// 调整前货位
         /// </summary>
@@ -23,7 +23,7 @@ namespace DBModel
         /// <summary>
         /// 调整前货位id
         /// </summary>
-        public int? LocationChangeBeforeId { get; set; }
+        public string LocationChangeBeforeId { get; set; }
         /// <summary>
         /// 调整后仓库
         /// </summary>

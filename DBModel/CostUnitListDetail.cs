@@ -18,9 +18,7 @@ namespace DBModel
         public Nullable<System.Guid> MainTableId { get; set; }
         public Nullable<int> CostItemId { get; set; }
         public string CostItemName { get; set; }
-        public Nullable<int> BusinessTypeId { get; set; }
         public string BuniessTypeName { get; set; }
-        public Nullable<int> LoadGoodsTypeId { get; set; }
         public string LoadGoodsTypeName { get; set; }
         public Nullable<int> ItemLineId { get; set; }
         public string ItemLineName { get; set; }
@@ -37,5 +35,7 @@ namespace DBModel
         public Nullable<int> state { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string CostItemCode { get; set; }
+        public string CreatePerson { get; set; }
+        public string ExaminePerson { get; set; }
     }
 }

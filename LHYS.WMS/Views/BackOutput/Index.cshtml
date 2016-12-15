@@ -41,7 +41,7 @@
                                 <input class="form-control" type="text" name="name" ng-model="info.LBContacts" required />
                             </td>
                             <td class="tdname">退货单号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBBillCode" disabled /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.LBBillCode"  /></td>
                             <td class="tdname">退货原因：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBReson" required /></td>
                         </tr>
@@ -51,7 +51,7 @@
                             <td>电话：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBPhone" required /></td>
                             <td>原交货单号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBGiveBillCode" disabled /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.LBGiveBillCode"  /></td>
                             <td>备注：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBRemark" /></td>
                         </tr>
@@ -293,7 +293,7 @@
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
             //获取基础数据 、单据内容
-            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+            $http.post("/BaseInfo/GetBaseInfo", { inoutType: 'in' }).success(function (response) {
                 $scope.Warehouses = response.Warehouse;
                 $scope.GoodItems = response.GoodItem;
                 $scope.UserFrameworks = response.UserFramework;

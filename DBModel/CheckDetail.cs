@@ -29,7 +29,7 @@ namespace DBModel
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> ExamineDate { get; set; }
         public Nullable<double> ChangeCount { get; set; }
-        public Nullable<int> ItemLocationId { get; set; }
+        public string ItemLocationId { get; set; }
         public Nullable<decimal> UnitWeight { get; set; }
         public string InputType { get; set; }
         public Nullable<int> InputTypeId { get; set; }

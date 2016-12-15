@@ -35,7 +35,7 @@ namespace DBModel
         public string Department { get; set; }
         public string DepartmentId { get; set; }
         public Nullable<decimal> UnitWeight { get; set; }
-        public Nullable<int> ItemLocationId { get; set; }
+        public string ItemLocationId { get; set; }
         public Nullable<int> InOrOut { get; set; }
         public Nullable<double> ReceiveWeight { get; set; }
         public string InOutTypeName { get; set; }

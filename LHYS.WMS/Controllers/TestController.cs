@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using IBLL;
 using DBModel;
+using System.IO;
 
 namespace LHYS.WMS.Controllers
 {
@@ -15,18 +16,11 @@ namespace LHYS.WMS.Controllers
         // GET: Test
         public ActionResult Index()
         {
-            var res=MenuAService.LoadEntities(a=>true);
+            var res = MenuAService.LoadEntities(a => true);
             return View();
         }
 
-        public ActionResult Test1() {
-            return PartialView();
-        }
-        public ActionResult Test2()
-        {
-            return PartialView();
-        }
-        public ActionResult Test4()
+        public ActionResult Test1()
         {
             return PartialView();
         }

@@ -40,6 +40,20 @@ namespace LHYS.WMS.Controllers
             }
             return View();
         }
+
+        public ActionResult IndexShowPrint()
+        {
+            if (Request["TransferBillId"] != null)
+            {
+                ViewBag.TransferBillId = Request["TransferBillId"].ToString();
+            }
+            else //没传参数 放入空
+            {
+                return Content("参数错误");
+            }
+            return View();
+
+        }
         //获取表单数据
         public ActionResult GetData()
         {

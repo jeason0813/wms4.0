@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTableToEntites.cs" />
+    <Compile Include="ExcelHelp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityEncrypt.cs" />
     <Compile Include="VerifyCode.cs" />

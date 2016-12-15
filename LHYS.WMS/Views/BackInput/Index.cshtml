@@ -250,7 +250,7 @@
                 $scope.LBBackWarehouses = response;
             });
             //获取基础数据
-            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+            $http.post("/BaseInfo/GetBaseInfo", { inoutType: 'out' }).success(function (response) {
                 $scope.Warehouses = response.Warehouse;
                 $scope.GoodItems = response.GoodItem;
                 $scope.UserFrameworks = response.UserFramework;

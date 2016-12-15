@@ -139,5 +139,8 @@
     <property name="MenuService" ref="MenuService" />
     <property name="RoleService" ref="RoleService" />
   </object>
+  <object type="LHYS.WMS.Controllers.BillUpLoadController,LHYS.WMS" singleton="false" >
+    <property name="BillUpLoadService" ref="BillUpLoadService" />
+  </object>
 </objects>
 

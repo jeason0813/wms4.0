@@ -40,6 +40,7 @@ namespace BLL
                     item.DepartmentId = bill.DepartmentId;
                     item.InOrOut = 1;
                     item.InOutTypeId =14;
+                    item.MainTableType = "TransferBill";
                 }
                 CurrentDal.AddEntity(bill);
             }

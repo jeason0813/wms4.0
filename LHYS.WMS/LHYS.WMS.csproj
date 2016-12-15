@@ -156,6 +156,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BillUpLoadController.cs" />
     <Compile Include="Controllers\BaseInfoController.cs" />
     <Compile Include="Controllers\BaseItem\BusinessTypeController.cs" />
     <Compile Include="Controllers\BaseItem\CostItemController.cs" />
@@ -427,6 +428,7 @@
     <Content Include="Scripts\angularJs\angular-aria.min.js" />
     <Content Include="Scripts\angularJs\angular-cookies.js" />
     <Content Include="Scripts\angularJs\angular-cookies.min.js" />
+    <Content Include="Scripts\angularJs\angular-file-upload.min.js" />
     <Content Include="Scripts\angularJs\angular-loader.js" />
     <Content Include="Scripts\angularJs\angular-loader.min.js" />
     <Content Include="Scripts\angularJs\angular-message-format.js" />
@@ -1295,9 +1297,16 @@
     <Content Include="Views\LoadingExpensesBill\IndexShow.cshtml" />
     <Content Include="Views\MenuManager\Index.cshtml" />
     <Content Include="Views\MenuManager\UserRole.cshtml" />
+    <Content Include="Views\TransferBill\IndexShowPrint.cshtml" />
+    <Content Include="Views\BillsManager\Import.cshtml" />
+    <Content Include="Template\入库单.xlsx" />
+    <Content Include="Template\退货单.xlsx" />
+    <Content Include="Template\退仓单.xlsx" />
+    <Content Include="Template\交货单.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BillUpLoad\" />
     <Folder Include="Content\Home\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\Home\" />

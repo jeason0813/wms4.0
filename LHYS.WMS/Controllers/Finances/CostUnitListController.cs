@@ -20,23 +20,19 @@ namespace LHYS.WMS.Controllers
                 return Content("没有单据类型！");
             }
             string billType = Request["billType"];
-            string billTypeName = "";
             switch (billType)
             {
                 case "CostUnitePriceList":
                 case "1":
-                    billTypeName = "成本单价表";
                     Session["billType"] =1;
                     Session["billTypeName"] ="成本单价表";
                     break;
                 case "IncomeUnitePriceList":
                 case "2":
-                    billTypeName = "收入单价表";
                     Session["billType"] = 2;
                     Session["billTypeName"] = "收入单价表";
                     break;
                 default:
-                    billTypeName = "";
                     Session["billType"] = null;
                     Session["billTypeName"] = "";
                     break;

@@ -133,8 +133,8 @@
 
             //跳转到详情页
             $scope.itemClick = function (Id) {
-                window.parent.sonAddTab('500', '单据详情', '/' + $scope.billType + '/IndexShow?' + $scope.billType + 'Id=' + Id);
-              //  window.location.href = '/' + $scope.billType + '/IndexShow?' + $scope.billType + 'Id=' + Id;
+                var timestamp =Date.parse(new Date()) / 1000;//时间戳
+                window.parent.sonAddTab(timestamp, '单据详情', '/' + $scope.billType + '/IndexShow?' + $scope.billType + 'Id=' + Id);
             }
             //上一页
             $scope.lastPage = function () {

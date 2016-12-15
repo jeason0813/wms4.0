@@ -121,7 +121,7 @@
           <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
-          <Property Name="ItemLocationId" Type="int" />
+          <Property Name="ItemLocationId" Type="nvarchar" MaxLength="50" />
           <Property Name="ItemBatch" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemUnit" Type="nvarchar" MaxLength="100" />
           <Property Name="Count" Type="float" />
@@ -154,6 +154,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Billcode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
@@ -175,9 +176,9 @@
           <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
-          <Property Name="BusinessTypeId" Type="int" />
+          <Property Name="CreatePerson" Type="nvarchar" MaxLength="50" />
           <Property Name="BuniessTypeName" Type="nvarchar" MaxLength="100" />
-          <Property Name="LoadGoodsTypeId" Type="int" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
           <Property Name="LoadGoodsTypeName" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemLineId" Type="int" />
           <Property Name="ItemLineName" Type="nvarchar" MaxLength="50" />
@@ -296,7 +297,7 @@
           <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
-          <Property Name="ItemLocationId" Type="int" />
+          <Property Name="ItemLocationId" Type="nvarchar" MaxLength="50" />
           <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
           <Property Name="WarehouseId" Type="int" />
           <Property Name="ItemBatch" Type="nvarchar" MaxLength="100" />
@@ -626,7 +627,7 @@
           <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
-          <Property Name="ItemLocationId" Type="int" />
+          <Property Name="ItemLocationId" Type="nvarchar" MaxLength="50" />
           <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
           <Property Name="WarehouseId" Type="int" />
           <Property Name="ItemBatch" Type="nvarchar" MaxLength="100" />
@@ -1434,7 +1435,7 @@
           <Property Name="Department" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="2" Nullable="true" />
-          <Property Name="ItemLocationId" Type="Int32" />
+          <Property Name="ItemLocationId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="InOrOut" Type="Int32" />
           <Property Name="ReceiveWeight" Type="Double" />
           <Property Name="InOutTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1574,7 +1575,7 @@
           <Property Name="DepartmentId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Company" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="CompanyId" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="ItemLocationId" Type="Int32" />
+          <Property Name="ItemLocationId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Warehouse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="WarehouseId" Type="Int32" />
         </EntityType>
@@ -1681,7 +1682,7 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="ExamineDate" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="ChangeCount" Type="Double" />
-          <Property Name="ItemLocationId" Type="Int32" />
+          <Property Name="ItemLocationId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="InputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="InputTypeId" Type="Int32" />
@@ -1933,6 +1934,7 @@
           <Property Name="BillState" Type="Int32" />
           <Property Name="BillType" Type="Int32" />
           <NavigationProperty Name="CostUnitListDetail" Relationship="DB.CostUnitListCostUnitListDetail" FromRole="CostUnitList" ToRole="CostUnitListDetail" />
+          <Property Name="Billcode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
@@ -2001,9 +2003,7 @@
           <Property Name="MainTableId" Type="Guid" />
           <Property Name="CostItemId" Type="Int32" />
           <Property Name="CostItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BusinessTypeId" Type="Int32" />
           <Property Name="BuniessTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LoadGoodsTypeId" Type="Int32" />
           <Property Name="LoadGoodsTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ItemLineId" Type="Int32" />
           <Property Name="ItemLineName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2020,6 +2020,8 @@
           <Property Name="state" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExaminePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OtherExpenseListDetail">
           <Key>
@@ -2851,6 +2853,7 @@
           <EntitySetMapping Name="CostUnitList">
             <EntityTypeMapping TypeName="DB.CostUnitList">
               <MappingFragment StoreEntitySet="CostUnitList">
+                <ScalarProperty Name="Billcode" ColumnName="Billcode" />
                 <ScalarProperty Name="BillType" ColumnName="BillType" />
                 <ScalarProperty Name="BillState" ColumnName="BillState" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
@@ -2928,6 +2931,8 @@
           <EntitySetMapping Name="CostUnitListDetail">
             <EntityTypeMapping TypeName="DB.CostUnitListDetail">
               <MappingFragment StoreEntitySet="CostUnitListDetail">
+                <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+                <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
                 <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="state" ColumnName="state" />
@@ -2944,9 +2949,7 @@
                 <ScalarProperty Name="ItemLineName" ColumnName="ItemLineName" />
                 <ScalarProperty Name="ItemLineId" ColumnName="ItemLineId" />
                 <ScalarProperty Name="LoadGoodsTypeName" ColumnName="LoadGoodsTypeName" />
-                <ScalarProperty Name="LoadGoodsTypeId" ColumnName="LoadGoodsTypeId" />
                 <ScalarProperty Name="BuniessTypeName" ColumnName="BuniessTypeName" />
-                <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
                 <ScalarProperty Name="CostItemName" ColumnName="CostItemName" />
                 <ScalarProperty Name="CostItemId" ColumnName="CostItemId" />
                 <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />

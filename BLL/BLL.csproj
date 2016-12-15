@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseService.tt</DependentUpon>
     </Compile>
+    <Compile Include="BillUpLoadService.cs" />
     <Compile Include="CheckBillService.cs" />
     <Compile Include="CostUnitListService.cs" />
     <Compile Include="DIYBillService.cs" />
@@ -74,6 +75,10 @@
     <Compile Include="UserFrameworkService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{a6d67533-af14-4446-a889-cb6ca516b58b}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DALFactory\DALFactory.csproj">
       <Project>{a2ad91eb-dcb6-499c-8791-49ef88292989}</Project>
       <Name>DALFactory</Name>

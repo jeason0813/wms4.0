@@ -19,23 +19,19 @@ namespace LHYS.WMS.Controllers
                 return Content("没有单据类型！");
             }
             string billType = Request["billType"];
-            string billTypeName = "";
             switch (billType)
             {
                 case "OtherExpenseReceiveList":
                 case "1":
-                    billTypeName = "其他费用应收单";
                     Session["billType"] = 1;
                     Session["billTypeName"] = "其他费用应收单";
                     break;
                 case "OtherExpenseGiveList":
                 case "2":
-                    billTypeName = "其他费用应付单";
                     Session["billType"] = 2;
                     Session["billTypeName"] = "其他费用应付单";
                     break;
                 default:
-                    billTypeName = "";
                     Session["billType"] = null;
                     Session["billTypeName"] = "";
                     break;
