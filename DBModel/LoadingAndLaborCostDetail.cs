@@ -48,5 +48,6 @@ namespace DBModel
         public Nullable<int> BillType { get; set; }
         public Nullable<double> LaborUnitPrice { get; set; }
         public Nullable<double> LoadingUnitPrice { get; set; }
+        public Nullable<System.DateTime> BillExamineDate { get; set; }
     }
 }

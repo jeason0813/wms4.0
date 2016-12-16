@@ -72,11 +72,11 @@ namespace BLL
 
         }
         /// <summary>
-        /// 审核表单
+        /// 初审表单
         /// </summary>
         /// <param name="OtherExpenseListId"></param>
         /// <returns></returns>
-        public string Examine(Guid OtherExpenseListId, string UserName)
+        public string Examine1(Guid OtherExpenseListId, string UserName)
         {
             string result = "";
             OtherExpenseList bill = CurrentDal.LoadEntities(a => a.Id == OtherExpenseListId).FirstOrDefault();
@@ -94,6 +94,28 @@ namespace BLL
             return result;
         }
         /// <summary>
+        /// 审核表单
+        /// </summary>
+        /// <param name="OtherExpenseListId"></param>
+        /// <returns></returns>
+        public string Examine2(Guid OtherExpenseListId, string UserName)
+        {
+            string result = "";
+            OtherExpenseList bill = CurrentDal.LoadEntities(a => a.Id == OtherExpenseListId).FirstOrDefault();
+            List<OtherExpenseListDetail> list = bill.OtherExpenseListDetail.ToList();
+            foreach (OtherExpenseListDetail item in list)
+            {
+                item.State = 3;
+                item.ExamineDate = DateTime.Now;
+            }
+            bill.BillState = 3;//改成已审核状态
+            bill.ExaminePerson = UserName;//审核人
+            bill.ExamineDate = DateTime.Now;
+            CurrentDal.EditEntity(bill);
+            result = CurrentDBSession.SaveChanges() ? "审核成功！" : "审核失败！";
+            return result;
+        }
+        /// <summary>
         /// 弃审
         /// </summary>
         /// <param name="OtherExpenseListId">单据Id</param>
@@ -104,7 +126,7 @@ namespace BLL
             OtherExpenseList bill = CurrentDal.LoadEntities(a => a.Id == OtherExpenseListId).FirstOrDefault();
             List<OtherExpenseListDetail> list = bill.OtherExpenseListDetail.ToList();
             string res = "";
-            if (bill.BillState != 2)
+            if (bill.BillState != 2&&bill.BillState!=3)
             {
                 res = "单据状态不对，无法弃审！";
                 return res;

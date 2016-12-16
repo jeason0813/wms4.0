@@ -181,6 +181,7 @@
     <Compile Include="Controllers\Bills\OtherOutputController.cs" />
     <Compile Include="Controllers\Bills\TaskBillController.cs" />
     <Compile Include="Controllers\Bills\TransferBillController.cs" />
+    <Compile Include="Controllers\Finances\FinanceManagerController.cs" />
     <Compile Include="Controllers\Finances\LoadingExpensesBillController.cs" />
     <Compile Include="Controllers\Finances\BaseCostItemAndItemLineController.cs" />
     <Compile Include="Controllers\Finances\OtherExpenseListController.cs" />
@@ -1295,6 +1296,8 @@
     <Content Include="Views\LoadingExpensesBill\IndexShow.cshtml" />
     <Content Include="Views\MenuManager\Index.cshtml" />
     <Content Include="Views\MenuManager\UserRole.cshtml" />
+    <Content Include="Views\CostUnitList\QueryCostUnitList.cshtml" />
+    <Content Include="Views\FinanceManager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,5 +17,6 @@ namespace DBModel
         public int Id { get; set; }
         public Nullable<int> RoleId { get; set; }
         public Nullable<int> MenuId { get; set; }
+        public string CheckState { get; set; }
     }
 }

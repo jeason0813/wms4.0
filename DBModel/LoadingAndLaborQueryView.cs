@@ -16,7 +16,7 @@ namespace DBModel
         public string BusinessType { get; set; }
         public string Warehouse2Id { get; set; }
         public string LoadGoodsType { get; set; }
-        public string dateStart { get; set; }
-        public string dateEnd { get; set; }
+        public DateTime dateStart { get; set; }
+        public DateTime dateEnd { get; set; }
     }
 }

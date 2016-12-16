@@ -17,29 +17,24 @@ namespace LHYS.WMS.Controllers
                 return Content("没有单据类型！");
             }
             string billType = Request["billType"];
-            string billTypeName = "";
             switch (billType)
             {
                 case "LoadingCostReceiveList":
                 case "1":
-                    billTypeName = "装卸费应收单";
                     Session["billType"] = 1;
                     Session["billTypeName"] = "装卸费应收单";
                     break;
                 case "LoadingCostGiveList":
                 case "2":
-                    billTypeName = "装卸费应付单";
                     Session["billType"] = 2;
-                    Session["billTypeName"] = "装卸费应付单";
+                    Session["billTypeName"] = "装卸费成本单";
                     break;
                 case "LaborReceiveList":
                 case "3":
-                    billTypeName = "力资费应收单";
                     Session["billType"] = 3;
                     Session["billTypeName"] = "力资费应收单";
                     break;
                 default:
-                    billTypeName = "";
                     Session["billType"] = null;
                     Session["billTypeName"] = "";
                     break;
@@ -87,7 +82,7 @@ namespace LHYS.WMS.Controllers
             //如果新单据 没有数据
             if (string.IsNullOrEmpty(str))
             {
-                return Json(new CostUnitList());//返回一个新建的空对象
+                return Json(new LoadingExpensesBill());//返回一个新建的空对象
             }
             int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
             //如果有数据
@@ -95,29 +90,84 @@ namespace LHYS.WMS.Controllers
             LoadingExpensesBill bill = LoadingExpensesBillService.LoadEntities(t => t.Id == LoadingExpensesBillId && t.BillType == billtype).FirstOrDefault();//获取表单
             return Json(bill);
         }
-        public ActionResult GetBillDetail(LoadingAndLaborQueryView A) { 
-           string Company2Id = Request["Company2Id"];
-            string BusinessType = Request["BusinessType"];
-            string WarehouseBeforeId2 = Request["WarehouseBeforeId2"];
-            string LoadGoodsType = Request["LoadGoodsType"];
-            string dateStart = Request["dateStart"];
-            string dateEnd = Request["dateEnd"];
-            switch (BusinessType)
+        public ActionResult GetBillDetail(LoadingAndLaborQueryView A) {
+            if (Session["billType"] == null)//是否有单据类型
             {
-                case "TransferBill":
-                    break;
-                case "BackInput":
-                    break;
-                case "GiveBill":
-                    break;
-                case "GiveBackBill":
-                    break;
-                case "BackOutput":
-                    break;
-                default:
-                    break;
+                return Content("没有单据类型！");
             }
-            return View();
+            int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
+            LoadingExpensesBill bill = LoadingExpensesBillService.GetData(A, billtype,Session["Power"].ToString().Trim());
+            return Json(bill);
+        }
+        //保存表单数据
+        public ActionResult SaveData(LoadingExpensesBill LoadingExpensesBill)
+        {
+            if (Session["billType"] == null)//是否有单据类型
+            {
+                return Content("没有单据类型！");
+            }
+            int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
+            //参数对象可以对应接受数据
+            LoadingExpensesBill.MakePerson = Session["UserName"].ToString();//保存制单人
+            string result = LoadingExpensesBillService.SaveData(LoadingExpensesBill, billtype);//保存数据
+            return Content(result.ToString());
+        }
+
+        /// <summary>
+        /// 初审表单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Examine1()
+        {
+            string res = "";
+            string LoadingExpensesBillId = Request.Params["LoadingExpensesBillId"];
+            if (string.IsNullOrEmpty(LoadingExpensesBillId))
+            {
+                res = "参数错误";
+            }
+            else
+            {
+                res = LoadingExpensesBillService.Examine1(Guid.Parse(LoadingExpensesBillId), Session["UserName"].ToString());
+            }
+            return Content(res);
+        }
+        /// <summary>
+        /// 审核表单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Examine2()
+        {
+            string res = "";
+            string LoadingExpensesBillId = Request.Params["LoadingExpensesBillId"];
+            if (string.IsNullOrEmpty(LoadingExpensesBillId))
+            {
+                res = "参数错误";
+            }
+            else
+            {
+                res = LoadingExpensesBillService.Examine2(Guid.Parse(LoadingExpensesBillId), Session["UserName"].ToString());
+            }
+            return Content(res);
+        }
+        /// <summary>
+        /// 弃审
+        /// </summary>
+        /// <param name="billCode"></param>
+        /// <returns></returns>
+
+        public ActionResult GiveupExamine(string billCode)
+        {
+            string res = "";
+            if (string.IsNullOrEmpty(billCode))
+            {
+                res = "参数错误";
+            }
+            else
+            {
+                res = LoadingExpensesBillService.GiveupExamine(Guid.Parse(billCode), Session["UserName"].ToString());
+            }
+            return Content(res);
+
         }
     }
 }

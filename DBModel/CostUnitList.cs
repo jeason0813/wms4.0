@@ -32,6 +32,7 @@ namespace DBModel
         public string Remark { get; set; }
         public Nullable<int> BillState { get; set; }
         public Nullable<int> BillType { get; set; }
+        public int Billcode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CostUnitListDetail> CostUnitListDetail { get; set; }

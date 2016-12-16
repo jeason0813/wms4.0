@@ -29,12 +29,14 @@
                             <td colspan="8" style="text-align:center"><h2>@ViewBag.billTypeName</h2></td>
                         </tr>
                         <tr>
+                            <td class="tdname">编号：</td>
+                            <td><input type="text" class="form-control" ng-model="info.Billcode" placeholder="自动生成" disabled></td>
                             <td class="tdname">公司：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.Company" disabled /></td>
                             <td class="tdname">部门：</td>
                             <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
                             <td class="tdname">备注：</td>
-                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>
                         <tr>
                             <td class="tdname">制单人：</td>
@@ -68,7 +70,7 @@
                             <td><select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="record.LoadGoodsTypeName" ng-click="LoadGoodsTypeClick($index)" ng-change="loadgoodtypeChange(record.LoadGoodsTypeName)" required></select></td>
                             <td><select class="form-control" ng-options=" ItemLine.Name for ItemLine in ItemLines" ng-model="record.CurrentItemLine" ng-click="ItemLineClick($index)" ng-change="ItemLineChange(record.CurrentItemLine)" required></select></td>
                             <td><input class="form-control" type="text" name="name" ng-model="record.WarehouseName" data-toggle="modal" ng-click="WarehouseClick($index)" data-target="#wareHousechoose" required /></td>
-                            <td><input class="form-control" type="number" ng-model="record.UnitPrice" /></td>
+                            <td><input class="form-control" type="text" ng-model="record.UnitPrice" /></td>
                             <td><input class="form-control" type="text" ng-model="record.Remark" /></td>
                             <td style="width:70px"><button type="button" class="btn btn-danger btn-sm" ng-click="del($index)">删除</button></td>
                         </tr>
@@ -143,166 +145,166 @@
                 $http.post("/BaseCostItemAndItemLine/GetBaseData").success(function (response) {
                     $scope.CostItems = response.CostItem;
                     $scope.ItemLines = response.ItemLine;
-                    //如果有单号 获取单据内容
-                    $http.post("/CostUnitList/GetData", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId" } }).success(function (response) {
-                        //绑定数据源
-                        if (response == "没有单据类型！") {
-                            alert(response);
-                        }
-                        else {
-                            $scope.info = response;
-                            if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
-                            {
-                                //修改时间格式
-                                $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
-                                $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+                        //如果有单号 获取单据内容
+                        $http.post("/CostUnitList/GetData", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId" } }).success(function (response) {
+                            //绑定数据源
+                            if (response == "没有单据类型！") {
+                                alert(response);
+                            }
+                            else {
+                                $scope.info = response;
+                                if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
+                                {
+                                    //修改时间格式
+                                    $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                                    $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
 
-                                //给当前部门赋值
-                                for (var i = 0; i < $scope.Departents.length; i++) {
-                                    if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
-                                        $scope.CurrentDepartment = $scope.Departents[i];
-                                        break;
-                                    }
-                                }
-                                //给当前费用项目赋值
-                                for (var j = 0; j < $scope.info.CostUnitListDetail.length; j++) {
-                                    if ($scope.info.CostUnitListDetail[j].CreateDate!=null) {
-                                        $scope.info.CostUnitListDetail[j].CreateDate = jsonDateFormat($scope.info.CostUnitListDetail[j].CreateDate);
-                                    }
-                                    for (var i = 0; i < $scope.CostItems.length; i++) {
-                                        if ($scope.CostItems[i].Id == $scope.info.CostUnitListDetail[j].CostItemId) {
-                                            $scope.info.CostUnitListDetail[j].CurrentCostItem = $scope.CostItems[i];
+                                    //给当前部门赋值
+                                    for (var i = 0; i < $scope.Departents.length; i++) {
+                                        if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                            $scope.CurrentDepartment = $scope.Departents[i];
                                             break;
                                         }
                                     }
-                                }
-                                //给当前费用项目赋值
-                                for (var j = 0; j < $scope.info.CostUnitListDetail.length; j++) {
-                                    for (var i = 0; i < $scope.ItemLines.length; i++) {
-                                        if ($scope.ItemLines[i].Id == $scope.info.CostUnitListDetail[j].ItemLineId) {
-                                            $scope.info.CostUnitListDetail[j].CurrentItemLine = $scope.ItemLines[i];
-                                            break;
+                                    //给当前费用项目赋值
+                                    for (var j = 0; j < $scope.info.CostUnitListDetail.length; j++) {
+                                        if ($scope.info.CostUnitListDetail[j].CreateDate!=null) {
+                                            $scope.info.CostUnitListDetail[j].CreateDate = jsonDateFormat($scope.info.CostUnitListDetail[j].CreateDate);
+                                        }
+                                        for (var i = 0; i < $scope.CostItems.length; i++) {
+                                            if ($scope.CostItems[i].Id == $scope.info.CostUnitListDetail[j].CostItemId) {
+                                                $scope.info.CostUnitListDetail[j].CurrentCostItem = $scope.CostItems[i];
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    //给当前费用项目赋值
+                                    for (var j = 0; j < $scope.info.CostUnitListDetail.length; j++) {
+                                        for (var i = 0; i < $scope.ItemLines.length; i++) {
+                                            if ($scope.ItemLines[i].Id == $scope.info.CostUnitListDetail[j].ItemLineId) {
+                                                $scope.info.CostUnitListDetail[j].CurrentItemLine = $scope.ItemLines[i];
+                                                break;
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                    });
+                        });
                 });
             });
-            //-------------------------------------------------------------------------
-            //添加行
-            $scope.add = function () {
-                var obj = new Object();
-                $scope.info.CostUnitListDetail.push(obj);
-            }
-            //删除行
-            $scope.del = function (idx) {
-                $scope.info.CostUnitListDetail.splice(idx, 1);
-            }
-            //--------------------------------------------------------------------------------
-            //选择了部门  给对应的字段赋值
-            $scope.departentChange = function (CurrentDepartment) {
-                $scope.info.Company = CurrentDepartment.CompanyAbbr;
-                $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
-                $scope.info.Department = CurrentDepartment.DeptName;
-                $scope.info.DepartmentId = CurrentDepartment.DeptCode;
-            }
-            //-------------------------------------------------------------------------
-            //选择装卸类型
-            $scope.LoadGoodsTypeClick = function (idx) {
-                $scope.currentLoadGoodsTypeIndex = idx;
-            }
-            $scope.loadgoodtypeChange = function (CurrentLoadGoodsType) {
-                if ($scope.currentLoadGoodsTypeIndex != null) {
-                    //$scope.info.CostUnitListDetail[$scope.currentLoadGoodsTypeIndex].LoadGoodsTypeId = CurrentLoadGoodsType.Id;
-                    $scope.info.CostUnitListDetail[$scope.currentLoadGoodsTypeIndex].LoadGoodsTypeName = CurrentLoadGoodsType;
+                //-------------------------------------------------------------------------
+                //添加行
+                $scope.add = function () {
+                    var obj = new Object();
+                    $scope.info.CostUnitListDetail.push(obj);
                 }
-                else {
-                    alert("请重新选择装卸类型！");
-                    return false;
+                //删除行
+                $scope.del = function (idx) {
+                    $scope.info.CostUnitListDetail.splice(idx, 1);
                 }
-            }
-            //----------------------------------------------------------------------------
-            //选择仓库
-            $scope.WarehouseClick = function (idx) {
-                $scope.CurrentWarehouseIndex = idx;
-            }
-            $scope.selectWarehouse = function (warehouse) {
-                if ($scope.CurrentWarehouseIndex != null) {
-                    $scope.searchstrwarehouse = '';
-                    $('#wareHousechoose').modal('hide');
-                    $scope.info.CostUnitListDetail[$scope.CurrentWarehouseIndex].WarehouseName = warehouse.Name;
-                    $scope.info.CostUnitListDetail[$scope.CurrentWarehouseIndex].WarehouseId = warehouse.Id;
+                //--------------------------------------------------------------------------------
+                //选择了部门  给对应的字段赋值
+                $scope.departentChange = function (CurrentDepartment) {
+                    $scope.info.Company = CurrentDepartment.CompanyAbbr;
+                    $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
+                    $scope.info.Department = CurrentDepartment.DeptName;
+                    $scope.info.DepartmentId = CurrentDepartment.DeptCode;
                 }
-                else {
-                    alert("请重新选择仓库！");
-                    $scope.searchstrwarehouse = '';
-                    $('#wareHousechoose').modal('hide');
-                    return;
+                //-------------------------------------------------------------------------
+                //选择装卸类型
+                $scope.LoadGoodsTypeClick = function (idx) {
+                    $scope.currentLoadGoodsTypeIndex = idx;
                 }
-            }
-            //---------------------------------------------------------------------------
-            //选择业务类型
-            $scope.BusinessTypeClick = function (idx) {
-                $scope.currentBusinessTypeIndex = idx;
-            }
-            $scope.BusinessTypesChange = function (CurrentBusinessTypes) {
-                if ($scope.currentBusinessTypeIndex != null) {
-                    //$scope.info.CostUnitListDetail[$scope.currentBusinessTypeIndex].BusinessTypeId = CurrentBusinessTypes.Id;
-                    $scope.info.CostUnitListDetail[$scope.currentBusinessTypeIndex].BuniessTypeName = CurrentBusinessTypes;
-                }
-                else {
-                    alert("请重新选择业务类型！");
-                    return false;
-                }
-            }
-            //----------------------------------------------------------------------------
-            //选择费用项目编码
-            $scope.CostItemClick = function (idx) {
-                $scope.currentCostItemIndex = idx;
-            }
-            $scope.CostItemChange = function (CurrentCostItem) {
-                if ($scope.currentCostItemIndex != null) {
-                    $scope.info.CostUnitListDetail[$scope.currentCostItemIndex].CostItemId = CurrentCostItem.Id;
-                    $scope.info.CostUnitListDetail[$scope.currentCostItemIndex].CostItemName = CurrentCostItem.Name;
-                    $scope.info.CostUnitListDetail[$scope.currentCostItemIndex].CostItemCode = CurrentCostItem.Code;
-                }
-                else {
-                    alert("请重新选择费用项目编码！");
-                    return false;
-                }
-            }
-            //----------------------------------------------------------------------------
-            //选择产品线
-            $scope.ItemLineClick = function (idx) {
-                $scope.currentItemLienIndex = idx;
-            }
-            $scope.ItemLineChange = function (currentItemLine) {
-                if ($scope.currentItemLienIndex != null) {
-                    $scope.info.CostUnitListDetail[$scope.currentItemLienIndex].ItemLineId = currentItemLine.Id;
-                    $scope.info.CostUnitListDetail[$scope.currentItemLienIndex].ItemLineName = currentItemLine.Name;
-                }
-                else {
-                    alert("请重新选择产品线！");
-                    return false;
-                }
-            }
-            //提交表单
-            $scope.submit = function () {
-                $http.post("/CostUnitList/SaveData", { CostUnitList: $scope.info }).success(function (response) {
-                    if (response == 'no') {
-                        alert('保存失败');
-                    }
-                    else if (response == "没有单据类型！") {
-                       alert(response);
+                $scope.loadgoodtypeChange = function (CurrentLoadGoodsType) {
+                    if ($scope.currentLoadGoodsTypeIndex != null) {
+                        //$scope.info.CostUnitListDetail[$scope.currentLoadGoodsTypeIndex].LoadGoodsTypeId = CurrentLoadGoodsType.Id;
+                        $scope.info.CostUnitListDetail[$scope.currentLoadGoodsTypeIndex].LoadGoodsTypeName = CurrentLoadGoodsType;
                     }
                     else {
-                        window.location.href = 'IndexShow?CostUnitListId=' + response;
+                        alert("请重新选择装卸类型！");
+                        return false;
                     }
-                });
-            }
-        })
+                }
+                //----------------------------------------------------------------------------
+                //选择仓库
+                $scope.WarehouseClick = function (idx) {
+                    $scope.CurrentWarehouseIndex = idx;
+                }
+                $scope.selectWarehouse = function (warehouse) {
+                    if ($scope.CurrentWarehouseIndex != null) {
+                        $scope.searchstrwarehouse = '';
+                        $('#wareHousechoose').modal('hide');
+                        $scope.info.CostUnitListDetail[$scope.CurrentWarehouseIndex].WarehouseName = warehouse.Name;
+                        $scope.info.CostUnitListDetail[$scope.CurrentWarehouseIndex].WarehouseId = warehouse.Id;
+                    }
+                    else {
+                        alert("请重新选择仓库！");
+                        $scope.searchstrwarehouse = '';
+                        $('#wareHousechoose').modal('hide');
+                        return;
+                    }
+                }
+                //---------------------------------------------------------------------------
+                //选择业务类型
+                $scope.BusinessTypeClick = function (idx) {
+                    $scope.currentBusinessTypeIndex = idx;
+                }
+                $scope.BusinessTypesChange = function (CurrentBusinessTypes) {
+                    if ($scope.currentBusinessTypeIndex != null) {
+                        //$scope.info.CostUnitListDetail[$scope.currentBusinessTypeIndex].BusinessTypeId = CurrentBusinessTypes.Id;
+                        $scope.info.CostUnitListDetail[$scope.currentBusinessTypeIndex].BuniessTypeName = CurrentBusinessTypes;
+                    }
+                    else {
+                        alert("请重新选择业务类型！");
+                        return false;
+                    }
+                }
+                //----------------------------------------------------------------------------
+                //选择费用项目编码
+                $scope.CostItemClick = function (idx) {
+                    $scope.currentCostItemIndex = idx;
+                }
+                $scope.CostItemChange = function (CurrentCostItem) {
+                    if ($scope.currentCostItemIndex != null) {
+                        $scope.info.CostUnitListDetail[$scope.currentCostItemIndex].CostItemId = CurrentCostItem.Id;
+                        $scope.info.CostUnitListDetail[$scope.currentCostItemIndex].CostItemName = CurrentCostItem.Name;
+                        $scope.info.CostUnitListDetail[$scope.currentCostItemIndex].CostItemCode = CurrentCostItem.Code;
+                    }
+                    else {
+                        alert("请重新选择费用项目编码！");
+                        return false;
+                    }
+                }
+                //----------------------------------------------------------------------------
+                //选择产品线
+                $scope.ItemLineClick = function (idx) {
+                    $scope.currentItemLienIndex = idx;
+                }
+                $scope.ItemLineChange = function (currentItemLine) {
+                    if ($scope.currentItemLienIndex != null) {
+                        $scope.info.CostUnitListDetail[$scope.currentItemLienIndex].ItemLineId = currentItemLine.Id;
+                        $scope.info.CostUnitListDetail[$scope.currentItemLienIndex].ItemLineName = currentItemLine.Name;
+                    }
+                    else {
+                        alert("请重新选择产品线！");
+                        return false;
+                    }
+                }
+                //提交表单
+                $scope.submit = function () {
+                    $http.post("/CostUnitList/SaveData", { CostUnitList: $scope.info }).success(function (response) {
+                        if (response == 'no') {
+                            alert('保存失败');
+                        }
+                        else if (response == "没有单据类型！") {
+                            alert(response);
+                        }
+                        else {
+                            window.location.href = 'IndexShow?CostUnitListId=' + response;
+                        }
+                    });
+                }
+            })
     </script>
 </body>
 </html>

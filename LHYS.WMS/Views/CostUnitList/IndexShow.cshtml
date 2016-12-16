@@ -32,6 +32,8 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>编号：</td>
+                        <td>{{info.Billcode}}</td>
                         <td>公司：</td>
                         <td>{{info.Company}}</td>
                         <td>部门：</td>
@@ -102,18 +104,18 @@
         var myApp = angular.module('myApp', []);
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
-            $http.post("/CostUnitList/GetData", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId" } }).success(function (response) {
-                //修改时间格式
-                response.LBBillDate = jsonDateFormat(response.LBBillDate);
-                response.CreateDate = jsonDateFormat(response.CreateDate);
-                response.ExamineDate = jsonDateFormat(response.ExamineDate);
-                //绑定数据源
-                $scope.info = response;
-            });
+                $http.post("/CostUnitList/GetData", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId"} }).success(function (response) {
+                    //修改时间格式
+                    response.LBBillDate = jsonDateFormat(response.LBBillDate);
+                    response.CreateDate = jsonDateFormat(response.CreateDate);
+                    response.ExamineDate = jsonDateFormat(response.ExamineDate);
+                    //绑定数据源
+                    $scope.info = response;
+                });
             //---------------------------------------------------------------------------
             //审核（examine）
             $scope.submit = function () {
-                $http.post("/CostUnitList/Examine", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId" } }).success(function (response) {
+                $http.post("/CostUnitList/Examine", {}, { params: { "CostUnitListId": "@ViewBag.CostUnitListId"} }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
                         window.location.href = 'IndexShow?CostUnitListId=@ViewBag.CostUnitListId';

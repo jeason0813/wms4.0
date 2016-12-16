@@ -154,6 +154,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Billcode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
@@ -175,9 +176,9 @@
           <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CostItemId" Type="int" />
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
-          <Property Name="BusinessTypeId" Type="int" />
+          <Property Name="CreatePerson" Type="nvarchar" MaxLength="50" />
           <Property Name="BuniessTypeName" Type="nvarchar" MaxLength="100" />
-          <Property Name="LoadGoodsTypeId" Type="int" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
           <Property Name="LoadGoodsTypeName" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemLineId" Type="int" />
           <Property Name="ItemLineName" Type="nvarchar" MaxLength="50" />
@@ -385,6 +386,7 @@
           <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
           <Property Name="ListType" Type="nvarchar" MaxLength="100" />
           <Property Name="BillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillExamineDate" Type="datetime" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ExaminaDate" Type="datetime" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
@@ -660,6 +662,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleId" Type="int" />
           <Property Name="MenuId" Type="int" />
+          <Property Name="CheckState" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SendFileSet">
           <Key>
@@ -1931,6 +1934,7 @@
           <Property Name="BillState" Type="Int32" />
           <Property Name="BillType" Type="Int32" />
           <NavigationProperty Name="CostUnitListDetail" Relationship="DB.CostUnitListCostUnitListDetail" FromRole="CostUnitList" ToRole="CostUnitListDetail" />
+          <Property Name="Billcode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
@@ -1999,9 +2003,7 @@
           <Property Name="MainTableId" Type="Guid" />
           <Property Name="CostItemId" Type="Int32" />
           <Property Name="CostItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BusinessTypeId" Type="Int32" />
           <Property Name="BuniessTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LoadGoodsTypeId" Type="Int32" />
           <Property Name="LoadGoodsTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ItemLineId" Type="Int32" />
           <Property Name="ItemLineName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2018,6 +2020,8 @@
           <Property Name="state" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExaminePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OtherExpenseListDetail">
           <Key>
@@ -2110,6 +2114,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="MenuId" Type="Int32" />
+          <Property Name="CheckState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserRoleRelation">
           <Key>
@@ -2157,6 +2162,7 @@
           <Property Name="BillType" Type="Int32" />
           <Property Name="LaborUnitPrice" Type="Double" />
           <Property Name="LoadingUnitPrice" Type="Double" />
+          <Property Name="BillExamineDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="LaborCostBillLoadingAndLaborCostDetail">
           <End Type="DB.LaborCostBill" Role="LaborCostBill" Multiplicity="0..1" />
@@ -2847,6 +2853,7 @@
           <EntitySetMapping Name="CostUnitList">
             <EntityTypeMapping TypeName="DB.CostUnitList">
               <MappingFragment StoreEntitySet="CostUnitList">
+                <ScalarProperty Name="Billcode" ColumnName="Billcode" />
                 <ScalarProperty Name="BillType" ColumnName="BillType" />
                 <ScalarProperty Name="BillState" ColumnName="BillState" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
@@ -2924,6 +2931,8 @@
           <EntitySetMapping Name="CostUnitListDetail">
             <EntityTypeMapping TypeName="DB.CostUnitListDetail">
               <MappingFragment StoreEntitySet="CostUnitListDetail">
+                <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+                <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
                 <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="state" ColumnName="state" />
@@ -2940,9 +2949,7 @@
                 <ScalarProperty Name="ItemLineName" ColumnName="ItemLineName" />
                 <ScalarProperty Name="ItemLineId" ColumnName="ItemLineId" />
                 <ScalarProperty Name="LoadGoodsTypeName" ColumnName="LoadGoodsTypeName" />
-                <ScalarProperty Name="LoadGoodsTypeId" ColumnName="LoadGoodsTypeId" />
                 <ScalarProperty Name="BuniessTypeName" ColumnName="BuniessTypeName" />
-                <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
                 <ScalarProperty Name="CostItemName" ColumnName="CostItemName" />
                 <ScalarProperty Name="CostItemId" ColumnName="CostItemId" />
                 <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
@@ -3017,6 +3024,7 @@
           <EntitySetMapping Name="RoleMenuRelation">
             <EntityTypeMapping TypeName="DB.RoleMenuRelation">
               <MappingFragment StoreEntitySet="RoleMenuRelation">
+                <ScalarProperty Name="CheckState" ColumnName="CheckState" />
                 <ScalarProperty Name="MenuId" ColumnName="MenuId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -3035,6 +3043,7 @@
           <EntitySetMapping Name="LoadingAndLaborCostDetail">
             <EntityTypeMapping TypeName="DB.LoadingAndLaborCostDetail">
               <MappingFragment StoreEntitySet="LoadingAndLaborCostDetail">
+                <ScalarProperty Name="BillExamineDate" ColumnName="BillExamineDate" />
                 <ScalarProperty Name="LoadingUnitPrice" ColumnName="LoadingUnitPrice" />
                 <ScalarProperty Name="LaborUnitPrice" ColumnName="LaborUnitPrice" />
                 <ScalarProperty Name="BillType" ColumnName="BillType" />
