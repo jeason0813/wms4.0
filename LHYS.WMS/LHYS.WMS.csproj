@@ -1299,10 +1299,10 @@
     <Content Include="Views\MenuManager\UserRole.cshtml" />
     <Content Include="Views\TransferBill\IndexShowPrint.cshtml" />
     <Content Include="Views\BillsManager\Import.cshtml" />
-    <Content Include="Template\入库单.xlsx" />
-    <Content Include="Template\退货单.xlsx" />
-    <Content Include="Template\退仓单.xlsx" />
     <Content Include="Template\交货单.xlsx" />
+    <Content Include="Template\入库单.xlsx" />
+    <Content Include="Template\退仓单.xlsx" />
+    <Content Include="Template\退货单.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

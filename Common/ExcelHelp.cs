@@ -17,14 +17,16 @@ namespace Common
         public static DataTable ExcelToDT(string Path)
         {
             string strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties='Excel 12.0;HDR=Yes;IMEX=1;'";
-            OleDbConnection conn = new OleDbConnection(strConn);
-            conn.Open();
-            string strExcel = "";
-            OleDbDataAdapter myCommand = null;
             DataSet ds = null;
-            strExcel = "select * from [sheet1$]";
-            myCommand = new OleDbDataAdapter(strExcel, strConn);
-            ds = new DataSet(); myCommand.Fill(ds, "table1");
+            using (OleDbConnection conn = new OleDbConnection(strConn))
+            {
+                conn.Open();
+                string strExcel = "";
+                OleDbDataAdapter myCommand = null;
+                strExcel = "select * from [sheet1$]";
+                myCommand = new OleDbDataAdapter(strExcel, strConn);
+                ds = new DataSet(); myCommand.Fill(ds, "table1");
+            }
             RemoveEmpty(ds.Tables[0]);//删除空行
             return ds.Tables[0];
         }

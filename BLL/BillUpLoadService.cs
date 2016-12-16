@@ -6,6 +6,7 @@ using IDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -50,7 +51,10 @@ namespace BLL
                         billCodes += AddBackOutput(dt) + "  ";
                         break;
                 }
+                //删除文件
+                File.Delete(item);
             }
+           
             return "导入成功，单号为：" + billCodes;
             //}
             //catch(Exception e)
@@ -108,7 +112,7 @@ namespace BLL
                     record.ItemSpecifications = res.ItemSpecifications;
                     record.ItemUnit = res.ItemUnit;
                     record.UnitWeight = res.UnitWeight;
-                    record.Weight = record.Count * Convert.ToDouble(res.UnitWeight);
+                    record.Weight = Math.Round((double)(record.Count * Convert.ToDouble(res.UnitWeight)),2);
                 }
                 var res2 = CurrentDBSession.LocationDal.LoadEntities(a => a.Id == record.ItemLocationId).FirstOrDefault();
                 if (res2 != null)
