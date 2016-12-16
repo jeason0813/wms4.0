@@ -17,6 +17,7 @@ namespace DBModel
         public bool expanded { get; set; }
         public string checkState { get; set; }
         public List<MenuView> items { get; set; }
+        public string Url { get; set; }
         
     }
 }

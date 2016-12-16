@@ -27,7 +27,7 @@
                 <div class="col-xs-12 table-responsive">
                     <table class="table table-condensed titletable">
                         <tr>
-                            <td colspan="9" style="text-align:center"><h2>转仓单</h2></td>
+                            <td colspan="9" style="text-align:center"><h2>入库单</h2></td>
                         </tr>
                         <tr>
                             <td class="titletd">转仓单号:</td>
@@ -246,7 +246,7 @@
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
             //获取基础数据
-            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+            $http.post("/BaseInfo/GetBaseInfo", { inoutType:'in'}).success(function (response) {
                 $scope.Warehouses = response.Warehouse;
                 $scope.GoodItems = response.GoodItem;
                 $scope.UserFrameworks = response.UserFramework;

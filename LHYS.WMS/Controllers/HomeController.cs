@@ -16,6 +16,10 @@ namespace LHYS.WMS.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// 旧版请求菜单 已弃用
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetMenu()
         {
             List<MenuA> list = MenuAService.LoadEntities(a => true).ToList();//获取所有菜单记录
@@ -25,7 +29,6 @@ namespace LHYS.WMS.Controllers
             }
             string res = JsonConvert.SerializeObject(list).Replace("Name", "text").Replace("MenuB", "nodes");//修改菜单属性
             return Content(res);
-
         }
 
 

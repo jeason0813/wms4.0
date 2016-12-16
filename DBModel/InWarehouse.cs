@@ -27,7 +27,7 @@ namespace DBModel
         public string DepartmentId { get; set; }
         public string Company { get; set; }
         public string CompanyId { get; set; }
-        public Nullable<int> ItemLocationId { get; set; }
+        public string ItemLocationId { get; set; }
         public string Warehouse { get; set; }
         public Nullable<int> WarehouseId { get; set; }
     }

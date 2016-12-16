@@ -87,6 +87,9 @@
             }
             //添加权限
             $scope.addPower = function (power) {
+                for (var i = 0; i < $scope.currentPersonPowers.length; i++) {
+                    if (power.DeptCode == $scope.currentPersonPowers[i].DeptCode) { return false; }
+                }
                 $scope.currentPersonPowers.push(power);
             }
             //保存设置

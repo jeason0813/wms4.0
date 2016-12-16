@@ -47,6 +47,7 @@
   <object type="LHYS.WMS.Controllers.LoginController,LHYS.WMS" singleton="false" >
     <property name="UserService" ref="UserService" />
     <property name="UserFrameworkService" ref="UserFrameworkService" />
+    <property name="MenuService" ref="MenuService" />
   </object>
   
   <object type="LHYS.WMS.Controllers.LocationController,LHYS.WMS" singleton="false" >
@@ -141,6 +142,9 @@
   <object type="LHYS.WMS.Controllers.FinanceManagerController,LHYS.WMS" singleton="false" >
     <property name="OtherExpenseListService" ref="OtherExpenseListService" />
     <property name="LoadingExpensesBillService" ref="LoadingExpensesBillService" />
+  </object>
+  <object type="LHYS.WMS.Controllers.BillUpLoadController,LHYS.WMS" singleton="false" >
+    <property name="BillUpLoadService" ref="BillUpLoadService" />
   </object>
 </objects>
 

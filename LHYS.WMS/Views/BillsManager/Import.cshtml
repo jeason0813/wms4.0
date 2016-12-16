@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <script src="~/Scripts/angularJs/angular-file-upload.min.js"></script>
+    <title>单据导入</title>
+</head>
+<body>
+    <div class="container" ng-app="myApp" ng-controller="mainController">
+        <div class="row">
+            <div class="col-xs-12" style="text-align:center"><h1>单据导入</h1></div>
+            <div class="col-xs-6">
+                <h3>模板下载:</h3>
+                <a href="~/Template/入库单模板.xlsx"><span class="glyphicon glyphicon-list-alt"></span>入库单模板</a><br />
+                <a href="~/Template/退货单模板.xlsx"><span class="glyphicon glyphicon-list-alt"></span>退货单模板</a><br />
+                <a href="~/Template/交货单模板.xlsx"><span class="glyphicon glyphicon-list-alt"></span>交货单模板</a><br />
+                <a href="~/Template/退仓单模板.xlsx"><span class="glyphicon glyphicon-list-alt"></span>退仓单模板</a>
+                <h3>填写示例:</h3>
+                <a href="~/Template/入库单示例.xlsx"><span class="glyphicon glyphicon-list-alt"></span>入库单示例</a><br />
+                <a href="~/Template/退货单示例.xlsx"><span class="glyphicon glyphicon-list-alt"></span>退货单示例</a><br />
+                <a href="~/Template/交货单示例.xlsx"><span class="glyphicon glyphicon-list-alt"></span>交货单示例</a><br />
+                <a href="~/Template/退仓单示例.xlsx"><span class="glyphicon glyphicon-list-alt"></span>退仓单示例</a>
+            </div>
+            <div class="col-xs-6">
+                <table class="table table-condensed titletable">
+                    <tr>
+                        <th colspan="2"><input type="file" class="form-control" ng-file-select="onFileSelect($files)" multiple accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></th>
+                    </tr>
+                    <tr ng-repeat="file  in selectFilesShow ">
+                        <td>{{file}}</td>
+                        <td><button class="btn btn-danger btn-sm" ng-click="selectDel($index)">删除</button></td>
+                    </tr>
+                </table>
+                <button class="btn btn-success" ng-click="save()">确认提交</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var myApp = angular.module('myApp', ['angularFileUpload']);
+        myApp.controller('mainController', ['$scope', '$upload','$http', function ($scope, $upload,$http) {
+            $scope.selectFilesShow = [];
+            $scope.selectFiles = [];
+            $scope.onFileSelect = function ($files) {    //$files:是已选文件的名称、大小和类型的数组
+                for (var i = 0; i < $files.length; i++) {
+                    var file = $files[i];
+                    console.log(file);
+                    /*文件上传函数*/
+                    $scope.upload = $upload.upload({
+                        url: '/BillUpLoad/UpLoadBill', //上传的url
+                        method: 'POST',
+                        //headers: {'header-key': 'header-value'},
+                        //withCredentials: true,
+                        data: { myObj: $scope.myModelObj },
+                        file: file, // or list of files ($files) for html5 only
+                        //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
+                        // customize file formData name ('Content-Disposition'), server side file variable name.
+                        //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file'
+                        // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
+                        //formDataAppender: function(formData, key, val){}
+                    }).progress(function (evt) {//上传进度
+                        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                    }).success(function (data, status, headers, config) {
+                        $scope.selectFilesShow.push(data.split('-')[1]);
+                        $scope.selectFiles.push(data);
+                    }).error(function (data, status, headers, config) {
+                        //失败处理函数
+                        console.log('上传失败');
+                    });
+                };
+            };
+
+            //删除
+            $scope.selectDel = function (index) {
+                $scope.selectFilesShow.splice(index, 1);
+                $scope.selectFiles.splice(index, 1);
+            };
+            //保存
+            $scope.save = function () {
+                $http.post("/BillUpLoad/Save", { files: $scope.selectFiles }).success(function (response) {
+                    alert(response);
+                    //清空单号
+                    $scope.selectFilesShow = [];
+                    $scope.selectFiles = [];
+                });
+            }
+
+        }]);
+    </script>
+
+</body>
+</html>

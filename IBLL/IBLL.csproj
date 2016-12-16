@@ -51,6 +51,7 @@
     <Compile Include="IBackInputService.cs" />
     <Compile Include="IBackOutputService.cs" />
     <Compile Include="IBaseService.cs" />
+    <Compile Include="IBillUpLoadService.cs" />
     <Compile Include="IBLL.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,6 +67,7 @@
     <Compile Include="IMenuService.cs" />
     <Compile Include="IOtherInputService.cs" />
     <Compile Include="IOtherOutputService.cs" />
+    <Compile Include="IRoleService.cs" />
     <Compile Include="ITaskBillService.cs" />
     <Compile Include="ITransferBillService.cs" />
     <Compile Include="IUserFrameworkService.cs" />

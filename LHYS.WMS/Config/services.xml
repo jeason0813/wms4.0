@@ -72,4 +72,6 @@
   </object>
   <object name="RoleService" type="BLL.RoleService, BLL" singleton="false" >
   </object>
+  <object name="BillUpLoadService" type="BLL.BillUpLoadService, BLL" singleton="false" >
+  </object>
 </objects>

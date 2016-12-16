@@ -75,6 +75,14 @@ namespace LHYS.WMS.Controllers
             ViewBag.billTypeName = billTypeName;//单据类型名
             return View();
         }
+        /// <summary>
+        /// 单据导入
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Import()
+        {
+            return View();
+        }
 
         public ActionResult SearchBills(string billType, int pageIndex, int pageSize, string timestart, string timeend, string BillState, string DepartmentId, int? WarehouseId, string BillCode, string LBBillCode)
         {
