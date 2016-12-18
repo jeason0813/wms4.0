@@ -114,6 +114,8 @@
                 <button id="audit" type="button" class="print btn btn-info btn-md " ng-click="examine()" ng-show="info.BillState==1&&btnPower.indexOf(52)!=-1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
                 <button id="abandon" type="button" class=" print btn btn-info btn-md " ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
                 <button id="print" class=" print btn btn-success btn-md " ng-click="gotoPrintPage()">&nbsp;&nbsp;&nbsp;打&nbsp;&nbsp;&nbsp;印&nbsp;&nbsp;&nbsp;</button>
+                <button id="print" class=" print btn btn-info btn-md " ng-click="exportExcel()">&nbsp;&nbsp;&nbsp;导&nbsp;&nbsp;&nbsp;出&nbsp;&nbsp;&nbsp;</button>
+                <a  id="btndown">test</a>
             </div>
         </div>
     </div>
@@ -132,6 +134,15 @@
             } catch (ex) {
                 return "";
             }
+        }
+        function downloadFile(fileName, content){
+            var aLink = document.createElement('a');
+            var blob = new Blob([content]);
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错, 感谢 Barret Lee 的反馈
+            aLink.download = fileName;
+            aLink.href = URL.createObjectURL(blob);
+            aLink.dispatchEvent(evt);
         }
         //主程序
         var myApp = angular.module('myApp', []);
@@ -178,9 +189,16 @@
             $scope.gotoPrintPage=function () {
                 setTimeout(window.print(),200)
             }
+            //导出excel
+            $scope.exportExcel=function () {
+                $http.post("/ExportBill/ExprotExcel",{billType:"transferbill",billId:"@ViewBag.TransferBillId"}).success(function (response) {
+                    document.getElementById('btndown').setAttribute("href",response);
+                    document.getElementById('btndown').click();
+                });
+                
+            }
         })
     </script>
-    <script></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 </body>
 </html>

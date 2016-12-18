@@ -14,9 +14,6 @@ namespace LHYS.WMS.Controllers
         private IBusinessTypeService BusinessTypeService { get; set; }
         public ActionResult Index()
         {
-            Session["UserName"] = "朱洲";
-            Session["UserCode"] = "HR1406";
-            Session["Power"] = "LH6220";
             return View();
         }
         /// <summary>

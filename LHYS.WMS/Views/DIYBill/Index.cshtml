@@ -35,7 +35,7 @@
                             <td class="tdname2">加工日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
                             <td class="tdname2">加工人：</td>
-                            <td><input class="form-control" type="text" name="name" @*data-toggle="modal" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" data-target="#personchoose"*@ required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.ChargePerson" required /></td>
                             <td class="tdname2">部门：</td>
                             <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
                         </tr>
@@ -54,7 +54,7 @@
                             <td>审核日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                             <td>备注：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark"  /></td>
                         </tr>
                     </table>
                     <div style="color:#ff6a00">加工前</div>

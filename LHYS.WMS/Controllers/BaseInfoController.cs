@@ -23,10 +23,6 @@ namespace LHYS.WMS.Controllers
 
         public ActionResult GetBaseInfo(string inoutType)
         {
-            //测试用Session
-            Session["UserName"] = "朱洲";
-            Session["UserCode"] = "HR1406";
-            Session["Power"] = "LH6220";
             if (Session["Power"] == null || Session["UserCode"] == null)
             {
                 return null;
