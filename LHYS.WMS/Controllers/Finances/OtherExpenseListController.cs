@@ -56,8 +56,7 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult IndexShow()
         {
-            ViewBag.billType = Session["billType"];//单据类型
-            ViewBag.billTypeName = Session["billTypeName"];//单据类型名
+           
             if (Request["OtherExpenseListId"] != null)
             {
                 ViewBag.OtherExpenseListId = Request["OtherExpenseListId"].ToString();
@@ -66,6 +65,29 @@ namespace LHYS.WMS.Controllers
             {
                 return Content("参数错误");
             }
+            if (Request["billType"] != null)
+            {
+                string billType = Request["billType"];
+                switch (billType)
+                {
+                    case "OtherExpenseReceiveList":
+                    case "1":
+                        Session["billType"] = 1;
+                        Session["billTypeName"] = "其他费用应收单";
+                        break;
+                    case "OtherExpenseGiveList":
+                    case "2":
+                        Session["billType"] = 2;
+                        Session["billTypeName"] = "其他费用应付单";
+                        break;
+                    default:
+                        Session["billType"] = null;
+                        Session["billTypeName"] = "";
+                        break;
+                }
+            }
+            ViewBag.billType = Session["billType"];//单据类型
+            ViewBag.billTypeName = Session["billTypeName"];//单据类型名
             return View();
         }
         //获取表单数据
@@ -102,10 +124,10 @@ namespace LHYS.WMS.Controllers
         }
 
         /// <summary>
-        /// 审核表单
+        /// 初审表单
         /// </summary>
         /// <returns></returns>
-        public ActionResult Examine()
+        public ActionResult Examine1()
         {
             string res = "";
             string OtherExpenseListId = Request.Params["OtherExpenseListId"];
@@ -115,7 +137,25 @@ namespace LHYS.WMS.Controllers
             }
             else
             {
-                res = OtherExpenseListService.Examine(Guid.Parse(OtherExpenseListId), Session["UserName"].ToString());
+                res = OtherExpenseListService.Examine1(Guid.Parse(OtherExpenseListId), Session["UserName"].ToString());
+            }
+            return Content(res);
+        }
+        /// <summary>
+        /// 审核表单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Examine2()
+        {
+            string res = "";
+            string OtherExpenseListId = Request.Params["OtherExpenseListId"];
+            if (string.IsNullOrEmpty(OtherExpenseListId))
+            {
+                res = "参数错误";
+            }
+            else
+            {
+                res = OtherExpenseListService.Examine2(Guid.Parse(OtherExpenseListId), Session["UserName"].ToString());
             }
             return Content(res);
         }

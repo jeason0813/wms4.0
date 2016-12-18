@@ -177,7 +177,7 @@
                                                仓库：
                                             </td>
                                             <td>
-                                                <select class="form-control" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse" required ng-change="WarehouseChange(currentWarehouse)"></select>
+                                                <select class="form-control" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse" ng-change="WarehouseChange(currentWarehouse)"></select>
                                             </td>
                                         </tr>
                                     </table>
@@ -330,10 +330,18 @@
             //选择了货位数据
             $scope.selectlocation = function (location) {
                 if ($scope.currentlocationtype == 'LocationChangeBefore') {
+                    if ($scope.currentWarehouse == null) {
+                        alert("请先选择仓库！");
+                        return false;
+                    }
                     $scope.RecordView[$scope.currentlocation].LocationChangeBefore = location.Name; //保存货位信息
                     $scope.RecordView[$scope.currentlocation].LocationChangeBeforeId = location.Id;
                 }
                 else if ($scope.currentlocationtype == 'LocationChangeAfter') {
+                    if ($scope.currentWarehouse == null) {
+                        alert("请先选择仓库！");
+                        return false;
+                    }
                     $scope.RecordView[$scope.currentlocation].LocationChangeAfter = location.Name; //保存货位信息
                     $scope.RecordView[$scope.currentlocation].LocationChangeAfterId = location.Id;
                 }
@@ -343,8 +351,9 @@
                 }
                 $scope.currentlocation = null;
                 $scope.currentlocationtype = null;
+                $scope.currentWarehouse = null;
+                $scope.searchstrlocation ="";
                 $('#locationchoose').modal('hide');
-                $scope.searchstrlocation = '';
             }
             //--------------------------------------------------------------------------------
             //提交表单

@@ -43,7 +43,7 @@
                             <td class="tdname">公司：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.Company" placeholder="选择部门后自动获取" disabled /></td>
                             <td class="tdname">部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" ng-change="departentChange(CurrentDepartment)" required></select></td>
                             <td class="tdname">备注：</td>
                             <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>
@@ -58,117 +58,123 @@
                             <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                         </tr>
                     </table>
-                    <div  style="width:1115px;overflow:scroll">
-                        <table class="table table-bordered" style="font-size: 14px;line-height: 24px;">
+                    <div style="width:1115px;overflow:scroll">
+                        <table class="table table-bordered" style="font-size: 14px;">
                             <tr>
                                 <th nowrap="nowrap">编号</th>
-                                <th nowrap="nowrap">费用项目编码1</th>
-                                <th nowrap="nowrap">费用项目名称2</th>
-                                <th nowrap="nowrap">单据类型3</th>
-                                <th nowrap="nowrap">单据编码4</th>
-                                <th nowrap="nowrap">审核日期5</th>
-                                <th nowrap="nowrap">公司6</th>
-                                <th nowrap="nowrap">部门7</th>
-                                <th nowrap="nowrap">仓库8</th>
-                                <th nowrap="nowrap">业务类型9</th>
-                                <th nowrap="nowrap">装卸类型10</th>
-                                <th nowrap="nowrap">物料编码11</th>
-                                <th nowrap="nowrap">产品线12</th>
-                                <th nowrap="nowrap">产品名称13</th>
-                                <th nowrap="nowrap">包装规格14</th>
-                                <th nowrap="nowrap">单位15</th>
-                                <th nowrap="nowrap">单位重量16</th>
-                                <th nowrap="nowrap">数量17</th>
-                                <th nowrap="nowrap">重量18</th>
-                                <th nowrap="nowrap" ng-show="UnitPriviceShow(@ViewBag.billType)">装卸单价19</th>
-                                <th nowrap="nowrap" ng-show="UnitPriviceShow2(@ViewBag.billType)">力资费单价20</th>
-                                <th nowrap="nowrap">总金额21</th>
-                                <th nowrap="nowrap">备注22</th>
+                                <th nowrap="nowrap" style="width:120px;">费用项目编码</th>
+                                <th nowrap="nowrap" style="width:120px;">费用项目名称</th>
+                                <th nowrap="nowrap">单据类型</th>
+                                <th nowrap="nowrap" style="width:100px;">单据编码</th>
+                                <th nowrap="nowrap" style="width:100px;">审核日期</th>
+                                <th nowrap="nowrap" style="width:100px;">公司</th>
+                                <th nowrap="nowrap" style="width:150px;">部门</th>
+                                <th nowrap="nowrap" style="width:130px;">仓库</th>
+                                <th nowrap="nowrap" style="width:100px;">业务类型</th>
+                                <th nowrap="nowrap" style="width:100px;">装卸类型</th>
+                                <th nowrap="nowrap" style="width:100px;">物料编码</th>
+                                <th nowrap="nowrap" style="width:100px;">产品线</th>
+                                <th nowrap="nowrap" style="width:180px;">产品名称</th>
+                                <th nowrap="nowrap" style="width:100px;">包装规格</th>
+                                <th nowrap="nowrap" style="width:80px;">单位</th>
+                                <th nowrap="nowrap" style="width:100px;">单位重量</th>
+                                <th nowrap="nowrap" style="width:100px;">数量</th>
+                                <th nowrap="nowrap" style="width:100px;">重量</th>
+                                <th nowrap="nowrap" ng-show="UnitPriviceShow(@ViewBag.billType)">装卸单价</th>
+                                <th nowrap="nowrap" ng-show="UnitPriviceShow2(@ViewBag.billType)">力资费单价</th>
+                                <th nowrap="nowrap" style="width:150px;">总金额</th>
+                                <th nowrap="nowrap" style="width:150px;">备注</th>
                             </tr>
                             <tr ng-repeat="record in info.LoadingAndLaborCostDetail">
                                 <td>{{$index+1}}</td>  @*编号*@
-                                <td>{{record.a}}</td>
-                                <td>{{record.b}}</td>
-                                <td>{{record.c}}</td>
-                                <td>{{record.d}}</td>
-                                <td>{{record.e}}</td>
-                                <td>{{record.f}}</td>
-                                <td>{{record.g}}</td>
-                                <td>{{record.h}}</td>
-                                <td>{{record.i}}</td>
-                                <td>{{record.j}}</td>
-                                <td>{{record.k}}</td>
-                                <td>{{record.l}}</td>
-                                <td>{{record.m}}</td>
-                                <td>{{record.n}}</td>
-                                <td>{{record.o}}</td>
-                                <td>{{record.p}}</td>
-                                <td>{{record.q}}</td>
-                                <td>{{record.r}}</td>
-                                <td ng-show="UnitPriviceShow(@ViewBag.billType)">{{record.s}}</td>
-                                <td ng-show="UnitPriviceShow2(@ViewBag.billType)">{{record.t}}</td>
-                                <td>{{record.u}}</td>
-                                <td>{{record.v}}</td>
+                                <td>{{record.CostItemCode}}</td>
+                                <td>{{record.CostItemName}}</td>
+                                <td>{{record.ListType}}</td>
+                                <td>{{record.BillCode}}</td>
+                                <td>{{record.BillExamineDate}}</td>
+                                <td>{{record.Company}}</td>
+                                <td>{{record.Department}}</td>
+                                <td>{{record.Warehouse}}</td>
+                                <td>{{record.BusinessType}}</td>
+                                <td>{{record.LoadingType}}</td>
+                                <td>{{record.ItemCode}}</td>
+                                <td>{{record.ItemLine}}</td>
+                                <td>{{record.ItemName}}</td>
+                                <td>{{record.ItemSpecifications}}</td>
+                                <td>{{record.ItemUnit}}</td>
+                                <td>{{record.UnitWeight}}</td>
+                                <td>{{record.Count}}</td>
+                                <td>{{record.Weight}}</td>
+                                <td ng-show="UnitPriviceShow(@ViewBag.billType)"><input class="form-control" type="text" ng-model="record.LoadingUnitPrice" /></td>
+                                <td ng-show="UnitPriviceShow2(@ViewBag.billType)"><input class="form-control" type="text" ng-model="record.LaborUnitPrice" /></td>
+                                <td><input class="form-control" type="text" ng-model="record.AllAmount" /></td>
+                                <td><input class="form-control" type="text" ng-model="record.Remark" /></td>
                             </tr>
                         </table>
                     </div>
                     <div style="text-align:center">
                         <button type="submit" class="btn btn-success btn-md">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button>
                     </div>
-                    @*-------------------------------------取数条件模态框-----------------------------------------*@
-                    <div class="modal fade" id="itemchoose">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h4 class="modal-title">请选择取数条件</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table table-bordered table-striped table-condensed">
-                                        <tr>
-                                            <td style="width:100px;">公司：</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="Company2" placeholder="选择部门后自动获取" disabled /></td>
-                                            <td style="width:100px;">部门：</td>
-                                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment2" ng-change="departentChange2(CurrentDepartment2)"></select></td>
-                                        </tr>
-                                        <tr>
-                                            <td>单据类型：</td>
-                                            <td colspan="3">
-                                                <input type="checkbox" ng-model="A.TransferBill" />转仓单
-                                                <input type="checkbox" ng-model="A.BackInput" />退仓单
-                                                <input type="checkbox" ng-model="A.GiveBill" />交货单
-                                                <input type="checkbox" ng-model="A.BackOutput" />退货单
-                                                <input type="checkbox" ng-model="A.GiveBackBill" />交货回执单
-                                            </td>
-                                        </tr>
-                                        <tr>    
-                                            <td>业务模式：</td>
-                                            <td><select class="form-control" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="A.BusinessType"></select></td>
-                                            <td colspan="3"></td>
-                                         </tr>
-                                        <tr>
-                                            <td>仓库：</td>
-                                            <td>
-                                                <select class="form-control" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse2" ng-change="WarehouseChange2(currentWarehouse2)"></select>
-                                            </td>
-                                            <td>装卸类型：</td>
-                                            <td><select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="A.LoadGoodsType"></select></td>
-                                        </tr>
-                                        <tr>
-                                            <td>审核日期：</td>
-                                            <td><input class="form-control" type="date" name="name" ng-model="A.dateStart" /></td>
-                                            <td style="width:50px;">~</td>
-                                            <td><input class="form-control" type="date" name="name" ng-model="A.dateEnd" /></td>
-                                        </tr>
-                                    </table>
-                                    <div style="text-align:right"> <a class="btn btn-success btn-md" ng-click="btnQuery()">确定</a></div>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-                    @*-------------------------------------取数条件模态框end-----------------------------------------*@
                 </div>
             </form>
+            
+                @*-------------------------------------取数条件模态框-----------------------------------------*@
+            <div class="modal fade" id="itemchoose">
+                <form ng-submit="btnQuery()">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">请选择取数条件</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-bordered table-striped table-condensed">
+                                    <tr>
+                                        <td style="width:100px;">公司：</td>
+                                        <td><input class="form-control" type="text" name="name" ng-model="Company2" placeholder="选择部门后自动获取" disabled /></td>
+                                        <td style="width:100px;">部门：</td>
+                                        <td><select class="form-control" name="name" ng-options="Departent.DeptName for Departent in Departents" ng-model="Current2Department" required="required"  ng-change="departentChange2(Current2Department)" ></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>单据类型：</td>
+                                        <td colspan="3">
+                                            <input type="checkbox" ng-model="A.TransferBill" />转仓单
+                                            <input type="checkbox" ng-model="A.BackInput" />退仓单
+                                            <input type="checkbox" ng-model="A.GiveBill" />交货单
+                                            <input type="checkbox" ng-model="A.BackOutput" />退货单
+                                            <input type="checkbox" ng-model="A.GiveBackBill" />交货回执单
+                                            <span style="color:#ff0000">(* 必选)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>业务模式：</td>
+                                        <td><select class="form-control"  ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="A.BusinessType"></select></td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>仓库：</td>
+                                        <td>
+                                            <select class="form-control" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse2" ng-change="WarehouseChange2(currentWarehouse2)"></select>
+                                        </td>
+                                        <td>装卸类型：</td>
+                                        <td><select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="A.LoadGoodsType"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>审核日期：</td>
+                                        <td><input class="form-control" type="date" name="name" ng-model="A.dateStart" /></td>
+                                        <td style="width:50px;">~</td>
+                                        <td><input class="form-control" type="date" name="name" ng-model="A.dateEnd" required /></td>
+                                    </tr>
+                                </table>
+                                <div style="text-align:right"><button type="submit" class="btn btn-success btn-md">确定</button></div>
+                            </div>
+                        </div><!-- /.modal-content -->
+
+                    </div><!-- /.modal-dialog -->
+                </form>su
+            </div><!-- /.modal -->
+                @*-------------------------------------取数条件模态框end-----------------------------------------*@
+            
         </div>
     </div>
     <script>
@@ -188,6 +194,22 @@
                 return "";
             }
         }
+        //json日期格式转换为正常格式
+        function jsonDateFormat2(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                var date = date.getFullYear() + "-" + month + "-" + day;
+                return date;
+            } catch (ex) {
+                return "";
+            }
+        }
         //主程序
         var myApp = angular.module('myApp', []);
         //自定义时间转换过滤器
@@ -195,11 +217,9 @@
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
             $scope.A = {};
-            //单据类型
-            $scope.BillTypes = [{ billname: "转仓单" }, { billname: "退仓单" }, { billname: "交货单" }, { billname: "退货单" }, { billname: "交货回执单" }];
             //根据页面类型是否显示单价
             $scope.UnitPriviceShow = function (billtype) {
-                if(billtype==1||billtype==2){
+                if (billtype == 1 || billtype == 2) {
                     return true;
                 }
                 return false;
@@ -221,7 +241,7 @@
                     $scope.CostItems = response.CostItem;
                     $scope.ItemLines = response.ItemLine;
                     //如果有单号 获取单据内容
-                    $http.post("/OtherExpenseList/GetData", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
+                    $http.post("/LoadingExpensesBill/GetData", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
                         //绑定数据源
                         if (response == "没有单据类型！") {
                             alert(response);
@@ -234,23 +254,15 @@
                                 $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
                                 $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
                                 response.BillDate = jsonDateFormat(response.BillDate);
-                                for (var i = 0; i < $scope.info.OtherExpenseListDetail.length; i++) {
-                                    $scope.info.OtherExpenseListDetail[i].HappenDate = jsonDateFormat($scope.info.OtherExpenseListDetail[i].HappenDate);
+                                for (var i = 0; i < response.LoadingAndLaborCostDetail.length; i++) {
+                                    response.LoadingAndLaborCostDetail[i].BillExamineDate = jsonDateFormat2(response.LoadingAndLaborCostDetail[i].BillExamineDate)
+                                    response.LoadingAndLaborCostDetail[i].BillExamineDate = response.LoadingAndLaborCostDetail[i].BillExamineDate.substr(0, 11);
                                 }
                                 //给当前部门赋值
                                 for (var i = 0; i < $scope.Departents.length; i++) {
                                     if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
                                         $scope.CurrentDepartment = $scope.Departents[i];
                                         break;
-                                    }
-                                }
-                                //给当前费用项目赋值
-                                for (var j = 0; j < $scope.info.OtherExpenseListDetail.length; j++) {
-                                    for (var i = 0; i < $scope.CostItems.length; i++) {
-                                        if ($scope.CostItems[i].Id == $scope.info.OtherExpenseListDetail[j].CostItemId) {
-                                            $scope.info.OtherExpenseListDetail[j].CurrentCostItem = $scope.CostItems[i];
-                                            break;
-                                        }
                                     }
                                 }
                             }
@@ -268,37 +280,38 @@
             }
             //选择了部门  给对应的字段赋值
             $scope.departentChange2 = function (CurrentDepartment2) {
-                
                 $scope.A.Department2Id = CurrentDepartment2.DeptCode;
                 $scope.Company2 = CurrentDepartment2.CompanyAbbr;
-                alert($scope.A.Department2Id);
             }
             //--------------------------------------------------------------------
             //选择了仓库数据
             $scope.WarehouseChange2 = function (warehouse) {
                 $scope.A.Warehouse2Id = warehouse.Id;
-                alert($scope.A.Warehouse2Id);
             }
             //--------------------------------------------------------------
             //---------------------------------------------------------------------------
             $scope.btnQuery = function () {
-                $http.post("/LoadingExpensesBill/GetBillDetail", {A:$scope.A}).success(function (response) {
-
+                $http.post("/LoadingExpensesBill/GetBillDetail", { A: $scope.A }).success(function (response) {
+                    for (var i = 0; i < response.LoadingAndLaborCostDetail.length; i++) {
+                        response.LoadingAndLaborCostDetail[i].BillExamineDate = jsonDateFormat2(response.LoadingAndLaborCostDetail[i].BillExamineDate)
+                        response.LoadingAndLaborCostDetail[i].BillExamineDate = response.LoadingAndLaborCostDetail[i].BillExamineDate.substr(0, 11);
+                    }
+                    $scope.info = response;
                 })
                 $("#itemchoose").modal('hide');
             }
             //--------------------------------------------------------------------
             //提交表单
             $scope.submit = function () {
-                $http.post("/OtherExpenseList/SaveData", { OtherExpenseList: $scope.info }).success(function (response) {
+                $http.post("/LoadingExpensesBill/SaveData", { LoadingExpensesBill: $scope.info }).success(function (response) {
                     if (response == 'no') {
                         alert('保存失败');
                     }
                     else if (response == "没有单据类型！") {
-                       alert(response);
+                        alert(response);
                     }
                     else {
-                        window.location.href = 'IndexShow?OtherExpenseListId=' + response;
+                        window.location.href = 'IndexShow?LoadingExpensesBillId=' + response;
                     }
                 });
             }

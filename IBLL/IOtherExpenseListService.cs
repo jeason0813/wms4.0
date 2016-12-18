@@ -14,11 +14,17 @@ namespace IBLL
         /// <returns></returns>
         string SaveData(OtherExpenseList bill, int billType);
         /// <summary>
+        /// 初审表单数据
+        /// </summary>
+        /// <param name="OtherExpenseListId"></param>
+        /// <returns></returns>
+        string Examine1(Guid OtherExpenseListId, string UserName);
+        /// <summary>
         /// 审核表单数据
         /// </summary>
         /// <param name="OtherExpenseListId"></param>
         /// <returns></returns>
-        string Examine(Guid OtherExpenseListId, string UserName);
+        string Examine2(Guid OtherExpenseListId, string UserName);
         /// <summary>
         /// 弃审
         /// </summary>

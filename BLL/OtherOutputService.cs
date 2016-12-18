@@ -96,7 +96,7 @@ namespace BLL
                 InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 if (inWarehouse == null|| inWarehouse.Count <item.Count)//如果没有库存 
                 {
-                    result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
+                    result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
                     return result;
                 }
                 else //有库存

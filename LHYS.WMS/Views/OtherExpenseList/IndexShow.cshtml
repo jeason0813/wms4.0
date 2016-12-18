@@ -65,7 +65,6 @@
                         <th>发生日期</th>
                         <th>费用说明</th>
                         <th>金额</th>
-                        <th>仓库</th>
                         <th>备注</th>
                     </tr>
                     <tr ng-repeat="record in info.OtherExpenseListDetail">
@@ -75,14 +74,14 @@
                         <td>{{record.HappenDate}}</td>
                         <td>{{record.CostDescription}}</td>
                         <td>{{record.Amount}}</td>
-                        <td>{{record.UnitPrice}}</td>
                         <td>{{record.Remark}}</td>
                     </tr>
                 </table>
                 <div style="text-align:center">
                     <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-info btn-md" ng-click="submit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
-                    <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-info btn-md" ng-click="shenhe1()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;初&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-info btn-md" ng-click="shenhe2()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2||info.BillState==3">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                 </div>
             </div>
         </div>
@@ -119,9 +118,21 @@
                 $scope.info = response;
             });
             //---------------------------------------------------------------------------
+            //初审（examine）
+            $scope.shenhe1 = function () {
+                $http.post("/OtherExpenseList/Examine1", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
+                    if (response == "审核成功！") {
+                        alert("审核成功！");
+                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
+                    }
+                    else {
+                        alert(response);
+                    }
+                });
+            }
             //审核（examine）
-            $scope.submit = function () {
-                $http.post("/OtherExpenseList/Examine", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
+            $scope.shenhe2 = function () {
+                $http.post("/OtherExpenseList/Examine2", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
                         window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';

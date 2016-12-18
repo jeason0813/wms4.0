@@ -61,6 +61,7 @@
     <Compile Include="ICostUnitListService.cs" />
     <Compile Include="IDIYBillService.cs" />
     <Compile Include="IGiveBillService.cs" />
+    <Compile Include="ILoadingExpensesBillService.cs" />
     <Compile Include="ILocationChangeService.cs" />
     <Compile Include="IOtherExpenseListService.cs" />
     <Compile Include="IMenuService.cs" />

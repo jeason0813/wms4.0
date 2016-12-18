@@ -57,32 +57,65 @@
                         <td>{{info.ExamineDate}}</td>
                     </tr>
                 </table>
-                <table class="table">
-                    <tr>
-                        <th>编号</th>
-                        <th>费用项目编码</th>
-                        <th>费用项目名称</th>
-                        <th>发生日期</th>
-                        <th>费用说明</th>
-                        <th>金额</th>
-                        <th>仓库</th>
-                        <th>备注</th>
-                    </tr>
-                    <tr ng-repeat="record in info.OtherExpenseListDetail">
-                        <td>{{$index+1}}</td>  @*编号*@
-                        <td>{{record.CostItemCode}}</td>
-                        <td>{{record.CostItemName}}</td>
-                        <td>{{record.HappenDate}}</td>
-                        <td>{{record.CostDescription}}</td>
-                        <td>{{record.Amount}}</td>
-                        <td>{{record.UnitPrice}}</td>
-                        <td>{{record.Remark}}</td>
-                    </tr>
-                </table>
+                <div style="width:1115px;overflow:scroll">
+                    <table class="table table-bordered" style="font-size: 14px;">
+                        <tr>
+                            <th nowrap="nowrap">编号</th>
+                            <th nowrap="nowrap" style="width:120px;">费用项目编码</th>
+                            <th nowrap="nowrap" style="width:120px;">费用项目名称</th>
+                            <th nowrap="nowrap">单据类型</th>
+                            <th nowrap="nowrap" style="width:100px;">单据编码</th>
+                            <th nowrap="nowrap" style="width:100px;">审核日期</th>
+                            <th nowrap="nowrap" style="width:100px;">公司</th>
+                            <th nowrap="nowrap" style="width:150px;">部门</th>
+                            <th nowrap="nowrap" style="width:130px;">仓库</th>
+                            <th nowrap="nowrap" style="width:100px;">业务类型</th>
+                            <th nowrap="nowrap" style="width:100px;">装卸类型</th>
+                            <th nowrap="nowrap" style="width:100px;">物料编码</th>
+                            <th nowrap="nowrap" style="width:100px;">产品线</th>
+                            <th nowrap="nowrap" style="width:180px;">产品名称</th>
+                            <th nowrap="nowrap" style="width:100px;">包装规格</th>
+                            <th nowrap="nowrap" style="width:80px;">单位</th>
+                            <th nowrap="nowrap" style="width:100px;">单位重量</th>
+                            <th nowrap="nowrap" style="width:100px;">数量</th>
+                            <th nowrap="nowrap" style="width:100px;">重量</th>
+                            <th nowrap="nowrap" ng-show="UnitPriviceShow(@ViewBag.billType)">装卸单价</th>
+                            <th nowrap="nowrap" ng-show="UnitPriviceShow2(@ViewBag.billType)">力资费单价</th>
+                            <th nowrap="nowrap" style="width:150px;">总金额</th>
+                            <th nowrap="nowrap" style="width:150px;">备注</th>
+                        </tr>
+                        <tr ng-repeat="record in info.LoadingAndLaborCostDetail">
+                            <td>{{$index+1}}</td>  @*编号*@
+                            <td>{{record.CostItemCode}}</td>
+                            <td>{{record.CostItemName}}</td>
+                            <td>{{record.ListType}}</td>
+                            <td>{{record.BillCode}}</td>
+                            <td>{{record.BillExamineDate}}</td>
+                            <td>{{record.Company}}</td>
+                            <td>{{record.Department}}</td>
+                            <td>{{record.Warehouse}}</td>
+                            <td>{{record.BusinessType}}</td>
+                            <td>{{record.LoadingType}}</td>
+                            <td>{{record.ItemCode}}</td>
+                            <td>{{record.ItemLine}}</td>
+                            <td>{{record.ItemName}}</td>
+                            <td>{{record.ItemSpecifications}}</td>
+                            <td>{{record.ItemUnit}}</td>
+                            <td>{{record.UnitWeight}}</td>
+                            <td>{{record.Count}}</td>
+                            <td>{{record.Weight}}</td>
+                            <td ng-show="UnitPriviceShow(@ViewBag.billType)">{{record.LoadingUnitPrice}}</td>
+                            <td ng-show="UnitPriviceShow2(@ViewBag.billType)">{{record.LaborUnitPrice}}</td>
+                            <td>{{record.AllAmount}}</td>
+                            <td>{{record.Remark}}</td>
+                        </tr>
+                    </table>
+                </div>
                 <div style="text-align:center">
                     <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-info btn-md" ng-click="submit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
-                    <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-info btn-md" ng-click="submit1()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-info btn-md" ng-click="submit2()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2||info.BillState==3">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                 </div>
             </div>
         </div>
@@ -103,28 +136,70 @@
                 return "";
             }
         }
+        //json日期格式转换为正常格式
+        function jsonDateFormat2(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                var date = date.getFullYear() + "-" + month + "-" + day;
+                return date;
+            } catch (ex) {
+                return "";
+            }
+        }
         //主程序
         var myApp = angular.module('myApp', []);
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
-            $http.post("/OtherExpenseList/GetData", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
+            //根据页面类型是否显示单价
+            $scope.UnitPriviceShow = function (billtype) {
+                if (billtype == 1 || billtype == 2) {
+                    return true;
+                }
+                return false;
+            }
+            $scope.UnitPriviceShow2 = function (billtype) {
+                if (billtype == 3) {
+                    return true;
+                }
+                return false;
+            }
+            $http.post("/LoadingExpensesBill/GetData", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
                 //修改时间格式
                 response.BillDate = jsonDateFormat(response.BillDate);
                 response.CreateDate = jsonDateFormat(response.CreateDate);
                 response.ExamineDate = jsonDateFormat(response.ExamineDate);
-                for (var i = 0; i < response.OtherExpenseListDetail.length; i++) {
-                    response.OtherExpenseListDetail[i].HappenDate = jsonDateFormat(response.OtherExpenseListDetail[i].HappenDate);
+                for (var i = 0; i < response.LoadingAndLaborCostDetail.length; i++) {
+                    response.LoadingAndLaborCostDetail[i].BillExamineDate = jsonDateFormat2(response.LoadingAndLaborCostDetail[i].BillExamineDate)
+                    response.LoadingAndLaborCostDetail[i].BillExamineDate = response.LoadingAndLaborCostDetail[i].BillExamineDate.substr(0, 11);
                 }
                 //绑定数据源
                 $scope.info = response;
             });
             //---------------------------------------------------------------------------
-            //审核（examine）
-            $scope.submit = function () {
-                $http.post("/OtherExpenseList/Examine", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
+            //初审（examine）
+            $scope.submit1 = function () {
+                $http.post("/LoadingExpensesBill/Examine1", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
-                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
+                        window.location.href = 'IndexShow?LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
+                    }
+                    else {
+                        alert(response);
+                    }
+                });
+            }
+            //审核（examine）
+            $scope.submit2 = function () {
+                $http.post("/LoadingExpensesBill/Examine2", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
+                    if (response == "审核成功！") {
+                        alert("审核成功！");
+                        window.location.href = 'IndexShow?LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
                     }
                     else {
                         alert(response);
@@ -133,14 +208,14 @@
             }
             //跳转到编辑页
             $scope.edit = function () {
-                window.location.href = 'Index?billType=@ViewBag.billType&OtherExpenseListId=@ViewBag.OtherExpenseListId';
+                window.location.href = 'Index?billType=@ViewBag.billType&LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
             }
             //弃审
             $scope.giveupexamine = function () {
-                $http.post("/OtherExpenseList/GiveupExamine", { billCode: "@ViewBag.OtherExpenseListId" }).success(function (response) {
+                $http.post("/LoadingExpensesBill/GiveupExamine", { billCode: "@ViewBag.LoadingExpensesBillId" }).success(function (response) {
                     if (response == '操作成功') {
                         alert(response);
-                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
+                        window.location.href = 'IndexShow?LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
                     } else {
                         alert(response);
                     }

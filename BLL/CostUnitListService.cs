@@ -17,7 +17,6 @@ namespace BLL
             //主表id为0 新增一条记录  此时子表数据会自动插入
             if (bill.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
             {
-
                 bill.Id = Guid.NewGuid();//生成一个id
                 bill.BillState = 1;//保存状态
                 bill.BillType = billType;
@@ -34,6 +33,8 @@ namespace BLL
                     item.Company = bill.Company;
                     item.CompanyId = bill.CompanyId;
                     item.state = 1;
+                    item.CreatePerson = bill.ExaminePerson;
+                    item.ExaminePerson = bill.ExaminePerson;
                     item.CreateDate = DateTime.Now;
                     item.RecordType = billType;
                 }
@@ -48,7 +49,6 @@ namespace BLL
                 {
                     CurrentDBSession.CostUnitListDetailDal.DeleteEntity(item);
                 }
-                //添加子表数据
                 foreach (CostUnitListDetail record in bill.CostUnitListDetail)
                 {
                     if (record.Id == Guid.Parse("00000000-0000-0000-0000-000000000000") || record.Id == Guid.Empty)
@@ -63,6 +63,8 @@ namespace BLL
                     record.state = 1;
                     record.CreateDate = DateTime.Now;
                     record.RecordType = billType;
+                    record.CreatePerson = bill.ExaminePerson;
+                    record.ExaminePerson = bill.ExaminePerson;
                     CurrentDBSession.CostUnitListDetailDal.AddEntity(record);
                 }
                 //修改主表数据
@@ -112,8 +114,8 @@ namespace BLL
             //对每一条记录做逆操作
             foreach (CostUnitListDetail item in list)
             {
-                item.state = 1;//修改记录状态
-                item.ExamineDate = null;//清空审核时间
+                item.state = 1;
+                item.ExamineDate = null;
             }
             bill.BillState = 1;//改成编辑状态
             bill.ExaminePerson = null;//清除审核人

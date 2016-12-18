@@ -275,7 +275,7 @@ namespace BLL
                 {
                     if (inWarehouse == null || inWarehouse.Count < item.Count) //当前库存不够 ，不允许做弃审操作
                     {
-                        var result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
+                        var result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
                         return result;
                     }
                     else if (inWarehouse.Count == item.Count)
