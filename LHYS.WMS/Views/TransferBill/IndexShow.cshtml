@@ -115,7 +115,7 @@
                 <button id="abandon" type="button" class=" print btn btn-info btn-md " ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
                 <button id="print" class=" print btn btn-success btn-md " ng-click="gotoPrintPage()">&nbsp;&nbsp;&nbsp;打&nbsp;&nbsp;&nbsp;印&nbsp;&nbsp;&nbsp;</button>
                 <button id="print" class=" print btn btn-info btn-md " ng-click="exportExcel()">&nbsp;&nbsp;&nbsp;导&nbsp;&nbsp;&nbsp;出&nbsp;&nbsp;&nbsp;</button>
-                <a  id="btndown">test</a>
+                <a id="btndown">test</a>
             </div>
         </div>
     </div>
@@ -135,7 +135,7 @@
                 return "";
             }
         }
-        function downloadFile(fileName, content){
+        function downloadFile(fileName, content) {
             var aLink = document.createElement('a');
             var blob = new Blob([content]);
             var evt = document.createEvent("HTMLEvents");
@@ -149,57 +149,57 @@
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
             //设置按钮权限
-            $scope.btnPower=@Session["btnPower"];
+            @{if (Session["btnPower"] != null) { Session["btnPower"] = "[]"; } }
+            $scope.btnPower = Session["btnPower"];
             //请求表单数据
             $http.post("/TransferBill/GetData", {}, { params: { "TransferBillId": "@ViewBag.TransferBillId" } }).success(function (response) {
-                //修改时间格式
-                response.LBBillDate = jsonDateFormat(response.LBBillDate);
-                response.CreateDate = jsonDateFormat(response.CreateDate);
-                response.ExamineDate = jsonDateFormat(response.ExamineDate);
+                    //修改时间格式
+                    response.LBBillDate = jsonDateFormat(response.LBBillDate);
+                    response.CreateDate = jsonDateFormat(response.CreateDate);
+                    response.ExamineDate = jsonDateFormat(response.ExamineDate);
                 //绑定数据源
                 $scope.info = response;
-            });
+                });
             //---------------------------------------------------------------------------
             //审核（examine）
             $scope.examine = function () {
                 $http.post("/TransferBill/Examine", {}, { params: { "TransferBillId": "@ViewBag.TransferBillId" } }).success(function (response) {
-                    if (response == '审核成功') {
-                        window.location.href = 'IndexShow?TransferBillId=@ViewBag.TransferBillId';
-                    } else {
-                        alert(response);
-                    }
-                });
-            }
+                        if (response == '审核成功') {
+                            window.location.href = 'IndexShow?TransferBillId=@ViewBag.TransferBillId';
+                        } else {
+                            alert(response);
+                        }
+                    });
+                }
             //跳转到编辑页
             $scope.edit = function () {
-                window.location.href = 'Index?TransferBillId=@ViewBag.TransferBillId';
-            }
+                    window.location.href = 'Index?TransferBillId=@ViewBag.TransferBillId';
+                }
 
             //弃审
             $scope.giveupexamine = function () {
                 $http.post("/TransferBill/GiveupExamine", { billCode: "@ViewBag.TransferBillId" }).success(function (response) {
-                    if (response == '操作成功') {
-                        window.location.href = 'IndexShow?TransferBillId=@ViewBag.TransferBillId';
-                    } else {
-                        alert(response);
-                    }
-                })
+                        if (response == '操作成功') {
+                            window.location.href = 'IndexShow?TransferBillId=@ViewBag.TransferBillId';
+                        } else {
+                            alert(response);
+                        }
+                    })
             }
             //跳转到打印页
-            $scope.gotoPrintPage=function () {
-                setTimeout(window.print(),200)
+            $scope.gotoPrintPage = function () {
+                    setTimeout(window.print(), 200)
             }
             //导出excel
-            $scope.exportExcel=function () {
-                $http.post("/ExportBill/ExprotExcel",{billType:"transferbill",billId:"@ViewBag.TransferBillId"}).success(function (response) {
-                    document.getElementById('btndown').setAttribute("href",response);
-                    document.getElementById('btndown').click();
-                });
-                
-            }
+            $scope.exportExcel = function () {
+                $http.post("/ExportBill/ExprotExcel", { billType: "transferbill", billId: "@ViewBag.TransferBillId" }).success(function (response) {
+                        document.getElementById('btndown').setAttribute("href", response);
+                        document.getElementById('btndown').click();
+                    });
+
+                }
         })
     </script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 </body>
 </html>
-
