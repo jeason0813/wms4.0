@@ -35,9 +35,9 @@
                             <td class="titletd">单据日期:</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.LBBillDate" required /></td>
                             <td class="titletd">发运仓:</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBFrom" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.LBFrom" data-toggle="modal" data-target="#SendFile" required /></td>
                             <td class="titletd">移动类型:</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBMoveType" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.LBMoveType" /></td>
                             <td class="titletd">备注:</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBRemark" /></td>
                         </tr>
@@ -209,6 +209,31 @@
                             </div><!-- /.modal-dialog -->
                         </div><!-- /.modal -->
                         @*-----------------------------------仓库选择模态框end------------------------------------------------*@
+                        @*-----------------------------------发运方档案模态框------------------------------------------------*@
+                        <div class="modal fade" id="SendFile">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title">请选择仓库</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchsendfile" />
+                                        <table class="table table-bordered table-striped table-condensed">
+                                            <tr>
+                                                <th>仓库</th>
+                                                <th>联系人</th>
+                                            </tr>
+                                            <tr ng-repeat="sendfile in SendFiles | filter:searchsendfile " ng-dblclick="selectSendFile(sendfile)">
+                                                <td>{{sendfile.Name}}</td>
+                                                <td>{{sendfile.Contacts}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        @*-----------------------------------发运方档案模态框end------------------------------------------------*@
 
                         @*-----------------------------------货位选择模态框------------------------------------------------*@
                         <div class="modal fade" id="locationchoose">
@@ -245,6 +270,9 @@
     <script>
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
+            $http.post("/BaseInfo/GetSendFileSet").success(function (response) {
+                $scope.SendFiles=response;
+            })
             //获取基础数据
             $http.post("/BaseInfo/GetBaseInfo", { inoutType:'in'}).success(function (response) {
                 $scope.Warehouses = response.Warehouse;
@@ -353,6 +381,13 @@
                 $scope.info.Warehouse = warehouse.Name;
                 $scope.info.WarehouseId = warehouse.Id;
                 $scope.locationlist = warehouse.Location;//设置了货位数据
+            }
+            //-----------------------------------------
+            //选择发运方
+            $scope.selectSendFile = function (sendfile) {
+                $scope.searchsendfile = '';
+                $('#SendFile').modal('hide');
+                $scope.info.LBFrom = sendfile.Name;
             }
             //---------------------------------------------------------------------------
             //开始选择货位信息

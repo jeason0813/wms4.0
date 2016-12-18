@@ -69,6 +69,8 @@ namespace LHYS.WMS.Controllers
             string dataitem = Request["Location"];
             string savetype = Request["savetype"].ToString().Trim();
             Location model_lgt = JsonConvert.DeserializeObject<Location>(dataitem);
+            model_lgt.CreateDate = DateTime.Now;
+            model_lgt.CreateBy = Session["UserName"].ToString().Trim();
             if (savetype == "add")
             {
                 LocationService.AddEntity(model_lgt);

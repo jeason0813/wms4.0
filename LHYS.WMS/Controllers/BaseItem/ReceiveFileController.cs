@@ -37,6 +37,8 @@ namespace LHYS.WMS.Controllers
             string dataitem = Request["ReceiveFile"];
             string savetype = Request["savetype"].ToString().Trim();
             ReceiveFile model_lgt = JsonConvert.DeserializeObject<ReceiveFile>(dataitem);
+            model_lgt.CreateBy = Session["UserName"].ToString().Trim();
+            model_lgt.CreateDate = DateTime.Now;
             if (savetype == "add")
             {
                 ReceiveFileService.AddEntity(model_lgt);

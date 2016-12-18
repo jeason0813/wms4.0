@@ -68,7 +68,7 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <td style="width:140px">费用项目编号</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Code" required /></td>
+                                            <td><input id="CostItemId" class="form-control" type="text" name="name" ng-model="source.Code" required /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:140px">费用项目名称</td>
@@ -140,6 +140,7 @@
             //点击添加按钮事件
             $scope.btnAdd = function () {
                 $scope.state = 'add';
+                $("#CostItemId").attr("disabled", false);
                 $('#personchoose').modal('show');
             }
             //保存数据
@@ -151,8 +152,22 @@
                 $scope.source.Company = $scope.currentDept.CompanyAbbr;
                 $scope.currentDept = null;
                 $http.post("/CostItem/SaveData", {}, { params: { "CostItem": $scope.source, "savetype": $scope.state } }).success(function (response) {
-                    if (response) {
+                    if (response == "保存成功！") {
                         $scope.showmsg = '保存成功！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                            $scope.source = null;//清空数据
+                            $('#personchoose').modal('hide');
+                        }, 800);   //该函数延迟1.5秒执行
+                    }
+                    else if (response == "编号已存在，请重新填写！") {
+                        $scope.showmsg = '编号已存在，请重新填写！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                        }, 800);
+                    }
+                    else if (response == "编辑成功！") {
+                        $scope.showmsg = '编辑成功！';
                         $timeout(function () {
                             $scope.showmsg = '';
                             $scope.source = null;//清空数据
@@ -173,6 +188,7 @@
             $scope.btnEdit = function (item) {
                 $scope.source = item;
                 $scope.state = 'edit';
+                $("#CostItemId").attr("disabled", true);
                 //遍历公司部门数组  找出默认值
                 var departmentId = item.DepartmentId;
                 for (var i = 0; i < $scope.companyDepts.length; i++) {

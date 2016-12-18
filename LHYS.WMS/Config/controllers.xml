@@ -61,6 +61,7 @@
     <property name="LoadGoodsTypeService" ref="LoadGoodsTypeService" />
     <property name="BusinessTypeService" ref="BusinessTypeService" />
     <property name="InOutTypeService" ref="InOutTypeService" />
+    <property name="SendFileService" ref="SendFileService" />
   </object>
   <object type="LHYS.WMS.Controllers.OtherOutputController,LHYS.WMS" singleton="false" >
     <property name="OtherOutputService" ref="OtherOutputService" />

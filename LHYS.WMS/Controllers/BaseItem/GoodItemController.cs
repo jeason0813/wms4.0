@@ -33,18 +33,31 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult SaveData()
         {
-            bool result = false;
+            string result = "";
             string dataitem = Request["GoodItem"];
             string savetype = Request["savetype"].ToString().Trim();
             GoodItem model_lgt = JsonConvert.DeserializeObject<GoodItem>(dataitem);
             if (savetype == "add")
             {
-                GoodItemService.AddEntity(model_lgt);
-                result = true;
+                var gooditemlist = GoodItemService.LoadEntities(a=>a.ItemCode==model_lgt.ItemCode).FirstOrDefault();
+                if (gooditemlist == null)
+                {
+                    GoodItemService.AddEntity(model_lgt);
+                    result = "保存成功！";
+                }
+                else {
+                    result = "编码重复，请重新填写！";
+                }
             }
             else if (savetype == "edit")
             {
-                result = GoodItemService.EditEntity(model_lgt);
+                if (GoodItemService.EditEntity(model_lgt))
+                {
+                    result = "编辑成功！";
+                }
+                else {
+                    result = "编辑失败";
+                }
             }
             return Content(result.ToString());
         }

@@ -21,7 +21,7 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
+    <div class="container-fluid" ng-app="myApp" ng-controller="recordController" ng-init="myText = '入库'">
         <div class="row" style="width:100%">
             <form ng-submit="submit()">
                 <div class="col-xs-12 table-responsive">
@@ -35,16 +35,16 @@
                             <td class="tdname2">加工日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
                             <td class="tdname2">加工人：</td>
-                            <td><input class="form-control" type="text" name="name" @*data-toggle="modal" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" data-target="#personchoose"*@ required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.ChargePerson" @*data-toggle="modal" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" data-target="#personchoose"*@ required /></td>
                             <td class="tdname2">部门：</td>
                             <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
                         </tr>
 
                         <tr>
                             <td class="tdname2">入库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType"></inouttypeselect></td>
+                            <td><inouttypeselect inouttypes="InOutTypesIn" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType"></inouttypeselect></td>
                             <td class="tdname2">出库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType"></inouttypeselect></td><td></td><td></td><td></td><td></td>
+                            <td><inouttypeselect inouttypes="InOutTypesOut" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType"></inouttypeselect></td><td></td><td></td><td></td><td></td>
                         </tr>
                         <tr>
                             <td>制单人：</td>
@@ -252,6 +252,8 @@
     </div>
     <script>
         myApp.controller('recordController', function ($scope, $http) {
+            //$scope.outtype = '出库';
+            //$scope.intype = '入库';
             //获取基础数据
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
                 $scope.Warehouses = response.Warehouse;
@@ -259,7 +261,8 @@
                 $scope.UserFrameworks = response.UserFramework;
                 $scope.LoadGoodsTypes = response.LoadGoodsType;
                 $scope.BusinessTypes = response.BusinessType;
-                $scope.InOutTypes = response.InOutType;
+                $scope.InOutTypesIn = response.InOutType;
+                $scope.InOutTypesOut = response.InOutType;
                 $scope.Departents = response.Departent;
                 //如果有单号 获取单据内容
                 $http.post("/DIYBill/GetData", {}, { params: { "DIYBillId": "@ViewBag.DIYBillId" } }).success(function (response) {
@@ -280,16 +283,16 @@
                                 break;
                             }
                         }
-                        //给出入库类型赋值
-                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
-                            if ($scope.InOutTypes[i].Id == $scope.info.InputTypeId) {
-                                $scope.currentInPutType = $scope.InOutTypes[i];
+                        //给入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypesIn.length; i++) {
+                            if ($scope.InOutTypesIn[i].Id == $scope.info.InputTypeId) {
+                                $scope.currentInPutType = $scope.InOutTypesIn[i];
                             }
                         }
-                        //给出入库类型赋值
-                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
-                            if ($scope.InOutTypes[i].Id == $scope.info.OutputTypeId) {
-                                $scope.currentOutPutType = $scope.InOutTypes[i];
+                        //给出库类型赋值
+                        for (var i = 0; i < $scope.InOutTypesOut.length; i++) {
+                            if ($scope.InOutTypesOut[i].Id == $scope.info.OutputTypeId) {
+                                $scope.currentOutPutType = $scope.InOutTypesOut[i];
                             }
                         }
 

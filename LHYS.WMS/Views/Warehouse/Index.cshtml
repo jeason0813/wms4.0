@@ -32,7 +32,7 @@
                         <th style="width:90px;">仓库编码</th>
                         <th>仓库名称</th>
                         <th style="width:120px;">是否货位管理</th>
-                        <th>仓库拥有者</th>
+                        <th>仓库负责人</th>
                         <th>备注</th>
                         <th>部门</th>
                         <th>部门ID</th>
@@ -72,14 +72,14 @@
                                     <tr>
                                             <td style="width:90px">仓库名称</td>
                                             <td><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
-                                            <td style="width:80px">是否仓库管理</td>
+                                            <td style="width:80px">是否货位管理</td>
                                             <td>
                                                 <input type="radio" id="tp1" name="name" value="是" ng-model="source.IsManage" required /><label for="tp1">是</label>
                                                 <input type="radio" id="tp2" name="name" value="否" ng-model="source.IsManage" required /><label for="tp2">否</label>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>仓库拥有者</td>
+                                            <td>仓库负责人</td>
                                             <td><input class="form-control" type="text" name="name" ng-model="source.Owner" required /></td>
                                             <td style="width:80px">备注</td>
                                         <td>
@@ -92,9 +92,9 @@
                                         </tr>
                                         <tr>
                                             <td>建档人</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" required /></td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" disabled/></td>
                                         <td style="width:80px">建档日期</td>
-                                            <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" required /></td>
+                                            <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
                                     </tr>
                                 </table>
                                 <table class="table" style="border:none">

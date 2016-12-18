@@ -15,6 +15,7 @@ namespace LHYS.WMS.Controllers
         private ILoadGoodsTypeService LoadGoodsTypeService { get; set; }
         private IBusinessTypeService BusinessTypeService { get; set; }
         private IInOutTypeService InOutTypeService { get; set; }
+        private ISendFileService SendFileService { get; set; }
         // GET: BaseInfo
         public ActionResult Index()
         {
@@ -50,16 +51,16 @@ namespace LHYS.WMS.Controllers
                 IQueryable<DBModel.InOutType> list5;
                 if (inoutType == "in")
                 {
-                     list5 = InOutTypeService.LoadEntities(a => Power.Contains(a.DepartmentId) && a.InoutType == "入库");
+                    list5 = InOutTypeService.LoadEntities(a => Power.Contains(a.DepartmentId) && a.InoutType == "入库");
 
                 }
                 else if (inoutType == "out")
                 {
-                     list5 = InOutTypeService.LoadEntities(a => Power.Contains(a.DepartmentId) && a.InoutType == "出库");
+                    list5 = InOutTypeService.LoadEntities(a => Power.Contains(a.DepartmentId) && a.InoutType == "出库");
                 }
                 else
                 {
-                     list5 = InOutTypeService.LoadEntities(a => Power.Contains(a.DepartmentId));
+                    list5 = InOutTypeService.LoadEntities(a => Power.Contains(a.DepartmentId));
                 }
                 var list6 = UserFrameworkService.LoadEntities(u => u.UserCode == UserCode);//公司部门信息
                 var res = new
@@ -69,13 +70,30 @@ namespace LHYS.WMS.Controllers
                     UserFramework = list2.Select(a => new { a.UserCode, a.UserName }),
                     LoadGoodsType = list3.Select(a => a.Name),
                     BusinessType = list4.Select(a => a.Name),
-                    InOutType = list5.Select(a => new { a.Id, a.Name }),
+                    InOutType = list5.Select(a => new { a.Id, a.Name, a.InoutType }),
                     Departent = list6.Select(a => new { a.DeptCode, a.DeptName, a.CmopanyCode, a.CompanyAbbr })
                 };
                 return Json(res);
             }
-
-
+        }
+            /// <summary>
+            /// 获取发运方档案
+            /// </summary>
+            /// <param name="inoutType"></param>
+            /// <returns></returns>
+             public ActionResult GetSendFileSet()
+        {
+            if (Session["Power"] == null || Session["UserCode"] == null)
+            {
+                return null;
+            }
+            else
+            {
+                string UserCode = Session["UserCode"].ToString();//员工编号
+                string Power = Session["Power"].ToString();//权限字符串
+                var list = SendFileService.LoadEntities(a => Power.Contains(a.DepartmentId));
+                return Json(list);
+            }
         }
     }
 }

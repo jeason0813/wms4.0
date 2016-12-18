@@ -36,6 +36,8 @@ namespace LHYS.WMS.Controllers
             string dataitem = Request["SendFileSet"];
             string savetype = Request["savetype"].ToString().Trim();
             SendFile model_lgt = JsonConvert.DeserializeObject<SendFile>(dataitem);
+            model_lgt.CreateBy = Session["UserName"].ToString().Trim();
+            model_lgt.CreateDate = DateTime.Now;
             if (savetype == "add")
             {
                 SendFileService.AddEntity(model_lgt);

@@ -36,18 +36,29 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult SaveData()
         {
-            bool result = false;
+            string result = "";
             string dataitem = Request["CostItem"];
             string savetype = Request["savetype"].ToString().Trim();
             CostItem model_lgt = JsonConvert.DeserializeObject<CostItem>(dataitem);
             if (savetype == "add")
             {
+                var costitem = CostItemService.LoadEntities(a => a.Code == model_lgt.Code).FirstOrDefault();
+                if (costitem!=null) {
+                    result = "编号已存在，请重新填写！";
+                    return Content(result.ToString());
+                }
                 CostItemService.AddEntity(model_lgt);
-                result = true;
+                result = "保存成功！";
             }
             else if (savetype == "edit")
             {
-                result = CostItemService.EditEntity(model_lgt);
+                if (CostItemService.EditEntity(model_lgt))
+                {
+                    result = "编辑成功！";
+                }
+                else {
+                    result = "编辑失败！";
+                }
             }
             return Content(result.ToString());
         }
