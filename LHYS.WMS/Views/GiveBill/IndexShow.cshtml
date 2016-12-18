@@ -128,10 +128,11 @@
                 <br />
                 <div style="text-align:center" class="PrintGiveBill">
                     <div style="text-align:center">
-                        <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>
                         <button type="button" class="btn btn-info btn-md" ng-click="submit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
                         <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
-                        &nbsp;&nbsp;&nbsp;<button type="button" class="btn  btn-info" ng-click="PrintGiveBill()">打　　印</button>
+                        &nbsp;&nbsp;&nbsp;<button type="button" class="btn  btn-info" ng-click="PrintGiveBill()">&nbsp;&nbsp;&nbsp;打&nbsp;&nbsp;&nbsp;印&nbsp;&nbsp;&nbsp;</button>
+                        <button id="print" class=" print btn btn-info btn-md " ng-click="exportExcel()">&nbsp;&nbsp;&nbsp;导&nbsp;&nbsp;&nbsp;出&nbsp;&nbsp;&nbsp;</button>
                     </div>
                 </div>
             </div>
@@ -202,6 +203,10 @@
             }
             //打印交货单
             $scope.PrintGiveBill = function () { setTimeout(window.print(), 200) };
+            //导出excel
+            $scope.exportExcel = function () {
+                window.open("/ExportBill/ExprotExcel?billType=giveBill&billId=@ViewBag.GiveBillId");
+            }
         })
     </script>
 </body>

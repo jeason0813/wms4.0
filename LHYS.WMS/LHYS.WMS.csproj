@@ -1301,17 +1301,19 @@
     <Content Include="Views\MenuManager\Index.cshtml" />
     <Content Include="Views\MenuManager\UserRole.cshtml" />
     <Content Include="Views\BillsManager\Import.cshtml" />
-    <Content Include="Template\交货单模板.xlsx" />
-    <Content Include="Template\交货单示例.xlsx" />
-    <Content Include="Template\入库单模板.xlsx" />
-    <Content Include="Template\入库单示例.xlsx" />
-    <Content Include="Template\退仓单模板.xlsx" />
-    <Content Include="Template\退仓单示例.xlsx" />
-    <Content Include="Template\退货单模板.xlsx" />
-    <Content Include="Template\退货单示例.xlsx" />
+    <Content Include="Views\FinanceManager\Index.cshtml" />
+    <Content Include="Template\交货单模板.xls" />
+    <Content Include="Template\交货单示例.xls" />
+    <Content Include="Template\入库单模板.xls" />
+    <Content Include="Template\入库单示例.xls" />
+    <Content Include="Template\退仓单模板.xls" />
+    <Content Include="Template\退仓单示例.xls" />
+    <Content Include="Template\退货单模板.xls" />
+    <Content Include="Template\退货单示例.xls" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BillDownLoad\" />
     <Folder Include="BillUpLoad\" />
     <Folder Include="Content\Home\" />
     <Folder Include="Models\" />

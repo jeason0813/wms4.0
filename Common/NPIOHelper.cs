@@ -15,9 +15,9 @@ namespace Common
     /// <summary>
     /// Excel导出数据
     /// </summary>
-    public class ExcelHelper
+    public class NPIOHelper
     {
-        public ExcelHelper()
+        public NPIOHelper()
         {
 
         }
