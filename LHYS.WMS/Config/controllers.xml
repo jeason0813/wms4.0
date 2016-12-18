@@ -147,5 +147,8 @@
   <object type="LHYS.WMS.Controllers.BillUpLoadController,LHYS.WMS" singleton="false" >
     <property name="BillUpLoadService" ref="BillUpLoadService" />
   </object>
+  <object type="LHYS.WMS.Controllers.ExportBillController,LHYS.WMS" singleton="false" >
+    <property name="BillUpLoadService" ref="BillUpLoadService" />
+  </object>
 </objects>
 

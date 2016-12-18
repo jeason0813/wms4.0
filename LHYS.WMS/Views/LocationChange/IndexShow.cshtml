@@ -18,12 +18,18 @@
             width: 90px;
         }
     </style>
+
+    <style type="text/css" media="print">
+        .PrintLocationChange {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
-        <div class="row">
-            <div class="col-xs-11 table-responsive">
-                <table class="table table-condensed">
+        <div>
+            <div>
+                <table style="width:100%" border="1">
                     <tr>
                         <td colspan="10" style="text-align:center"><h2>货位调整单</h2></td>
                     </tr>
@@ -58,7 +64,8 @@
                         <td>{{info.MakePerson}}</td>
                     </tr>
                 </table>
-                <table class="table table-bordered table-striped table-condensed">
+                <br />
+                <table style="width:100%" border="1">
                     <tr>
                         <th>编号</th>
                         <th>物料编码</th>
@@ -66,6 +73,7 @@
                         <th>产品名称</th>
                         <th>包装规格</th>
                         <th>单位</th>
+                        <!--新-->
                         <th>单位重量</th>
                         <th>数量</th>
                         <th>重量</th>
@@ -79,6 +87,7 @@
                         <td>{{record.ItemLine}}</td>
                         <td>{{record.ItemName}}</td>
                         <td>{{record.ItemSpecifications}}</td>
+                        <!--新-->
                         <td>{{record.ItemUnit}}</td>
                         <td>{{record.UnitWeight}}</td>
                         <td>{{record.Count}}</td>
@@ -88,10 +97,12 @@
                         <td>{{record.LocationChangeAfter}}</td>
                     </tr>
                 </table>
-                <div style="text-align:center">
+                <br />
+                <div style="text-align:center" class="PrintLocationChange">
                     <button type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-info btn-md" ng-click="submit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
                     <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
+                    &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info" ng-click="PrintLocationChange()">打　　印</button>
                 </div>
             </div>
         </div>
@@ -153,7 +164,8 @@
                     }
                 })
             }
-
+            //打印货位调整信息
+            $scope.PrintLocationChange = function () { setTimeout(window.print(), 200) };
         })
     </script>
 </body>

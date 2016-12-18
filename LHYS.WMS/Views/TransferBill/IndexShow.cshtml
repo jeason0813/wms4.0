@@ -110,10 +110,12 @@
             </table>
             <br />
             <div style="text-align:center" class="print">
-                <button id="edit" type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1&&btnPower.indexOf(51)!=-1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
-                <button id="audit" type="button" class="print btn btn-info btn-md " ng-click="examine()" ng-show="info.BillState==1&&btnPower.indexOf(52)!=-1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
-                <button id="abandon" type="button" class=" print btn btn-info btn-md " ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;
+                @* 判断 按钮权限btnPower.indexOf(52)!=-1*@
+                <button id="edit" type="button" class="btn btn-success btn-md" ng-click="edit()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>
+                <button id="audit" type="button" class="print btn btn-info btn-md " ng-click="examine()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
+                <button id="abandon" type="button" class=" print btn btn-info btn-md " ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                 <button id="print" class=" print btn btn-success btn-md " ng-click="gotoPrintPage()">&nbsp;&nbsp;&nbsp;打&nbsp;&nbsp;&nbsp;印&nbsp;&nbsp;&nbsp;</button>
+                <button id="print" class=" print btn btn-info btn-md " ng-click="exportExcel()">&nbsp;&nbsp;&nbsp;导&nbsp;&nbsp;&nbsp;出&nbsp;&nbsp;&nbsp;</button>
             </div>
         </div>
     </div>
@@ -138,7 +140,8 @@
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
             //设置按钮权限
-            $scope.btnPower=@Session["btnPower"];
+            @{if (Session["btnPower"] != null) { Session["btnPower"] = "[]"; } }
+            $scope.btnPower = @Session["btnPower"];
             //请求表单数据
             $http.post("/TransferBill/GetData", {}, { params: { "TransferBillId": "@ViewBag.TransferBillId" } }).success(function (response) {
                 //修改时间格式
@@ -174,14 +177,16 @@
                     }
                 })
             }
-            //跳转到打印页
-            $scope.gotoPrintPage=function () {
-                setTimeout(window.print(),200)
+            //打印
+            $scope.gotoPrintPage = function () {
+                setTimeout(window.print(), 200)
+            }
+            //导出excel
+            $scope.exportExcel = function () {
+                window.open("/ExportBill/ExprotExcel?billType=transferBill&billId=@ViewBag.TransferBillId");
             }
         })
     </script>
-    <script></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 </body>
 </html>
-

@@ -14,10 +14,7 @@ namespace LHYS.WMS.Controllers
         public IReceiveFileService ReceiveFileService { get; set; }
         public ActionResult Index()
         {
-            //测试数据用Session 
-            Session["UserName"] = "朱洲";
-            Session["UserCode"] = "HR1406";
-            Session["Power"] = "LH6220";
+          
             return View();
         }
         public ActionResult GetData()
