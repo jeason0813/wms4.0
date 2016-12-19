@@ -37,7 +37,7 @@
                             部门：
                         </td>
                         <td>
-                            <select class="form-control" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId"></select>
+                            <select class="form-control" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId"><option value=""></option></select>
                         </td>
                         <td>单据编号：</td>
                         <td><input type="text" ng-model="BillCode" name="name" value="" class="form-control" placeholder="请输入完整或部分单号" /></td>

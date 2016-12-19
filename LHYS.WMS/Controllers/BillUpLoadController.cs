@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -31,7 +33,11 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult Save(string[] files)
         {
-            return Content(BillUpLoadService.Save(files));
+            string res = "";
+           
+                res = BillUpLoadService.Save(files);
+           
+            return Content(res);
         }
 
       

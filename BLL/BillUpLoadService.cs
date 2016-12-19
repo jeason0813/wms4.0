@@ -91,7 +91,7 @@ namespace BLL
                 dr["Count"] = record.Count;
                 dt.Rows.Add(dr);
             }
-            return NPIOHelper.RenderToMemory(dt, "backoutput");
+            return NPIOHelper.RenderToMemory(dt, "sheet1");
         }
 
 
@@ -139,7 +139,7 @@ namespace BLL
                 dr["Count"] = record.Count;
                 dt.Rows.Add(dr);
             }
-            return NPIOHelper.RenderToMemory(dt, "backinput");
+            return NPIOHelper.RenderToMemory(dt, "sheet1");
 
         }
 
@@ -235,7 +235,7 @@ namespace BLL
                 dr["Count"] = record.Count;
                 dt.Rows.Add(dr);
             }
-            return NPIOHelper.RenderToMemory(dt, "givebill");
+            return NPIOHelper.RenderToMemory(dt, "sheet1");
         }
 
         #endregion

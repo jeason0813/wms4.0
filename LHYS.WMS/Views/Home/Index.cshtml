@@ -12,6 +12,16 @@
     @Scripts.Render("~/bundles/angularJs")
     <script src="~/Scripts/bootstrap-treeview.js"></script>
     <link href="~/Content/bootstrap-treeview.css" rel="stylesheet" />
+    @*不能修改固定长度 因为有的菜单名字太长  否则一页显示不了几个*@
+    @*<style type="text/css">
+        .tab {
+            width:140px;
+        }
+            .tab .glyphicon {
+                float:right
+            }
+
+    </style>*@
     <script src="~/Scripts/tabs-zy.js"></script>  @*自定义页签*@
     <script type="text/javascript">
         $(function () {

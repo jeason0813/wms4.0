@@ -74,7 +74,7 @@
                             <td>装卸类型：</td>
                             <td><select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="info.LoadGoodsType" required></select></td>
                             <td>部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
                         </tr>
                         <tr>
                             <td>备注：</td>

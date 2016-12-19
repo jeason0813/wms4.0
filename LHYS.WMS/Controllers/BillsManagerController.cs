@@ -91,7 +91,7 @@ namespace LHYS.WMS.Controllers
             {
                 case "TransferBill":
                     Expression<Func<TransferBill, bool>> exp1 = TransferBillSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<TransferBill> res1 = TransferBillService.LoadPageEntities(exp1.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<TransferBill> res1 = TransferBillService.LoadPageEntities(exp1.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res1,
@@ -101,7 +101,7 @@ namespace LHYS.WMS.Controllers
 
                 case "BackInput":
                     Expression<Func<BackInput, bool>> exp2 = BackInputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<BackInput> res2 = BackInputService.LoadPageEntities(exp2.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<BackInput> res2 = BackInputService.LoadPageEntities(exp2.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res2,
@@ -110,7 +110,7 @@ namespace LHYS.WMS.Controllers
                 case "GiveBill":
                 case "GiveBackBill":
                     Expression<Func<GiveBill, bool>> exp3 = GiveBillSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode, LBBillCode);
-                    List<GiveBill> res3 = GiveBillService.LoadPageEntities(exp3.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<GiveBill> res3 = GiveBillService.LoadPageEntities(exp3.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res3,
@@ -118,7 +118,7 @@ namespace LHYS.WMS.Controllers
                     });
                 case "TaskBill":
                     Expression<Func<TaskBill, bool>> exp4 = TaskBillSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<TaskBill> res4 = TaskBillService.LoadPageEntities(exp4.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<TaskBill> res4 = TaskBillService.LoadPageEntities(exp4.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res4,
@@ -126,7 +126,7 @@ namespace LHYS.WMS.Controllers
                     });
                 case "BackOutput":
                     Expression<Func<BackOutput, bool>> exp5 = BackOutputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<BackOutput> res5 = BackOutputService.LoadPageEntities(exp5.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<BackOutput> res5 = BackOutputService.LoadPageEntities(exp5.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res5,
@@ -134,7 +134,7 @@ namespace LHYS.WMS.Controllers
                     });
                 case "OtherInput":
                     Expression<Func<OtherInput, bool>> exp6 = OtherInputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<OtherInput> res6 = OtherInputService.LoadPageEntities(exp6.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<OtherInput> res6 = OtherInputService.LoadPageEntities(exp6.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res6,
@@ -142,7 +142,7 @@ namespace LHYS.WMS.Controllers
                     });
                 case "OtherOutput":
                     Expression<Func<OtherOutput, bool>> exp7 = OtherOutputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<OtherOutput> res7 = OtherOutputService.LoadPageEntities(exp7.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<OtherOutput> res7 = OtherOutputService.LoadPageEntities(exp7.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res7,
@@ -150,7 +150,7 @@ namespace LHYS.WMS.Controllers
                     });
                 case "DIYBill":
                     Expression<Func<DIYBill, bool>> exp8 = DIYBillSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<DIYBill> res8 = DIYBillService.LoadPageEntities(exp8.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<DIYBill> res8 = DIYBillService.LoadPageEntities(exp8.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res8,
@@ -158,7 +158,7 @@ namespace LHYS.WMS.Controllers
                     });
                 case "CheckBill":
                     Expression<Func<CheckBill, bool>> exp9 = CheckBillSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<CheckBill> res9 = CheckBillService.LoadPageEntities(exp9.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<CheckBill> res9 = CheckBillService.LoadPageEntities(exp9.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res9,
@@ -166,7 +166,7 @@ namespace LHYS.WMS.Controllers
                     });
                 case "LocationChange":
                     Expression<Func<LocationChange, bool>> exp10 = LocationChangeSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
-                    List<LocationChange> res10 = LocationChangeService.LoadPageEntities(exp10.Expand(), a => a.CreateDate, pageIndex, pageSize, false, out totalCount).ToList();
+                    List<LocationChange> res10 = LocationChangeService.LoadPageEntities(exp10.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
                         data = res10,
@@ -671,7 +671,7 @@ namespace LHYS.WMS.Controllers
                 Expression<Func<LocationChange, bool>> exp4 = a => last4.Invoke(a) && a.DepartmentId == DepartmentId;
                 list.Add(exp4);
             }
-            //没有货位
+            //没有仓库条件
             //if (WarehouseId != null)
             //{
             //    Expression<Func<LocationChange, bool>> last5 = list[list.Count - 1];

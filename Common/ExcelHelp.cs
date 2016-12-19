@@ -16,6 +16,7 @@ namespace Common
         /// <returns></returns>
         public static DataTable ExcelToDT(string Path)
         {
+            //string strConn = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source =" + Path + ";Extended Properties=Excel 8.0";
             string strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties='Excel 12.0;HDR=Yes;IMEX=1;'";
             DataSet ds = null;
             using (OleDbConnection conn = new OleDbConnection(strConn))

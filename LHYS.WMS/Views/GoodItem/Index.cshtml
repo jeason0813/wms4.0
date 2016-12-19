@@ -103,10 +103,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>单位重量</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.UnitWeight" required/></td>
+                                            <td>单位重量(KG)</td>
+                                            <td><input class="form-control" type="text" name="name" ng-model="source.UnitWeight" /></td>
                                             <td>所属部门</td>
-                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required></select></td>
+                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">建档人</td>
