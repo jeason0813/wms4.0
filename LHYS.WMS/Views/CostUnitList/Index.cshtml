@@ -34,7 +34,7 @@
                             <td class="tdname">公司：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.Company" disabled /></td>
                             <td class="tdname">部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
                             <td class="tdname">备注：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>

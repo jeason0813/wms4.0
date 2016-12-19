@@ -43,7 +43,7 @@
                             <td class="tdname">公司：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.Company" placeholder="选择部门后自动获取" disabled /></td>
                             <td class="tdname">部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" ng-change="departentChange(CurrentDepartment)" required></select></td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" ng-change="departentChange(CurrentDepartment)" required><option value=""></option></select></td>
                             <td class="tdname">备注：</td>
                             <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>

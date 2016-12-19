@@ -74,7 +74,9 @@
                         <tr>
                             <td class="titletd">所属部门:</td>
                             <td>
-                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select>
+                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment"  ng-change="departentChange(CurrentDepartment)" required >
+                                    <option value=""></option>
+                                </select>
                             </td>
                             <td class="titletd">备注:</td>
                             <td colspan="7"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>

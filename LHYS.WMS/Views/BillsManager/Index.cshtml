@@ -21,9 +21,9 @@
                     </tr>
                     <tr>
                         <td>开始时间：</td>
-                        <td><input type="date" class="form-control" name="name" value="" ng-model="timestart" /></td>
+                        <td><input type="date" class="form-control"  ng-model="timestart" /></td>
                         <td>结束时间：</td>
-                        <td><input type="date" class="form-control" name="name" value="" ng-model="timeend" /></td>
+                        <td><input type="date" class="form-control"   ng-model="timeend" /></td>
                         <td>
                             单据状态：
                         </td>
@@ -37,21 +37,18 @@
                             部门：
                         </td>
                         <td>
-                            <select class="form-control" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId"></select>
+                            <select class="form-control" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId"><option value=""></option></select>
+                        </td>
+                        <td><span ng-show="warehouseshow"> 仓库：</span>
                         </td>
                         <td>
-                            仓库：
-                        </td>
-                        <td>
-                            <select class="form-control" ng-options="Warehouse.Id as Warehouse.Name for Warehouse in Warehouses" ng-model="WarehouseId"></select>
+                            <select   ng-show="warehouseshow" class="form-control" ng-options="Warehouse.Id as Warehouse.Name for Warehouse in Warehouses" ng-model="WarehouseId"><option value=""></option></select>
                         </td>
                         <td>单据编号：</td>
                         <td><input type="text" ng-model="BillCode" name="name" value="" class="form-control" placeholder="请输入完整或部分单号" /></td>
                         <td><button type="button" class="btn btn-success btn-md" ng-click="searchBill(1)">&nbsp;&nbsp;&nbsp;查&nbsp;&nbsp;&nbsp;询&nbsp;&nbsp;&nbsp;</button></td>
                     </tr>
                 </table>
-
-
                 @*内容*@
                 <div>
                     <table class="table table-bordered table-striped table-condensed">
@@ -112,6 +109,8 @@
                 $scope.Departents = response.Departent;
             });
             $scope.billType = '@ViewBag.billType';//单据类型
+            //仓库字段是否显示
+            $scope.warehouseshow=(['DIYBill', 'CheckBill', 'LocationChange'].indexOf($scope.billType)==-1);
             $scope.pageSize = 10;//每页10条
             //开始查询
             $scope.searchBill = function (pageIndex) {

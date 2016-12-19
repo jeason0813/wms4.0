@@ -22,35 +22,44 @@ namespace LHYS.WMS.Controllers
         /// <returns>生成文件路径</returns>
         public ActionResult ExprotExcel(/*string billType, Guid billId*/)
         {
-            string billType = Request["billType"];
-            Guid billId = Guid.Parse(Request["billId"]);
-            //模板路径
-            string url;
-            switch (billType)
+            try
             {
-                case "transferBill":
-                    url = Request.MapPath("/Template/入库单模板.xls");
-                    break;
-                case "backOutput":
-                    url = Request.MapPath("/Template/退货单模板.xls");
+                string billType = Request["billType"];
+                Guid billId = Guid.Parse(Request["billId"]);
+                //模板路径
+                string url;
+                switch (billType)
+                {
+                    case "transferBill":
+                        url = Request.MapPath("/Template/入库单模板.xls");
+                        break;
+                    case "backOutput":
+                        url = Request.MapPath("/Template/退货单模板.xls");
 
-                    break;
-                case "backInput":
-                    url = Request.MapPath("/Template/退仓单模板.xls");
-                    break;
-                case "giveBill":
-                    url = Request.MapPath("/Template/交货单模板.xls");
-                    break;
-                default: return null;
+                        break;
+                    case "backInput":
+                        url = Request.MapPath("/Template/退仓单模板.xls");
+                        break;
+                    case "giveBill":
+                        url = Request.MapPath("/Template/交货单模板.xls");
+                        break;
+                    default: return null;
+                }
+                MemoryStream file = BillUpLoadService.ExprotExcel(billType, billId, url);
+
+                Response.Charset = "UTF-8";
+                Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
+                Response.ContentType = "application / vnd.openxmlformats - officedocument.spreadsheetml.sheet";// "application/ms-excel/msword";
+                Response.AddHeader("Content-Disposition", "attachment;fileName=" + billType + ".xls");
+                Response.BinaryWrite(file.ToArray());
+                return new EmptyResult();
             }
-            MemoryStream file = BillUpLoadService.ExprotExcel(billType, billId, url);
-
-            Response.Charset = "UTF-8";
-            Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
-            Response.ContentType = "application / vnd.openxmlformats - officedocument.spreadsheetml.sheet";// "application/ms-excel/msword";
-            Response.AddHeader("Content-Disposition", "attachment;fileName="+billType+".xls");
-            Response.BinaryWrite(file.ToArray());
-            return new EmptyResult();
+            catch (Exception e)
+            {
+                return Content(e.ToString());
+            }
+           
+           
         }
     }
 }

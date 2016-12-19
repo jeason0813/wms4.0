@@ -201,6 +201,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BillDownLoad\nothing.js" />
+    <Content Include="BillUpLoad\nothing.js" />
     <Content Include="Config\controllers.xml" />
     <Content Include="Config\services.xml" />
     <Content Include="Content\angularJs\angucomplete.css" />
@@ -1314,8 +1316,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="BillDownLoad\" />
-    <Folder Include="BillUpLoad\" />
     <Folder Include="Content\Home\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\Home\" />

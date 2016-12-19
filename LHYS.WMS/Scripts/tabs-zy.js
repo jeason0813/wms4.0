@@ -16,7 +16,7 @@ function addTab(contentFather, tabs, iframeid, name, url) {
     }
 
     //如果没有这个页签则添加页签
-    var tab = $('<div class="btn btn-success btn-sm tab"  iframeid="' + iframeid + '">' + name + '&nbsp;&nbsp;<span class="glyphicon glyphicon-remove"></span></div>$nbsp;');
+    var tab = $('<div class="btn btn-success btn-sm tab"  iframeid="' + iframeid + '">' + name + '<span class="glyphicon glyphicon-remove"></span></div>$nbsp;');
     tab.appendTo(tabs);
     tab.siblings().attr('class', 'btn btn-info btn-sm tab');//改变其他标签颜色
     //添加内容

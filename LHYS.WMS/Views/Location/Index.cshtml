@@ -78,7 +78,7 @@
                                         <tr>
                                         <tr>
                                             <td>所属部门</td>
-                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required></select></td>
+                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
                                             <td style="width:80px">所属仓库</td>
                                             <td>
                                                 <select class="form-control" ng-options="y.Id as y.Name  for (x, y) in  wareHouses" ng-model="warehouse" required></select>

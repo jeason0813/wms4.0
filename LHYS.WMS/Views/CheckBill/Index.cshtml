@@ -45,7 +45,7 @@
                             <td><input type="text" class="form-control" name="name" value="" ng-model="info.BillCode" disabled /></td>
                             <td>所属部门：</td>
                             <td>
-                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select>
+                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select>
                             </td>
                         </tr>
                         <tr>

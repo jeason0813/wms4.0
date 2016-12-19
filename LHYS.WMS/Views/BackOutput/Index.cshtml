@@ -84,7 +84,7 @@
                             <td>仓管员：</td>
                             <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" required /></td>
                             <td>部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select></td>
+                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
                             <td>业务模式：</td>
                             <td><select class="form-control" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="info.BusinessType" required></select></td>
                         </tr>
