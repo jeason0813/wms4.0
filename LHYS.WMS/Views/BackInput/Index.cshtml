@@ -31,10 +31,10 @@
                 <div class="col-xs-12 table-responsive">
                     <table >
                         <tr>
-                            <td colspan="8" style="text-align:center"><h2>退仓单</h2></td>
+                            <td colspan="8" style="text-align:center"><h2>退库单</h2></td>
                         </tr>
                         <tr>
-                            <td class="tdname2">立邦退仓单号：</td>
+                            <td class="tdname2">立邦退库单号：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBBillCode" required /></td>
                             <td class="tdname2">单据日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.LBBillDate" required /></td>
@@ -57,7 +57,7 @@
                     <hr style="border:1px solid #9b9595;margin-bottom:3px;margin-top:3px;" />
                     <table >
                         <tr>
-                            <td class="tdname2">退仓单号：</td>
+                            <td class="tdname2">退库单号：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" disabled /></td>
                             <td class="tdname2">出库日期：</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
@@ -113,8 +113,8 @@
                             <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" /></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" ng-change="changeCount(record)" style="width:80px" required /></td>
                             <td><input class="form-control" type="number" ng-model="record.Weight" style="width:80px" disabled/></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" required /></td>
-                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)" style="width:120px" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px"  ng-click="clickLocation($index)" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.ItemLocation" style="width:120px" disabled /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>
                         </tr>
                     </table>
@@ -225,12 +225,16 @@
                                     <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
-                                            <th>货位编码</th>
+                                            <th>仓库</th>
+                                            <th>批次</th>
                                             <th>货位名称</th>
+                                            <th>数量</th>
                                         </tr>
                                         <tr ng-repeat="location in locationlist | filter:searchstrlocation " ng-dblclick="selectlocation(location)">
-                                            <td>{{location.Id}}</td>
-                                            <td>{{location.Name}}</td>
+                                            <td>{{location.Warehouse}}</td>
+                                            <td>{{location.ItemBatch}}</td>
+                                            <td>{{location.ItemLocation}}</td>
+                                            <td>{{location.Count}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -382,15 +386,35 @@
             //---------------------------------------------------------------------------
             //开始选择货位信息
             $scope.clickLocation = function (idx) {
+                if ($scope.info.Record[idx].ItemCode == null || $scope.info.Record[idx].ItemCode == "") {
+                    alert("请先选择物料档案！");
+                    return false;
+                }
+                if ($scope.info.WarehouseId == null || $scope.info.WarehouseId == "") {
+                    alert("请先选择仓库！");
+                    return false;
+                }
+                if ($scope.info.Record[idx].Count == null) {
+                    alert("请填写数量！");
+                    return false;
+                }
+                $http.post("/GetBatchAndLocation/GetBatchAndLocations", { itemcode: $scope.info.Record[idx].ItemCode, warehouseid: $scope.info.WarehouseId }).success(function (response) {
+                    $scope.locationlist = response;
+                });
                 $scope.currentlocation = idx;
+                $("#locationchoose").modal('show');
             }
             //选择了货位数据
             $scope.selectlocation = function (location) {
-                $scope.info.Record[$scope.currentlocation].ItemLocation = location.Name; //保存货位信息
-                $scope.info.Record[$scope.currentlocation].ItemLocationId = location.Id;
-                $scope.currentlocation = null;
+                $scope.info.Record[$scope.currentlocation].ItemLocation = location.ItemLocation; //保存货位信息
+                $scope.info.Record[$scope.currentlocation].ItemLocationId = location.ItemLocationId;
+                $scope.info.Record[$scope.currentlocation].ItemBatch = location.ItemBatch;
+                if ($scope.info.Record[$scope.currentlocation].Count > location.Count) {
+                    $scope.info.Record[$scope.currentlocation].Count = location.Count;
+                }
                 $('#locationchoose').modal('hide');
                 $scope.searchstrlocation = '';
+                $scope.currentlocation = null;
             }
             //-------------------------------------------------------------------------------------
             //提交表单

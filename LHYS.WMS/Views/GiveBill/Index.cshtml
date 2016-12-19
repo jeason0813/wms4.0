@@ -120,10 +120,10 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" /></td>
-                            <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount(record)" required /></td>
+                            <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount($index,record)" required /></td>
                             <td><input class="form-control" type="number" ng-model="record.Weight" style="width:80px" disabled /></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" required /></td>
-                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)" style="width:120px" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" ng-click="clickLocation($index)" required /></td>
+                            <td><input  class="form-control" type="text" ng-model="record.ItemLocation"  style="width:120px" disabled /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>
                         </tr>
                     </table>
@@ -234,12 +234,16 @@
                                     <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
-                                            <th>货位编码</th>
+                                            <th>仓库</th>
+                                            <th>批次</th>
                                             <th>货位名称</th>
+                                            <th>数量</th>
                                         </tr>
                                         <tr ng-repeat="location in locationlist | filter:searchstrlocation " ng-dblclick="selectlocation(location)">
-                                            <td>{{location.Id}}</td>
-                                            <td>{{location.Name}}</td>
+                                            <td>{{location.Warehouse}}</td>
+                                            <td>{{location.ItemBatch}}</td>
+                                            <td>{{location.ItemLocation}}</td>
+                                            <td>{{location.Count}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -337,7 +341,8 @@
                 $scope.info.Record.splice(idx, 1);
             }
             //自动填重量
-            $scope.changeCount = function (record) {
+            $scope.changeCount = function (idx, record) {
+                $scope.info.Record[idx].Count = record.Count;
                 record.Weight = record.Count * record.UnitWeight;
             }
             //选择了部门  给对应的字段赋值
@@ -396,15 +401,35 @@
             //---------------------------------------------------------------------------
             //开始选择货位信息
             $scope.clickLocation = function (idx) {
+                if ($scope.info.Record[idx].ItemCode == null || $scope.info.Record[idx].ItemCode=="") {
+                    alert("请先选择物料档案！");
+                    return false;
+                }
+                if ($scope.info.WarehouseId == null || $scope.info.WarehouseId == "") {
+                    alert("请先选择仓库！");
+                    return false;
+                }
+                if ($scope.info.Record[idx].Count==null) {
+                    alert("请填写数量！");
+                    return false;
+                }
+                $http.post("/GetBatchAndLocation/GetBatchAndLocations", { itemcode: $scope.info.Record[idx].ItemCode, warehouseid: $scope.info.WarehouseId }).success(function (response) {
+                    $scope.locationlist = response;
+                });
                 $scope.currentlocation = idx;
+                $("#locationchoose").modal('show');
             }
             //选择了货位数据
             $scope.selectlocation = function (location) {
-                $scope.info.Record[$scope.currentlocation].ItemLocation = location.Name; //保存货位信息
-                $scope.info.Record[$scope.currentlocation].ItemLocationId = location.Id;
-                $scope.currentlocation = null;
+                $scope.info.Record[$scope.currentlocation].ItemLocation = location.ItemLocation; //保存货位信息
+                $scope.info.Record[$scope.currentlocation].ItemLocationId = location.ItemLocationId;
+                $scope.info.Record[$scope.currentlocation].ItemBatch = location.ItemBatch;
+                if ($scope.info.Record[$scope.currentlocation].Count > location.Count) {
+                    $scope.info.Record[$scope.currentlocation].Count = location.Count;
+                }
                 $('#locationchoose').modal('hide');
                 $scope.searchstrlocation = '';
+                $scope.currentlocation = null;
             }
             //--------------------------------------------------------------------------------
             //线路

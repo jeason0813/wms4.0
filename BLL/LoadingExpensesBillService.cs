@@ -179,13 +179,19 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         transferbillList = transferbillList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null)
-                    {
-                        transferbillList = transferbillList.Where(c => c.ExamineDate >= A.dateStart);
+                    if (A.dateStart != null&& A.dateEnd != null&&A.dateStart==A.dateEnd) {
+                        transferbillList = transferbillList.Where(c => c.ExamineDate == A.dateStart);
                     }
-                    if (A.dateEnd != null)
+                    else
                     {
+                        if (A.dateStart != null)
+                        {
+                            transferbillList = transferbillList.Where(c => c.ExamineDate >= A.dateStart);
+                        }
+                        if (A.dateEnd != null)
+                        {
                             transferbillList = transferbillList.Where(c => c.ExamineDate <= A.dateEnd);
+                        }
                     }
                     if (transferbillList.Count() > 0)
                     {
@@ -243,13 +249,20 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         BackInputList = BackInputList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null)
+                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
                     {
-                        BackInputList = BackInputList.Where(c => c.ExamineDate >= A.dateStart);
+                        BackInputList = BackInputList.Where(c => c.ExamineDate == A.dateStart);
                     }
-                    if (A.dateEnd != null)
+                    else
                     {
-                        BackInputList = BackInputList.Where(c => c.ExamineDate <= A.dateEnd);
+                        if (A.dateStart != null)
+                        {
+                            BackInputList = BackInputList.Where(c => c.ExamineDate >= A.dateStart);
+                        }
+                        if (A.dateEnd != null)
+                        {
+                            BackInputList = BackInputList.Where(c => c.ExamineDate <= A.dateEnd);
+                        }
                     }
                     if (BackInputList.Count() > 0)
                     {
@@ -307,13 +320,20 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         GiveBillList = GiveBillList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null)
+                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate == A.dateStart);
                     }
-                    if (A.dateEnd != null)
+                    else
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate <= A.dateEnd);
+                        if (A.dateStart != null)
+                        {
+                            GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
+                        }
+                        if (A.dateEnd != null)
+                        {
+                            GiveBillList = GiveBillList.Where(c => c.ExamineDate <= A.dateEnd);
+                        }
                     }
                     if (GiveBillList.Count() > 0)
                     {
@@ -371,13 +391,20 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         BackOutputList = BackOutputList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null)
+                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
                     {
-                        BackOutputList = BackOutputList.Where(c => c.ExamineDate >= A.dateStart);
+                        BackOutputList = BackOutputList.Where(c => c.ExamineDate == A.dateStart);
                     }
-                    if (A.dateEnd != null)
+                    else
                     {
-                        BackOutputList = BackOutputList.Where(c => c.ExamineDate <= A.dateEnd);
+                        if (A.dateStart != null)
+                        {
+                            BackOutputList = BackOutputList.Where(c => c.ExamineDate >= A.dateStart);
+                        }
+                        if (A.dateEnd != null)
+                        {
+                            BackOutputList = BackOutputList.Where(c => c.ExamineDate <= A.dateEnd);
+                        }
                     }
                     if (BackOutputList.Count() > 0)
                     {
@@ -435,13 +462,20 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         GiveBillList = GiveBillList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null)
+                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate == A.dateStart);
                     }
-                    if (A.dateEnd != null)
+                    else
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate <= A.dateEnd);
+                        if (A.dateStart != null)
+                        {
+                            GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
+                        }
+                        if (A.dateEnd != null)
+                        {
+                            GiveBillList = GiveBillList.Where(c => c.ExamineDate <= A.dateEnd);
+                        }
                     }
                     if (GiveBillList.Count() > 0)
                     {

@@ -11,9 +11,10 @@ namespace LHYS.WMS.Controllers
 {
     public class GetBatchAndLocationController : Controller
     {
-        ActionResult GetBatchAndLocations() {
-            string l="asdf";
-            return Content(l);
+        private IInWarehouseService InWarehouseService { get; set; }
+       public ActionResult GetBatchAndLocations(string itemcode,int warehouseid) {
+            var warehouselist = InWarehouseService.LoadEntities(a=>a.ItemCode==itemcode.ToString().Trim()&&a.WarehouseId==warehouseid);
+            return Json(warehouselist);
         }
     }
 }
