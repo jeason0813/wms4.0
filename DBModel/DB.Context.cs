@@ -69,5 +69,6 @@ namespace DBModel
         public virtual DbSet<RoleMenuRelation> RoleMenuRelation { get; set; }
         public virtual DbSet<UserRoleRelation> UserRoleRelation { get; set; }
         public virtual DbSet<LoadingAndLaborCostDetail> LoadingAndLaborCostDetail { get; set; }
+        public virtual DbSet<ErrorRecort> ErrorRecort { get; set; }
     }
 }

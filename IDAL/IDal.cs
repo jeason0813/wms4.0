@@ -64,6 +64,11 @@ namespace IDAL
       
     }
 	
+	public partial interface IErrorRecortDal :IBaseDal<DBModel.ErrorRecort>
+    {
+      
+    }
+	
 	public partial interface IGiveBillDal :IBaseDal<DBModel.GiveBill>
     {
       

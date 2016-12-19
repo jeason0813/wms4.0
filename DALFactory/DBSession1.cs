@@ -215,6 +215,24 @@ namespace DALFactory
 
 
 
+		private IErrorRecortDal _ErrorRecortDal;
+        public IErrorRecortDal ErrorRecortDal
+        {
+            get
+            {
+                if(_ErrorRecortDal == null)
+                {
+                    _ErrorRecortDal = AbstractFactory.CreateErrorRecortDal();
+                }
+                return _ErrorRecortDal;
+            }
+            set { _ErrorRecortDal = value; }
+        }
+	
+
+
+
+
 		private IGiveBillDal _GiveBillDal;
         public IGiveBillDal GiveBillDal
         {

@@ -64,6 +64,7 @@
         <EntityTypeShape EntityType="DB.LoadingAndLaborCostDetail" Width="1.5" PointX="5.875" PointY="10.5" IsExpanded="false" />
         <AssociationConnector Association="DB.LaborCostBillLoadingAndLaborCostDetail" />
         <AssociationConnector Association="DB.LoadingAndLaborCostDetailLoadingExpensesBill" />
+        <EntityTypeShape EntityType="DB.ErrorRecort" Width="1.5" PointX="9.625" PointY="6.875" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

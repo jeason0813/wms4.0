@@ -74,4 +74,5 @@
   </object>
   <object name="BillUpLoadService" type="BLL.BillUpLoadService, BLL" singleton="false" >
   </object>
+  
 </objects>

@@ -65,6 +65,11 @@ namespace  IBLL
        
     }   
 	
+	public partial interface IErrorRecortService : IBaseService<ErrorRecort>
+    {
+       
+    }   
+	
 	public partial interface IGiveBillService : IBaseService<GiveBill>
     {
        

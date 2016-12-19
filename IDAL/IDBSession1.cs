@@ -35,6 +35,8 @@ namespace IDAL
 	
 		IDIYBillDal DIYBillDal{get;set;}
 	
+		IErrorRecortDal ErrorRecortDal{get;set;}
+	
 		IGiveBillDal GiveBillDal{get;set;}
 	
 		IGoodItemDal GoodItemDal{get;set;}

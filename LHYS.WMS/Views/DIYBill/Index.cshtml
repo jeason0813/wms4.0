@@ -81,9 +81,9 @@
                             <td><input class="form-control" type="text" ng-model="record1.ItemName" /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemSpecifications " /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemUnit" /></td>
-                            <td><input class="form-control" type="text" ng-model="record1.UnitWeight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.UnitWeight" ng-change="changeCount1(record1)"/></td>
                             <td><input class="form-control" type="number" ng-model="record1.Count" ng-change="changeCount1(record1)" required /></td>
-                            <td><input class="form-control" type="number" ng-model="record1.Weight" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.Weight"   /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemBatch" required /></td>
                             <td><input class="form-control" type="text" name="name" ng-model="record1.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse1')" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record1.ItemLocation" ng-click="clickLocation($index,'location1')" required /></td>
@@ -117,9 +117,9 @@
                             <td><input class="form-control" type="text" ng-model="record2.ItemName" /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemSpecifications " /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemUnit" /></td>
-                            <td><input class="form-control" type="text" ng-model="record2.UnitWeight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.UnitWeight" ng-change="changeCount2(record2)" /></td>
                             <td><input class="form-control" type="number" ng-model="record2.Count" ng-change="changeCount2(record2)" required /></td>
-                            <td><input class="form-control" type="number" ng-model="record2.Weight" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.Weight"  /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemBatch" required /></td>
                             <td><input class="form-control" type="text" name="name" ng-model="record2.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse2')" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record2.ItemLocation" ng-click="clickLocation($index,'location2')" required /></td>

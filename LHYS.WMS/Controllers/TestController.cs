@@ -12,11 +12,12 @@ namespace LHYS.WMS.Controllers
 {
     public class TestController : Controller
     {
-        private IMenuAService MenuAService { get; set; }
         // GET: Test
         public ActionResult Index()
         {
-            var res = MenuAService.LoadEntities(a => true);
+                int c = 2;
+                int d = 0;
+                int e = c / d;
             return View();
         }
 
