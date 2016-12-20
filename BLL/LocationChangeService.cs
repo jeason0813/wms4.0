@@ -198,8 +198,8 @@ namespace BLL
                 {  //出库
                     if (inWarehouse == null || inWarehouse.Count < item.Count)
                     {
-                        result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
-                        return result;
+                        result += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
+                       
                     }
                     else if (inWarehouse.Count == item.Count)
                     {
@@ -212,6 +212,10 @@ namespace BLL
                         item.CurrentCount = inWarehouse.Count;
                     }
                 }
+            }
+            if (result != "")
+            {
+                return result;
             }
             bill.BillState = 2;//改成已审核状态
             bill.ExaminePerson = UserName;//审核人
@@ -275,8 +279,7 @@ namespace BLL
                 {
                     if (inWarehouse == null || inWarehouse.Count < item.Count) //当前库存不够 ，不允许做弃审操作
                     {
-                        var result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
-                        return result;
+                         res += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
                     }
                     else if (inWarehouse.Count == item.Count)
                     {
@@ -288,6 +291,10 @@ namespace BLL
                         CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
                     }
                 }
+            }
+            if (res != "")
+            {
+                return res;
             }
             bill.BillState = 1;//改成编辑状态
             bill.ExaminePerson = null;//清除审核人

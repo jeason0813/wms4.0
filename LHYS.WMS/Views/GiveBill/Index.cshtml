@@ -301,7 +301,7 @@
                 $http.post("/GiveBill/GetData", {}, { params: { "GiveBillId": "@ViewBag.GiveBillId" } }).success(function (response) {
                     //绑定数据源
                     $scope.info = response;
-                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
+                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
                     {
                         //修改时间格式
                         $scope.info.LBBillDate = jsonDateFormat($scope.info.LBBillDate);
@@ -327,6 +327,9 @@
                                 $scope.currentInOutType = $scope.InOutTypes[i];
                             }
                         }
+                    } else {
+                        //空表单默认值
+                        $scope.info.LoadGoodsType = "武汉-配送客户出库装货";
                     }
                 });
             });

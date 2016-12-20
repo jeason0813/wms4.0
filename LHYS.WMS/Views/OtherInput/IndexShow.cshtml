@@ -139,15 +139,12 @@
             //审核（examine）
             $scope.submit = function () {
                 $http.post("/OtherInput/Examine", {}, { params: { "OtherInputId": "@ViewBag.OtherInputId" } }).success(function (response) {
-                    if (response == "1") {
-                        alert("审核成功！");
+                    if (response == "操作成功") {
+                        alert(response);
                         window.location.href = 'IndexShow?OtherInputId=@ViewBag.OtherInputId';
                     }
-                    else if (response == "参数错误") {
-                        alert("参数错误！");
-                    }
                     else {
-                        alert("操作失败！");
+                        alert(response);
                     }
                 });
             }

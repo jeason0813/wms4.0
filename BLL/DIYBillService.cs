@@ -153,8 +153,7 @@ namespace BLL
                 InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocation == item.ItemLocation && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 if (inWarehouse == null || inWarehouse.Count < item.Count)//如果没有库存  新建一条记录
                 {
-                    result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
-                    return result;
+                    result += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
                 }
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
@@ -166,6 +165,10 @@ namespace BLL
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
                     item.CurrentCount = inWarehouse.Count;
                 }
+            }
+            if (result != "")
+            {
+                return result;
             }
             bill.BillState = 2;//改成已审核状态
             bill.ExaminePerson = UserName;//审核人
@@ -235,8 +238,8 @@ namespace BLL
                 InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocation == item.ItemLocation && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 if (inWarehouse == null || inWarehouse.Count < item.Count)//如果没有库存  新建一条记录
                 {
-                    result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
-                    return result;
+                    result += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
+                   
                 }
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
@@ -248,6 +251,10 @@ namespace BLL
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
                     item.CurrentCount = inWarehouse.Count;
                 }
+            }
+            if (result != "")
+            {
+                return result;
             }
             bill.BillState = 1;//改成编辑状态
             bill.ExaminePerson = null;//清除审核人

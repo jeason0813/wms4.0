@@ -52,6 +52,22 @@ namespace LHYS.WMS.Controllers
             GiveBill bill = GiveBillService.LoadEntities(t => t.Id == GiveBillId).FirstOrDefault();//获取表单
             return Json(bill);
         }
+       /// <summary>
+       /// 根据立邦交货单号获取数据
+       /// </summary>
+       /// <returns></returns>
+        public ActionResult GetDataByLBBillCode(string LBGiveBillCode)
+        {
+            GiveBill bill = GiveBillService.LoadEntities(t => t.LBBillCode == LBGiveBillCode).FirstOrDefault();//获取表单
+            if (bill == null)
+            {
+                return Content("no");
+            }
+            else {
+                return Json(bill);
+            }
+           
+        }
         /// <summary>
         /// 查找任务单下的交货单
         /// </summary>
