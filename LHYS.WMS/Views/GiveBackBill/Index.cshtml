@@ -25,8 +25,6 @@
                     <tr>
                         <td colspan="8" style="text-align:center">
                             <h2>交货回执单</h2>
-                            <span class="label label-info" ng-show="info.BillState==1">已保存</span>
-                            <span class="label label-success" ng-show="info.BillState==2">已审核</span>
                         </td>
                     </tr>
                     <tr>
@@ -122,12 +120,12 @@
                         <td>{{record.Count}}</td>
                         <td>{{record.Weight}}</td>
                         <td><input style="width:70px;" type="number" name="name" value="" class="form-control" ng-model="record.ReceiveCount" ng-change="receiveCount(record)"/></td>
-                        <td><input style="width:70px;" type="number" name="name" value="" class="form-control" ng-model="record.ReceiveWeight"/></td>
+                        <td><input style="width:70px;" type="text" name="name" value="" class="form-control" ng-model="record.ReceiveWeight"/></td>
                     </tr>
                 </table>
                 <div style="text-align:center">
                     <div style="text-align:center">
-                        <button type="button" class="btn btn-success btn-md" ng-click="save()" ng-show="info!=undefined">&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-success btn-md" ng-click="save()" ng-show="info!=undefined">&nbsp;&nbsp;&nbsp;确&nbsp;&nbsp;&nbsp;定&nbsp;&nbsp;&nbsp;</button>
                     </div>
                 </div>
             </div>

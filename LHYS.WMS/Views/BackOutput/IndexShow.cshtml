@@ -80,25 +80,22 @@
                     <tr>
                         <td>装卸类型：</td>
                         <td>{{info.LoadGoodsType}}</td>
+                        <td>线路：</td>
+                        <td>{{info.LineWay}}</td>
                         <td>仓管员：</td>
                         <td>{{info.ChargePerson}}</td>
                         <td>部门：</td>
                         <td>{{info.Department}}</td>
+                        <td>制单人：</td>
+                        <td>{{info.MakePerson}}</td>
+                    </tr>
+                    <tr>
                         <td>审核人：</td>
                         <td>{{info.ExaminePerson}}</td>
                         <td>审核日期：</td>
                         <td>{{info.ExamineDate}}</td>
-                    </tr>
-                    <tr>
-                        @*<td>线路：</td>
-                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.LineWay" data-toggle="modal" data-target="#lineWay" required /></td>*@
                         <td>备注：</td>
                         <td colspan="5">{{info.Remark}}</td>
-                        <td>制单人：</td>
-                        <td>{{info.MakePerson}}</td>
-                        <!--占位避免打印出现空缺-->
-                        <td></td>
-                        <td></td>
                     </tr>
                 </table>
                 <br />

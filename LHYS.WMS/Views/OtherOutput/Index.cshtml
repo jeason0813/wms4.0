@@ -81,9 +81,9 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemName" style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
-                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" /></td>
+                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" ng-change="changeCount(record)" disabled /></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount(record)" required /></td>
-                            <td><input class="form-control" type="number" ng-model="record.Weight" style="width:80px" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record.Weight" style="width:80px"  /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" ng-disabled="record.IsBatch=='否'" ng-click="clickLocation($index)" required /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemLocation" style="width:120px" ng-disabled="record.IsBatch=='是'" ng-click="clickLocation($index)" required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>

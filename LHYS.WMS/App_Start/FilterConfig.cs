@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using LHYS.WMS.Models;
+using System.Web;
 using System.Web.Mvc;
 
 namespace LHYS.WMS
@@ -7,7 +8,8 @@ namespace LHYS.WMS
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new HandleErrorAttribute());
+            filters.Add(new MyExecptionAttribute());//注册异常处理类
         }
     }
 }

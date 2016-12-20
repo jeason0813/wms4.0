@@ -109,6 +109,15 @@ namespace BLL
         }
     }   
 	
+	public partial class ErrorRecortService :BaseService<ErrorRecort>,IErrorRecortService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.ErrorRecortDal;
+        }
+    }   
+	
 	public partial class GiveBillService :BaseService<GiveBill>,IGiveBillService
     {
     

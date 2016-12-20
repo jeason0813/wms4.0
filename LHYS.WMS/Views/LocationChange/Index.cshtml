@@ -41,9 +41,9 @@
                         </tr>
                         <tr>
                             <td class="tdname2">入库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType"></inouttypeselect></td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType" filterstr="入库"></inouttypeselect></td>
                             <td class="tdname2">出库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType"></inouttypeselect></td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType" filterstr="出库"></inouttypeselect></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -83,7 +83,7 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemName" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemSpecifications " /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit"/></td>
-                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" disabled/></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" ng-change="changeCount(record)" required /></td>
                             <td><input class="form-control" type="number" ng-model="record.Weight" disabled/></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemBatch" ng-disabled="record.IsBatch=='否'" required /></td>

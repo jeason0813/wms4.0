@@ -15,11 +15,11 @@ namespace BLL
             if (bill.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
             {
                 bill.Id = Guid.NewGuid();//生成一个id
-                bill.BillCode = GetBillCode("RW");//生成单号
-                if (bill.BillCode == "no")
-                {
-                    bill.BillCode = GetBillCode("RW");//再次生成单号
-                }
+                //bill.BillCode = GetBillCode("RW");//生成单号
+                //if (bill.BillCode == "no")
+                //{
+                //    bill.BillCode = GetBillCode("RW");//再次生成单号
+                //}
                 bill.BillState = 1;//保存状态
                 if (records != null) {
                     //修改对应交货单的任务单字段

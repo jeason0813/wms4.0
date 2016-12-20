@@ -67,6 +67,11 @@ namespace DAL
 
     }
 		
+	public partial class ErrorRecortDal :BaseDal<ErrorRecort>,IErrorRecortDal
+    {
+
+    }
+		
 	public partial class GiveBillDal :BaseDal<GiveBill>,IGiveBillDal
     {
 

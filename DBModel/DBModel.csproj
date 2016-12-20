@@ -115,6 +115,9 @@
     <Compile Include="DIYBill.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="ErrorRecort.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="GiveBill.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

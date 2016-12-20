@@ -67,14 +67,6 @@
                             </td>
                             <td>出库类别：</td>
                             <td>{{info.OutputType}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
                             <td>审核人：</td>
                             <td>
                                 {{info.ExaminePerson}}
@@ -83,12 +75,13 @@
                             <td colspan="3">
                                 {{info.ExamineDate}}
                             </td>
-
-                            <td ><span  class="PrintCheckBillStyle">筛选：</span></td>
-                            <td><input type="text" class="form-control PrintCheckBillStyle" name="name" value="" placeholder="筛选" ng-model="ressearchstr" /></td>
-                            <td><span  class="PrintCheckBillStyle">排序：</span></td>
-                            <td class="item">
-                                <div class="PrintCheckBillStyle">
+                        </tr>
+                        <tr class="PrintCheckBillStyle">
+                            <td ><span  >筛选：</span></td>
+                            <td><input type="text" class="form-control" name="name" value="" placeholder="筛选" ng-model="ressearchstr" /></td>
+                            <td><span  >排序：</span></td>
+                            <td class="item" colspan="7">
+                                <div >
                                     <input type="radio" id="sele1" name="name" value="ItemCode" ng-model="sort" /><label for="sele1">按品项</label>
                                     <input type="radio" id="sele2" name="name" value="ItemBatch" ng-model="sort" /><label for="sele2">按批次</label>
                                     <input type="radio" id="sele3" name="name" value="ItemLocation" ng-model="sort" /><label for="sele3">按货位</label>

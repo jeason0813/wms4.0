@@ -104,6 +104,14 @@ namespace DALFactory
 
         }
 		
+	    public static IErrorRecortDal CreateErrorRecortDal()
+        {
+
+		 string fullClassName = NameSpace + ".ErrorRecortDal";
+          return CreateInstance(fullClassName) as IErrorRecortDal;
+
+        }
+		
 	    public static IGiveBillDal CreateGiveBillDal()
         {
 

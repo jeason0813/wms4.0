@@ -13,11 +13,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angularJs")
-    <style>
-        .th {
-            width: 7%;
-        }
-    </style>
 </head>
 <body>
     <div class="container-fluid" ng-app="myApp" ng-controller="GoodItemController">
@@ -42,9 +37,9 @@
                             <th>单位重量(KG)</th>
                             <th style="width:100px;">是否批次管理</th>
                             <th class="th">部门</th>
-                            <th class="th">部门ID</th>
+                            @*<th class="th">部门ID</th>
                             <th class="th">公司</th>
-                            <th class="th">公司ID</th>
+                            <th class="th">公司ID</th>*@
                             <th class="th">建档人</th>
                             <th class="th">建档日期</th>
                             <th>编辑</th>
@@ -59,9 +54,9 @@
                             <td>{{record.UnitWeight}}</td>
                             <td>{{record.IsBatch}}</td>
                             <td>{{record.Department}}</td>
-                            <td>{{record.DepartmentId}}</td>
+                            @*<td>{{record.DepartmentId}}</td>
                             <td>{{record.Company}}</td>
-                            <td>{{record.CompanyId}}</td>
+                            <td>{{record.CompanyId}}</td>*@
                             <td>{{record.CreateBy}}</td>
                             <td>{{record.CreateDate}}</td>
                             <td style="width:70px"><button type="button" class="btn btn-info btn-xs" ng-click="btnEdit(record)">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button></td>

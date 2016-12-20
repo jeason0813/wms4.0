@@ -52,7 +52,7 @@
         <EntityTypeShape EntityType="DB.LoadingExpensesBill" Width="1.5" PointX="8.625" PointY="10.25" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.LaborCostBill" Width="1.5" PointX="3" PointY="12" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.OtherExpenseList" Width="1.5" PointX="13.375" PointY="9.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.CostUnitListDetail" Width="2.25" PointX="0.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB.CostUnitListDetail" Width="2.25" PointX="0.5" PointY="7.75" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.OtherExpenseListDetail" Width="1.5" PointX="13.375" PointY="11" IsExpanded="false" />
         <AssociationConnector Association="DB.CostUnitListCostUnitListDetail" />
         <AssociationConnector Association="DB.OtherExpenseListOtherExpenseListDetail" />
@@ -64,6 +64,7 @@
         <EntityTypeShape EntityType="DB.LoadingAndLaborCostDetail" Width="1.5" PointX="5.875" PointY="10.5" IsExpanded="false" />
         <AssociationConnector Association="DB.LaborCostBillLoadingAndLaborCostDetail" />
         <AssociationConnector Association="DB.LoadingAndLaborCostDetailLoadingExpensesBill" />
+        <EntityTypeShape EntityType="DB.ErrorRecort" Width="1.5" PointX="9.625" PointY="6.875" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

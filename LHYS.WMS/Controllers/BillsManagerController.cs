@@ -35,7 +35,7 @@ namespace LHYS.WMS.Controllers
             switch (billType)
             {
                 case "TransferBill":
-                    billTypeName = "转仓单";
+                    billTypeName = "入库单";
                     break;
                 case "BackInput":
                     billTypeName = "退仓单";
@@ -193,9 +193,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<TransferBill, bool>> last2 = list[list.Count - 1];
-                Expression<Func<TransferBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<TransferBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -247,9 +247,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<BackInput, bool>> last2 = list[list.Count - 1];
-                Expression<Func<BackInput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<BackInput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -300,9 +300,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<GiveBill, bool>> last2 = list[list.Count - 1];
-                Expression<Func<GiveBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<GiveBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -357,9 +357,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<TaskBill, bool>> last2 = list[list.Count - 1];
-                Expression<Func<TaskBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<TaskBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -406,9 +406,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<BackOutput, bool>> last2 = list[list.Count - 1];
-                Expression<Func<BackOutput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<BackOutput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -455,9 +455,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<OtherInput, bool>> last2 = list[list.Count - 1];
-                Expression<Func<OtherInput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<OtherInput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -504,9 +504,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<OtherOutput, bool>> last2 = list[list.Count - 1];
-                Expression<Func<OtherOutput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<OtherOutput, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -553,9 +553,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<DIYBill, bool>> last2 = list[list.Count - 1];
-                Expression<Func<DIYBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<DIYBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -603,9 +603,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<CheckBill, bool>> last2 = list[list.Count - 1];
-                Expression<Func<CheckBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<CheckBill, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))
@@ -652,9 +652,9 @@ namespace LHYS.WMS.Controllers
             }
             if (!string.IsNullOrEmpty(timeend))
             {
-                DateTime dt2 = Convert.ToDateTime(timeend);
+                DateTime dt2 = Convert.ToDateTime(timeend).AddDays(1);
                 Expression<Func<LocationChange, bool>> last2 = list[list.Count - 1];
-                Expression<Func<LocationChange, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate <= dt2);
+                Expression<Func<LocationChange, bool>> exp2 = a => last2.Invoke(a) && (a.CreateDate < dt2);
                 list.Add(exp2);
             }
             if (!string.IsNullOrEmpty(BillState))

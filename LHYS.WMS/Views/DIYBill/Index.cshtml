@@ -42,9 +42,9 @@
 
                         <tr>
                             <td class="tdname2">入库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypesIn" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType"></inouttypeselect></td>
+                            <td><inouttypeselect inouttypes="InOutTypesIn" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType" filterstr="入库"></inouttypeselect></td>
                             <td class="tdname2">出库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypesOut" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType"></inouttypeselect></td><td></td><td></td><td></td><td></td>
+                            <td><inouttypeselect inouttypes="InOutTypesOut" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType" filterstr="出库"></inouttypeselect></td><td></td><td></td><td></td><td></td>
                         </tr>
                         <tr>
                             <td>制单人：</td>
@@ -81,9 +81,9 @@
                             <td><input class="form-control" type="text" ng-model="record1.ItemName" /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemSpecifications " /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemUnit" /></td>
-                            <td><input class="form-control" type="text" ng-model="record1.UnitWeight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.UnitWeight" ng-change="changeCount1(record1)"/></td>
                             <td><input class="form-control" type="number" ng-model="record1.Count" ng-change="changeCount1(record1)" required /></td>
-                            <td><input class="form-control" type="number" ng-model="record1.Weight" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.Weight"   /></td>
                             <td><input class="form-control" type="text" name="name" ng-model="record1.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse1')" required /></td>
                             <td><input class="form-control" type="text" ng-model="record1.ItemBatch" ng-disabled="record1.IsBatch=='否'"  ng-click="clickLocation1($index)" required /></td>
                             <td><input  class="form-control" type="text" ng-model="record1.ItemLocation" ng-disabled="record1.IsBatch=='是'" ng-click="clickLocation1($index)" required /></td>
@@ -117,9 +117,9 @@
                             <td><input class="form-control" type="text" ng-model="record2.ItemName" /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemSpecifications " /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemUnit" /></td>
-                            <td><input class="form-control" type="text" ng-model="record2.UnitWeight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.UnitWeight" ng-change="changeCount2(record2)" /></td>
                             <td><input class="form-control" type="number" ng-model="record2.Count" ng-change="changeCount2(record2)" required /></td>
-                            <td><input class="form-control" type="number" ng-model="record2.Weight" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.Weight"  /></td>
                             <td><input class="form-control" type="text" ng-model="record2.ItemBatch" ng-disabled="record2.IsBatch=='否'" required /></td>
                             <td><input class="form-control" type="text" name="name" ng-model="record2.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse2')" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record2.ItemLocation" ng-click="clickLocation($index,'location2')" required /></td>
@@ -253,7 +253,7 @@
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     <h4 class="modal-title">请选择货位</h4>
-                                </div>
+                </div>
                                 <div class="modal-body">
                                     <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
                                     <table class="table table-bordered table-striped table-condensed">
