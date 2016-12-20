@@ -48,14 +48,14 @@
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBCustomerName" required /></td>
                             <td>电话：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBPhone" required /></td>
-                            <td>交货单号：</td>
+                            <td>立邦交货单号：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBBillCode" required /></td>
                             <td>备注：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBRemark" /></td>
                         </tr>
                         <tr>
                             <td>邮编：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBMailCode" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.LBMailCode"  /></td>
                             <td>送货地址：</td>
                             <td colspan="5"><input class="form-control" type="text" ng-model="info.LBSendAddress" name="name" required /></td>
                         </tr>
@@ -91,7 +91,7 @@
                             <td>线路：<span class="glyphicon glyphicon-search" data-toggle="modal" data-target="#lineWay"></span></td>
                             <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.LineWay"  required /></td>
                             <td>备注：</td>
-                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" required /></td>
+                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark"  /></td>
                             <td>制单人：</td>
                             <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.MakePerson" ng-click="loadperson('MakePerson')" disabled /></td>
                         </tr>
@@ -119,7 +119,7 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemName" style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
-                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" ng-change="changeCount($index,record)"/></td>
+                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" ng-change="changeCount($index,record)" disabled/></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount($index,record)" required /></td>
                             <td><input class="form-control" type="text" ng-model="record.Weight" style="width:80px"  /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" ng-click="clickLocation($index)" required /></td>

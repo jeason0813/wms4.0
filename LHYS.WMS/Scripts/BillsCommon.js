@@ -29,9 +29,10 @@ myApp.directive('inouttypeselect', function () {
             inouttypes: '=', //选项列表
             inputtypename: '=',//里面存的ID
             inputtypeid: '=',//外面存的ID
-            current: '=' //当前选择的
+            current: '=',//当前选择的
+            filterstr:'@'//过滤条件
         },
-        template: '<select class="form-control" ng-options=" InOutType.Name for InOutType in inouttypes" ng-model="current" ng-change="change()"  required><option value=""></option></select>',
+        template: '<select class="form-control" ng-options=" InOutType.Name for InOutType in inouttypes |filter:filterstr" ng-model="current" ng-change="change()"  required><option value=""></option></select>',
         link: function (scope, element, attrs) {
             scope.change = function () {
                 scope.inputtypename = scope.current.Name;
