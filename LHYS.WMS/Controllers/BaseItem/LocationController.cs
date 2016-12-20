@@ -62,7 +62,7 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult SaveData()
         {
-            bool result = false;
+            string result = "";
             string dataitem = Request["Location"];
             string savetype = Request["savetype"].ToString().Trim();
             Location model_lgt = JsonConvert.DeserializeObject<Location>(dataitem);
@@ -70,12 +70,26 @@ namespace LHYS.WMS.Controllers
             model_lgt.CreateBy = Session["UserName"].ToString().Trim();
             if (savetype == "add")
             {
-                LocationService.AddEntity(model_lgt);
-                result = true;
+                var locationlist = LocationService.LoadEntities(a=>a.Id.ToString().Trim()==model_lgt.Id.ToString().Trim()).FirstOrDefault();
+                if (locationlist != null)
+                {
+                    result = "编码重复，请重新填写！";
+                    return Content(result.ToString());
+                }
+                else {
+                    LocationService.AddEntity(model_lgt);
+                    result = "保存成功！";
+                }
             }
             else if (savetype == "edit")
             {
-                result = LocationService.EditEntity(model_lgt);
+                if (LocationService.EditEntity(model_lgt))
+                {
+                    result = "编辑成功！";
+                }
+                else {
+                    result = "编辑失败！";
+                }
             }
             return Content(result.ToString());
         }

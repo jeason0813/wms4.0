@@ -179,19 +179,13 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         transferbillList = transferbillList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null&& A.dateEnd != null&&A.dateStart==A.dateEnd) {
-                        transferbillList = transferbillList.Where(c => c.ExamineDate == A.dateStart);
-                    }
-                    else
+                    if (A.dateStart != null)
                     {
-                        if (A.dateStart != null)
-                        {
-                            transferbillList = transferbillList.Where(c => c.ExamineDate >= A.dateStart);
-                        }
-                        if (A.dateEnd != null)
-                        {
-                            transferbillList = transferbillList.Where(c => c.ExamineDate <= A.dateEnd);
-                        }
+                        transferbillList = transferbillList.Where(c => c.ExamineDate >= A.dateStart);
+                    }
+                    if (A.dateEnd != null)
+                    {
+                        transferbillList = transferbillList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
                     }
                     if (transferbillList.Count() > 0)
                     {
@@ -249,20 +243,13 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         BackInputList = BackInputList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
+                    if (A.dateStart != null)
                     {
-                        BackInputList = BackInputList.Where(c => c.ExamineDate == A.dateStart);
+                        BackInputList = BackInputList.Where(c => c.ExamineDate >= A.dateStart);
                     }
-                    else
+                    if (A.dateEnd != null)
                     {
-                        if (A.dateStart != null)
-                        {
-                            BackInputList = BackInputList.Where(c => c.ExamineDate >= A.dateStart);
-                        }
-                        if (A.dateEnd != null)
-                        {
-                            BackInputList = BackInputList.Where(c => c.ExamineDate <= A.dateEnd);
-                        }
+                        BackInputList = BackInputList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
                     }
                     if (BackInputList.Count() > 0)
                     {
@@ -320,20 +307,13 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         GiveBillList = GiveBillList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
+                    if (A.dateStart != null)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate == A.dateStart);
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
                     }
-                    else
+                    if (A.dateEnd != null)
                     {
-                        if (A.dateStart != null)
-                        {
-                            GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
-                        }
-                        if (A.dateEnd != null)
-                        {
-                            GiveBillList = GiveBillList.Where(c => c.ExamineDate <= A.dateEnd);
-                        }
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
                     }
                     if (GiveBillList.Count() > 0)
                     {
@@ -391,20 +371,13 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         BackOutputList = BackOutputList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
+                    if (A.dateStart != null)
                     {
-                        BackOutputList = BackOutputList.Where(c => c.ExamineDate == A.dateStart);
+                        BackOutputList = BackOutputList.Where(c => c.ExamineDate >= A.dateStart);
                     }
-                    else
+                    if (A.dateEnd != null)
                     {
-                        if (A.dateStart != null)
-                        {
-                            BackOutputList = BackOutputList.Where(c => c.ExamineDate >= A.dateStart);
-                        }
-                        if (A.dateEnd != null)
-                        {
-                            BackOutputList = BackOutputList.Where(c => c.ExamineDate <= A.dateEnd);
-                        }
+                        BackOutputList = BackOutputList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
                     }
                     if (BackOutputList.Count() > 0)
                     {
@@ -462,20 +435,13 @@ namespace BLL
                         var warehouseid = Convert.ToInt32(A.Warehouse2Id);
                         GiveBillList = GiveBillList.Where(c => c.WarehouseId == warehouseid);
                     }
-                    if (A.dateStart != null && A.dateEnd != null && A.dateStart == A.dateEnd)
+                    if (A.dateStart != null)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate == A.dateStart);
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
                     }
-                    else
+                    if (A.dateEnd != null)
                     {
-                        if (A.dateStart != null)
-                        {
-                            GiveBillList = GiveBillList.Where(c => c.ExamineDate >= A.dateStart);
-                        }
-                        if (A.dateEnd != null)
-                        {
-                            GiveBillList = GiveBillList.Where(c => c.ExamineDate <= A.dateEnd);
-                        }
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
                     }
                     if (GiveBillList.Count() > 0)
                     {
@@ -531,7 +497,7 @@ namespace BLL
                                             if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
                                             {
                                                 item.LoadingUnitPrice = detail.UnitPrice;
-                                                item.AllAmount = item.Weight * item.LoadingUnitPrice;
+                                                item.AllAmount = item.Weight * item.LoadingUnitPrice/1000;
                                                 break;
                                             }
                                         }
@@ -557,7 +523,7 @@ namespace BLL
                                             if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
                                             {
                                                 item.LoadingUnitPrice = detail.UnitPrice;
-                                                item.AllAmount = item.Weight * item.LoadingUnitPrice;
+                                                item.AllAmount = item.Weight * item.LoadingUnitPrice/1000;
                                                 break;
                                             }
                                         }                                    }
@@ -582,7 +548,7 @@ namespace BLL
                                             if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
                                             {
                                                 item.LaborUnitPrice = detail.UnitPrice;
-                                                item.AllAmount = item.Weight * item.LaborUnitPrice;
+                                                item.AllAmount = item.Weight * item.LaborUnitPrice/1000;
                                                 break;
                                             }
                                         }

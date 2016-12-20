@@ -35,6 +35,8 @@ namespace LHYS.WMS.Controllers
             string dataitem = Request["GoodItem"];
             string savetype = Request["savetype"].ToString().Trim();
             GoodItem model_lgt = JsonConvert.DeserializeObject<GoodItem>(dataitem);
+            model_lgt.CreateDate = DateTime.Now;
+            model_lgt.CreateBy = Session["UserName"].ToString().Trim();
             if (savetype == "add")
             {
                 var gooditemlist = GoodItemService.LoadEntities(a=>a.ItemCode==model_lgt.ItemCode).FirstOrDefault();
