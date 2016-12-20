@@ -122,8 +122,8 @@
                             <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px" ng-change="changeCount($index,record)" disabled/></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount($index,record)" required /></td>
                             <td><input class="form-control" type="text" ng-model="record.Weight" style="width:80px"  /></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" ng-click="clickLocation($index)" required /></td>
-                            <td><input  class="form-control" type="text" ng-model="record.ItemLocation"  style="width:120px" disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" ng-disabled="record.IsBatch=='否'" ng-click="clickLocation($index)" required /></td>
+                            <td><input  class="form-control" type="text" ng-model="record.ItemLocation"  style="width:120px" ng-disabled="record.IsBatch=='是'" ng-click="clickLocation($index)" required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>
                         </tr>
                     </table>
@@ -372,6 +372,7 @@
                 $scope.info.Record[$scope.currentItemInput].ItemSpecifications = goodItem.ItemSpecifications;
                 $scope.info.Record[$scope.currentItemInput].ItemUnit = goodItem.ItemUnit;
                 $scope.info.Record[$scope.currentItemInput].UnitWeight = goodItem.UnitWeight;
+                $scope.info.Record[$scope.currentItemInput].IsBatch = goodItem.IsBatch;
             }
             //-------------------------------------------------------------------------
             //开始选择人员
@@ -417,6 +418,21 @@
                     return false;
                 }
                 $http.post("/GetBatchAndLocation/GetBatchAndLocations", { itemcode: $scope.info.Record[idx].ItemCode, warehouseid: $scope.info.WarehouseId }).success(function (response) {
+                    if (response.length > 0) {
+                        if ($scope.info.Record.length > 1) {
+                            for (var j = 0; j < response.length; j++) {
+                                for (var i = 0; i < $scope.info.Record.length - 1; i++) {
+                                    if (response[j].ItemCode == $scope.info.Record[i].ItemCode && response[j].WarehouseId == $scope.info.WarehouseId && response[j].ItemBatch == $scope.info.Record[i].ItemBatch) {
+                                        response[j].Count = response[j].Count - $scope.info.Record[i].Count;
+                                    }
+                                }
+                                if (response[j].Count == 0) {
+                                    response.splice(j, 1);
+                                }
+                            }
+
+                        }
+                    }
                     $scope.locationlist = response;
                 });
                 $scope.currentlocation = idx;

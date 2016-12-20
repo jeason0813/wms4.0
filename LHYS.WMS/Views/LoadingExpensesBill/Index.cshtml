@@ -80,8 +80,8 @@
                                 <th nowrap="nowrap" style="width:100px;">单位重量</th>
                                 <th nowrap="nowrap" style="width:100px;">数量</th>
                                 <th nowrap="nowrap" style="width:100px;">重量</th>
-                                <th nowrap="nowrap" ng-show="UnitPriviceShow(@ViewBag.billType)">装卸单价</th>
-                                <th nowrap="nowrap" ng-show="UnitPriviceShow2(@ViewBag.billType)">力资费单价</th>
+                                <th nowrap="nowrap" ng-show="UnitPriviceShow(@ViewBag.billType)">装卸单价(元/吨)</th>
+                                <th nowrap="nowrap" ng-show="UnitPriviceShow2(@ViewBag.billType)">力资费单价(元/吨)</th>
                                 <th nowrap="nowrap" style="width:150px;">总金额</th>
                                 <th nowrap="nowrap" style="width:150px;">备注</th>
                             </tr>
@@ -124,7 +124,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <button type="button" ng-click="btnclose()" class="close">X</button>
                                 <h4 class="modal-title">请选择取数条件</h4>
                             </div>
                             <div class="modal-body">
@@ -297,10 +297,39 @@
                         response.LoadingAndLaborCostDetail[i].BillExamineDate = response.LoadingAndLaborCostDetail[i].BillExamineDate.substr(0, 11);
                     }
                     $scope.info = response;
+                    $scope.Company2 = null;
+                    $scope.Current2Department = null;
+                    $scope.A.TransferBill=null;
+                    $scope.A.BackInput=null;
+                    $scope.A.GiveBill=null;
+                    $scope.A.BackOutput=null;
+                    $scope.A.GiveBackBill = null;
+                    $scope.A.BusinessType = null;
+                    $scope.A.LoadGoodsType = null;
+                    $scope.A.dateStart = null;
+                    $scope.A.dateEnd = null;
+                    $scope.currentWarehouse2 = null;
                 })
                 $("#itemchoose").modal('hide');
             }
             //--------------------------------------------------------------------
+            //模态框关闭事件
+            $scope.btnclose = function () {
+                $scope.Company2 = null;
+                $scope.Current2Department = null;
+                $scope.A.TransferBill = null;
+                $scope.A.BackInput = null;
+                $scope.A.GiveBill = null;
+                $scope.A.BackOutput = null;
+                $scope.A.GiveBackBill = null;
+                $scope.A.BusinessType = null;
+                $scope.A.LoadGoodsType = null;
+                $scope.A.dateStart = null;
+                $scope.A.dateEnd = null;
+                $scope.currentWarehouse2 = null;
+                $("#itemchoose").modal('hide');
+            }
+            //--------------------------
             //提交表单
             $scope.submit = function () {
                 $http.post("/LoadingExpensesBill/SaveData", { LoadingExpensesBill: $scope.info }).success(function (response) {

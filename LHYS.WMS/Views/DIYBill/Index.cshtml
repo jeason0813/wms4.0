@@ -69,8 +69,8 @@
                             <th>单位重量</th>
                             <th>数量</th>
                             <th>重量</th>
-                            <th>批次</th>
                             <th>仓库</th>
+                            <th>批次</th>
                             <th>货位</th>
                             <th>删除</th>
                         </tr>
@@ -84,9 +84,9 @@
                             <td><input class="form-control" type="text" ng-model="record1.UnitWeight" ng-change="changeCount1(record1)"/></td>
                             <td><input class="form-control" type="number" ng-model="record1.Count" ng-change="changeCount1(record1)" required /></td>
                             <td><input class="form-control" type="text" ng-model="record1.Weight"   /></td>
-                            <td><input class="form-control" type="text" ng-model="record1.ItemBatch" required /></td>
                             <td><input class="form-control" type="text" name="name" ng-model="record1.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse1')" required /></td>
-                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record1.ItemLocation" ng-click="clickLocation($index,'location1')" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record1.ItemBatch" ng-disabled="record1.IsBatch=='否'"  ng-click="clickLocation1($index)" required /></td>
+                            <td><input  class="form-control" type="text" ng-model="record1.ItemLocation" ng-disabled="record1.IsBatch=='是'" ng-click="clickLocation1($index)" required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index,'del1')">删除</button></td>
                         </tr>
                     </table>
@@ -120,7 +120,7 @@
                             <td><input class="form-control" type="text" ng-model="record2.UnitWeight" ng-change="changeCount2(record2)" /></td>
                             <td><input class="form-control" type="number" ng-model="record2.Count" ng-change="changeCount2(record2)" required /></td>
                             <td><input class="form-control" type="text" ng-model="record2.Weight"  /></td>
-                            <td><input class="form-control" type="text" ng-model="record2.ItemBatch" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record2.ItemBatch" ng-disabled="record2.IsBatch=='否'" required /></td>
                             <td><input class="form-control" type="text" name="name" ng-model="record2.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse2')" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record2.ItemLocation" ng-click="clickLocation($index,'location2')" required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index,'del2')">删除</button></td>
@@ -239,6 +239,35 @@
                                         <tr ng-repeat="location in locationlist | filter:searchstrlocation " ng-dblclick="selectlocation(location)">
                                             <td>{{location.Id}}</td>
                                             <td>{{location.Name}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-----------------------------------货位选择模态框end------------------------------------------------*@
+                    @*-----------------------------------货位选择模态框------------------------------------------------*@
+                    <div class="modal fade" id="locationchoose1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择货位</h4>
+                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>仓库</th>
+                                            <th>批次</th>
+                                            <th>货位名称</th>
+                                            <th>数量</th>
+                                        </tr>
+                                        <tr ng-repeat="location in locationlist1 | filter:searchstrlocation " ng-dblclick="selectlocation1(location)">
+                                            <td>{{location.Warehouse}}</td>
+                                            <td>{{location.ItemBatch}}</td>
+                                            <td>{{location.ItemLocation}}</td>
+                                            <td>{{location.Count}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -385,6 +414,7 @@
                     $scope.Record1[$scope.currentItemInput].ItemSpecifications = goodItem.ItemSpecifications;
                     $scope.Record1[$scope.currentItemInput].ItemUnit = goodItem.ItemUnit;
                     $scope.Record1[$scope.currentItemInput].UnitWeight = goodItem.UnitWeight;
+                    $scope.Record1[$scope.currentItemInput].IsBatch = goodItem.IsBatch;
                 }
                 if ($scope.itemType == 'item2') {
                     $scope.Record2[$scope.currentItemInput].ItemCode = goodItem.ItemCode;
@@ -427,7 +457,10 @@
                     $scope.searchstrwarehouse = '';
                     $scope.Record1[$scope.currentWarehouseIdx].Warehouse = warehouse.Name;
                     $scope.Record1[$scope.currentWarehouseIdx].WarehouseId = warehouse.Id;
-                    $scope.locationlist = warehouse.Location;
+                    //$scope.locationlist = warehouse.Location;
+                    //$http.post("/GetBatchAndLocation/GetBatchAndLocations", { itemcode: $scope.Record1[$scope.currentWarehouseIdx].ItemCode, warehouseid: warehouse.Id }).success(function (response) {
+                    //    $scope.locationlist1 = response;
+                    //});
                     $('#wareHousechoose').modal('hide');
                 }
                 if ($scope.currentWarehouse == 'warehouse2') {
@@ -449,6 +482,7 @@
                 if ($scope.locationType == 'location1') {
                     $scope.Record1[$scope.currentlocation].ItemLocation = location.Name; //保存货位信息
                     $scope.Record1[$scope.currentlocation].ItemLocationId = location.Id;
+                    
                 }
                 if ($scope.locationType == 'location2') {
                     $scope.Record2[$scope.currentlocation].ItemLocation = location.Name; //保存货位信息
@@ -459,6 +493,55 @@
                 $scope.searchstrlocation = '';
             }
             //-------------------------------------------------------------------------------------
+            //选择批次
+            //开始选择货位信息
+            $scope.clickLocation1 = function (idx) {
+                if ($scope.Record1[idx].ItemCode == null || $scope.Record1[idx].ItemCode == "") {
+                    alert("请先选择物料档案！");
+                    return false;
+                }
+                if ($scope.Record1[idx].WarehouseId == null || $scope.Record1[idx].WarehouseId == "") {
+                    alert("请先选择仓库！");
+                    return false;
+                }
+                if ($scope.Record1[idx].Count == null) {
+                    alert("请填写数量！");
+                    return false;
+                }
+                $http.post("/GetBatchAndLocation/GetBatchAndLocations", { itemcode: $scope.Record1[idx].ItemCode, warehouseid: $scope.Record1[idx].WarehouseId }).success(function (response) {
+                    if (response.length > 0) {
+                        if ($scope.Record1.length > 1) {
+                            for (var j = 0; j < response.length; j++) {
+                                for (var i = 0; i < $scope.Record1.length - 1; i++) {
+                                    if (response[j].ItemCode == $scope.Record1[i].ItemCode && response[j].WarehouseId == $scope.Record1[i].WarehouseId && response[j].ItemBatch == $scope.Record1[i].ItemBatch) {
+                                        response[j].Count = response[j].Count - $scope.Record1[i].Count;
+                                    }
+                                }
+                                if (response[j].Count == 0) {
+                                    response.splice(j, 1);
+                                }
+                            }
+
+                        }
+                    }
+                    $scope.locationlist1 = response;
+                });
+                $scope.currentlocation = idx;
+                $("#locationchoose1").modal('show');
+            }
+            //选择了货位数据
+            $scope.selectlocation1 = function (location) {
+                $scope.Record1[$scope.currentlocation].ItemLocation = location.ItemLocation; //保存货位信息
+                $scope.Record1[$scope.currentlocation].ItemLocationId = location.ItemLocationId;
+                $scope.Record1[$scope.currentlocation].ItemBatch = location.ItemBatch;
+                if ($scope.Record1[$scope.currentlocation].Count > location.Count) {
+                    $scope.Record1[$scope.currentlocation].Count = location.Count;
+                }
+                $('#locationchoose1').modal('hide');
+                $scope.searchstrlocation = '';
+                $scope.currentlocation = null;
+            }
+            ///------------------------------------------------------
             //提交表单
             $scope.submit = function () {
                 $http.post("/DIYBill/SaveData", { DIYBill: $scope.info, recordlist1:$scope.Record1,recordlist2:$scope.Record2 }).success(function (response) {

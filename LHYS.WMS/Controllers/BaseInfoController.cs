@@ -62,7 +62,7 @@ namespace LHYS.WMS.Controllers
                 var res = new
                 {
                     Warehouse = list.Select(a => new { a.Id, a.Name, a.Department, a.Location }),
-                    GoodItem = list1.Select(a => new { a.ItemCode, a.ItemLine, a.ItemName, a.ItemSpecifications, a.ItemUnit, a.UnitWeight }),
+                    GoodItem = list1.Select(a => new { a.ItemCode, a.ItemLine, a.ItemName, a.ItemSpecifications, a.ItemUnit, a.UnitWeight,a.IsBatch }),
                     UserFramework = list2.Select(a => new { a.UserCode, a.UserName }),
                     LoadGoodsType = list3.Select(a => a.Name),
                     BusinessType = list4.Select(a => a.Name),
