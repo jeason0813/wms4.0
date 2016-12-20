@@ -85,7 +85,7 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit"/></td>
                             <td><input class="form-control" type="text" ng-model="record.UnitWeight" disabled/></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" ng-change="changeCount(record)" required /></td>
-                            <td><input class="form-control" type="number" ng-model="record.Weight" disabled/></td>
+                            <td><input class="form-control" type="text" ng-model="record.Weight" disabled/></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemBatch" ng-disabled="record.IsBatch=='否'" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.LocationChangeBefore" ng-click="clickLocation($index,'LocationChangeBefore')" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.LocationChangeAfter" ng-click="clickLocation($index,'LocationChangeAfter')" required /></td>

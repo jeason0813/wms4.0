@@ -128,10 +128,8 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px"  ng-change="changeCount(record)" disabled/></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount(record)" required /></td>
-
+                            <td><input class="form-control" type="text" ng-model="record.Weight" style="width:80px" /></td>
                             <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" ng-disabled="record.IsBatch=='否'" required /></td>
-                            <td><input class="form-control" type="text" ng-model="record.Weight" style="width:80px"  /></td>
-           
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)" style="width:120px" required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>
                         </tr>
