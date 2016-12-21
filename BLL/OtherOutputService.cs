@@ -96,8 +96,8 @@ namespace BLL
                 InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 if (inWarehouse == null|| inWarehouse.Count <item.Count)//如果没有库存 
                 {
-                    result = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
-                    return result;
+                    result += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败";
+                   
                 }
                 else //有库存
                 {
@@ -121,15 +121,11 @@ namespace BLL
                     }
                 }
             }
-            if (CurrentDBSession.SaveChanges())
+            if (result != "")
             {
-                result = "1";
+                return result;
             }
-            else
-            {
-                result = "-1";
-            }
-            return result;
+            return CurrentDBSession.SaveChanges() ? "操作成功" : "操作失败";
         }
         /// <summary>
         /// 弃审

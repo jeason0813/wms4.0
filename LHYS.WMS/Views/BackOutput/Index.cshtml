@@ -50,7 +50,7 @@
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBCustomerName" required /></td>
                             <td>电话：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBPhone" required /></td>
-                            <td>原交货单号：</td>
+                            <td>原交货单号：<span class="glyphicon glyphicon-search" ng-click="matchInfo()"></span></td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBGiveBillCode"  /></td>
                             <td>备注：</td>
                             <td><input class="form-control" type="text" name="name" ng-model="info.LBRemark" /></td>
@@ -345,7 +345,7 @@
             }
             //自动填重量
             $scope.changeCount = function (record) {
-                record.Weight = record.Count * record.UnitWeight;
+                record.Weight = (record.Count * record.UnitWeight).toFixed(2);
             }
             //选择了部门  给对应的字段赋值
             $scope.departentChange = function (CurrentDepartment) {
@@ -430,6 +430,23 @@
                 $('#lineWay').modal('hide');
                 $scope.searchstrlineway = '';
             }
+            //-------------------------------------------------------------------------------------
+            //匹配原交货单号信息
+            $scope.matchInfo = function () {
+                if ($scope.info.LBGiveBillCode == null) { return; }
+                $http.post('/GiveBill/GetDataByLBBillCode', { LBGiveBillCode: $scope.info.LBGiveBillCode }).success(function (response) {
+                    if (response == 'no') { return; }
+                    else {
+                        $scope.info.LBCustomerCode = response.LBCustomerCode;
+                        $scope.info.LBCustomerName = response.LBCustomerName;
+                        $scope.info.LBMailCode = response.LBMailCode;
+                        $scope.info.LBContacts = response.LBContacts;
+                        $scope.info.LBPhone = response.LBPhone;
+                        $scope.info.LBSendAddress = response.LBSendAddress;
+                    }
+                });
+            }
+
             //-------------------------------------------------------------------------------------
             //提交表单
             $scope.submit = function () {

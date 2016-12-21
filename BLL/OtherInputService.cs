@@ -129,15 +129,7 @@ namespace BLL
             bill.ExaminePerson = UserName;//审核人
             bill.ExamineDate = DateTime.Now;
             CurrentDal.EditEntity(bill);
-            if (CurrentDBSession.SaveChanges())
-            {
-                result = "1";
-            }
-            else
-            {
-                result = "-1";
-            }
-            return result;
+            return CurrentDBSession.SaveChanges() ? "操作成功" : "操作失败";
         }
         /// <summary>
         /// 弃审
@@ -164,7 +156,6 @@ namespace BLL
                 if (inWarehouse == null || inWarehouse.Count < item.Count) //当前库存不够 ，不允许做弃审操作
                 {
                     res = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
-                    return res;//返回信息
                 }
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
@@ -176,6 +167,10 @@ namespace BLL
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
                     item.CurrentCount = inWarehouse.Count;
                 }
+            }
+            if (res != "")
+            {
+                return res;
             }
             bill.BillState = 1;//改成编辑状态
             bill.ExaminePerson = null;//清除审核人

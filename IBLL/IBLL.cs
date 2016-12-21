@@ -150,11 +150,6 @@ namespace  IBLL
        
     }   
 	
-	public partial interface IMenuBService : IBaseService<MenuB>
-    {
-       
-    }   
-	
 	public partial interface IOtherExpenseListService : IBaseService<OtherExpenseList>
     {
        

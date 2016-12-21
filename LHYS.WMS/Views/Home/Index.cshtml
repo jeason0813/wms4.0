@@ -10,18 +10,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angularJs")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap-treeview.js"></script>
-    <link href="~/Content/bootstrap-treeview.css" rel="stylesheet" />
-    @*不能修改固定长度 因为有的菜单名字太长  否则一页显示不了几个*@
-    @*<style type="text/css">
-        .tab {
-            width:140px;
-        }
-            .tab .glyphicon {
-                float:right
-            }
-
-    </style>*@
     <script src="~/Scripts/tabs-zy.js"></script>  @*自定义页签*@
     <script type="text/javascript">
         $(function () {
@@ -61,6 +51,10 @@
                     treestate = !treestate;
                 }
             });
+
+            //默认打开一页
+            addTab($('#contentFather'), $('#tabs'), 9, '入库查询', '/BillsManager/Index?billType=TransferBill');
+
         })
         //供子窗体调用新增页签的方法
         function sonAddTab(iframeid, name, url) {

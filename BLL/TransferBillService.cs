@@ -147,8 +147,8 @@ namespace BLL
                 InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 if (inWarehouse == null || inWarehouse.Count < item.Count) //当前库存不够 ，不允许做弃审操作
                 {
-                    res = "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
-                    return res;//返回信息
+                    res += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
+                   
                 }
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
@@ -159,6 +159,10 @@ namespace BLL
                     inWarehouse.Count = inWarehouse.Count - item.Count;
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
                 }
+            }
+            if (res != "")
+            {
+                return res;
             }
             bill.BillState = 1;//改成编辑状态
             bill.ExaminePerson = null;//清除审核人

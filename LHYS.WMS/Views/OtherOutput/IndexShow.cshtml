@@ -139,12 +139,9 @@
             //审核（examine）
             $scope.submit = function () {
                 $http.post("/OtherOutput/Examine", {}, { params: { "OtherOutputId": "@ViewBag.OtherOutputId" } }).success(function (response) {
-                    if (response == "1") {
-                        alert("审核成功！");
+                    if (response == "操作成功") {
+                        alert(response);
                         window.location.href = 'IndexShow?OtherOutputId=@ViewBag.OtherOutputId';
-                    }
-                    else if (response == "参数错误") {
-                        alert("参数错误！");
                     }
                     else {
                         alert(response);

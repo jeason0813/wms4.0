@@ -22,9 +22,6 @@
         <AssociationConnector Association="DB.GiveBillRecord" />
         <AssociationConnector Association="DB.BackOutputRecord" />
         <AssociationConnector Association="DB.OtherOutputRecord" />
-        <EntityTypeShape EntityType="DB.MenuA" Width="1.5" PointX="0.5" PointY="6" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.MenuB" Width="1.5" PointX="0.5" PointY="6.625" IsExpanded="false" />
-        <AssociationConnector Association="DB.MenuAMenuB" />
         <EntityTypeShape EntityType="DB.InWarehouse" Width="1.5" PointX="8" PointY="4.125" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.Location" Width="1.5" PointX="5.875" PointY="6.375" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.Warehouse" Width="1.5" PointX="5.375" PointY="5.375" IsExpanded="false" />

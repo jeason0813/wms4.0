@@ -272,7 +272,7 @@
             }
             //自动填重量
             $scope.changeCount = function (record) {
-                record.Weight = record.Count * record.UnitWeight;
+                record.Weight = (record.Count * record.UnitWeight).toFixed(2);
             }
             //选择了部门  给对应的字段赋值
             $scope.departentChange = function (CurrentDepartment) {

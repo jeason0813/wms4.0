@@ -262,15 +262,6 @@ namespace BLL
         }
     }   
 	
-	public partial class MenuBService :BaseService<MenuB>,IMenuBService
-    {
-    
-		 public override void SetCurrentDal()
-        {
-            CurrentDal = this.CurrentDBSession.MenuBDal;
-        }
-    }   
-	
 	public partial class OtherExpenseListService :BaseService<OtherExpenseList>,IOtherExpenseListService
     {
     

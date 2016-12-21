@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BackInput">
           <Key>
             <PropertyRef Name="Id" />
@@ -496,6 +496,7 @@
           <Property Name="icon" Type="nvarchar" MaxLength="100" />
           <Property Name="expanded" Type="bit" />
         </EntityType>
+       
         <EntityType Name="OtherExpenseList">
           <Key>
             <PropertyRef Name="Id" />
@@ -901,6 +902,7 @@
           <EntitySet Name="LoadingExpensesBill" EntityType="Self.LoadingExpensesBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationChange" EntityType="Self.LocationChange" Schema="dbo" store:Type="Tables" />
+        
           <EntitySet Name="OtherExpenseList" EntityType="Self.OtherExpenseList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherExpenseListDetail" EntityType="Self.OtherExpenseListDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherInput" EntityType="Self.OtherInput" Schema="dbo" store:Type="Tables" />
@@ -1058,12 +1060,7 @@
             <End Role="OtherOutput" EntitySet="OtherOutput" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
-          <EntitySet Name="MenuA" EntityType="DB.MenuA" />
-          <EntitySet Name="MenuB" EntityType="DB.MenuB" />
-          <AssociationSet Name="MenuAMenuB" Association="DB.MenuAMenuB">
-            <End Role="MenuA" EntitySet="MenuA" />
-            <End Role="MenuB" EntitySet="MenuB" />
-          </AssociationSet>
+         
           <EntitySet Name="InWarehouse" EntityType="DB.InWarehouse" />
           <EntitySet Name="Location" EntityType="DB.Location" />
           <EntitySet Name="Warehouse" EntityType="DB.Warehouse" />
@@ -1503,37 +1500,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="MenuA">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="MenuB" Relationship="DB.MenuAMenuB" FromRole="MenuA" ToRole="MenuB" />
-          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="OrderNumber" Type="Int32" Nullable="true" />
-        </EntityType>
-        <EntityType Name="MenuB">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MenuAId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="Url" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="OrderNumber" Type="Int32" Nullable="true" />
-        </EntityType>
-        <Association Name="MenuAMenuB">
-          <End Type="DB.MenuA" Role="MenuA" Multiplicity="1" />
-          <End Type="DB.MenuB" Role="MenuB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MenuA">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MenuB">
-              <PropertyRef Name="MenuAId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+       
         <EntityType Name="InWarehouse">
           <Key>
             <PropertyRef Name="Id" />
@@ -2475,6 +2442,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+   
     <EntitySetMapping Name="InWarehouse">
       <EntityTypeMapping TypeName="IsTypeOf(DB.InWarehouse)">
         <MappingFragment StoreEntitySet="InWarehouse">
