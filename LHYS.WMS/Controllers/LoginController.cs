@@ -90,5 +90,15 @@ namespace LHYS.WMS.Controllers
             var byt = VerifyCode.CreateCheckCodeImage(code);
             return File(byt, "image/jpeg");
         }
+        /// <summary>
+        /// 退出登录 清空Session
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Quit()
+        {
+            Session["UserCode"] = null;
+            Session["UserName"] = null;
+            return Content("ok");
+        }
     }
 }

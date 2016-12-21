@@ -41,7 +41,12 @@
 
             //退出登录
             $('#btnquit').click(function () {
-                window.location.href = "/Login/Index";
+                $.post('/Login/Quit', function (data) {
+                    if (data == 'ok')
+                    {
+                        window.location.href = "/Login/Index";
+                    }
+                });
             });
 
             //显示隐藏菜单

@@ -1236,7 +1236,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\Login\demo.js" />
     <Content Include="Scripts\Login\jquery-1.7.2.js" />
     <Content Include="Scripts\Login\jquery.particleground.min.js" />
     <Content Include="Scripts\Login\Loginnew.js" />
