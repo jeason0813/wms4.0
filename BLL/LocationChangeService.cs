@@ -25,58 +25,60 @@ namespace BLL
                     bill.BillCode = GetBillCode("HW");//再次生成单号
                 }
                 bill.BillState = 1;//保存状态
-                foreach (var lcrv in LocationChangeRecordView)
-                {
-                    Record cd = new Record();
-                    cd.Id = Guid.NewGuid();
-                    cd.MainTableId = bill.Id;
-                    cd.Count = lcrv.Count;
-                    cd.CreateDate = DateTime.Now;
-                    cd.Department = bill.Department;
-                    cd.DepartmentId = bill.DepartmentId;
-                    cd.State = 1;
-                    cd.ItemBatch = lcrv.ItemBatch;
-                    cd.ItemCode = lcrv.ItemCode;
-                    cd.ItemLine = lcrv.ItemLine;
-                    cd.ItemName = lcrv.ItemName;
-                    cd.ItemSpecifications = lcrv.ItemSpecifications;
-                    cd.ItemUnit = lcrv.ItemUnit;
-                    cd.UnitWeight = lcrv.UnitWeight;
-                    cd.Weight = lcrv.Weight;
-                    cd.ItemLocation = lcrv.LocationChangeAfter;
-                    cd.ItemLocationId = lcrv.LocationChangeAfterId;
-                    cd.InOrOut = 1;
-                    cd.MainTableType = "LocationChange";
-                    cd.Warehouse = lcrv.WarehouseAfter;
-                    cd.WarehouseId = lcrv.WarehouseAfterId;
-                    cd.InOutTypeId = bill.InputTypeId;
-                    cd.InOutTypeName = bill.InputType;
-                    CurrentDBSession.RecordDal.AddEntity(cd);
-                    Record cd2 = new Record();
-                    cd2.Id = Guid.NewGuid();
-                    cd2.MainTableId = bill.Id;
-                    cd2.Count = lcrv.Count;
-                    cd2.CreateDate = DateTime.Now;
-                    cd2.Department = bill.Department;
-                    cd2.DepartmentId = bill.DepartmentId;
-                    cd2.State = 1;
-                    cd2.ItemBatch = lcrv.ItemBatch;
-                    cd2.ItemCode = lcrv.ItemCode;
-                    cd2.ItemLine = lcrv.ItemLine;
-                    cd2.ItemName = lcrv.ItemName;
-                    cd2.ItemSpecifications = lcrv.ItemSpecifications;
-                    cd2.ItemUnit = lcrv.ItemUnit;
-                    cd2.UnitWeight = lcrv.UnitWeight;
-                    cd2.Weight = lcrv.Weight;
-                    cd2.ItemLocation = lcrv.LocationChangeBefore;
-                    cd2.ItemLocationId = lcrv.LocationChangeBeforeId;
-                    cd2.InOrOut = 0;
-                    cd2.MainTableType = "LocationChange";
-                    cd2.Warehouse = lcrv.WarehouseBefore;
-                    cd2.WarehouseId = lcrv.WarehouseBeforeId;
-                    cd2.InOutTypeId = bill.OutputTypeId;
-                    cd2.InOutTypeName = bill.OutputType;
-                    CurrentDBSession.RecordDal.AddEntity(cd2);
+                if (LocationChangeRecordView!=null) {
+                    foreach (var lcrv in LocationChangeRecordView)
+                    {
+                        Record cd = new Record();
+                        cd.Id = Guid.NewGuid();
+                        cd.MainTableId = bill.Id;
+                        cd.Count = lcrv.Count;
+                        cd.CreateDate = DateTime.Now;
+                        cd.Department = bill.Department;
+                        cd.DepartmentId = bill.DepartmentId;
+                        cd.State = 1;
+                        cd.ItemBatch = lcrv.ItemBatch;
+                        cd.ItemCode = lcrv.ItemCode;
+                        cd.ItemLine = lcrv.ItemLine;
+                        cd.ItemName = lcrv.ItemName;
+                        cd.ItemSpecifications = lcrv.ItemSpecifications;
+                        cd.ItemUnit = lcrv.ItemUnit;
+                        cd.UnitWeight = lcrv.UnitWeight;
+                        cd.Weight = lcrv.Weight;
+                        cd.ItemLocation = lcrv.LocationChangeAfter;
+                        cd.ItemLocationId = lcrv.LocationChangeAfterId;
+                        cd.InOrOut = 1;
+                        cd.MainTableType = "LocationChange";
+                        cd.Warehouse = lcrv.WarehouseAfter;
+                        cd.WarehouseId = lcrv.WarehouseAfterId;
+                        cd.InOutTypeId = bill.InputTypeId;
+                        cd.InOutTypeName = bill.InputType;
+                        CurrentDBSession.RecordDal.AddEntity(cd);
+                        Record cd2 = new Record();
+                        cd2.Id = Guid.NewGuid();
+                        cd2.MainTableId = bill.Id;
+                        cd2.Count = lcrv.Count;
+                        cd2.CreateDate = DateTime.Now;
+                        cd2.Department = bill.Department;
+                        cd2.DepartmentId = bill.DepartmentId;
+                        cd2.State = 1;
+                        cd2.ItemBatch = lcrv.ItemBatch;
+                        cd2.ItemCode = lcrv.ItemCode;
+                        cd2.ItemLine = lcrv.ItemLine;
+                        cd2.ItemName = lcrv.ItemName;
+                        cd2.ItemSpecifications = lcrv.ItemSpecifications;
+                        cd2.ItemUnit = lcrv.ItemUnit;
+                        cd2.UnitWeight = lcrv.UnitWeight;
+                        cd2.Weight = lcrv.Weight;
+                        cd2.ItemLocation = lcrv.LocationChangeBefore;
+                        cd2.ItemLocationId = lcrv.LocationChangeBeforeId;
+                        cd2.InOrOut = 0;
+                        cd2.MainTableType = "LocationChange";
+                        cd2.Warehouse = lcrv.WarehouseBefore;
+                        cd2.WarehouseId = lcrv.WarehouseBeforeId;
+                        cd2.InOutTypeId = bill.OutputTypeId;
+                        cd2.InOutTypeName = bill.OutputType;
+                        CurrentDBSession.RecordDal.AddEntity(cd2);
+                    }
                 }
                 CurrentDal.AddEntity(bill);
             }
@@ -91,56 +93,58 @@ namespace BLL
                     //RecordService.DeleteEntity(item);
                 }
                 //添加子表数据
-                foreach (var lcrv in LocationChangeRecordView)
-                {
-                    Record cd = new Record();
-                    cd.Id = Guid.NewGuid();
-                    cd.MainTableId = bill.Id;
-                    cd.Count = lcrv.Count;
-                    cd.CreateDate = DateTime.Now;
-                    cd.Department = bill.Department;
-                    cd.DepartmentId = bill.DepartmentId;
-                    cd.State = 1;
-                    cd.ItemBatch = lcrv.ItemBatch;
-                    cd.ItemCode = lcrv.ItemCode;
-                    cd.ItemLine = lcrv.ItemLine;
-                    cd.ItemName = lcrv.ItemName;
-                    cd.ItemSpecifications = lcrv.ItemSpecifications;
-                    cd.ItemUnit = lcrv.ItemUnit;
-                    cd.UnitWeight = lcrv.UnitWeight;
-                    cd.Weight = lcrv.Weight;
-                    cd.ItemLocation = lcrv.LocationChangeAfter;
-                    cd.ItemLocationId = lcrv.LocationChangeAfterId;
-                    cd.InOrOut = 1;
-                    cd.Warehouse = lcrv.WarehouseAfter;
-                    cd.WarehouseId = lcrv.WarehouseAfterId;
-                    cd.InOutTypeId = bill.InputTypeId;
-                    cd.InOutTypeName = bill.InputType;
-                    CurrentDBSession.RecordDal.AddEntity(cd);
-                    Record cd2 = new Record();
-                    cd2.Id = Guid.NewGuid();
-                    cd2.MainTableId = bill.Id;
-                    cd2.Count = lcrv.Count;
-                    cd2.CreateDate = DateTime.Now;
-                    cd2.Department = bill.Department;
-                    cd2.DepartmentId = bill.DepartmentId;
-                    cd2.State = 1;
-                    cd2.ItemBatch = lcrv.ItemBatch;
-                    cd2.ItemCode = lcrv.ItemCode;
-                    cd2.ItemLine = lcrv.ItemLine;
-                    cd2.ItemName = lcrv.ItemName;
-                    cd2.ItemSpecifications = lcrv.ItemSpecifications;
-                    cd2.ItemUnit = lcrv.ItemUnit;
-                    cd2.UnitWeight = lcrv.UnitWeight;
-                    cd2.Weight = lcrv.Weight;
-                    cd2.ItemLocation = lcrv.LocationChangeBefore;
-                    cd2.ItemLocationId = lcrv.LocationChangeBeforeId;
-                    cd2.InOrOut = 0;
-                    cd2.Warehouse = lcrv.WarehouseBefore;
-                    cd2.WarehouseId = lcrv.WarehouseBeforeId;
-                    cd2.InOutTypeId = bill.OutputTypeId;
-                    cd2.InOutTypeName = bill.OutputType;
-                    CurrentDBSession.RecordDal.AddEntity(cd2);
+                if (LocationChangeRecordView!=null) {
+                    foreach (var lcrv in LocationChangeRecordView)
+                    {
+                        Record cd = new Record();
+                        cd.Id = Guid.NewGuid();
+                        cd.MainTableId = bill.Id;
+                        cd.Count = lcrv.Count;
+                        cd.CreateDate = DateTime.Now;
+                        cd.Department = bill.Department;
+                        cd.DepartmentId = bill.DepartmentId;
+                        cd.State = 1;
+                        cd.ItemBatch = lcrv.ItemBatch;
+                        cd.ItemCode = lcrv.ItemCode;
+                        cd.ItemLine = lcrv.ItemLine;
+                        cd.ItemName = lcrv.ItemName;
+                        cd.ItemSpecifications = lcrv.ItemSpecifications;
+                        cd.ItemUnit = lcrv.ItemUnit;
+                        cd.UnitWeight = lcrv.UnitWeight;
+                        cd.Weight = lcrv.Weight;
+                        cd.ItemLocation = lcrv.LocationChangeAfter;
+                        cd.ItemLocationId = lcrv.LocationChangeAfterId;
+                        cd.InOrOut = 1;
+                        cd.Warehouse = lcrv.WarehouseAfter;
+                        cd.WarehouseId = lcrv.WarehouseAfterId;
+                        cd.InOutTypeId = bill.InputTypeId;
+                        cd.InOutTypeName = bill.InputType;
+                        CurrentDBSession.RecordDal.AddEntity(cd);
+                        Record cd2 = new Record();
+                        cd2.Id = Guid.NewGuid();
+                        cd2.MainTableId = bill.Id;
+                        cd2.Count = lcrv.Count;
+                        cd2.CreateDate = DateTime.Now;
+                        cd2.Department = bill.Department;
+                        cd2.DepartmentId = bill.DepartmentId;
+                        cd2.State = 1;
+                        cd2.ItemBatch = lcrv.ItemBatch;
+                        cd2.ItemCode = lcrv.ItemCode;
+                        cd2.ItemLine = lcrv.ItemLine;
+                        cd2.ItemName = lcrv.ItemName;
+                        cd2.ItemSpecifications = lcrv.ItemSpecifications;
+                        cd2.ItemUnit = lcrv.ItemUnit;
+                        cd2.UnitWeight = lcrv.UnitWeight;
+                        cd2.Weight = lcrv.Weight;
+                        cd2.ItemLocation = lcrv.LocationChangeBefore;
+                        cd2.ItemLocationId = lcrv.LocationChangeBeforeId;
+                        cd2.InOrOut = 0;
+                        cd2.Warehouse = lcrv.WarehouseBefore;
+                        cd2.WarehouseId = lcrv.WarehouseBeforeId;
+                        cd2.InOutTypeId = bill.OutputTypeId;
+                        cd2.InOutTypeName = bill.OutputType;
+                        CurrentDBSession.RecordDal.AddEntity(cd2);
+                    }
                 }
                     //修改主表数据
                     CurrentDal.EditEntity(bill);

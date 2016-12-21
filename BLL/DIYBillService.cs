@@ -25,33 +25,36 @@ namespace BLL
                     bill.BillCode = GetBillCode("JG");//再次生成单号
                 }
                 bill.BillState = 1;//保存状态
-                foreach (Record record1 in recordlist1)
+                if (recordlist1 != null&& recordlist1!=null)
                 {
-                    record1.Id = Guid.NewGuid();
-                    record1.MainTableId = bill.Id;
-                    record1.CreateDate = DateTime.Now;
-                    record1.State = 1;
-                    record1.Department = bill.Department;
-                    record1.DepartmentId = bill.DepartmentId;
-                    record1.InOrOut = 0;
-                    record1.MainTableType = "DIYBill";
-                    record1.InOutTypeId = bill.OutputTypeId;
-                    record1.InOutTypeName = bill.OutputType;
-                    CurrentDBSession.RecordDal.AddEntity(record1);
-                }
-                foreach (Record record2 in recordlist2)
-                {
-                    record2.Id = Guid.NewGuid();
-                    record2.MainTableId = bill.Id;
-                    record2.CreateDate = DateTime.Now;
-                    record2.State = 1;
-                    record2.Department = bill.Department;
-                    record2.DepartmentId = bill.DepartmentId;
-                    record2.InOrOut = 1;
-                    record2.MainTableType = "DIYBill";
-                    record2.InOutTypeName = bill.InputType;
-                    record2.InOutTypeId = bill.InputTypeId;
-                    CurrentDBSession.RecordDal.AddEntity(record2);
+                    foreach (Record record1 in recordlist1)
+                    {
+                        record1.Id = Guid.NewGuid();
+                        record1.MainTableId = bill.Id;
+                        record1.CreateDate = DateTime.Now;
+                        record1.State = 1;
+                        record1.Department = bill.Department;
+                        record1.DepartmentId = bill.DepartmentId;
+                        record1.InOrOut = 0;
+                        record1.MainTableType = "DIYBill";
+                        record1.InOutTypeId = bill.OutputTypeId;
+                        record1.InOutTypeName = bill.OutputType;
+                        CurrentDBSession.RecordDal.AddEntity(record1);
+                    }
+                    foreach (Record record2 in recordlist2)
+                    {
+                        record2.Id = Guid.NewGuid();
+                        record2.MainTableId = bill.Id;
+                        record2.CreateDate = DateTime.Now;
+                        record2.State = 1;
+                        record2.Department = bill.Department;
+                        record2.DepartmentId = bill.DepartmentId;
+                        record2.InOrOut = 1;
+                        record2.MainTableType = "DIYBill";
+                        record2.InOutTypeName = bill.InputType;
+                        record2.InOutTypeId = bill.InputTypeId;
+                        CurrentDBSession.RecordDal.AddEntity(record2);
+                    }
                 }
                 CurrentDal.AddEntity(bill);
             }
@@ -65,34 +68,37 @@ namespace BLL
                     CurrentDBSession.RecordDal.DeleteEntity(item);
                 }
                 //添加子表数据
-                foreach (Record record1 in recordlist1)
+                if (recordlist1 != null && recordlist1 != null)
                 {
-                    record1.Id = Guid.NewGuid();
-                    record1.MainTableId = bill.Id;
-                    record1.CreateDate = DateTime.Now;
-                    record1.State = 1;
-                    record1.Department = bill.Department;
-                    record1.DepartmentId = bill.DepartmentId;
-                    record1.InOrOut = 0;
-                    record1.MainTableType = "DIYBill";
-                    record1.InOutTypeId = bill.OutputTypeId;
-                    record1.InOutTypeName = bill.OutputType;
-                    CurrentDBSession.RecordDal.AddEntity(record1);
-                    CurrentDBSession.RecordDal.AddEntity(record1);
-                }
-                foreach (Record record2 in recordlist2)
-                {
-                    record2.Id = Guid.NewGuid();
-                    record2.MainTableId = bill.Id;
-                    record2.CreateDate = DateTime.Now;
-                    record2.State = 1;
-                    record2.Department = bill.Department;
-                    record2.DepartmentId = bill.DepartmentId;
-                    record2.InOrOut = 1;
-                    record2.MainTableType = "DIYBill";
-                    record2.InOutTypeName = bill.InputType;
-                    record2.InOutTypeId = bill.InputTypeId;
-                    CurrentDBSession.RecordDal.AddEntity(record2);
+                    foreach (Record record1 in recordlist1)
+                    {
+                        record1.Id = Guid.NewGuid();
+                        record1.MainTableId = bill.Id;
+                        record1.CreateDate = DateTime.Now;
+                        record1.State = 1;
+                        record1.Department = bill.Department;
+                        record1.DepartmentId = bill.DepartmentId;
+                        record1.InOrOut = 0;
+                        record1.MainTableType = "DIYBill";
+                        record1.InOutTypeId = bill.OutputTypeId;
+                        record1.InOutTypeName = bill.OutputType;
+                        CurrentDBSession.RecordDal.AddEntity(record1);
+                        CurrentDBSession.RecordDal.AddEntity(record1);
+                    }
+                    foreach (Record record2 in recordlist2)
+                    {
+                        record2.Id = Guid.NewGuid();
+                        record2.MainTableId = bill.Id;
+                        record2.CreateDate = DateTime.Now;
+                        record2.State = 1;
+                        record2.Department = bill.Department;
+                        record2.DepartmentId = bill.DepartmentId;
+                        record2.InOrOut = 1;
+                        record2.MainTableType = "DIYBill";
+                        record2.InOutTypeName = bill.InputType;
+                        record2.InOutTypeId = bill.InputTypeId;
+                        CurrentDBSession.RecordDal.AddEntity(record2);
+                    }
                 }
                 //修改主表数据
                 CurrentDal.EditEntity(bill);
