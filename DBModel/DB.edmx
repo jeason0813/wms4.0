@@ -496,14 +496,7 @@
           <Property Name="icon" Type="nvarchar" MaxLength="100" />
           <Property Name="expanded" Type="bit" />
         </EntityType>
-        <EntityType Name="MenuA">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="OrderNumber" Type="int" />
-        </EntityType>
+       
         <EntityType Name="OtherExpenseList">
           <Key>
             <PropertyRef Name="Id" />
@@ -909,7 +902,7 @@
           <EntitySet Name="LoadingExpensesBill" EntityType="Self.LoadingExpensesBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationChange" EntityType="Self.LocationChange" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MenuA" EntityType="Self.MenuA" Schema="dbo" store:Type="Tables" />
+        
           <EntitySet Name="OtherExpenseList" EntityType="Self.OtherExpenseList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherExpenseListDetail" EntityType="Self.OtherExpenseListDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherInput" EntityType="Self.OtherInput" Schema="dbo" store:Type="Tables" />
@@ -1067,7 +1060,7 @@
             <End Role="OtherOutput" EntitySet="OtherOutput" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
-          <EntitySet Name="MenuA" EntityType="DB.MenuA" />
+         
           <EntitySet Name="InWarehouse" EntityType="DB.InWarehouse" />
           <EntitySet Name="Location" EntityType="DB.Location" />
           <EntitySet Name="Warehouse" EntityType="DB.Warehouse" />
@@ -1507,14 +1500,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="MenuA">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="OrderNumber" Type="Int32" Nullable="true" />
-        </EntityType>
+       
         <EntityType Name="InWarehouse">
           <Key>
             <PropertyRef Name="Id" />
@@ -2456,15 +2442,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MenuA">
-      <EntityTypeMapping TypeName="IsTypeOf(DB.MenuA)">
-        <MappingFragment StoreEntitySet="MenuA">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+   
     <EntitySetMapping Name="InWarehouse">
       <EntityTypeMapping TypeName="IsTypeOf(DB.InWarehouse)">
         <MappingFragment StoreEntitySet="InWarehouse">
