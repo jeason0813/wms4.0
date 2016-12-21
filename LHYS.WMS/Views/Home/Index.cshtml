@@ -24,6 +24,12 @@
                 //url: "/Home/GetMenu",
                 url: "/MenuManager/GetOnesMenu",
                 success: function (data) {
+                    //如果没有权限 就退出
+                    if (data.length == 0)
+                    {
+                        alert('您还没有权限！');
+                        window.location.href = '/Login/Index';
+                    }
                     $('#tree').treeview({ data: data });
                     //初始化控件
                     var tree = $('#tree');
