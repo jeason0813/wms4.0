@@ -69,8 +69,6 @@ namespace IDAL
 	
 		IMenuADal MenuADal{get;set;}
 	
-		IMenuBDal MenuBDal{get;set;}
-	
 		IOtherExpenseListDal OtherExpenseListDal{get;set;}
 	
 		IOtherExpenseListDetailDal OtherExpenseListDetailDal{get;set;}

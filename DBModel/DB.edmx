@@ -504,16 +504,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="OrderNumber" Type="int" />
         </EntityType>
-        <EntityType Name="MenuB">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MenuAId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Url" Type="nvarchar" MaxLength="500" />
-          <Property Name="OrderNumber" Type="int" />
-        </EntityType>
         <EntityType Name="OtherExpenseList">
           <Key>
             <PropertyRef Name="Id" />
@@ -883,18 +873,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MenuAMenuB">
-          <End Role="MenuA" Type="Self.MenuA" Multiplicity="1" />
-          <End Role="MenuB" Type="Self.MenuB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MenuA">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MenuB">
-              <PropertyRef Name="MenuAId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WarehouseLocation">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
@@ -932,7 +910,6 @@
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationChange" EntityType="Self.LocationChange" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MenuA" EntityType="Self.MenuA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MenuB" EntityType="Self.MenuB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherExpenseList" EntityType="Self.OtherExpenseList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherExpenseListDetail" EntityType="Self.OtherExpenseListDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherInput" EntityType="Self.OtherInput" Schema="dbo" store:Type="Tables" />
@@ -1042,10 +1019,6 @@
             <End Role="CheckBill" EntitySet="CheckBill" />
             <End Role="CheckDetail" EntitySet="CheckDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_MenuAMenuB" Association="Self.FK_MenuAMenuB">
-            <End Role="MenuA" EntitySet="MenuA" />
-            <End Role="MenuB" EntitySet="MenuB" />
-          </AssociationSet>
           <AssociationSet Name="FK_WarehouseLocation" Association="Self.FK_WarehouseLocation">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Location" EntitySet="Location" />
@@ -1095,11 +1068,6 @@
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
           <EntitySet Name="MenuA" EntityType="DB.MenuA" />
-          <EntitySet Name="MenuB" EntityType="DB.MenuB" />
-          <AssociationSet Name="MenuAMenuB" Association="DB.MenuAMenuB">
-            <End Role="MenuA" EntitySet="MenuA" />
-            <End Role="MenuB" EntitySet="MenuB" />
-          </AssociationSet>
           <EntitySet Name="InWarehouse" EntityType="DB.InWarehouse" />
           <EntitySet Name="Location" EntityType="DB.Location" />
           <EntitySet Name="Warehouse" EntityType="DB.Warehouse" />
@@ -1544,32 +1512,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="MenuB" Relationship="DB.MenuAMenuB" FromRole="MenuA" ToRole="MenuB" />
           <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="OrderNumber" Type="Int32" Nullable="true" />
         </EntityType>
-        <EntityType Name="MenuB">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MenuAId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="true" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="Url" Type="String" Nullable="true" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="OrderNumber" Type="Int32" Nullable="true" />
-        </EntityType>
-        <Association Name="MenuAMenuB">
-          <End Type="DB.MenuA" Role="MenuA" Multiplicity="1" />
-          <End Type="DB.MenuB" Role="MenuB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MenuA">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MenuB">
-              <PropertyRef Name="MenuAId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="InWarehouse">
           <Key>
             <PropertyRef Name="Id" />
@@ -2516,17 +2461,6 @@
         <MappingFragment StoreEntitySet="MenuA">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MenuB">
-      <EntityTypeMapping TypeName="IsTypeOf(DB.MenuB)">
-        <MappingFragment StoreEntitySet="MenuB">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="MenuAId" ColumnName="MenuAId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Url" ColumnName="Url" />
           <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
         </MappingFragment>
       </EntityTypeMapping>

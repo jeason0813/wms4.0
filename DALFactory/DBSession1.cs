@@ -521,24 +521,6 @@ namespace DALFactory
 
 
 
-		private IMenuBDal _MenuBDal;
-        public IMenuBDal MenuBDal
-        {
-            get
-            {
-                if(_MenuBDal == null)
-                {
-                    _MenuBDal = AbstractFactory.CreateMenuBDal();
-                }
-                return _MenuBDal;
-            }
-            set { _MenuBDal = value; }
-        }
-	
-
-
-
-
 		private IOtherExpenseListDal _OtherExpenseListDal;
         public IOtherExpenseListDal OtherExpenseListDal
         {

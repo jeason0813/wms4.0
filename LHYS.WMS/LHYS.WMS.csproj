@@ -1316,13 +1316,13 @@
     <Content Include="Template\退仓单示例.xls" />
     <Content Include="Template\退货单模板.xls" />
     <Content Include="Template\退货单示例.xls" />
+    <Content Include="Views\CostUnitList\QueryCostUnitList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Home\" />
     <Folder Include="Scripts\Home\" />
     <Folder Include="Scripts\TransferBill\" />
-    <Folder Include="Views\BaseInfo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

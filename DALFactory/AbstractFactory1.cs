@@ -240,14 +240,6 @@ namespace DALFactory
 
         }
 		
-	    public static IMenuBDal CreateMenuBDal()
-        {
-
-		 string fullClassName = NameSpace + ".MenuBDal";
-          return CreateInstance(fullClassName) as IMenuBDal;
-
-        }
-		
 	    public static IOtherExpenseListDal CreateOtherExpenseListDal()
         {
 
