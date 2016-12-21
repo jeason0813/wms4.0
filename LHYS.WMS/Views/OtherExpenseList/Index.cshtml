@@ -30,7 +30,7 @@
                         </tr>
                         <tr>
                             <td>单据编号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" required /></td>
+                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" placeholder="自动生成" disabled /></td>
                             <td>单据日期</td>
                             <td><input class="form-control" type="date" name="name" ng-model="info.BillDate" required /></td>
                             <td colspan="4"></td>
@@ -67,8 +67,8 @@
                         </tr>
                         <tr ng-repeat="record in info.OtherExpenseListDetail">
                             <td>{{$index+1}}</td>  @*编号*@
-                            <td><select class="form-control" ng-options=" CostItem.Code for CostItem in CostItems" ng-model="record.CurrentCostItem" ng-click="CostItemClick($index)" ng-change="CostItemChange(record.CurrentCostItem)" required></select></td>
-                            <td><input class="form-control" type="text" ng-model="record.CostItemName"  disabled /></td>
+                            <td><input class="form-control" type="text" ng-model="record.CostItemCode" disabled placeholder="自动获取" /></td>
+                            <td><select class="form-control" ng-options=" CostItem.Name for CostItem in CostItems" ng-model="record.CurrentCostItem" ng-click="CostItemClick($index)" ng-change="CostItemChange(record.CurrentCostItem)" required></select></td>
                             <td><input class="form-control" type="date" ng-model="record.HappenDate" required /></td>
                             <td><input class="form-control" type="text" ng-model="record.CostDescription" required /></td>
                             <td><input class="form-control" type="text" ng-model="record.Amount" placeholder="整数或小数" required /></td>

@@ -19,6 +19,30 @@ namespace BLL
             {
 
                 bill.Id = Guid.NewGuid();//生成一个id
+                if (billType == 1)
+                {
+                    bill.BillCode = GetBillCode("ZS");//生成单号  装卸费收入
+                    if (bill.BillCode == "no")
+                    {
+                        bill.BillCode = GetBillCode("ZS");//再次生成单号
+                    }
+                }
+                if (billType == 2)
+                {
+                    bill.BillCode = GetBillCode("ZF");//生成单号 成本
+                    if (bill.BillCode == "no")
+                    {
+                        bill.BillCode = GetBillCode("ZF");//再次生成单号
+                    }
+                }
+                if (billType == 3)
+                {
+                    bill.BillCode = GetBillCode("LS");//生成单号 力资费收入
+                    if (bill.BillCode == "no")
+                    {
+                        bill.BillCode = GetBillCode("LS");//再次生成单号
+                    }
+                }
                 bill.BillState = 1;//保存状态
                 bill.BillType = billType;
                 bill.CreateDate = DateTime.Now;
@@ -185,7 +209,8 @@ namespace BLL
                     }
                     if (A.dateEnd != null)
                     {
-                        transferbillList = transferbillList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
+                        A.dateEnd = A.dateEnd.AddDays(1);
+                        transferbillList = transferbillList.Where(c => c.ExamineDate < A.dateEnd);
                     }
                     if (transferbillList.Count() > 0)
                     {
@@ -249,7 +274,8 @@ namespace BLL
                     }
                     if (A.dateEnd != null)
                     {
-                        BackInputList = BackInputList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
+                        A.dateEnd = A.dateEnd.AddDays(1);
+                        BackInputList = BackInputList.Where(c => c.ExamineDate < A.dateEnd);
                     }
                     if (BackInputList.Count() > 0)
                     {
@@ -313,7 +339,8 @@ namespace BLL
                     }
                     if (A.dateEnd != null)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
+                        A.dateEnd = A.dateEnd.AddDays(1);
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd);
                     }
                     if (GiveBillList.Count() > 0)
                     {
@@ -377,7 +404,8 @@ namespace BLL
                     }
                     if (A.dateEnd != null)
                     {
-                        BackOutputList = BackOutputList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
+                        A.dateEnd = A.dateEnd.AddDays(1);
+                        BackOutputList = BackOutputList.Where(c => c.ExamineDate < A.dateEnd);
                     }
                     if (BackOutputList.Count() > 0)
                     {
@@ -441,7 +469,8 @@ namespace BLL
                     }
                     if (A.dateEnd != null)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd.AddDays(1));
+                        A.dateEnd = A.dateEnd.AddDays(1);
+                        GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd);
                     }
                     if (GiveBillList.Count() > 0)
                     {
@@ -560,6 +589,36 @@ namespace BLL
                 }
             }
             return bill;
+        }
+        /// <summary>
+        /// 生成单号
+        /// </summary>
+        /// <returns></returns>
+        public string GetBillCode(string head)
+        {
+            string res = "";
+            try
+            {
+                string temp = DateTime.Now.ToString("yyyyMM");//六位年月
+                temp = head + temp;
+                int totalCount;//没用
+                string flowid;
+                var lastbill = CurrentDal.LoadPageEntities(a => a.BillCode.Substring(0, 8) == temp, a => a.BillCode, 1, 1, false, out totalCount).FirstOrDefault();
+                if (lastbill == null)
+                {
+                    flowid = "00001";
+                }
+                else
+                {
+                    flowid = string.Format("{0:00000}", (Convert.ToInt32(lastbill.BillCode.Substring(8, 5)) + 1));
+                }
+                res = temp + flowid;
+            }
+            catch
+            {
+                res = "no";
+            }
+            return res;
         }
     }
 }
