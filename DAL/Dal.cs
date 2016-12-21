@@ -147,11 +147,6 @@ namespace DAL
 
     }
 		
-	public partial class MenuADal :BaseDal<MenuA>,IMenuADal
-    {
-
-    }
-		
 	public partial class OtherExpenseListDal :BaseDal<OtherExpenseList>,IOtherExpenseListDal
     {
 

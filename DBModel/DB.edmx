@@ -154,7 +154,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Billcode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Billcode" Type="nvarchar" MaxLength="50" StoreGeneratedPattern="Identity" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
@@ -496,7 +496,6 @@
           <Property Name="icon" Type="nvarchar" MaxLength="100" />
           <Property Name="expanded" Type="bit" />
         </EntityType>
-       
         <EntityType Name="OtherExpenseList">
           <Key>
             <PropertyRef Name="Id" />
@@ -902,7 +901,6 @@
           <EntitySet Name="LoadingExpensesBill" EntityType="Self.LoadingExpensesBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationChange" EntityType="Self.LocationChange" Schema="dbo" store:Type="Tables" />
-        
           <EntitySet Name="OtherExpenseList" EntityType="Self.OtherExpenseList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherExpenseListDetail" EntityType="Self.OtherExpenseListDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherInput" EntityType="Self.OtherInput" Schema="dbo" store:Type="Tables" />
@@ -1877,7 +1875,7 @@
           <Property Name="BillState" Type="Int32" />
           <Property Name="BillType" Type="Int32" />
           <NavigationProperty Name="CostUnitListDetail" Relationship="DB.CostUnitListCostUnitListDetail" FromRole="CostUnitList" ToRole="CostUnitListDetail" />
-          <Property Name="Billcode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Billcode" Type="String" Nullable="true" annotation:StoreGeneratedPattern="Identity" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="LoadingExpensesBill">
           <Key>
