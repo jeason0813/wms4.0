@@ -35,7 +35,6 @@ namespace DBModel
         public virtual DbSet<BackOutput> BackOutput { get; set; }
         public virtual DbSet<OtherOutput> OtherOutput { get; set; }
         public virtual DbSet<Record> Record { get; set; }
-        public virtual DbSet<MenuA> MenuA { get; set; }
         public virtual DbSet<InWarehouse> InWarehouse { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Warehouse> Warehouse { get; set; }

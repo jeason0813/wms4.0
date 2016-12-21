@@ -144,11 +144,6 @@ namespace IDAL
       
     }
 	
-	public partial interface IMenuADal :IBaseDal<DBModel.MenuA>
-    {
-      
-    }
-	
 	public partial interface IOtherExpenseListDal :IBaseDal<DBModel.OtherExpenseList>
     {
       

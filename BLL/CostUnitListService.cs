@@ -18,7 +18,6 @@ namespace BLL
             if (bill.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
             {
                 bill.Id = Guid.NewGuid();//生成一个id
-                bill.Id = Guid.NewGuid();//生成一个id
                 if (billType == 1)
                 {
                     bill.Billcode = GetBillCode("SR");//生成单号  装卸费收入
