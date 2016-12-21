@@ -19,6 +19,22 @@ namespace BLL
             {
 
                 bill.Id = Guid.NewGuid();//生成一个id
+                if (billType == 1)
+                {
+                    bill.BillCode = GetBillCode("QS");//生成单号  其他费收入
+                    if (bill.BillCode == "no")
+                    {
+                        bill.BillCode = GetBillCode("QS");//再次生成单号
+                    }
+                }
+                if (billType == 2)
+                {
+                    bill.BillCode = GetBillCode("QF");//生成单号 其他成本
+                    if (bill.BillCode == "no")
+                    {
+                        bill.BillCode = GetBillCode("QF");//再次生成单号
+                    }
+                }
                 bill.BillState = 1;//保存状态
                 bill.BillType = billType;
                 bill.CreateDate = DateTime.Now;
@@ -142,6 +158,36 @@ namespace BLL
             bill.ExamineDate = null;//清除审核时间
             CurrentDal.EditEntity(bill);
             return CurrentDBSession.SaveChanges() ? "操作成功" : "操作失败";
+        }
+        /// <summary>
+        /// 生成单号
+        /// </summary>
+        /// <returns></returns>
+        public string GetBillCode(string head)
+        {
+            string res = "";
+            try
+            {
+                string temp = DateTime.Now.ToString("yyyyMM");//六位年月
+                temp = head + temp;
+                int totalCount;//没用
+                string flowid;
+                var lastbill = CurrentDal.LoadPageEntities(a => a.BillCode.Substring(0, 8) == temp, a => a.BillCode, 1, 1, false, out totalCount).FirstOrDefault();
+                if (lastbill == null)
+                {
+                    flowid = "00001";
+                }
+                else
+                {
+                    flowid = string.Format("{0:00000}", (Convert.ToInt32(lastbill.BillCode.Substring(8, 5)) + 1));
+                }
+                res = temp + flowid;
+            }
+            catch
+            {
+                res = "no";
+            }
+            return res;
         }
     }
 }
