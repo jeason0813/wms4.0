@@ -133,7 +133,7 @@
                                         <td style="width:100px;">公司：</td>
                                         <td><input class="form-control" type="text" name="name" ng-model="Company2" placeholder="选择部门后自动获取" disabled /></td>
                                         <td style="width:100px;">部门：</td>
-                                        <td><select class="form-control" name="name" ng-options="Departent.DeptName for Departent in Departents" ng-model="Current2Department" required="required"  ng-change="departentChange2(Current2Department)" ></select></td>
+                                        <td><select class="form-control" name="name" ng-options="Departent.DeptName for Departent in Departents" ng-model="Current2Department" required="required"  ng-change="departentChange2(Current2Department)" ><option value=""></option></select></td>
                                     </tr>
                                     <tr>
                                         <td>单据类型：</td>
@@ -148,7 +148,8 @@
                                     </tr>
                                     <tr>
                                         <td>业务模式：</td>
-                                        <td><select class="form-control"  ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="A.BusinessType"></select></td>
+                                        <td><select class="form-control"  ng-options=" businesstype for businesstype in businesstypes" ng-model="a.businesstype"></select></td>
+                                        @*<td><input type="checkbox"  /><span ng-model="A.BusinessType" ng-options=" BusinessType for BusinessType in BusinessTypes"></span></td>*@
                                         <td colspan="3"></td>
                                     </tr>
                                     <tr>

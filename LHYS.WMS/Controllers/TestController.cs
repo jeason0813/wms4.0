@@ -17,7 +17,6 @@ namespace LHYS.WMS.Controllers
         {
                 int c = 2;
                 int d = 0;
-                int e = c / d;
             return View();
         }
 

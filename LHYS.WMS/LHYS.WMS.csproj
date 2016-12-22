@@ -1202,6 +1202,7 @@
     <Content Include="Scripts\angularJs\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\angularJs\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\angularJs\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\angularJs\select2.js" />
     <Content Include="Scripts\billsCommon.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\IntegralUI-TreeViewCheckBox\angular.integralui.checkbox.min.js" />
