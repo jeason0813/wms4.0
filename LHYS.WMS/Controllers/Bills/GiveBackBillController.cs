@@ -70,11 +70,12 @@ namespace LHYS.WMS.Controllers
         public ActionResult SaveData(List<Record> record)
         {
             bool res = true;
+            if (record == null) { res = false; }
             foreach (var item in record)
             {
                res= RecordService.EditEntity(item);
             }
-            return Content(res?"保存成功！":"保存失败！");
+            return Content(res?record[0].MainTableId.ToString():"保存失败！");
         }
     }
 }

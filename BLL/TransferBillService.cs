@@ -39,7 +39,7 @@ namespace BLL
                     item.Department = bill.Department;
                     item.DepartmentId = bill.DepartmentId;
                     item.InOrOut = 1;
-                    item.InOutTypeId =14;
+                    item.InOutTypeId = 14;
                     item.MainTableType = "TransferBill";
                 }
                 CurrentDal.AddEntity(bill);
@@ -101,13 +101,17 @@ namespace BLL
                         ItemLine = item.ItemLine,
                         ItemLocation = item.ItemLocation,
                         Warehouse = item.Warehouse,
-                        WarehouseId=item.WarehouseId,
+                        WarehouseId = item.WarehouseId,
                         ItemName = item.ItemName,
                         ItemSpecifications = item.ItemSpecifications,
                         ItemUnit = item.ItemUnit,
                         Count = item.Count,
-                        ItemLocationId = item.ItemLocationId
-                        
+                        ItemLocationId = item.ItemLocationId,
+                        Company = bill.Company,
+                        CompanyId = bill.CompanyId,
+                        Department = bill.Department,
+                        DepartmentId = bill.DepartmentId
+
                     };
                     CurrentDBSession.InWarehouseDal.AddEntity(inWarehouse);
                 }
@@ -135,7 +139,8 @@ namespace BLL
             TransferBill bill = CurrentDal.LoadEntities(a => a.Id == TransferBillId).FirstOrDefault();
             List<Record> list = bill.Record.ToList();
             string res = "";
-            if (bill.BillState != 2) {
+            if (bill.BillState != 2)
+            {
                 res = "单据状态不对，无法弃审！";
                 return res;
             }
@@ -148,13 +153,13 @@ namespace BLL
                 if (inWarehouse == null || inWarehouse.Count < item.Count) //当前库存不够 ，不允许做弃审操作
                 {
                     res += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，弃审失败";
-                   
+
                 }
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
                     CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
                 }
-                else  if (inWarehouse.Count > item.Count)//库存大于记录  相减
+                else if (inWarehouse.Count > item.Count)//库存大于记录  相减
                 {
                     inWarehouse.Count = inWarehouse.Count - item.Count;
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
@@ -168,7 +173,7 @@ namespace BLL
             bill.ExaminePerson = null;//清除审核人
             bill.ExamineDate = null;//清除审核时间
             CurrentDal.EditEntity(bill);
-            return CurrentDBSession.SaveChanges()?"操作成功":"操作失败";
+            return CurrentDBSession.SaveChanges() ? "操作成功" : "操作失败";
         }
         /// <summary>
         /// 生成单号

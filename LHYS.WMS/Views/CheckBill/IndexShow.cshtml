@@ -99,7 +99,8 @@
                             <th>包装规格</th>
                             <th>单位</th>
                             <th>批次</th>
-                            <th>货位</th>
+                            <th>货位编码</th>
+                            <th>货位名称</th>
                             <th>账面数量</th>
                             <th>盘点数量</th>
                         </tr>
@@ -111,6 +112,7 @@
                             <td>{{record.ItemSpecifications}}</td>
                             <td>{{record.ItemUnit}}</td>
                             <td>{{record.ItemBatch}}</td>
+                            <td>{{record.ItemLocationId}}</td>
                             <td>{{record.ItemLocation}}</td>
                             <td>{{record.Count}}</td>
                             <td>{{record.ChangeCount}}</td>
@@ -140,7 +142,6 @@
                 var milliseconds = date.getMilliseconds();
                 var date = date.getFullYear() + "-" + month + "-" + day;
                 return date;
-                //return new Date(date);
             } catch (ex) {
                 return "";
             }

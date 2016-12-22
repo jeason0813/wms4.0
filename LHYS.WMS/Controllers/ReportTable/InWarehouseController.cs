@@ -24,5 +24,18 @@ namespace LHYS.WMS.Controllers
             var list = InWarehouseService.LoadEntities(a=>a.WarehouseId==WarehouseId);
             return Json(list);
         }
+        /// <summary>
+        /// 查询库存的某物料比指定数量多的
+        /// </summary>
+        /// <param name="ItemCode"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
+        public ActionResult GetInWarehouseByItemCodeAndCount(string ItemCode, int Count)
+        {
+            if (Session["Power"] == null) { return null; }
+            string Power = Session["Power"].ToString();
+            var list = InWarehouseService.LoadEntities(a => a.ItemCode == ItemCode && a.Count >= Count && Power.Contains(a.DepartmentId));
+            return Json(list);
+        }
     }
 }

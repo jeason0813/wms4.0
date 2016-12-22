@@ -64,13 +64,13 @@
                         <tr>
                             <th>编号</th>
                             <th>物料编码</th>
-                            <th>产品线</th>
+                            <th>物料分类</th>
                             <th>产品名称</th>
                             <th>包装规格</th>
                             <th>单位</th>
-                            <th>单位重量</th>
+                            <th>单位重量(KG)</th>
                             <th>数量</th>
-                            <th>重量</th>
+                            <th>重量(KG)</th>
                             <th>批次</th>
                             <th>调整前货位</th>
                             <th>调整后货位</th>
@@ -85,8 +85,8 @@
                             <td><input class="form-control" type="text" ng-model="record.ItemUnit"/></td>
                             <td><input class="form-control" type="text" ng-model="record.UnitWeight" disabled/></td>
                             <td><input class="form-control" type="number" ng-model="record.Count" ng-change="changeCount(record)" required /></td>
-                            <td><input class="form-control" type="text" ng-model="record.Weight" disabled/></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" ng-disabled="record.IsBatch=='否'" required /></td>
+                            <td><input class="form-control" type="text" ng-model="record.Weight" /></td>
+                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" ng-disabled="record.IsBatch=='否'"  data-toggle="modal" data-target="#ItemBatchchoose" ng-click="loadItemBatch(record.ItemCode,record.Count,$index)"/></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.LocationChangeBefore" ng-click="clickLocation($index,'LocationChangeBefore')" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.LocationChangeAfter" ng-click="clickLocation($index,'LocationChangeAfter')" required /></td>
                             
@@ -197,6 +197,42 @@
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
                     @*-----------------------------------货位选择模态框end------------------------------------------------*@
+
+                    @*-----------------------------------批次选择模态框------------------------------------------------*@
+                    <div class="modal fade" id="ItemBatchchoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择批次</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="ItemBatchchoosestr" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>物料编码</th>
+                                            <th>仓库</th>
+                                            <th>货位编码</th>
+                                            <th>货位名称</th>
+                                            <th>批次</th>
+                                            <th>数量</th>
+                                            <th>部门</th>
+                                        </tr>
+                                        <tr ng-repeat="itemBatch in ItemBatchs | filter:ItemBatchchoosestr " ng-dblclick="selectItemBatch(itemBatch)">
+                                            <td>{{itemBatch.ItemCode}}</td>
+                                            <td>{{itemBatch.Warehouse}}</td>
+                                            <td>{{itemBatch.ItemLocationId}}</td>
+                                            <td>{{itemBatch.ItemLocation}}</td>
+                                            <td>{{itemBatch.ItemBatch}}</td>
+                                            <td>{{itemBatch.Count}}</td>
+                                            <td>{{itemBatch.Department}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-----------------------------------批次选择模态框end------------------------------------------------*@
                 </div>
             </form>
         </div>
@@ -353,8 +389,30 @@
                 $scope.currentlocation = null;
                 $scope.currentlocationtype = null;
                 $scope.currentWarehouse = null;
-                $scope.searchstrlocation ="";
+                $scope.searchstrlocation = "";
+                $scope.locationlist = null;
                 $('#locationchoose').modal('hide');
+            }
+            //--------------------------------------------------------------------------------
+            //开始选择批次（带出货位） 
+            $scope.loadItemBatch = function (ItemCode, Count, index) {
+                $scope.RecordIndexForItemChoose = index;
+                if (ItemCode == undefined) {
+                    alert('请先选择物料！');
+                    return;
+                }
+                if (Count == undefined) { Count = 0; }
+                $http.post('/InWarehouse/GetInWarehouseByItemCodeAndCount', { ItemCode: ItemCode, Count: Count }).success(function (response) {
+                    $scope.ItemBatchs = response;
+                });
+            }
+            //--------------------------------------------------------------------------------
+            //选择了批次 货位
+            $scope.selectItemBatch = function (itemBatch) {
+                $scope.RecordView[$scope.RecordIndexForItemChoose].ItemBatch = itemBatch.ItemBatch;
+                $scope.RecordView[$scope.RecordIndexForItemChoose].LocationChangeBefore = itemBatch.ItemLocation;
+                $scope.RecordView[$scope.RecordIndexForItemChoose].LocationChangeBeforeId = itemBatch.ItemLocationId;
+                $('#ItemBatchchoose').modal('hide');
             }
             //--------------------------------------------------------------------------------
             //提交表单

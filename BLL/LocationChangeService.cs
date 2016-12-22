@@ -166,7 +166,7 @@ namespace BLL
             {
                 item.State = 2;
                 item.ExamineDate = DateTime.Now;
-                InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocation == item.ItemLocation && i.ItemBatch == item.ItemBatch).FirstOrDefault();
+                InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 if (item.InOrOut == 1)
                 { //等于1入库
                     if (inWarehouse == null)//如果没有库存  新建一条记录
@@ -249,7 +249,7 @@ namespace BLL
             {
                 item.State = 1;//修改记录状态
                 item.ExamineDate = null;//清空审核时间
-                InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocation == item.ItemLocation && i.ItemBatch == item.ItemBatch).FirstOrDefault();
+                InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 if (item.InOrOut == 0)
                 {
                     if (inWarehouse == null)//如果没有库存  新建一条记录

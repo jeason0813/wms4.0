@@ -127,6 +127,7 @@
                 </table>
                 <br />
                 <div style="text-align:center" class="PrintGiveBack">
+                    <button type="button" class="btn btn-success btn-md" ng-click="edit()">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button>
                     <button type="button" class="btn btn-info btn-md" ng-click="PrintGiveBackBill()">&nbsp;&nbsp;&nbsp;打&nbsp;&nbsp;&nbsp;印&nbsp;&nbsp;&nbsp;</button>
                 </div>
             </div>
@@ -160,6 +161,10 @@
                 //绑定数据源
                 $scope.info = response;
             });
+            //跳转到编辑页
+            $scope.edit = function () {
+                window.location.href = 'Index?GiveBillId=@ViewBag.GiveBackBillId';
+            }
             //打印交货回执单
             $scope.PrintGiveBackBill = function () { setTimeout(window.print(), 200) };
         })

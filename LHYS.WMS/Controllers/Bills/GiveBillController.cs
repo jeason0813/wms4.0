@@ -56,9 +56,9 @@ namespace LHYS.WMS.Controllers
        /// 根据立邦交货单号获取数据
        /// </summary>
        /// <returns></returns>
-        public ActionResult GetDataByLBBillCode(string LBGiveBillCode)
+        public ActionResult GetDataByBillCode(string BillCode)
         {
-            GiveBill bill = GiveBillService.LoadEntities(t => t.LBBillCode == LBGiveBillCode).FirstOrDefault();//获取表单
+            GiveBill bill = GiveBillService.LoadEntities(t => t.BillCode == BillCode).FirstOrDefault();//获取表单
             if (bill == null)
             {
                 return Content("no");

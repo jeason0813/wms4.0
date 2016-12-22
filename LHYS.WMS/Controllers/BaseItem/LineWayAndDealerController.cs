@@ -22,7 +22,8 @@ namespace LHYS.WMS.Controllers
             //查询有权限部门的数据
             else
             {                string Power = Session["Power"].ToString();
-                var list = LineWayAndDealerService.LoadEntities(a=>Power.Contains(a.DeptCode));                return Json(list);            }
+                //主键有NULL 和 "" 需要过滤
+                var list = LineWayAndDealerService.LoadEntities(a=>Power.Contains(a.DeptCode)&&a.DealerCode!=null&&a.DealerCode!="");                return Json(list);            }
         }
     }
 }

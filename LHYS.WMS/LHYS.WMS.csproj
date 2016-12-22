@@ -193,6 +193,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuManagerController.cs" />
+    <Compile Include="Controllers\ReportTable\InOutRecordController.cs" />
     <Compile Include="Controllers\ReportTable\InWarehouseController.cs" />
     <Compile Include="Controllers\ExportBillController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -1316,6 +1317,7 @@
     <Content Include="Template\退货单模板.xls" />
     <Content Include="Template\退货单示例.xls" />
     <Content Include="Views\CostUnitList\QueryCostUnitList.cshtml" />
+    <Content Include="Views\InOutRecord\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

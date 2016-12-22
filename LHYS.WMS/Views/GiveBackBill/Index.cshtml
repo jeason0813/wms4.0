@@ -95,17 +95,17 @@
                     <tr>
                         <th>编号</th>
                         <th>物料编码</th>
-                        <th>产品线</th>
+                        <th>物料分类</th>
                         <th>产品名称</th>
                         <th>包装规格</th>
                         <th>单位</th>
                         <th>批次</th>
                         <th>货位</th>
-                        <th>单位重量</th>
+                        <th>单位重量(KG)</th>
                         <th>数量</th>
-                        <th>重量</th>
+                        <th>重量(KG)</th>
                         <th>接收数量</th>
-                        <th>接收重量</th>
+                        <th>接收重量(KG)</th>
                     </tr>
                     <tr ng-repeat="record in info.Record">
                         <td>{{$index+1}}</td>  @*编号*@
@@ -147,16 +147,30 @@
                 return "";
             }
         }
-        
+
         //主程序
         var myApp = angular.module('myApp', []);
         //数据控制器
         myApp.controller('recordController', function ($scope, $http) {
+            if ('@ViewBag.GiveBillId' != '') {
+                $http.post("/GiveBackBill/GetData", {}, { params: { GiveBillId: '@ViewBag.GiveBillId' }}).success(function (response) {
+                    if (response == '') {
+                        alert("查无数据！");
+                        return;
+                    }
+                    //修改时间格式
+                    response.LBBillDate = jsonDateFormat(response.LBBillDate);
+                    response.CreateDate = jsonDateFormat(response.CreateDate);
+                    response.ExamineDate = jsonDateFormat(response.ExamineDate);
+                    //绑定数据源
+                    $scope.info = response;
+                });
+
+            }
             $scope.loadData = function () {
                 if ($scope.giveBillCode == undefined) return;
                 $http.post("/GiveBackBill/GetDataBaseBillCode", { billCode: $scope.giveBillCode }).success(function (response) {
-                    if (response =='')
-                    {
+                    if (response == '') {
                         alert("查无数据！");
                         return;
                     }
@@ -171,12 +185,15 @@
             //---------------------------------------------------------------------------
             //自动填充接收重量字段
             $scope.receiveCount = function (record) {
-                record.ReceiveWeight = record.ReceiveCount * record.UnitWeight;
+                record.ReceiveWeight = (record.ReceiveCount * record.UnitWeight).toFixed(2);
             }
             //保存数据
             $scope.save = function () {
                 $http.post("/GiveBackBill/SaveData", { record: $scope.info.Record }).success(function (response) {
-                    alert(response);
+                    if (response == '保存失败！') { alert(response); return; }
+                    //跳转到查看页
+                    var timestamp = Date.parse(new Date()) / 1000;//时间戳
+                    window.parent.sonAddTab(timestamp, '单据详情', '/GiveBackBill/IndexShow?GiveBackBillId=' + response);
                 });
             }
         })
