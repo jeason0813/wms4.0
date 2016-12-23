@@ -24,5 +24,11 @@ namespace LHYS.WMS.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult Test2()
+        {
+
+            return View();
+        }
     }
 }
