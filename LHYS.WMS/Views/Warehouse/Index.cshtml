@@ -187,7 +187,7 @@
                 $scope.source.Company = $scope.currentDept.CompanyAbbr;
                 $scope.currentDept = null;
                 $http.post("/Warehouse/SaveData", {}, { params: { "Warehouse": $scope.source, "savetype": $scope.state } }).success(function (response) {
-                    if (response) {
+                    if (response == "保存成功！") {
                         $scope.showmsg = '保存成功！';
                         $timeout(function () {
                             $scope.showmsg = '';
@@ -195,8 +195,22 @@
                             $('#personchoose').modal('hide');
                         }, 800);   //该函数延迟1.5秒执行
                     }
+                    else if (response == "仓库名称与数据库相同，请重新填写！") {
+                        $scope.showmsg = '仓库名称与数据库相同，请重新填写！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                        }, 800);   //该函数延迟1.5秒执行
+                    }
+                    else if (response == "编辑成功！") {
+                        $scope.showmsg = '编辑成功！';
+                        $timeout(function () {
+                            $scope.showmsg = '';
+                            $scope.source = null;//清空数据
+                            $('#personchoose').modal('hide');
+                        }, 800);   //该函数延迟1.5秒执行
+                    }
                     else {
-                        $scope.showmsg = '保存失败！';
+                        $scope.showmsg = response;
                         $timeout(function () {
                             $scope.showmsg = '';
                             $('#personchoose').modal('hide');

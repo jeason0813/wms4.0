@@ -29,7 +29,7 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult SaveData()
         {
-            bool result = false;
+            string result = "";
             string dataitem = Request["Warehouse"];
             string savetype = Request["savetype"].ToString().Trim();
             Warehouse model_lgt = JsonConvert.DeserializeObject<Warehouse>(dataitem);
@@ -37,12 +37,25 @@ namespace LHYS.WMS.Controllers
             model_lgt.CreateDate = DateTime.Now;
             if (savetype == "add")
             {
-                WarehouseService.AddEntity(model_lgt);
-                result = true;
+                var warehouse = WarehouseService.LoadEntities(a=>a.Name.Trim()==model_lgt.Name.Trim()).FirstOrDefault();
+                if (warehouse!=null) {
+                    result = "仓库名称与数据库相同，请重新填写！";
+                }
+                else
+                {
+                    WarehouseService.AddEntity(model_lgt);
+                    result = "保存成功！";
+                }
             }
             else if (savetype == "edit")
             {
-                result = WarehouseService.EditEntity(model_lgt);
+                if (WarehouseService.EditEntity(model_lgt))
+                {
+                    result = "编辑成功！";
+                }
+                else {
+                    result = "编辑失败！";
+                }
             }
             return Content(result.ToString());
         }
