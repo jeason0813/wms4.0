@@ -65,7 +65,8 @@
                             <td><input type="text" class="form-control" value="" id="timestart" ng-model="timestart" data-date-format="yyyy-mm-dd hh:ii"></td>
                             <td><label class="control-label">结束时间</label></td>
                             <td><input type="text" class="form-control" value="" id="timeend" ng-model="timeend" data-date-format="yyyy-mm-dd hh:ii"></td>
-                            <td colspan="2"><input type="submit" class="btn btn-success btn-md" value="查询" style="width:150px" /></td>
+                            <td><input type="button" class="btn btn-danger btn-md" value="清除条件" style="width:100px"  ng-click="clearSearch()"/></td>
+                            <td><input type="submit" class="btn btn-success btn-md" value="查询" style="width:100px" /></td>
                         </tr>
                     </table>
                 </form>
@@ -210,6 +211,17 @@
                 //模态框关闭
                 $('#itemchoose').modal('hide');
             }
+            //复位筛选条件
+            $scope.clearSearch = function () {
+                $scope.CurrentWarehouseId = null;
+                $scope.CurrentLocations = null;
+                $scope.CurrentLocation = null;
+                $scope.CurrentGoodItem = null;
+                $scope.Warehouse = null;
+                $scope.timestart = null;
+                $scope.timeend = null;
+            };
+            //查找记录
             $scope.RecordSearch = function () {
                 var inOutTypeIds = [];
                 for (var i = 0; i <$scope.outInOutTypes.length; i++) {
