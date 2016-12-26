@@ -117,6 +117,7 @@ namespace BLL
             {
                 return result;
             }
+            bill.BackLoadGoodsType = "武汉-客户现场卸货";//交货回执单装卸类型
             bill.BillState = 2;//改成已审核状态
             bill.ExaminePerson = UserName;//审核人
             bill.ExamineDate = DateTime.Now;
@@ -173,6 +174,7 @@ namespace BLL
                     item.CurrentCount = inWarehouse.Count;
                 }
             }
+            bill.BackLoadGoodsType = null;//交货回执单装卸类型
             bill.BillState = 1;//改成编辑状态
             bill.ExaminePerson = null;//清除审核人
             bill.ExamineDate = null;//清除审核时间

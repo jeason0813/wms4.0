@@ -149,6 +149,8 @@
   <object type="LHYS.WMS.Controllers.GetBatchAndLocationController,LHYS.WMS" singleton="false" >
     <property name="InWarehouseService" ref="InWarehouseService" />
   </object>
- 
+  <object type="LHYS.WMS.Controllers.InOutRecordController,LHYS.WMS" singleton="false" >
+    <property name="RecordService" ref="RecordService" />
+  </object>
 </objects>
 

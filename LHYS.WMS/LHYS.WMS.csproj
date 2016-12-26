@@ -1246,21 +1246,11 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tabs-zy.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Test\angular-route.min.js" />
-    <Content Include="Test\angular.min.js" />
-    <Content Include="Test\app.js" />
-    <Content Include="Test\bootstrap.min.css" />
-    <Content Include="Test\bootstrap.min.js" />
-    <Content Include="Test\demo-minimum.js" />
-    <Content Include="Test\github.css" />
-    <Content Include="Test\helper.js" />
-    <Content Include="Test\highlight.pack.js" />
-    <Content Include="Test\isteven-multi-select.css" />
-    <Content Include="Test\isteven-multi-select.js" />
-    <Content Include="Test\jquery.min.js" />
-    <Content Include="Test\paypal-button.min.js" />
-    <Content Include="Test\simple-sidebar.css" />
-    <Content Include="Test\style.css" />
+    <Content Include="Content\bootstrap-datetimepicke\bootstrap-datetimepicker.min.css" />
+    <Content Include="Scripts\bootstrap-datetimepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Content\isteven-multi-select\isteven-multi-select.css" />
+    <Content Include="Scripts\isteven-multi-select\isteven-multi-select.js" />
     <Content Include="Views\LoadingExpensesBill\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1308,8 +1298,6 @@
     <Content Include="Views\SendFileSet\Index.cshtml" />
     <Content Include="Views\TaskBill\Index.cshtml" />
     <Content Include="Views\TaskBill\IndexShow.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Test\Test1.cshtml" />
     <Content Include="Views\TransferBill\Index.cshtml" />
     <Content Include="Views\TransferBill\IndexShow.cshtml" />
     <Content Include="Views\UserFramework\Index.cshtml" />
@@ -1334,7 +1322,6 @@
     <Content Include="Template\退货单示例.xls" />
     <Content Include="Views\CostUnitList\QueryCostUnitList.cshtml" />
     <Content Include="Views\InOutRecord\Index.cshtml" />
-    <Content Include="Views\Test\Test2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

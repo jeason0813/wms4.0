@@ -458,7 +458,7 @@ namespace BLL
                     }
                     if (!string.IsNullOrWhiteSpace(A.LoadGoodsType))
                     {
-                        GiveBillList = GiveBillList.Where(c => c.LoadGoodsType == A.LoadGoodsType);
+                        GiveBillList = GiveBillList.Where(c => c.BackLoadGoodsType == A.LoadGoodsType);
                     }
                     if (!string.IsNullOrWhiteSpace(A.Warehouse2Id))
                     {

@@ -153,8 +153,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="None" />
-          <Property Name="Billcode" Type="nvarchar" MaxLength="50" StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Billcode" Type="nvarchar" MaxLength="50" />
           <Property Name="Company" Type="nvarchar" MaxLength="100" />
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
           <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
@@ -242,6 +242,7 @@
           <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
           <Property Name="WarehouseId" Type="int" />
           <Property Name="LoadGoodsType" Type="nvarchar" MaxLength="100" />
+          <Property Name="BackLoadGoodsType" Type="nvarchar" MaxLength="100" />
           <Property Name="OutputType" Type="nvarchar" MaxLength="100" />
           <Property Name="OutputTypeId" Type="int" />
           <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
@@ -482,7 +483,7 @@
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图“WMS.dbo.Menu”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“wms.dbo.Menu”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="id" />
@@ -759,7 +760,7 @@
           <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图“WMS.dbo.Company”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“wms.dbo.Company”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="CmopanyCode" />
@@ -776,7 +777,7 @@
           <Property Name="CreateDT" Type="datetime" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图“WMS.dbo.Departent”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“wms.dbo.Departent”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Departent">
           <Key>
             <PropertyRef Name="DeptCode" />
@@ -799,7 +800,7 @@
           <Property Name="AreaCode" Type="int" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图“WMS.dbo.LineWayAndDealer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“wms.dbo.LineWayAndDealer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="LineWayAndDealer">
           <Key>
             
@@ -818,7 +819,7 @@
           <Property Name="Address" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图“WMS.dbo.User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“wms.dbo.User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserCode" />
@@ -840,7 +841,7 @@
           <Property Name="ModifyPwdDt" Type="datetime" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图“WMS.dbo.UserFramework”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“wms.dbo.UserFramework”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="UserFramework">
           <Key>
             <PropertyRef Name="Id" />
@@ -1318,6 +1319,7 @@
           <Property Name="LoadGoodsType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TaskBillCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="OutputTypeId" Type="Int32" />
+          <Property Name="BackLoadGoodsType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BackOutput">
           <Key>
@@ -2309,7 +2311,8 @@
     <EntitySetMapping Name="GiveBill">
       <EntityTypeMapping TypeName="IsTypeOf(DB.GiveBill)">
         <MappingFragment StoreEntitySet="GiveBill">
-          <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
+          <ScalarProperty Name="BackLoadGoodsType" ColumnName="BackLoadGoodsType" />
+                <ScalarProperty Name="OutputTypeId" ColumnName="OutputTypeId" />
                 <ScalarProperty Name="TaskBillCode" ColumnName="TaskBillCode" />
                 <ScalarProperty Name="LoadGoodsType" ColumnName="LoadGoodsType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

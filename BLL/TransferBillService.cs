@@ -39,7 +39,8 @@ namespace BLL
                     item.Department = bill.Department;
                     item.DepartmentId = bill.DepartmentId;
                     item.InOrOut = 1;
-                    item.InOutTypeId = 14;
+                    item.InOutTypeId = bill.InputTypeId;
+                    item.InOutTypeName = bill.InputType;
                     item.MainTableType = "TransferBill";
                 }
                 CurrentDal.AddEntity(bill);
@@ -68,6 +69,8 @@ namespace BLL
                     record.Department = bill.Department;
                     record.DepartmentId = bill.DepartmentId;
                     record.InOrOut = 1;
+                    record.InOutTypeId = bill.InputTypeId;
+                    record.InOutTypeName = bill.InputType;
                     record.MainTableType = "TransferBill";
                     CurrentDBSession.RecordDal.AddEntity(record);
                 }
@@ -111,14 +114,15 @@ namespace BLL
                         CompanyId = bill.CompanyId,
                         Department = bill.Department,
                         DepartmentId = bill.DepartmentId
-
                     };
+                    item.CurrentCount = item.Count;
                     CurrentDBSession.InWarehouseDal.AddEntity(inWarehouse);
                 }
                 else //有库存
                 {
                     inWarehouse.Count += item.Count;
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
+                    item.CurrentCount = inWarehouse.Count;
                 }
             }
             bill.BillState = 2;//改成已审核状态
@@ -158,10 +162,12 @@ namespace BLL
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
                     CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
+                    item.CurrentCount = 0;//当前库存量
                 }
                 else if (inWarehouse.Count > item.Count)//库存大于记录  相减
                 {
                     inWarehouse.Count = inWarehouse.Count - item.Count;
+                    item.CurrentCount = inWarehouse.Count;//当前库存量
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
                 }
             }
