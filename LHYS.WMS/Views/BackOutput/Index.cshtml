@@ -443,6 +443,22 @@
                         $scope.info.LBContacts = response.LBContacts;
                         $scope.info.LBPhone = response.LBPhone;
                         $scope.info.LBSendAddress = response.LBSendAddress;
+                       //新建记录
+                        for (var i = 0; i < response.Record.length; i++) {
+                            var record=new Object();
+                            record.ItemCode = response.Record[i].ItemCode;
+                            record.ItemLine=response.Record[i].ItemLine;
+                            record.ItemName=response.Record[i].ItemName;
+                            record.ItemSpecifications=response.Record[i].ItemSpecifications;
+                            record.ItemUnit=response.Record[i].ItemUnit; 
+                            record.UnitWeight=response.Record[i].UnitWeight;
+                            record.Count=response.Record[i].Count;
+                            record.Weight=response.Record[i].Weight;
+                            record.ItemBatch=response.Record[i].ItemBatch;
+                            record.ItemLocation=response.Record[i].ItemLocation;
+                            record.ItemLocationId=response.Record[i].ItemLocationId;
+                            $scope.info.Record.push(record);
+                        }
                     }
                 });
             }
