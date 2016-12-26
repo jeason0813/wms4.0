@@ -12,7 +12,7 @@ namespace IBLL
         /// </summary>
         /// <param name="A"></param>
         /// <returns></returns>
-        LoadingExpensesBill GetData(LoadingAndLaborQueryView A,int billtype,string power);
+        LoadingExpensesBill GetData(LoadingAndLaborQueryView A,int billtype,string power, List<LaborAndLoading3QueryConditions> Businesstype, List<LaborAndLoading3QueryConditions> LodingType, List<LaborAndLoading3QueryConditions> Warehouseid);
         /// <summary>
         /// 保存表单数据
         /// </summary>

@@ -22,45 +22,55 @@
     <div isteven-multi-select
          input-model="modernBrowsers"
          output-model="outputBrowsers"
-         button-label="icon name"
-         item-label="icon name maker"
+         button-label="Name"
+         item-label="maker"
          tick-property="ticked" 
+         translation="localLang"
          helper-elements="">
     </div>
-
+    <br />
+    <br />
+    <br />
+    <br />
+    <a id="btneclick" href="#">点击</a>
     <script type="text/javascript">
+        $("#btneclick").click(function () {
+            $("")
+        });
         var myApp = angular.module('myApp', ['isteven-multi-select']);
         myApp.controller('Main', function ($scope) {
             $scope.modernBrowsers = [
           {
-              name: 'Opera',
-              maker: 'Opera Software',
-              ticked: false
+              Name: '1',
+              maker: '张-三'
+
           },
           {
             
-              name: 'Internet Explorer',
-              maker: 'Microsoft',
-              ticked: false
+              Name: '2',
+              maker: 'Microsoft'
+
           },
           {
               
-              name: 'Firefox',
-              maker: 'Mozilla Foundation',
-              ticked: false
+              Name: '3',
+              maker: 'Mozilla Foundation'
+
           },
           {
-              name: 'Safari',
-              maker: 'Apple',
-              ticked: false
+              Name: '4',
+              maker: 'Apple'
+
           },
           {
-              name: 'Chrome',
-              maker: 'Google',
-              ticked: false
+              Name: '5',
+              maker: 'Google'
           }
             ];
             $scope.outputBrowsers = [];
+            $scope.localLang = {
+            nothingSelected : "------请选择-------"         //default-label is deprecated and replaced with this.
+        }
         });
     </script>
 </body>

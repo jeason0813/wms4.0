@@ -90,13 +90,13 @@ namespace LHYS.WMS.Controllers
             LoadingExpensesBill bill = LoadingExpensesBillService.LoadEntities(t => t.Id == LoadingExpensesBillId && t.BillType == billtype).FirstOrDefault();//获取表单
             return Json(bill);
         }
-        public ActionResult GetBillDetail(LoadingAndLaborQueryView A) {
+        public ActionResult GetBillDetail(LoadingAndLaborQueryView A, List<LaborAndLoading3QueryConditions> Businesstype, List<LaborAndLoading3QueryConditions> LodingType , List<LaborAndLoading3QueryConditions>  Warehouseid) {
             if (Session["billType"] == null)//是否有单据类型
             {
                 return Content("没有单据类型！");
             }
             int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
-            LoadingExpensesBill bill = LoadingExpensesBillService.GetData(A, billtype,Session["Power"].ToString().Trim());
+            LoadingExpensesBill bill = LoadingExpensesBillService.GetData(A, billtype,Session["Power"].ToString().Trim(), Businesstype, LodingType, Warehouseid);
             return Json(bill);
         }
         //保存表单数据

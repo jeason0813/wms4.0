@@ -208,6 +208,7 @@ namespace BLL
                     else if (inWarehouse.Count == item.Count)
                     {
                         CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
+                        item.CurrentCount = 0;
                     }
                     else //有库存
                     {
@@ -272,6 +273,7 @@ namespace BLL
                         newInWarehouse.Company = bill.Company;
                         newInWarehouse.CompanyId = bill.CompanyId;
                         CurrentDBSession.InWarehouseDal.AddEntity(newInWarehouse);
+                        item.CurrentCount = item.Count;
                     }
                     else //有库存
                     {
@@ -288,6 +290,7 @@ namespace BLL
                     else if (inWarehouse.Count == item.Count)
                     {
                         CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
+                        item.CurrentCount = 0;
                     }
                     else //有库存
                     {

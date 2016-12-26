@@ -172,7 +172,7 @@ namespace BLL
         /// </summary>
         /// <param name="A"></param>
         /// <returns></returns>
-        public LoadingExpensesBill GetData(LoadingAndLaborQueryView A, int billtype, string power)
+        public LoadingExpensesBill GetData(LoadingAndLaborQueryView A, int billtype, string power, List<LaborAndLoading3QueryConditions> Businesstype, List<LaborAndLoading3QueryConditions> LodingType, List<LaborAndLoading3QueryConditions> Warehouseid)
         {
             LoadingExpensesBill bill = new LoadingExpensesBill(); ;//五个list合成一个返回
             if (!A.BackInput && A.BackInput && A.GiveBill && A.GiveBackBill && A.GiveBill)
@@ -192,18 +192,39 @@ namespace BLL
                     {
                         transferbillList = transferbillList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (!string.IsNullOrWhiteSpace(A.BusinessType))
+                    if (Businesstype.Count>0)
                     {
-                        transferbillList = transferbillList.Where(c => c.BusinessType == A.BusinessType);
+                        string[] businesstype = new string[Businesstype.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Businesstype)
+                        {
+                            businesstype[i]=item.Name.ToString().Trim();
+                            i++;
+                        }
+                        transferbillList = transferbillList.Where(c=>businesstype.Contains(c.BusinessType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.LoadGoodsType))
+                    if (LodingType.Count>0)
                     {
-                        transferbillList = transferbillList.Where(c => c.LoadGoodsType == A.LoadGoodsType);
+                        string[] loadingtype = new string[LodingType.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in LodingType)
+                        {
+                            loadingtype[i]=item.Name.ToString().Trim();
+                            i++;
+                        }
+                        transferbillList = transferbillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.Warehouse2Id))
+                    if (Warehouseid.Count>0)
                     {
-                        var warehouseid = Convert.ToInt32(A.Warehouse2Id);
-                        transferbillList = transferbillList.Where(c => c.WarehouseId == warehouseid);
+                        int counts = Warehouseid.Count;
+                        int?[] warehouseidArray =new int?[counts];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Warehouseid)
+                        {
+                            warehouseidArray[i] = item.Id;
+                            i++;
+                        }
+                        transferbillList = transferbillList.Where(c => warehouseidArray.Contains(c.WarehouseId));
                     }
                     if (A.dateStart != null)
                     {
@@ -257,18 +278,39 @@ namespace BLL
                     {
                         BackInputList = BackInputList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (!string.IsNullOrWhiteSpace(A.BusinessType))
+                    if (Businesstype.Count > 0)
                     {
-                        BackInputList = BackInputList.Where(c => c.BusinessType == A.BusinessType);
+                        string[] businesstype = new string[Businesstype.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Businesstype)
+                        {
+                            businesstype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        BackInputList = BackInputList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.LoadGoodsType))
+                    if (LodingType.Count > 0)
                     {
-                        BackInputList = BackInputList.Where(c => c.LoadGoodsType == A.LoadGoodsType);
+                        string[] loadingtype = new string[LodingType.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in LodingType)
+                        {
+                            loadingtype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        BackInputList = BackInputList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.Warehouse2Id))
+                    if (Warehouseid.Count > 0)
                     {
-                        var warehouseid = Convert.ToInt32(A.Warehouse2Id);
-                        BackInputList = BackInputList.Where(c => c.WarehouseId == warehouseid);
+                        int counts = Warehouseid.Count;
+                        int?[] warehouseidArray = new int?[counts];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Warehouseid)
+                        {
+                            warehouseidArray[i] = item.Id;
+                            i++;
+                        }
+                        BackInputList = BackInputList.Where(c => warehouseidArray.Contains(c.WarehouseId));
                     }
                     if (A.dateStart != null)
                     {
@@ -322,18 +364,39 @@ namespace BLL
                     {
                         GiveBillList = GiveBillList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (!string.IsNullOrWhiteSpace(A.BusinessType))
+                    if (Businesstype.Count > 0)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.BusinessType == A.BusinessType);
+                        string[] businesstype = new string[Businesstype.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Businesstype)
+                        {
+                            businesstype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        GiveBillList = GiveBillList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.LoadGoodsType))
+                    if (LodingType.Count > 0)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.LoadGoodsType == A.LoadGoodsType);
+                        string[] loadingtype = new string[LodingType.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in LodingType)
+                        {
+                            loadingtype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        GiveBillList = GiveBillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.Warehouse2Id))
+                    if (Warehouseid.Count > 0)
                     {
-                        var warehouseid = Convert.ToInt32(A.Warehouse2Id);
-                        GiveBillList = GiveBillList.Where(c => c.WarehouseId == warehouseid);
+                        int counts = Warehouseid.Count;
+                        int?[] warehouseidArray = new int?[counts];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Warehouseid)
+                        {
+                            warehouseidArray[i] = item.Id;
+                            i++;
+                        }
+                        GiveBillList = GiveBillList.Where(c => warehouseidArray.Contains(c.WarehouseId));
                     }
                     if (A.dateStart != null)
                     {
@@ -387,18 +450,39 @@ namespace BLL
                     {
                         BackOutputList = BackOutputList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (!string.IsNullOrWhiteSpace(A.BusinessType))
+                    if (Businesstype.Count > 0)
                     {
-                        BackOutputList = BackOutputList.Where(c => c.BusinessType == A.BusinessType);
+                        string[] businesstype = new string[Businesstype.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Businesstype)
+                        {
+                            businesstype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        BackOutputList = BackOutputList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.LoadGoodsType))
+                    if (LodingType.Count > 0)
                     {
-                        BackOutputList = BackOutputList.Where(c => c.LoadGoodsType == A.LoadGoodsType);
+                        string[] loadingtype = new string[LodingType.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in LodingType)
+                        {
+                            loadingtype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        BackOutputList = BackOutputList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.Warehouse2Id))
+                    if (Warehouseid.Count > 0)
                     {
-                        var warehouseid = Convert.ToInt32(A.Warehouse2Id);
-                        BackOutputList = BackOutputList.Where(c => c.WarehouseId == warehouseid);
+                        int counts = Warehouseid.Count;
+                        int?[] warehouseidArray = new int?[counts];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Warehouseid)
+                        {
+                            warehouseidArray[i] = item.Id;
+                            i++;
+                        }
+                        BackOutputList = BackOutputList.Where(c => warehouseidArray.Contains(c.WarehouseId));
                     }
                     if (A.dateStart != null)
                     {
@@ -452,18 +536,39 @@ namespace BLL
                     {
                         GiveBillList = GiveBillList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (!string.IsNullOrWhiteSpace(A.BusinessType))
+                    if (Businesstype.Count > 0)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.BusinessType == A.BusinessType);
+                        string[] businesstype = new string[Businesstype.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Businesstype)
+                        {
+                            businesstype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        GiveBillList = GiveBillList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.LoadGoodsType))
+                    if (LodingType.Count > 0)
                     {
-                        GiveBillList = GiveBillList.Where(c => c.LoadGoodsType == A.LoadGoodsType);
+                        string[] loadingtype = new string[LodingType.Count];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in LodingType)
+                        {
+                            loadingtype[i] = item.Name.ToString().Trim();
+                            i++;
+                        }
+                        GiveBillList = GiveBillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (!string.IsNullOrWhiteSpace(A.Warehouse2Id))
+                    if (Warehouseid.Count > 0)
                     {
-                        var warehouseid = Convert.ToInt32(A.Warehouse2Id);
-                        GiveBillList = GiveBillList.Where(c => c.WarehouseId == warehouseid);
+                        int counts = Warehouseid.Count;
+                        int?[] warehouseidArray = new int?[counts];
+                        int i = 0;
+                        foreach (LaborAndLoading3QueryConditions item in Warehouseid)
+                        {
+                            warehouseidArray[i] = item.Id;
+                            i++;
+                        }
+                        GiveBillList = GiveBillList.Where(c => warehouseidArray.Contains(c.WarehouseId));
                     }
                     if (A.dateStart != null)
                     {
