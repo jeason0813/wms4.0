@@ -209,6 +209,44 @@
                     $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
                     $scope.info.Department = CurrentDepartment.DeptName;
                     $scope.info.DepartmentId = CurrentDepartment.DeptCode;
+                    $http.post("/CostUnitList/GetDateByDepartmentId", { departmentid: CurrentDepartment.DeptCode,billtype:"@ViewBag.billType" }).success(function (response) {
+                        $scope.info = response;
+                        if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
+                        {
+                            //修改时间格式
+                            $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
+                            $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
+
+                            //给当前部门赋值
+                            for (var i = 0; i < $scope.Departents.length; i++) {
+                                if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
+                                    $scope.CurrentDepartment = $scope.Departents[i];
+                                    break;
+                                }
+                            }
+                            //给当前费用项目赋值
+                            for (var j = 0; j < $scope.info.CostUnitListDetail.length; j++) {
+                                if ($scope.info.CostUnitListDetail[j].CreateDate != null) {
+                                    $scope.info.CostUnitListDetail[j].CreateDate = jsonDateFormat($scope.info.CostUnitListDetail[j].CreateDate);
+                                }
+                                for (var i = 0; i < $scope.CostItems.length; i++) {
+                                    if ($scope.CostItems[i].Id == $scope.info.CostUnitListDetail[j].CostItemId) {
+                                        $scope.info.CostUnitListDetail[j].CurrentCostItem = $scope.CostItems[i];
+                                        break;
+                                    }
+                                }
+                            }
+                            //给当前费用项目赋值
+                            for (var j = 0; j < $scope.info.CostUnitListDetail.length; j++) {
+                                for (var i = 0; i < $scope.ItemLines.length; i++) {
+                                    if ($scope.ItemLines[i].Id == $scope.info.CostUnitListDetail[j].ItemLineId) {
+                                        $scope.info.CostUnitListDetail[j].CurrentItemLine = $scope.ItemLines[i];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
                 //-------------------------------------------------------------------------
                 //选择装卸类型
