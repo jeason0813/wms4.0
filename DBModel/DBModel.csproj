@@ -136,6 +136,7 @@
     <Compile Include="ItemUnit.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="LaborAndLoading3QueryConditions.cs" />
     <Compile Include="LaborCostBill.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

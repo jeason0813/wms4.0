@@ -164,6 +164,7 @@ namespace BLL
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
                     CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
+                    item.CurrentCount = 0;
                 }
                 else if (inWarehouse.Count > item.Count)//库存大于记录  相减
                 {
@@ -250,6 +251,7 @@ namespace BLL
                 else if (inWarehouse.Count == item.Count) // 库存正好相等  删除这条记录
                 {
                     CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
+                    item.CurrentCount = 0;
                 }
                 else if (inWarehouse.Count > item.Count)//库存大于记录  相减
                 {

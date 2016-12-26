@@ -104,6 +104,7 @@ namespace BLL
                 }
                 else if (inWarehouse.Count ==item.Count) {
                     CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
+                    item.CurrentCount = 0;
                 }
                 else //有库存
                 {

@@ -12,7 +12,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
+    <link href="~/Test/isteven-multi-select.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/angularJs")
+    <script src="~/Test/isteven-multi-select.js"></script>
     <style>
         .tdname {
             width:100px;
@@ -20,7 +22,7 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid" ng-app="myApp" ng-controller="recordController"> 
+    <div class="container-fluid" ng-app="myApp" ng-controller="Main"> 
         <div class="row" style="width:100%">
             <form ng-submit="submit()">
                 <div class="col-xs-12">
@@ -148,17 +150,53 @@
                                     </tr>
                                     <tr>
                                         <td>业务模式：</td>
-                                        <td><select class="form-control"  ng-options=" businesstype for businesstype in businesstypes" ng-model="a.businesstype"></select></td>
-                                        @*<td><input type="checkbox"  /><span ng-model="A.BusinessType" ng-options=" BusinessType for BusinessType in BusinessTypes"></span></td>*@
-                                        <td colspan="3"></td>
+                                        @*<td><select class="form-control"  ng-options=" businesstype for businesstype in businesstypes" ng-model="a.businesstype"></select></td>*@
+                                        <td colspan="2">
+                                            <div isteven-multi-select
+                                                 input-model="BusinessTypes"
+                                                 output-model="outputBusinessTypes"
+                                                 button-label="Name"
+                                                 item-label="Name"
+                                                 tick-property="ticked"
+                                                 helper-elements=""
+                                                 max-labels="2"
+                                                 translation="localLang"
+                                                 max-height="200px"
+                                                 >
+                                            </div>
+                                        </td>
+                                        <td colspan="2"></td>
                                     </tr>
                                     <tr>
                                         <td>仓库：</td>
                                         <td>
-                                            <select class="form-control" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse2" ng-change="WarehouseChange2(currentWarehouse2)"></select>
+                                            @*<select class="form-control" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse2" ng-change="WarehouseChange2(currentWarehouse2)"></select>*@
+                                            <div isteven-multi-select
+                                                 input-model="Warehouses"
+                                                 output-model="outputWarehouseid"
+                                                 button-label="Name"
+                                                 item-label="Name"
+                                                 tick-property="ticked"
+                                                 helper-elements=""
+                                                 max-labels="2"
+                                                 translation="localLang"
+                                                 max-height="200px">
+                                            </div>
                                         </td>
                                         <td>装卸类型：</td>
-                                        <td><select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="A.LoadGoodsType"></select></td>
+                                        <td>@*<select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="A.LoadGoodsType"></select>*@
+                                            <div isteven-multi-select
+                                                 input-model="LoadGoodsTypes"
+                                                 output-model="outputLodingType"
+                                                 button-label="Name"
+                                                 item-label="Name"
+                                                 tick-property="ticked"
+                                                 helper-elements=""
+                                                 max-labels="2"
+                                                 translation="localLang"
+                                                 max-height="200px">
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>审核日期：</td>
@@ -212,11 +250,18 @@
             }
         }
         //主程序
-        var myApp = angular.module('myApp', []);
+        var myApp = angular.module('myApp', ['isteven-multi-select']);
         //自定义时间转换过滤器
         //myApp.filter("jsDate", function () { return function (x) { if (null == x) { return null; } else { return new Date(parseInt(x.substr(6))); } }; });
         //数据控制器
-        myApp.controller('recordController', function ($scope, $http) {
+        myApp.controller('Main', function ($scope, $http) {
+            $scope.localLang = {
+                nothingSelected: "--------请选择--------"         //default-label is deprecated and replaced with this.
+            }
+            //$scope.BusinessTypes = [];
+            $scope.outputBusinessTypes = [];
+            $scope.outputLodingType = [];
+            $scope.outputWarehouseid = [];
             $scope.A = {};
             //根据页面类型是否显示单价
             $scope.UnitPriviceShow = function (billtype) {
@@ -236,8 +281,26 @@
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
                 $scope.Departents = response.Departent;
                 $scope.Warehouses = response.Warehouse;
-                $scope.LoadGoodsTypes = response.LoadGoodsType;
-                $scope.BusinessTypes = response.BusinessType;
+                //$scope.LoadGoodsTypes = response.LoadGoodsType;
+                var LoadGoodsTypess = new Array();
+                if (response.LoadGoodsType != null) {
+                    for (var i = 0; i < response.LoadGoodsType.length; i++) {
+                        var a = new Object();
+                        a.Name = response.LoadGoodsType[i];
+                        LoadGoodsTypess.push(a);
+                    }
+                }
+                $scope.LoadGoodsTypes = LoadGoodsTypess;
+                //$scope.BusinessTypes = response.BusinessType;
+                var BusinessTypess = new Array();
+                if (response.BusinessType != null) {
+                    for (var i = 0; i < response.BusinessType.length; i++) {
+                        var a = new Object();
+                        a.Name = response.BusinessType[i];
+                        BusinessTypess.push(a);
+                    }
+                }
+                $scope.BusinessTypes = BusinessTypess;
                 $http.post("/BaseCostItemAndItemLine/GetBaseData").success(function (response) {
                     $scope.CostItems = response.CostItem;
                     $scope.ItemLines = response.ItemLine;
@@ -292,7 +355,7 @@
             //--------------------------------------------------------------
             //---------------------------------------------------------------------------
             $scope.btnQuery = function () {
-                $http.post("/LoadingExpensesBill/GetBillDetail", { A: $scope.A }).success(function (response) {
+                $http.post("/LoadingExpensesBill/GetBillDetail", { A: $scope.A, Businesstype: $scope.outputBusinessTypes, LodingType: $scope.outputLodingType, Warehouseid: $scope.outputWarehouseid }).success(function (response) {
                     for (var i = 0; i < response.LoadingAndLaborCostDetail.length; i++) {
                         response.LoadingAndLaborCostDetail[i].BillExamineDate = jsonDateFormat2(response.LoadingAndLaborCostDetail[i].BillExamineDate)
                         response.LoadingAndLaborCostDetail[i].BillExamineDate = response.LoadingAndLaborCostDetail[i].BillExamineDate.substr(0, 11);
@@ -305,11 +368,9 @@
                     $scope.A.GiveBill=null;
                     $scope.A.BackOutput=null;
                     $scope.A.GiveBackBill = null;
-                    $scope.A.BusinessType = null;
-                    $scope.A.LoadGoodsType = null;
                     $scope.A.dateStart = null;
                     $scope.A.dateEnd = null;
-                    $scope.currentWarehouse2 = null;
+                    $scope.outputBusinessTypes = [];
                 })
                 $("#itemchoose").modal('hide');
             }
@@ -323,11 +384,8 @@
                 $scope.A.GiveBill = null;
                 $scope.A.BackOutput = null;
                 $scope.A.GiveBackBill = null;
-                $scope.A.BusinessType = null;
-                $scope.A.LoadGoodsType = null;
                 $scope.A.dateStart = null;
                 $scope.A.dateEnd = null;
-                $scope.currentWarehouse2 = null;
                 $("#itemchoose").modal('hide');
             }
             //--------------------------

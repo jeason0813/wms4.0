@@ -113,6 +113,7 @@ namespace BLL
                     }
                     else if (inWarehouse.Count == item.Count) {
                         CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
+                        item.CurrentCount = 0;
                         bill.BillState = 2;//改成已审核状态
                         bill.ExaminePerson = UserName;//审核人
                         bill.ExamineDate = DateTime.Now;
