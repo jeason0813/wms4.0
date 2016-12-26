@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="DB.DIYBill" Width="1.5" PointX="5.375" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.LocationChange" Width="1.5" PointX="7" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.CheckBill" Width="1.5" PointX="8.625" PointY="0.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="DB.GiveBill" Width="1.5" PointX="10.25" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.GiveBill" Width="1.5" PointX="10.25" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DB.BackOutput" Width="1.5" PointX="2.125" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.OtherOutput" Width="1.5" PointX="13.5" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB.Record" Width="1.5" PointX="3.75" PointY="5.25" IsExpanded="false" />
@@ -61,7 +61,7 @@
         <EntityTypeShape EntityType="DB.LoadingAndLaborCostDetail" Width="1.5" PointX="5.875" PointY="10.5" IsExpanded="false" />
         <AssociationConnector Association="DB.LaborCostBillLoadingAndLaborCostDetail" />
         <AssociationConnector Association="DB.LoadingAndLaborCostDetailLoadingExpensesBill" />
-        <EntityTypeShape EntityType="DB.ErrorRecort" Width="1.5" PointX="9.625" PointY="6.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="DB.ErrorRecort" Width="1.5" PointX="8" PointY="6.875" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

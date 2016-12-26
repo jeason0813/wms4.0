@@ -200,7 +200,7 @@ namespace BLL
                         {
                             businesstype[i]=item.Name.ToString().Trim();
                             i++;
-                        }
+                    }
                         transferbillList = transferbillList.Where(c=>businesstype.Contains(c.BusinessType));
                     }
                     if (LodingType.Count>0)
@@ -211,7 +211,7 @@ namespace BLL
                         {
                             loadingtype[i]=item.Name.ToString().Trim();
                             i++;
-                        }
+                    }
                         transferbillList = transferbillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
                     if (Warehouseid.Count>0)
@@ -223,7 +223,7 @@ namespace BLL
                         {
                             warehouseidArray[i] = item.Id;
                             i++;
-                        }
+                    }
                         transferbillList = transferbillList.Where(c => warehouseidArray.Contains(c.WarehouseId));
                     }
                     if (A.dateStart != null)
@@ -294,7 +294,7 @@ namespace BLL
                         string[] loadingtype = new string[LodingType.Count];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in LodingType)
-                        {
+                    {
                             loadingtype[i] = item.Name.ToString().Trim();
                             i++;
                         }
@@ -306,7 +306,7 @@ namespace BLL
                         int?[] warehouseidArray = new int?[counts];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Warehouseid)
-                        {
+                    {
                             warehouseidArray[i] = item.Id;
                             i++;
                         }
@@ -369,7 +369,7 @@ namespace BLL
                         string[] businesstype = new string[Businesstype.Count];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Businesstype)
-                        {
+                    {
                             businesstype[i] = item.Name.ToString().Trim();
                             i++;
                         }
@@ -380,10 +380,10 @@ namespace BLL
                         string[] loadingtype = new string[LodingType.Count];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in LodingType)
-                        {
+                    {
                             loadingtype[i] = item.Name.ToString().Trim();
                             i++;
-                        }
+                    }
                         GiveBillList = GiveBillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
                     if (Warehouseid.Count > 0)
@@ -395,7 +395,7 @@ namespace BLL
                         {
                             warehouseidArray[i] = item.Id;
                             i++;
-                        }
+                    }
                         GiveBillList = GiveBillList.Where(c => warehouseidArray.Contains(c.WarehouseId));
                     }
                     if (A.dateStart != null)
@@ -458,7 +458,7 @@ namespace BLL
                         {
                             businesstype[i] = item.Name.ToString().Trim();
                             i++;
-                        }
+                    }
                         BackOutputList = BackOutputList.Where(c => businesstype.Contains(c.BusinessType));
                     }
                     if (LodingType.Count > 0)
@@ -469,7 +469,7 @@ namespace BLL
                         {
                             loadingtype[i] = item.Name.ToString().Trim();
                             i++;
-                        }
+                    }
                         BackOutputList = BackOutputList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
                     if (Warehouseid.Count > 0)
@@ -478,7 +478,7 @@ namespace BLL
                         int?[] warehouseidArray = new int?[counts];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Warehouseid)
-                        {
+                    {
                             warehouseidArray[i] = item.Id;
                             i++;
                         }
@@ -541,7 +541,7 @@ namespace BLL
                         string[] businesstype = new string[Businesstype.Count];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Businesstype)
-                        {
+                    {
                             businesstype[i] = item.Name.ToString().Trim();
                             i++;
                         }
@@ -552,7 +552,7 @@ namespace BLL
                         string[] loadingtype = new string[LodingType.Count];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in LodingType)
-                        {
+                    {
                             loadingtype[i] = item.Name.ToString().Trim();
                             i++;
                         }
@@ -564,7 +564,7 @@ namespace BLL
                         int?[] warehouseidArray = new int?[counts];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Warehouseid)
-                        {
+                    {
                             warehouseidArray[i] = item.Id;
                             i++;
                         }

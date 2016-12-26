@@ -52,6 +52,7 @@ namespace DBModel
         public string LoadGoodsType { get; set; }
         public string TaskBillCode { get; set; }
         public Nullable<int> OutputTypeId { get; set; }
+        public string BackLoadGoodsType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Record { get; set; }
