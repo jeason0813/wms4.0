@@ -48,9 +48,10 @@ namespace BLL
                     item.DepartmentId = bill.DepartmentId;
                     item.Company = bill.Company;
                     item.CompanyId = bill.CompanyId;
-                    item.state = 1;
+                    item.state = bill.BillState;
                     item.CreatePerson = bill.ExaminePerson;
                     item.ExaminePerson = bill.ExaminePerson;
+                    item.ExamineDate = bill.ExamineDate;
                     item.CreateDate = DateTime.Now;
                     item.RecordType = billType;
                 }
@@ -76,11 +77,12 @@ namespace BLL
                     record.DepartmentId = bill.DepartmentId;
                     record.Company = bill.Company;
                     record.CompanyId = bill.CompanyId;
-                    record.state = 1;
+                    record.state = bill.BillState;
                     record.CreateDate = DateTime.Now;
                     record.RecordType = billType;
                     record.CreatePerson = bill.ExaminePerson;
                     record.ExaminePerson = bill.ExaminePerson;
+                    record.ExamineDate = bill.ExamineDate;
                     CurrentDBSession.CostUnitListDetailDal.AddEntity(record);
                 }
                 //修改主表数据

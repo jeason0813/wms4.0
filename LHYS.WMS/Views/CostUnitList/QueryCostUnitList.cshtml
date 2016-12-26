@@ -55,6 +55,7 @@
                             <tr>
                                 <th>编号</th>
                                 <th>单据编码</th>
+                                <th>单据状态</th>
                                 <th>备注</th>
                                 <th>制单人</th>
                                 <th>制单日期</th>
@@ -65,6 +66,7 @@
                             <tr ng-repeat="record in data" ng-dblclick="itemClick(record.Id)">
                                 <td>{{$index+1}}</td>
                                 <td>{{record.Billcode}}</td>
+                                <td>{{record.BillState}}</td>
                                 <td>{{record.Remark}}</td>
                                 <td>{{record.MakePerson}}</td>
                                 <td>{{record.CreateDate}}</td>
@@ -116,7 +118,7 @@
                         response.data[i].ExamineDate = jsonDateFormat(response.data[i].ExamineDate);
                         response.data[i].CreateDate = jsonDateFormat(response.data[i].CreateDate);
                         //处理订单状态
-                        response.data[i].state = response.data[i].BillState == 1 ? '已保存' : '已审核';
+                        response.data[i].BillState = response.data[i].BillState == 1 ? '已保存' : '已审核';
                     }
                     $scope.data = response.data;//赋值
                     $scope.totalCount = response.totalCount;//总数

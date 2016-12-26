@@ -227,12 +227,20 @@ namespace LHYS.WMS.Controllers
             Expression<Func<CostUnitList, bool>> final = list[list.Count - 1]; //最终表达式
             return final;
         }
-        public ActionResult GetDateByDepartmentId(string departmentid) {
-            CostUnitList CostUnitListList = new CostUnitList();
-            if (String.IsNullOrEmpty(departmentid)) {
-                CostUnitListList = CostUnitListService.LoadEntities(a=>a.DepartmentId==departmentid).FirstOrDefault();
+        /// <summary>
+        /// 根据部门id查单据
+        /// </summary>
+        /// <param name="departmentid"></param>
+        /// <returns></returns>
+        public ActionResult GetDateByDepartmentId(string departmentid,int billtype) {
+            if (!String.IsNullOrEmpty(departmentid)&&!String.IsNullOrEmpty(billtype.ToString())) {
+               CostUnitList  CostUnitListList = CostUnitListService.LoadEntities(a=>a.DepartmentId==departmentid&&a.BillType== billtype).FirstOrDefault();
+                if (CostUnitListList==null) {
+                    return Json(new CostUnitList());
+                }
+                return Json(CostUnitListList);
             }
-            return Json(CostUnitListList);
+            return Json(new CostUnitList());
         }
     }
 }
