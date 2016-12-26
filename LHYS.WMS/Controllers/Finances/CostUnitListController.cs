@@ -233,11 +233,14 @@ namespace LHYS.WMS.Controllers
         /// <param name="departmentid"></param>
         /// <returns></returns>
         public ActionResult GetDateByDepartmentId(string departmentid,int billtype) {
-            CostUnitList CostUnitListList = new CostUnitList();
-            if (!String.IsNullOrEmpty(departmentid)) {
-                CostUnitListList = CostUnitListService.LoadEntities(a=>a.DepartmentId==departmentid&&a.BillType== billtype).FirstOrDefault();
+            if (!String.IsNullOrEmpty(departmentid)&&!String.IsNullOrEmpty(billtype.ToString())) {
+               CostUnitList  CostUnitListList = CostUnitListService.LoadEntities(a=>a.DepartmentId==departmentid&&a.BillType== billtype).FirstOrDefault();
+                if (CostUnitListList==null) {
+                    return Json(new CostUnitList());
+                }
+                return Json(CostUnitListList);
             }
-            return Json(CostUnitListList);
+            return Json(new CostUnitList());
         }
     }
 }

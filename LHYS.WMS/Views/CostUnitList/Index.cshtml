@@ -205,10 +205,6 @@
                 //--------------------------------------------------------------------------------
                 //选择了部门  给对应的字段赋值
                 $scope.departentChange = function (CurrentDepartment) {
-                    $scope.info.Company = CurrentDepartment.CompanyAbbr;
-                    $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
-                    $scope.info.Department = CurrentDepartment.DeptName;
-                    $scope.info.DepartmentId = CurrentDepartment.DeptCode;
                     $http.post("/CostUnitList/GetDateByDepartmentId", { departmentid: CurrentDepartment.DeptCode,billtype:"@ViewBag.billType" }).success(function (response) {
                         $scope.info = response;
                         if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
@@ -246,6 +242,10 @@
                                 }
                             }
                         }
+                        $scope.info.Company = CurrentDepartment.CompanyAbbr;
+                        $scope.info.CompanyId = CurrentDepartment.CmopanyCode;
+                        $scope.info.Department = CurrentDepartment.DeptName;
+                        $scope.info.DepartmentId = CurrentDepartment.DeptCode;
                     });
                 }
                 //-------------------------------------------------------------------------
