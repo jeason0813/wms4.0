@@ -359,6 +359,10 @@
                     for (var i = 0; i < response.LoadingAndLaborCostDetail.length; i++) {
                         response.LoadingAndLaborCostDetail[i].BillExamineDate = jsonDateFormat2(response.LoadingAndLaborCostDetail[i].BillExamineDate)
                         response.LoadingAndLaborCostDetail[i].BillExamineDate = response.LoadingAndLaborCostDetail[i].BillExamineDate.substr(0, 11);
+                        if (response.LoadingAndLaborCostDetail[i].AllAmount != null)
+                        {
+                            response.LoadingAndLaborCostDetail[i].AllAmount = response.LoadingAndLaborCostDetail[i].AllAmount.toFixed(2);
+                        }
                     }
                     $scope.info = response;
                     $scope.Company2 = null;

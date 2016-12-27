@@ -192,32 +192,32 @@ namespace BLL
                     {
                         transferbillList = transferbillList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (Businesstype!=null)
+                    if (Businesstype != null)
                     {
                         string[] businesstype = new string[Businesstype.Count()];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Businesstype)
                         {
-                            businesstype[i]=item.Name.ToString().Trim();
+                            businesstype[i] = item.Name.ToString().Trim();
                             i++;
                     }
-                        transferbillList = transferbillList.Where(c=>businesstype.Contains(c.BusinessType));
+                        transferbillList = transferbillList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (LodingType!=null)
+                    if (LodingType != null)
                     {
                         string[] loadingtype = new string[LodingType.Count()];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in LodingType)
                         {
-                            loadingtype[i]=item.Name.ToString().Trim();
+                            loadingtype[i] = item.Name.ToString().Trim();
                             i++;
                     }
                         transferbillList = transferbillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (Warehouseid!=null)
+                    if (Warehouseid != null)
                     {
                         int counts = Warehouseid.Count();
-                        int?[] warehouseidArray =new int?[counts];
+                        int?[] warehouseidArray = new int?[counts];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Warehouseid)
                         {
@@ -616,124 +616,157 @@ namespace BLL
                 }
                 switch (billtype)
                 {
+                    //case 1:
+                    //    var list1 = CurrentDBSession.CostUnitListDal.LoadEntities(a => a.BillType == 2 && a.ExamineDate != null);//收入单价  case 1 装卸费用应收单 
+
+                    //    foreach (LoadingAndLaborCostDetail item in bill.LoadingAndLaborCostDetail)
+                    //    {
+                    //        item.CostItemCode = "60010303";//装卸费  费用项目和编号只有一个写死
+                    //        item.CostItemName = "装卸收入";
+                    //        if (list1 != null)
+                    //        {
+                    //            foreach (CostUnitList costunitlist in list1)
+                    //            {
+                    //                foreach (CostUnitListDetail detail in costunitlist.CostUnitListDetail)
+                    //                {
+                    //                    if (detail.CostItemCode.ToString().Trim() == "60010303" && detail.CostItemName.ToString().Trim() == "装卸收入")//装卸费  费用项目和编号只有一个写死
+                    //                    {
+                    //                        if (!string.IsNullOrWhiteSpace(item.BusinessType) && !string.IsNullOrWhiteSpace(detail.BuniessTypeName) && !string.IsNullOrWhiteSpace(item.LoadingType) && !string.IsNullOrWhiteSpace(detail.LoadGoodsTypeName) && !string.IsNullOrWhiteSpace(item.ItemLine) && !string.IsNullOrWhiteSpace(detail.ItemLineName) && (item.WarehouseId != null) && (detail.WarehouseId != null))
+                    //                        {
+                    //                            if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
+                    //                            {
+                    //                                item.CostItemCode = detail.CostItemCode;
+                    //                                item.CostItemName = detail.CostItemName;
+                    //                                item.LoadingUnitPrice = detail.UnitPrice;
+                    //                                item.AllAmount = item.Weight * item.LoadingUnitPrice / 1000;
+                    //                                break;
+                    //                            }
+                    //                        }
+                    //                    }
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+
+                    //    break;
+
                     case 1:
-                        var list1 = CurrentDBSession.CostUnitListDal.LoadEntities(a => a.BillType == 2 && a.ExamineDate != null);
-                        if (string.IsNullOrWhiteSpace(A.Department2Id))
+                        var list1 = CurrentDBSession.CostUnitListDetailDal.LoadEntities(a => a.RecordType == 2 && a.ExamineDate != null && a.CostItemCode.Trim() == "60010303" && a.CostItemName.Trim() == "装卸收入");
+                        foreach (LoadingAndLaborCostDetail item in bill.LoadingAndLaborCostDetail)
                         {
-                            list1 = list1.Where(a=>power.Contains(a.DepartmentId));
-                        }
-                        else
-                        {
-                            list1 = list1.Where(a=>a.DepartmentId==A.Department2Id);
-                        } //收入单价  case 1 装卸费用应收单 
-                        if (bill.LoadingAndLaborCostDetail!=null) {
-                            foreach (LoadingAndLaborCostDetail item in bill.LoadingAndLaborCostDetail)
-                            {
-                                item.CostItemCode = "60010303";//装卸费  费用项目和编号只有一个写死
-                                item.CostItemName = "装卸收入";
-                                if (list1 != null)
-                                {
-                                    foreach (CostUnitList costunitlist in list1)
-                                    {
-                                        foreach (CostUnitListDetail detail in costunitlist.CostUnitListDetail)
-                                        {
-                                            if (detail.CostItemCode.ToString().Trim() == "60010303" && detail.CostItemName.ToString().Trim() == "装卸收入" && !string.IsNullOrWhiteSpace(detail.BuniessTypeName) && !string.IsNullOrWhiteSpace(detail.LoadGoodsTypeName)&&!string.IsNullOrWhiteSpace(item.BusinessType) && !string.IsNullOrWhiteSpace(item.LoadingType))//装卸费  费用项目和编号只有一个写死
-                                        {
-                                                if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim())
-                                                {
-                                                    item.CostItemCode = detail.CostItemCode;
-                                                    item.CostItemName = detail.CostItemName;
-                                                    item.LoadingUnitPrice = detail.UnitPrice;
+                            item.CostItemCode = "60010303";//装卸费  费用项目和编号只有一个写死
+                            item.CostItemName = "装卸收入";
+                           var temp= list1.Where(a => a.BuniessTypeName == item.BusinessType&&a.LoadGoodsTypeName==item.LoadingType&&(a.ItemLineName==null||a.ItemLineName==item.ItemLine)).FirstOrDefault();
+                            if (temp != null) {
+                                item.CostItemCode = temp.CostItemCode;
+                                item.CostItemName = temp.CostItemName;
+                                item.LoadingUnitPrice = temp.UnitPrice;
                                                     item.AllAmount = item.Weight * item.LoadingUnitPrice / 1000;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
                             }
                         }
                         break;
-                    case 2:
-                        var list2 = CurrentDBSession.CostUnitListDal.LoadEntities(a => a.BillType == 1 && a.ExamineDate != null);
-                        if (string.IsNullOrWhiteSpace(A.Department2Id))
-                        {
-                            list2 = list2.Where(a => power.Contains(a.DepartmentId));
-                        }
-                        else
-                        {
-                            list2 = list2.Where(a => a.DepartmentId == A.Department2Id);
-                        }//成本单价  case 1 装卸费用成本单
 
+
+
+                    case 2:
+
+                        var list2 = CurrentDBSession.CostUnitListDetailDal.LoadEntities(a => a.RecordType == 1 && a.ExamineDate != null && a.CostItemCode.Trim() == "6401080105" && a.CostItemName.Trim() == "人工成本-装卸费");
                         foreach (LoadingAndLaborCostDetail item in bill.LoadingAndLaborCostDetail)
                         {
                             item.CostItemCode = "6401080105";//装卸费  费用项目和编号只有一个写死
                             item.CostItemName = "人工成本-装卸费";
-                            if (list2 != null)
-                            {
-                                foreach (CostUnitList costunitlist in list2)
-                                {
-                                    foreach (CostUnitListDetail detail in costunitlist.CostUnitListDetail)
-                                    {
-                                        if (detail.CostItemCode.ToString().Trim() == "6401080105" && detail.CostItemName.ToString().Trim() == "人工成本-装卸费")//装卸费  费用项目和编号只有一个写死
-                                        {
-                                            if (!string.IsNullOrWhiteSpace(item.BusinessType) && !string.IsNullOrWhiteSpace(detail.BuniessTypeName) && !string.IsNullOrWhiteSpace(item.LoadingType) && !string.IsNullOrWhiteSpace(detail.LoadGoodsTypeName) && !string.IsNullOrWhiteSpace(item.ItemLine) && !string.IsNullOrWhiteSpace(detail.ItemLineName) && (item.WarehouseId != null) && (detail.WarehouseId != null))
-                                            {
-                                                if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
+                            var temp = list2.Where(a => a.BuniessTypeName == item.BusinessType && a.LoadGoodsTypeName == item.LoadingType && (a.ItemLineName == null || a.ItemLineName == item.ItemLine)).FirstOrDefault();
+                            if (temp != null)
                                                 {
-                                                    item.CostItemCode = detail.CostItemCode;
-                                                    item.CostItemName = detail.CostItemName;
-                                                    item.LoadingUnitPrice = detail.UnitPrice;
+                                item.CostItemCode = temp.CostItemCode;
+                                item.CostItemName = temp.CostItemName;
+                                item.LoadingUnitPrice = temp.UnitPrice;
                                                     item.AllAmount = item.Weight * item.LoadingUnitPrice / 1000;
-                                                    break;
                                                 }
                                             }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+
+
+
+                        //var list2 = CurrentDBSession.CostUnitListDal.LoadEntities(a => a.BillType == 1 && a.ExamineDate != null);//成本单价  case 1 装卸费用成本单
+
+                        //foreach (LoadingAndLaborCostDetail item in bill.LoadingAndLaborCostDetail)
+                        //{
+                        //    item.CostItemCode = "6401080105";//装卸费  费用项目和编号只有一个写死
+                        //    item.CostItemName = "人工成本-装卸费";
+                        //    if (list2 != null)
+                        //    {
+                        //        foreach (CostUnitList costunitlist in list2)
+                        //        {
+                        //            foreach (CostUnitListDetail detail in costunitlist.CostUnitListDetail)
+                        //            {
+                        //                if (detail.CostItemCode.ToString().Trim() == "6401080105" && detail.CostItemName.ToString().Trim() == "人工成本-装卸费")//装卸费  费用项目和编号只有一个写死
+                        //                {
+                        //                    if (!string.IsNullOrWhiteSpace(item.BusinessType) && !string.IsNullOrWhiteSpace(detail.BuniessTypeName) && !string.IsNullOrWhiteSpace(item.LoadingType) && !string.IsNullOrWhiteSpace(detail.LoadGoodsTypeName) && !string.IsNullOrWhiteSpace(item.ItemLine) && !string.IsNullOrWhiteSpace(detail.ItemLineName) && (item.WarehouseId != null) && (detail.WarehouseId != null))
+                        //                    {
+                        //                        if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
+                        //                        {
+                        //                            item.CostItemCode = detail.CostItemCode;
+                        //                            item.CostItemName = detail.CostItemName;
+                        //                            item.LoadingUnitPrice = detail.UnitPrice;
+                        //                            item.AllAmount = item.Weight * item.LoadingUnitPrice / 1000;
+                        //                            break;
+                        //                        }
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
                         break;
                     case 3:
-                        var list3 = CurrentDBSession.CostUnitListDal.LoadEntities(a => a.BillType == 2 && a.ExamineDate != null);
-                        if (string.IsNullOrWhiteSpace(A.Department2Id))
-                        {
-                            list3 = list3.Where(a => power.Contains(a.DepartmentId));
-                        }
-                        else
-                        {
-                            list3 = list3.Where(a => a.DepartmentId == A.Department2Id);
-                        }//收入单价  case 1 力资费费用应收单 
 
+                        var list3 = CurrentDBSession.CostUnitListDetailDal.LoadEntities(a => a.RecordType == 2 && a.ExamineDate != null && a.CostItemCode.Trim() == "60010302" && a.CostItemName.Trim() == "力资费收入");
                         foreach (LoadingAndLaborCostDetail item in bill.LoadingAndLaborCostDetail)
                         {
-                            item.CostItemCode = "60010302";//力资费  费用项目和编号只有一个写死
+                            item.CostItemCode = "60010302";//装卸费  费用项目和编号只有一个写死
                             item.CostItemName = "力资费收入";
-                            if (list3 != null)
+                            var temp = list3.Where(a => a.BuniessTypeName == item.BusinessType && a.LoadGoodsTypeName == item.LoadingType && (a.ItemLineName == null || a.ItemLineName == item.ItemLine)).FirstOrDefault();
+                            if (temp != null)
                             {
-                                foreach (CostUnitList costunitlist in list3)
-                                {
-                                    foreach (CostUnitListDetail detail in costunitlist.CostUnitListDetail)
-                                    {
-                                        if (detail.CostItemCode.ToString().Trim() == "60010302" && detail.CostItemName.ToString().Trim() == "力资费收入")//力资费  费用项目和编号只有一个写死
-                                        {
-                                            
-                                            if (!string.IsNullOrWhiteSpace(item.BusinessType) && !string.IsNullOrWhiteSpace(detail.BuniessTypeName) && !string.IsNullOrWhiteSpace(item.LoadingType) && !string.IsNullOrWhiteSpace(detail.LoadGoodsTypeName) && !string.IsNullOrWhiteSpace(item.ItemLine) && !string.IsNullOrWhiteSpace(detail.ItemLineName) && (item.WarehouseId != null) && (detail.WarehouseId != null))
-                                            {
-                                                if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
-                                                {
-                                                    item.CostItemCode = detail.CostItemCode;
-                                                    item.CostItemName = detail.CostItemName;
-                                                    item.LaborUnitPrice = detail.UnitPrice;
-                                                    item.AllAmount = item.Weight * item.LaborUnitPrice / 1000;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                item.CostItemCode = temp.CostItemCode;
+                                item.CostItemName = temp.CostItemName;
+                                item.LoadingUnitPrice = temp.UnitPrice;
+                                item.AllAmount = item.Weight * item.LoadingUnitPrice / 1000;
                             }
                         }
+
+
+                        //var list3 = CurrentDBSession.CostUnitListDal.LoadEntities(a => a.BillType == 2 && a.ExamineDate != null);//收入单价  case 1 力资费费用应收单 
+
+                        //foreach (LoadingAndLaborCostDetail item in bill.LoadingAndLaborCostDetail)
+                        //{
+                        //    item.CostItemCode = "60010302";//力资费  费用项目和编号只有一个写死
+                        //    item.CostItemName = "力资费收入";
+                        //    if (list3 != null)
+                        //    {
+                        //        foreach (CostUnitList costunitlist in list3)
+                        //        {
+                        //            foreach (CostUnitListDetail detail in costunitlist.CostUnitListDetail)
+                        //            {
+                        //                if (detail.CostItemCode.ToString().Trim() == "60010302" && detail.CostItemName.ToString().Trim() == "力资费收入")//力资费  费用项目和编号只有一个写死
+                        //                {
+
+                        //                    if (!string.IsNullOrWhiteSpace(item.BusinessType) && !string.IsNullOrWhiteSpace(detail.BuniessTypeName) && !string.IsNullOrWhiteSpace(item.LoadingType) && !string.IsNullOrWhiteSpace(detail.LoadGoodsTypeName) && !string.IsNullOrWhiteSpace(item.ItemLine) && !string.IsNullOrWhiteSpace(detail.ItemLineName) && (item.WarehouseId != null) && (detail.WarehouseId != null))
+                        //                    {
+                        //                        if (item.BusinessType.Trim() == detail.BuniessTypeName.Trim() && item.LoadingType.Trim() == detail.LoadGoodsTypeName.Trim() && item.ItemLine.Trim() == detail.ItemLineName.Trim() && item.WarehouseId == detail.WarehouseId)
+                        //                        {
+                        //                            item.CostItemCode = detail.CostItemCode;
+                        //                            item.CostItemName = detail.CostItemName;
+                        //                            item.LaborUnitPrice = detail.UnitPrice;
+                        //                            item.AllAmount = item.Weight * item.LaborUnitPrice / 1000;
+                        //                            break;
+                        //                        }
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
 
                         break;
                 }

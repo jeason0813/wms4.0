@@ -315,6 +315,16 @@
                             }
                         }
                     }
+                    else//新表单
+                    {
+                        //给出入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 26) {
+                                $scope.currentInOutType = $scope.InOutTypes[i];
+                            }
+                          
+                        }
+                    }
                 });
             });
            
