@@ -192,9 +192,9 @@ namespace BLL
                     {
                         transferbillList = transferbillList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (Businesstype.Count>0)
+                    if (Businesstype!=null)
                     {
-                        string[] businesstype = new string[Businesstype.Count];
+                        string[] businesstype = new string[Businesstype.Count()];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Businesstype)
                         {
@@ -203,9 +203,9 @@ namespace BLL
                     }
                         transferbillList = transferbillList.Where(c=>businesstype.Contains(c.BusinessType));
                     }
-                    if (LodingType.Count>0)
+                    if (LodingType!=null)
                     {
-                        string[] loadingtype = new string[LodingType.Count];
+                        string[] loadingtype = new string[LodingType.Count()];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in LodingType)
                         {
@@ -214,9 +214,9 @@ namespace BLL
                     }
                         transferbillList = transferbillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (Warehouseid.Count>0)
+                    if (Warehouseid!=null)
                     {
-                        int counts = Warehouseid.Count;
+                        int counts = Warehouseid.Count();
                         int?[] warehouseidArray =new int?[counts];
                         int i = 0;
                         foreach (LaborAndLoading3QueryConditions item in Warehouseid)
@@ -235,7 +235,7 @@ namespace BLL
                         A.dateEnd = A.dateEnd.AddDays(1);
                         transferbillList = transferbillList.Where(c => c.ExamineDate < A.dateEnd);
                     }
-                    if (transferbillList.Count() > 0)
+                    if (transferbillList != null)
                     {
                         foreach (TransferBill item in transferbillList)
                         {
@@ -278,7 +278,7 @@ namespace BLL
                     {
                         BackInputList = BackInputList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (Businesstype.Count > 0)
+                    if (Businesstype != null)
                     {
                         string[] businesstype = new string[Businesstype.Count];
                         int i = 0;
@@ -289,7 +289,7 @@ namespace BLL
                         }
                         BackInputList = BackInputList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (LodingType.Count > 0)
+                    if (LodingType != null)
                     {
                         string[] loadingtype = new string[LodingType.Count];
                         int i = 0;
@@ -300,7 +300,7 @@ namespace BLL
                         }
                         BackInputList = BackInputList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (Warehouseid.Count > 0)
+                    if (Warehouseid != null)
                     {
                         int counts = Warehouseid.Count;
                         int?[] warehouseidArray = new int?[counts];
@@ -321,7 +321,7 @@ namespace BLL
                         A.dateEnd = A.dateEnd.AddDays(1);
                         BackInputList = BackInputList.Where(c => c.ExamineDate < A.dateEnd);
                     }
-                    if (BackInputList.Count() > 0)
+                    if (BackInputList != null)
                     {
                         foreach (BackInput item in BackInputList)
                         {
@@ -364,7 +364,7 @@ namespace BLL
                     {
                         GiveBillList = GiveBillList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (Businesstype.Count > 0)
+                    if (Businesstype != null)
                     {
                         string[] businesstype = new string[Businesstype.Count];
                         int i = 0;
@@ -375,7 +375,7 @@ namespace BLL
                         }
                         GiveBillList = GiveBillList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (LodingType.Count > 0)
+                    if (LodingType != null)
                     {
                         string[] loadingtype = new string[LodingType.Count];
                         int i = 0;
@@ -386,7 +386,7 @@ namespace BLL
                     }
                         GiveBillList = GiveBillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (Warehouseid.Count > 0)
+                    if (Warehouseid != null)
                     {
                         int counts = Warehouseid.Count;
                         int?[] warehouseidArray = new int?[counts];
@@ -407,7 +407,7 @@ namespace BLL
                         A.dateEnd = A.dateEnd.AddDays(1);
                         GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd);
                     }
-                    if (GiveBillList.Count() > 0)
+                    if (GiveBillList != null)
                     {
                         foreach (GiveBill item in GiveBillList)
                         {
@@ -450,7 +450,7 @@ namespace BLL
                     {
                         BackOutputList = BackOutputList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (Businesstype.Count > 0)
+                    if (Businesstype != null)
                     {
                         string[] businesstype = new string[Businesstype.Count];
                         int i = 0;
@@ -461,7 +461,7 @@ namespace BLL
                     }
                         BackOutputList = BackOutputList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (LodingType.Count > 0)
+                    if (LodingType != null)
                     {
                         string[] loadingtype = new string[LodingType.Count];
                         int i = 0;
@@ -472,7 +472,7 @@ namespace BLL
                     }
                         BackOutputList = BackOutputList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (Warehouseid.Count > 0)
+                    if (Warehouseid != null)
                     {
                         int counts = Warehouseid.Count;
                         int?[] warehouseidArray = new int?[counts];
@@ -493,7 +493,7 @@ namespace BLL
                         A.dateEnd = A.dateEnd.AddDays(1);
                         BackOutputList = BackOutputList.Where(c => c.ExamineDate < A.dateEnd);
                     }
-                    if (BackOutputList.Count() > 0)
+                    if (BackOutputList != null)
                     {
                         foreach (BackOutput item in BackOutputList)
                         {
@@ -536,7 +536,7 @@ namespace BLL
                     {
                         GiveBillList = GiveBillList.Where(c => c.DepartmentId == A.Department2Id);
                     }
-                    if (Businesstype.Count > 0)
+                    if (Businesstype != null)
                     {
                         string[] businesstype = new string[Businesstype.Count];
                         int i = 0;
@@ -547,7 +547,7 @@ namespace BLL
                         }
                         GiveBillList = GiveBillList.Where(c => businesstype.Contains(c.BusinessType));
                     }
-                    if (LodingType.Count > 0)
+                    if (LodingType != null)
                     {
                         string[] loadingtype = new string[LodingType.Count];
                         int i = 0;
@@ -558,7 +558,7 @@ namespace BLL
                         }
                         GiveBillList = GiveBillList.Where(c => loadingtype.Contains(c.LoadGoodsType));
                     }
-                    if (Warehouseid.Count > 0)
+                    if (Warehouseid != null)
                     {
                         int counts = Warehouseid.Count;
                         int?[] warehouseidArray = new int?[counts];
@@ -579,7 +579,7 @@ namespace BLL
                         A.dateEnd = A.dateEnd.AddDays(1);
                         GiveBillList = GiveBillList.Where(c => c.ExamineDate < A.dateEnd);
                     }
-                    if (GiveBillList.Count() > 0)
+                    if (GiveBillList != null)
                     {
                         foreach (GiveBill item in GiveBillList)
                         {
