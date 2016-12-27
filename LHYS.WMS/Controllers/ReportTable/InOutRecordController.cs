@@ -19,7 +19,7 @@ namespace LHYS.WMS.Controllers
         //DepartmentId:$scope.DepartmentId,WarehouseId:$scope.CurrentWarehouseId,ItemLocationId:$scope.CurrentLocation.Id,ItemCode:$scope.CurrentGoodItem.ItemCode,InOutTypeId:null,timestart:$scope.timestart,timeend:$scope.timeend
         public ActionResult RecordSearch(string DepartmentId, int? WarehouseId, string ItemLocationId, string ItemCode, int?[] InOutTypeId, DateTime? timestart, DateTime? timeend)
         {
-            var list = RecordService.RecordSearch(DepartmentId, WarehouseId, ItemLocationId, ItemCode, InOutTypeId, timestart, timeend);
+            var list = RecordService.RecordSearch(DepartmentId, WarehouseId, ItemLocationId, ItemCode, InOutTypeId, timestart, timeend).OrderByDescending(a=>a.ExamineDate);
             return Json(list);
         }
 
