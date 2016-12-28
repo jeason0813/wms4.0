@@ -109,6 +109,14 @@
                             <td>{{record.AllAmount}}</td>
                             <td>{{record.Remark}}</td>
                         </tr>
+                        <tr>
+                            <td colspan="17">合计：</td>
+                            <td>{{TotalCount()}}</td>
+                            <td>{{TotalWeight()}}</td>
+                            <td></td>
+                            <td>{{TotalAmount()}}</td>
+                            <td></td>
+                        </tr>
                     </table>
                 </div>
                 <div style="text-align:center">
@@ -180,6 +188,34 @@
                 }
                 //绑定数据源
                 $scope.info = response;
+                //求和
+                $scope.TotalCount = function () {
+                    var total = 0;
+                    if ($scope.info.LoadingAndLaborCostDetail != null) {
+                        for (var i = 0; i < $scope.info.LoadingAndLaborCostDetail.length; i++) {
+                            total += $scope.info.LoadingAndLaborCostDetail[i].Count;
+                        }
+                    }
+                    return total;
+                }
+                $scope.TotalWeight = function () {
+                    var totalWeight = 0.00;
+                    if ($scope.info.LoadingAndLaborCostDetail != null) {
+                        for (var i = 0; i < $scope.info.LoadingAndLaborCostDetail.length; i++) {
+                            totalWeight += $scope.info.LoadingAndLaborCostDetail[i].Weight;
+                        }
+                    }
+                    return totalWeight.toFixed(2);
+                }
+                $scope.TotalAmount = function () {
+                    var totalAmount = 0.00;
+                    if ($scope.info.LoadingAndLaborCostDetail != null) {
+                        for (var i = 0; i < $scope.info.LoadingAndLaborCostDetail.length; i++) {
+                            totalAmount += parseFloat($scope.info.LoadingAndLaborCostDetail[i].AllAmount);
+                        }
+                    }
+                    return totalAmount.toFixed(2);
+                }
             });
             //---------------------------------------------------------------------------
             //初审（examine）
