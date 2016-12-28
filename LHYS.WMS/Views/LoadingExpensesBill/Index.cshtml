@@ -108,8 +108,8 @@
                                 <td>{{record.Count}}</td>
                                 <td>{{record.Weight}}</td>
                                 <td ng-show="UnitPriviceShow(@ViewBag.billType)"><input class="form-control input-sm" type="text" ng-model="record.LoadingUnitPrice" ng-change="loadingAllAmount(record)" /></td>
-                                <td ng-show="UnitPriviceShow2(@ViewBag.billType)"><input class="form-control input-sm" type="text" ng-model="record.LaborUnitPrice" ng-change="laborAllAmount(record)" /></td>
-                                <td><input class="form-control input-sm" type="text" ng-model="record.AllAmount" /></td>
+                                <td ng-show="UnitPriviceShow2(@ViewBag.billType)"><input class="form-control input-sm" type="text" ng-model="record.LaborUnitPrice" ng-change="laborAllAmount(record)"  /></td>
+                                <td><input class="form-control input-sm" type="text" ng-model="record.AllAmount" required /></td>
                                 <td><input class="form-control input-sm" type="text" ng-model="record.Remark" /></td>
                             </tr>
                             <tr>
