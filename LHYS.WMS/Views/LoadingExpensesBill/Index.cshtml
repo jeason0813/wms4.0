@@ -79,9 +79,9 @@
                                 <th nowrap="nowrap" style="width:180px;">产品名称</th>
                                 <th nowrap="nowrap" style="width:100px;">包装规格</th>
                                 <th nowrap="nowrap" style="width:80px;">单位</th>
-                                <th nowrap="nowrap" style="width:100px;">单位重量</th>
+                                <th nowrap="nowrap" style="width:100px;">单位重量(KG)</th>
                                 <th nowrap="nowrap" style="width:100px;">数量</th>
-                                <th nowrap="nowrap" style="width:100px;">重量</th>
+                                <th nowrap="nowrap" style="width:100px;">重量(KG)</th>
                                 <th nowrap="nowrap" ng-show="UnitPriviceShow(@ViewBag.billType)">装卸单价(元/吨)</th>
                                 <th nowrap="nowrap" ng-show="UnitPriviceShow2(@ViewBag.billType)">力资费单价(元/吨)</th>
                                 <th nowrap="nowrap" style="width:150px;">总金额</th>
@@ -112,6 +112,15 @@
                                 <td><input class="form-control input-sm" type="text" ng-model="record.AllAmount" /></td>
                                 <td><input class="form-control input-sm" type="text" ng-model="record.Remark" /></td>
                             </tr>
+                            @*<tr>
+                                <td colspan="17">合计：</td>
+                                <td>{{}}</td>
+                                <td>{{}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{}}</td>
+                                <td></td>
+                            </tr>*@
                         </table>
                     </div>
                     <div style="text-align:center">
@@ -407,6 +416,12 @@
                     }
                 });
             }
+            //-------------------------------------
+            //求和
+            //$scope.TotalCount = function () {
+            //    for(int i=0;i<info.LoadingAndLaborCostDetail.length;i++){
+            //    }
+            //}
         })
     </script>
 </body>

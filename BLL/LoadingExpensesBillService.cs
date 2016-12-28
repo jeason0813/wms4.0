@@ -661,8 +661,8 @@ namespace BLL
                             {
                                 item.CostItemCode = temp.CostItemCode;
                                 item.CostItemName = temp.CostItemName;
-                                item.LoadingUnitPrice = temp.UnitPrice;
-                                item.AllAmount = item.Weight * item.LoadingUnitPrice / 1000;
+                                item.LaborUnitPrice = temp.UnitPrice;
+                                item.AllAmount = item.Weight * item.LaborUnitPrice / 1000;
                             }
                         }
                         break;
