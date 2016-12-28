@@ -24,7 +24,7 @@
                             <td colspan="10" style="text-align:center;border:none"><h2>出入库类别</h2></td>
                         </tr>
                         <tr>
-                            <td style="border:none" colspan="2"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                            <td style="border:none" colspan="2"><input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
                             <td style="border:none"></td>
                             <td colspan="7" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
                         </tr>
@@ -65,7 +65,7 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <td style="width:140px">出入库类别名称</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Name" required /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:140px">出发标志</td>
@@ -76,11 +76,11 @@
                                         </tr>
                                         <tr>
                                             <td style="width:140px">所属部门</td>
-                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
+                                            <td><select class="form-control input-sm" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
                                         </tr>
                                         <tr>
                                             <td style="width:140px">备注</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Remark" /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Remark" /></td>
                                         </tr>
                                     </table>
                                     <table class="table" style="border:none">

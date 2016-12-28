@@ -36,28 +36,28 @@
                         </tr>
                         <tr>
                             <td>单据编号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" placeholder="自动生成" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.BillCode" placeholder="自动生成" disabled /></td>
                             <td>单据日期</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.BillDate" required /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.BillDate" required /></td>
                             <td colspan="4"></td>
                         </tr>
                         <tr>
                             <td class="tdname">公司：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Company" placeholder="选择部门后自动获取" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.Company" placeholder="选择部门后自动获取" disabled /></td>
                             <td class="tdname">部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" ng-change="departentChange(CurrentDepartment)" required><option value=""></option></select></td>
+                            <td><select class="form-control input-sm" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" ng-change="departentChange(CurrentDepartment)" required><option value=""></option></select></td>
                             <td class="tdname">备注：</td>
-                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
+                            <td colspan="3"><input class="form-control input-sm" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>
                         <tr>
                             <td class="tdname">制单人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.MakePerson" placeholder="自动获取" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.MakePerson" placeholder="自动获取" disabled /></td>
                             <td class="tdname">制单日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
                             <td class="tdname">审核人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.ExaminePerson" placeholder="自动获取" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.ExaminePerson" placeholder="自动获取" disabled /></td>
                             <td class="tdname">审核日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                         </tr>
                     </table>
                     <div style="width:1115px;overflow:scroll">
@@ -75,7 +75,7 @@
                                 <th nowrap="nowrap" style="width:100px;">业务类型</th>
                                 <th nowrap="nowrap" style="width:100px;">装卸类型</th>
                                 <th nowrap="nowrap" style="width:100px;">物料编码</th>
-                                <th nowrap="nowrap" style="width:100px;">产品线</th>
+                                <th nowrap="nowrap" style="width:100px;">物料分类</th>
                                 <th nowrap="nowrap" style="width:180px;">产品名称</th>
                                 <th nowrap="nowrap" style="width:100px;">包装规格</th>
                                 <th nowrap="nowrap" style="width:80px;">单位</th>
@@ -107,10 +107,10 @@
                                 <td>{{record.UnitWeight}}</td>
                                 <td>{{record.Count}}</td>
                                 <td>{{record.Weight}}</td>
-                                <td ng-show="UnitPriviceShow(@ViewBag.billType)"><input class="form-control" type="text" ng-model="record.LoadingUnitPrice" /></td>
-                                <td ng-show="UnitPriviceShow2(@ViewBag.billType)"><input class="form-control" type="text" ng-model="record.LaborUnitPrice" /></td>
-                                <td><input class="form-control" type="text" ng-model="record.AllAmount" /></td>
-                                <td><input class="form-control" type="text" ng-model="record.Remark" /></td>
+                                <td ng-show="UnitPriviceShow(@ViewBag.billType)"><input class="form-control input-sm" type="text" ng-model="record.LoadingUnitPrice" /></td>
+                                <td ng-show="UnitPriviceShow2(@ViewBag.billType)"><input class="form-control input-sm" type="text" ng-model="record.LaborUnitPrice" /></td>
+                                <td><input class="form-control input-sm" type="text" ng-model="record.AllAmount" /></td>
+                                <td><input class="form-control input-sm" type="text" ng-model="record.Remark" /></td>
                             </tr>
                             @*<tr>
                                 <td colspan="17">合计：</td>
@@ -142,9 +142,9 @@
                                 <table class="table table-bordered table-striped table-condensed">
                                     <tr>
                                         <td style="width:100px;">公司：</td>
-                                        <td><input class="form-control" type="text" name="name" ng-model="Company2" placeholder="选择部门后自动获取" disabled /></td>
+                                        <td><input class="form-control input-sm" type="text" name="name" ng-model="Company2" placeholder="选择部门后自动获取" disabled /></td>
                                         <td style="width:100px;">部门：</td>
-                                        <td><select class="form-control" name="name" ng-options="Departent.DeptName for Departent in Departents" ng-model="Current2Department" required="required"  ng-change="departentChange2(Current2Department)" ><option value=""></option></select></td>
+                                        <td><select class="form-control input-sm" name="name" ng-options="Departent.DeptName for Departent in Departents" ng-model="Current2Department" required="required"  ng-change="departentChange2(Current2Department)" ><option value=""></option></select></td>
                                     </tr>
                                     <tr>
                                         <td>单据类型：</td>
@@ -159,7 +159,7 @@
                                     </tr>
                                     <tr>
                                         <td>业务模式：</td>
-                                        @*<td><select class="form-control"  ng-options=" businesstype for businesstype in businesstypes" ng-model="a.businesstype"></select></td>*@
+                                        @*<td><select class="form-control input-sm"  ng-options=" businesstype for businesstype in businesstypes" ng-model="a.businesstype"></select></td>*@
                                         <td colspan="2">
                                             <div isteven-multi-select
                                                  input-model="BusinessTypes"
@@ -179,7 +179,7 @@
                                     <tr>
                                         <td>仓库：</td>
                                         <td>
-                                            @*<select class="form-control" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse2" ng-change="WarehouseChange2(currentWarehouse2)"></select>*@
+                                            @*<select class="form-control input-sm" ng-options="warehouse.Name for warehouse in Warehouses" ng-model="currentWarehouse2" ng-change="WarehouseChange2(currentWarehouse2)"></select>*@
                                             <div isteven-multi-select
                                                  input-model="Warehouses"
                                                  output-model="outputWarehouseid"
@@ -193,7 +193,7 @@
                                             </div>
                                         </td>
                                         <td>装卸类型：</td>
-                                        <td>@*<select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="A.LoadGoodsType"></select>*@
+                                        <td>@*<select class="form-control input-sm" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="A.LoadGoodsType"></select>*@
                                             <div isteven-multi-select
                                                  input-model="LoadGoodsTypes"
                                                  output-model="outputLodingType"
@@ -209,9 +209,9 @@
                                     </tr>
                                     <tr>
                                         <td>审核日期：</td>
-                                        <td><input class="form-control" type="date" name="name" ng-model="A.dateStart" /></td>
+                                        <td><input class="form-control input-sm" type="date" name="name" ng-model="A.dateStart" /></td>
                                         <td style="width:50px;">~</td>
-                                        <td><input class="form-control" type="date" name="name" ng-model="A.dateEnd" required /></td>
+                                        <td><input class="form-control input-sm" type="date" name="name" ng-model="A.dateEnd" required /></td>
                                     </tr>
                                 </table>
                                 <div style="text-align:right"><button type="submit" class="btn btn-success btn-md">确定</button></div>
@@ -371,7 +371,7 @@
                         if (response.LoadingAndLaborCostDetail[i].AllAmount != null)
                         {
                             response.LoadingAndLaborCostDetail[i].AllAmount = response.LoadingAndLaborCostDetail[i].AllAmount.toFixed(2);
-                        }
+                        } 
                     }
                     $scope.info = response;
                     $scope.Company2 = null;

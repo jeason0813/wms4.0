@@ -30,23 +30,23 @@
                         </tr>
                         <tr>
                             <td class="tdname">编号：</td>
-                            <td><input type="text" class="form-control" ng-model="info.Billcode" placeholder="自动生成" disabled></td>
+                            <td><input type="text" class="form-control input-sm" ng-model="info.Billcode" placeholder="自动生成" disabled></td>
                             <td class="tdname">公司：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Company" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.Company" disabled /></td>
                             <td class="tdname">部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
+                            <td><select class="form-control input-sm" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
                             <td class="tdname">备注：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>
                         <tr>
                             <td class="tdname">制单人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
                             <td class="tdname">制单日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
                             <td class="tdname">审核人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
                             <td class="tdname">审核日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                         </tr>
                     </table>
                     <table class="table table-bordered table-condensed table-striped">
@@ -56,7 +56,7 @@
                             <th>费用项目名称</th>
                             <th>业务类型</th>
                             <th>装卸类型</th>
-                            <th>产品线</th>
+                            <th>物料编码</th>
                             <th>仓库</th>
                             <th>单价(元/吨)</th>
                             <th>备注</th>
@@ -64,14 +64,14 @@
                         </tr>
                         <tr ng-repeat="record in info.CostUnitListDetail">
                             <td>{{$index+1}}</td>  @*编号*@
-                            <td><input class="form-control" type="text" ng-model="record.CostItemCode" disabled /></td>
-                            <td><select class="form-control" ng-options=" CostItem.Name for CostItem in CostItems" ng-model="record.CurrentCostItem" ng-click="CostItemClick($index)" ng-change="CostItemChange(record.CurrentCostItem)" required><option value=""></option></select></td>
-                            <td><select class="form-control" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="record.BuniessTypeName" ng-click="BusinessTypeClick($index)" ng-change="BusinessTypesChange(record.BuniessTypeName)" required><option value=""></option></select></td>
-                            <td><select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="record.LoadGoodsTypeName" ng-click="LoadGoodsTypeClick($index)" ng-change="loadgoodtypeChange(record.LoadGoodsTypeName)" required><option value=""></option></select></td>
-                            <td><select class="form-control" ng-options=" ItemLine.Name for ItemLine in ItemLines" ng-model="record.CurrentItemLine" ng-click="ItemLineClick($index)" ng-change="ItemLineChange(record.CurrentItemLine)" ><option value=""></option></select></td>
-                            <td><input class="form-control" type="text" name="name" ng-model="record.WarehouseName" data-toggle="modal" ng-click="WarehouseClick($index)" data-target="#wareHousechoose"  /></td>
-                            <td><input class="form-control" type="text" ng-model="record.UnitPrice" required /></td>
-                            <td><input class="form-control" type="text" ng-model="record.Remark" /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.CostItemCode" disabled /></td>
+                            <td><select class="form-control input-sm" ng-options=" CostItem.Name for CostItem in CostItems" ng-model="record.CurrentCostItem" ng-click="CostItemClick($index)" ng-change="CostItemChange(record.CurrentCostItem)" required><option value=""></option></select></td>
+                            <td><select class="form-control input-sm" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="record.BuniessTypeName" ng-click="BusinessTypeClick($index)" ng-change="BusinessTypesChange(record.BuniessTypeName)" required><option value=""></option></select></td>
+                            <td><select class="form-control input-sm" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="record.LoadGoodsTypeName" ng-click="LoadGoodsTypeClick($index)" ng-change="loadgoodtypeChange(record.LoadGoodsTypeName)" required><option value=""></option></select></td>
+                            <td><select class="form-control input-sm" ng-options=" ItemLine.Name for ItemLine in ItemLines" ng-model="record.CurrentItemLine" ng-click="ItemLineClick($index)" ng-change="ItemLineChange(record.CurrentItemLine)" ><option value=""></option></select></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="record.WarehouseName" data-toggle="modal" ng-click="WarehouseClick($index)" data-target="#wareHousechoose"  /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.UnitPrice" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.Remark" /></td>
                             <td style="width:70px"><button type="button" class="btn btn-danger btn-sm" ng-click="del($index)">删除</button></td>
                         </tr>
                     </table>
@@ -90,7 +90,7 @@
                                     <h4 class="modal-title">请选择仓库</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrwarehouse" />
+                                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstrwarehouse" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
                                             <th>仓库</th>
@@ -314,7 +314,7 @@
                     }
                 }
                 //----------------------------------------------------------------------------
-                //选择产品线
+                //选择物料编码
                 $scope.ItemLineClick = function (idx) {
                     $scope.currentItemLienIndex = idx;
                 }
@@ -324,7 +324,7 @@
                         $scope.info.CostUnitListDetail[$scope.currentItemLienIndex].ItemLineName = currentItemLine.Name;
                     }
                     else {
-                        alert("请重新选择产品线！");
+                        alert("请重新选择物料编码！");
                         return false;
                     }
                 }

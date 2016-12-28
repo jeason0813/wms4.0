@@ -23,22 +23,22 @@
                         </tr>
                         <tr>
                             <td>任务单号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode"  disabled/></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.BillCode"  disabled/></td>
                             <td>部门：</td>
                             <td>
-                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select>
+                                <select class="form-control input-sm" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"></select>
                             </td>
 
                         </tr>
                         <tr>
                             <td>操作人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
                             <td>操作日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
                             <td>审核人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
                             <td>审核日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                         </tr>
                     </table>
                     <div>
@@ -82,10 +82,10 @@
                                     <div class="modal-body">
                                         <table>
                                             <tr>
-                                                <td><input type="text" name="name" value="" placeholder="交货单号" class="form-control"  ng-model="giveBillId"/></td>
-                                                <td><input type="text" name="name" value="" placeholder="立邦单号" class="form-control" ng-model="LBBillCode" /></td>
-                                                <td><input type="date" name="name" value="" class="form-control" ng-model="timestart" /></td>
-                                                <td><input type="date" name="name" value="" class="form-control" ng-model="timeend" /></td>
+                                                <td><input type="text" name="name" value="" placeholder="交货单号" class="form-control input-sm"  ng-model="giveBillId"/></td>
+                                                <td><input type="text" name="name" value="" placeholder="立邦单号" class="form-control input-sm" ng-model="LBBillCode" /></td>
+                                                <td><input type="date" name="name" value="" class="form-control input-sm" ng-model="timestart" /></td>
+                                                <td><input type="date" name="name" value="" class="form-control input-sm" ng-model="timeend" /></td>
                                                 <td><input type="button" class="btn btn-success" value="查询" ng-click="GiveBillSearch()" /></td>
                                             </tr>
                                         </table>

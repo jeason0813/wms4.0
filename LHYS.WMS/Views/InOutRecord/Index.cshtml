@@ -31,22 +31,22 @@
                                 <label class="control-label">部门：</label>
                             </td>
                             <td>
-                                <select class="form-control" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId" required><option value=""></option></select>
+                                <select class="form-control input-sm" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId" required><option value=""></option></select>
                             </td>
                             <td>
                                 <label class="control-label">仓库：</label>
                             </td>
                             <td>
-                                <select class="form-control" ng-options="Warehouse.Name for Warehouse in Warehouses" ng-model="Warehouse" ng-change="changeWarehouse(Warehouse)"><option value=""></option></select>
+                                <select class="form-control input-sm" ng-options="Warehouse.Name for Warehouse in Warehouses" ng-model="Warehouse" ng-change="changeWarehouse(Warehouse)"><option value=""></option></select>
                             </td>
                             <td>
                                 <label class="control-label">货位：</label>
                             </td>
                             <td>
-                                <input type="text" value="" class="form-control" ng-model="CurrentLocation.Name" data-toggle="modal" data-target="#locationchoose" />
+                                <input type="text" value="" class="form-control input-sm" ng-model="CurrentLocation.Name" data-toggle="modal" data-target="#locationchoose" />
                             </td>
                             <td><label class="control-label">物料：</label></td>
-                            <td><input type="text" class="form-control" value="" data-toggle="modal" data-target="#itemchoose" ng-model="CurrentGoodItem.ItemName"></td>
+                            <td><input type="text" class="form-control input-sm" value="" data-toggle="modal" data-target="#itemchoose" ng-model="CurrentGoodItem.ItemName"></td>
                         <tr>
                             <td><label class="control-label">出入库类型：</label></td>
                             <td>
@@ -62,9 +62,9 @@
                                 </div>
                             </td>
                             <td><label class="control-label">开始时间</label></td>
-                            <td><input type="text" class="form-control" value="" id="timestart" ng-model="timestart" data-date-format="yyyy-mm-dd hh:ii"></td>
+                            <td><input type="text" class="form-control input-sm" value="" id="timestart" ng-model="timestart" data-date-format="yyyy-mm-dd hh:ii"></td>
                             <td><label class="control-label">结束时间</label></td>
-                            <td><input type="text" class="form-control" value="" id="timeend" ng-model="timeend" data-date-format="yyyy-mm-dd hh:ii"></td>
+                            <td><input type="text" class="form-control input-sm" value="" id="timeend" ng-model="timeend" data-date-format="yyyy-mm-dd hh:ii"></td>
                             <td><input type="button" class="btn btn-danger btn-md" value="清除条件" style="width:100px"  ng-click="clearSearch()"/></td>
                             <td><input type="submit" class="btn btn-success btn-md" value="查询" style="width:100px" /></td>
                         </tr>
@@ -108,7 +108,7 @@
                     <h4 class="modal-title">请选择货位</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
+                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
                     <table class="table table-bordered table-striped table-condensed">
                         <tr>
                             <th>货位编码</th>
@@ -134,12 +134,12 @@
                     <h4 class="modal-title">请选择品项</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" />
+                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" />
                     <table class="table table-bordered table-striped table-condensed">
                         <tr>
                             <th>编号</th>
                             <th>物料编码</th>
-                            <th>产品线</th>
+                            <th>物料分类</th>
                             <th>产品名称</th>
                             <th>包装规格</th>
                             <th>单位</th>

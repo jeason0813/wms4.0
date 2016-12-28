@@ -19,7 +19,7 @@ myApp.directive('inouttypeselect', function () {
             inputtypeid: '=',//外面存的ID
             current: '=' //当前选择的
         },
-        template: '<select class="form-control" ng-options=" InOutType.Name for InOutType in inouttypes" ng-model="current" ng-change="change()"  required></select>',
+        template: '<select class="form-control input-sm" ng-options=" InOutType.Name for InOutType in inouttypes" ng-model="current" ng-change="change()"  required></select>',
         link: function (scope, element, attrs) {
             scope.change = function () {
                 scope.inputtypename = scope.current.Name;

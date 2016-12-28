@@ -24,7 +24,7 @@
                         <td colspan="17" style="text-align:center;border:none"><h2>仓库档案</h2></td>
                     </tr>
                     <tr>
-                        <td style="border:none" colspan="2"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                        <td style="border:none" colspan="2"><input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
                         <td style="border:none"></td>
                         <td colspan="14" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
                     </tr>
@@ -71,7 +71,7 @@
                                 <table class="table table-bordered">
                                     <tr>
                                             <td style="width:90px">仓库名称</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Name" required /></td>
                                             <td style="width:80px">是否货位管理</td>
                                             <td>
                                                 <input type="radio" id="tp1" name="name" value="是" ng-model="source.IsManage" required /><label for="tp1">是</label>
@@ -80,21 +80,21 @@
                                         </tr>
                                         <tr>
                                             <td>仓库负责人</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Owner" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Owner" required /></td>
                                             <td style="width:80px">备注</td>
                                         <td>
-                                            <input class="form-control" type="text" name="name" ng-model="source.Remark" />
+                                            <input class="form-control input-sm" type="text" name="name" ng-model="source.Remark" />
                                         </td>
                                     </tr>
                                     <tr>
                                             <td>所属部门</td>
-                                            <td colspan="3"><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
+                                            <td colspan="3"><select class="form-control input-sm" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
                                         </tr>
                                         <tr>
                                             <td>建档人</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" disabled/></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.CreateBy" disabled/></td>
                                         <td style="width:80px">建档日期</td>
-                                            <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
+                                            <td><input class="form-control input-sm" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
                                     </tr>
                                 </table>
                                 <table class="table" style="border:none">

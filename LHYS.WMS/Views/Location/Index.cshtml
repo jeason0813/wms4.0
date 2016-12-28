@@ -24,7 +24,7 @@
                             <td colspan="17" style="text-align:center;border:none"><h2>货位档案</h2></td>
                         </tr>
                         <tr>
-                            <td style="border:none" colspan="2"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                            <td style="border:none" colspan="2"><input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
                             <td style="border:none"></td>
                             <td colspan="14" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
                         </tr>
@@ -70,31 +70,31 @@
                                         <tr>
                                             <td style="width:80px">货位编码</td>
                                             <td>
-                                                <input id="locationId" class="form-control" type="text" name="name" ng-model="source.Id" required />
+                                                <input id="locationId" class="form-control input-sm" type="text" name="name" ng-model="source.Id" required />
                                             </td>
                                             <td style="width:90px">货位名称</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Name" required /></td>
                                         </tr>
                                         <tr>
                                         <tr>
                                             <td>所属部门</td>
-                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
+                                            <td><select class="form-control input-sm" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
                                             <td style="width:80px">所属仓库</td>
                                             <td>
-                                                <select class="form-control" ng-options="y.Id as y.Name  for (x, y) in  wareHouses" ng-model="warehouse" required></select>
+                                                <select class="form-control input-sm" ng-options="y.Id as y.Name  for (x, y) in  wareHouses" ng-model="warehouse" required></select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>备注</td>
                                             <td colspan="3">
-                                                <input class="form-control" type="text" name="name" ng-model="source.Remark" />
+                                                <input class="form-control input-sm" type="text" name="name" ng-model="source.Remark" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>建档人</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" placeholder="自动获取" disabled /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.CreateBy" placeholder="自动获取" disabled /></td>
                                             <td style="width:80px">建档日期</td>
-                                            <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
+                                            <td><input class="form-control input-sm" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
                                         </tr>
                                         
                                     </table>
