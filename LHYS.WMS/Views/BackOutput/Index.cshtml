@@ -35,72 +35,72 @@
                         </tr>
                         <tr>
                             <td class="tdname">立邦客户编号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBCustomerCode"  placeholder="请先选择线路" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBCustomerCode" placeholder="请先选择线路" required /></td>
                             <td class="tdname">联系人：</td>
                             <td>
-                                <input class="form-control" type="text" name="name" ng-model="info.LBContacts" required />
+                                <input class="form-control input-sm" type="text" name="name" ng-model="info.LBContacts" required />
                             </td>
                             <td class="tdname">退货单号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBBillCode"  /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBBillCode" /></td>
                             <td class="tdname">退货原因：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBReson" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBReson" required /></td>
                         </tr>
                         <tr>
                             <td>立邦客户名称：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBCustomerName" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBCustomerName" required /></td>
                             <td>电话：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBPhone" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBPhone" required /></td>
                             <td>原交货单号：<span class="glyphicon glyphicon-search" ng-click="matchInfo()"></span></td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBGiveBillCode"  /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBGiveBillCode" /></td>
                             <td>备注：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBRemark" /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBRemark" /></td>
                         </tr>
                         <tr>
                             <td>邮编：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LBMailCode"  /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBMailCode" /></td>
                             <td>退货地址：</td>
-                            <td colspan="3"><input class="form-control" type="text" ng-model="info.LBSendAddress" name="name" required /></td>
+                            <td colspan="3"><input class="form-control input-sm" type="text" ng-model="info.LBSendAddress" name="name" required /></td>
                             <td>申请日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.LBBillDate" required /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.LBBillDate" required /></td>
                         </tr>
                     </table>
                     <hr style="border:1px solid #9b9595;margin-bottom:3px;margin-top:3px;" />
                     <table>
                         <tr>
                             <td>退货单号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.BillCode" disabled /></td>
                             <td>退货申请日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" required /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.CreateDate" required /></td>
                             <td>入库类别：</td>
                             <td>
                                 <inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInOutType"></inouttypeselect>
                             </td>
                             <td>仓库：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Warehouse" data-toggle="modal" data-target="#wareHousechoose" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.Warehouse" data-toggle="modal" data-target="#wareHousechoose" required /></td>
                         </tr>
                         <tr>
                             <td>装卸类型：</td>
-                            <td><select class="form-control" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="info.LoadGoodsType" required></select></td>
+                            <td><select class="form-control input-sm" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="info.LoadGoodsType" required></select></td>
                             <td>仓管员：</td>
-                            <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" required /></td>
+                            <td><input data-toggle="modal" data-target="#personchoose" class="form-control input-sm" type="text" name="name" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" required /></td>
                             <td>部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
+                            <td><select class="form-control input-sm" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
                             <td>业务模式：</td>
-                            <td><select class="form-control" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="info.BusinessType" required></select></td>
+                            <td><select class="form-control input-sm" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="info.BusinessType" required></select></td>
                         </tr>
                         <tr>
                             <td>线路：<span class="glyphicon glyphicon-search" data-toggle="modal" data-target="#lineWay"></span></td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.LineWay" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LineWay" required /></td>
                             <td>制单人：</td>
-                            <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.MakePerson" ng-click="loadperson('MakePerson')" disabled /></td>
+                            <td><input data-toggle="modal" data-target="#personchoose" class="form-control input-sm" type="text" name="name" ng-model="info.MakePerson" ng-click="loadperson('MakePerson')" disabled /></td>
                             <td>审核人：</td>
-                            <td><input data-toggle="modal" data-target="#personchoose" class="form-control" type="text" name="name" ng-model="info.ExaminePerson" ng-click="loadperson('ExaminePerson')" disabled /></td>
+                            <td><input data-toggle="modal" data-target="#personchoose" class="form-control input-sm" type="text" name="name" ng-model="info.ExaminePerson" ng-click="loadperson('ExaminePerson')" disabled /></td>
                             <td>审核日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                         </tr>
                         <tr>
                             <td>备注：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Remark"/></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>
                     </table>
                     <hr style="border:1px solid #9b9595;margin-bottom:3px;margin-top:3px;" />
@@ -121,16 +121,16 @@
                         </tr>
                         <tr ng-repeat="record in info.Record">
                             <td>{{$index+1}}</td>  @*编号*@
-                            <td><input data-toggle="modal" data-target="#itemchoose" class="form-control item-code" type="text" style="width:120px" ng-model="record.ItemCode" ng-click="loadItem($index)" required /></td>
-                            <td><input class="form-control item-code" type="text" ng-model="record.ItemLine" style="width:120px" /></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemName" style="width:80px" /></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
-                            <td><input class="form-control" type="text" ng-model="record.UnitWeight" style="width:80px"  ng-change="changeCount(record)" disabled/></td>
-                            <td><input class="form-control" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount(record)" required /></td>
-                            <td><input class="form-control" type="text" ng-model="record.Weight" style="width:80px" /></td>
-                            <td><input class="form-control" type="text" ng-model="record.ItemBatch" style="width:120px" ng-disabled="record.IsBatch=='否'" required /></td>
-                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)" style="width:120px" required /></td>
+                            <td><input data-toggle="modal" data-target="#itemchoose" class="form-control input-sm" type="text" style="width:120px" ng-model="record.ItemCode" ng-click="loadItem($index)" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemLine" style="width:120px" /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemName" style="width:80px" /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.UnitWeight" style="width:80px" ng-change="changeCount(record)" disabled /></td>
+                            <td><input class="form-control input-sm" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount(record)" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.Weight" style="width:80px" /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemBatch" style="width:120px" ng-disabled="record.IsBatch=='否'" required /></td>
+                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control input-sm" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)" style="width:120px" required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>
                         </tr>
                     </table>
@@ -142,35 +142,37 @@
                     </div>
                     @*-------------------------------------品项选择模态框-----------------------------------------*@
                     <div class="modal fade" id="itemchoose">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog" style="width:850px">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     <h4 class="modal-title">请选择品项</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" />
-                                    <table class="table table-bordered table-striped table-condensed">
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>物料编码</th>
-                                            <th>产品线</th>
-                                            <th>产品名称</th>
-                                            <th>包装规格</th>
-                                            <th>单位</th>
-                                            <th>单位重量</th>
-                                        </tr>
-                                        <tr ng-repeat="goodItem in GoodItems | filter:searchstr " ng-dblclick="selectItem(goodItem)">
-                                            <td>{{$index+1}}</td>
-                                            <td>{{goodItem.ItemCode}}</td>
-                                            <td>{{goodItem.ItemLine}}</td>
-                                            <td>{{goodItem.ItemName}}</td>
-                                            <td>{{goodItem.ItemSpecifications}}</td>
-                                            <td>{{goodItem.ItemUnit}}</td>
-                                            <td>{{goodItem.UnitWeight}}</td>
-                                        </tr>
+                                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" />
+                                    <div style="height:400px;overflow:auto">
+                                        <table class="table table-bordered table-striped table-condensed">
+                                            <tr>
+                                                <th>编号</th>
+                                                <th>物料编码</th>
+                                                <th>物料分类</th>
+                                                <th>产品名称</th>
+                                                <th>包装规格</th>
+                                                <th>单位</th>
+                                                <th>单位重量</th>
+                                            </tr>
+                                            <tr ng-repeat="goodItem in GoodItems | filter:searchstr " ng-dblclick="selectItem(goodItem)">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{goodItem.ItemCode}}</td>
+                                                <td>{{goodItem.ItemLine}}</td>
+                                                <td>{{goodItem.ItemName}}</td>
+                                                <td>{{goodItem.ItemSpecifications}}</td>
+                                                <td>{{goodItem.ItemUnit}}</td>
+                                                <td>{{goodItem.UnitWeight}}</td>
+                                            </tr>
 
-                                    </table>
+                                        </table>
+                                    </div>
                                 </div>
                             </div><!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
@@ -186,7 +188,7 @@
                                     <h4 class="modal-title">请选择人员</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrperson" />
+                                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstrperson" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
                                             <th>工号</th>
@@ -212,7 +214,7 @@
                                     <h4 class="modal-title">请选择仓库</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrwarehouse" />
+                                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstrwarehouse" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
                                             <th>仓库</th>
@@ -238,7 +240,7 @@
                                     <h4 class="modal-title">请选择货位</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
+                                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstrlocation" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
                                             <th>货位编码</th>
@@ -263,7 +265,7 @@
                                     <h4 class="modal-title">请选择货位</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstrlineway" />
+                                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstrlineway" />
                                     <table class="table table-bordered table-striped table-condensed">
                                         <tr>
                                             <th>线路编码</th>
@@ -443,20 +445,20 @@
                         $scope.info.LBContacts = response.LBContacts;
                         $scope.info.LBPhone = response.LBPhone;
                         $scope.info.LBSendAddress = response.LBSendAddress;
-                       //新建记录
+                        //新建记录
                         for (var i = 0; i < response.Record.length; i++) {
-                            var record=new Object();
+                            var record = new Object();
                             record.ItemCode = response.Record[i].ItemCode;
-                            record.ItemLine=response.Record[i].ItemLine;
-                            record.ItemName=response.Record[i].ItemName;
-                            record.ItemSpecifications=response.Record[i].ItemSpecifications;
-                            record.ItemUnit=response.Record[i].ItemUnit; 
-                            record.UnitWeight=response.Record[i].UnitWeight;
-                            record.Count=response.Record[i].Count;
-                            record.Weight=response.Record[i].Weight;
-                            record.ItemBatch=response.Record[i].ItemBatch;
-                            record.ItemLocation=response.Record[i].ItemLocation;
-                            record.ItemLocationId=response.Record[i].ItemLocationId;
+                            record.ItemLine = response.Record[i].ItemLine;
+                            record.ItemName = response.Record[i].ItemName;
+                            record.ItemSpecifications = response.Record[i].ItemSpecifications;
+                            record.ItemUnit = response.Record[i].ItemUnit;
+                            record.UnitWeight = response.Record[i].UnitWeight;
+                            record.Count = response.Record[i].Count;
+                            record.Weight = response.Record[i].Weight;
+                            record.ItemBatch = response.Record[i].ItemBatch;
+                            record.ItemLocation = response.Record[i].ItemLocation;
+                            record.ItemLocationId = response.Record[i].ItemLocationId;
                             $scope.info.Record.push(record);
                         }
                     }

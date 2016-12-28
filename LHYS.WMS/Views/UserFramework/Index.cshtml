@@ -20,7 +20,7 @@
             <h2>权限设置</h2>
             <div class="col-xs-4 table-responsive">
                 <table class="table table-bordered table-striped table-condensed">
-                    <tr><th colspan="4" style="text-align:center"><input type="text" class="form-control" placeholder="请输入过滤条件" value="" ng-model="searchStr" /></th></tr>
+                    <tr><th colspan="4" style="text-align:center"><input type="text" class="form-control input-sm" placeholder="请输入过滤条件" value="" ng-model="searchStr" /></th></tr>
                     <tr>
                         <th>编号</th>
                         <th>工号</th>
@@ -50,9 +50,9 @@
             </div>
             <div class="col-xs-4 table-responsive">
                 <h4>新增权限</h4>
-                <select class="form-control" ng-options="company.CompanyAbbr for company in companys" ng-model="selectedCompany">
+                <select class="form-control input-sm" ng-options="company.CompanyAbbr for company in companys" ng-model="selectedCompany">
                 </select>
-                <input type="text" class="form-control" name="name" value="" placeholder="请输入查找条件" ng-model="searchCompany"/>
+                <input type="text" class="form-control input-sm" name="name" value="" placeholder="请输入查找条件" ng-model="searchCompany"/>
                 <table class="table table-bordered table-striped table-condensed">
                     <tr>
                         <th>序号</th>

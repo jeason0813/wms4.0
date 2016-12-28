@@ -21,7 +21,7 @@
                 <table class="table table-bordered table-striped table-condensed">
                     <tr><th colspan="8" style="text-align:center"><h1>物料分类</h1></th></tr>
                     <tr>
-                        <th colspan="4" style="text-align:center"><input type="text" class="form-control" placeholder="请输入过滤条件" value="" ng-model="searchStr" /></th>
+                        <th colspan="4" style="text-align:center"><input type="text" class="form-control input-sm" placeholder="请输入过滤条件" value="" ng-model="searchStr" /></th>
                         <th colspan="4"><button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#editwindow" ng-click="edit()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></th>
                     </tr>
                     <tr>
@@ -65,7 +65,7 @@
                             </tr>
                             <tr>
                                 <td>名称</td>
-                                <td><input type="text" class="form-control" name="name" value="" ng-model="editItem.Name" /></td>
+                                <td><input type="text" class="form-control input-sm" name="name" value="" ng-model="editItem.Name" /></td>
                             </tr>
                             @*<tr>
                                 <td>分类</td>
@@ -77,12 +77,12 @@
                             <tr>
                                 <td>所属部门</td>
                                 <td>
-                                    <select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept"><option value=""></option></select>
+                                    <select class="form-control input-sm" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept"><option value=""></option></select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>备注</td>
-                                <td><input type="text" class="form-control" name="name" value="" ng-model="editItem.Remark" /></td>
+                                <td><input type="text" class="form-control input-sm" name="name" value="" ng-model="editItem.Remark" /></td>
                             </tr>
                         </table>
                     </div>

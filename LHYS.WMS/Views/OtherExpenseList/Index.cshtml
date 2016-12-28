@@ -30,28 +30,28 @@
                         </tr>
                         <tr>
                             <td>单据编号：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.BillCode" placeholder="自动生成" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.BillCode" placeholder="自动生成" disabled /></td>
                             <td>单据日期</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.BillDate" required /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.BillDate" required /></td>
                             <td colspan="4"></td>
                         </tr>
                         <tr>
                             <td class="tdname">公司：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.Company" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.Company" disabled /></td>
                             <td class="tdname">部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
+                            <td><select class="form-control input-sm" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select></td>
                             <td class="tdname">备注：</td>
-                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="info.Remark" /></td>
+                            <td colspan="3"><input class="form-control input-sm" type="text" name="name" ng-model="info.Remark" /></td>
                         </tr>
                         <tr>
                             <td class="tdname">制单人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.MakePerson" disabled /></td>
                             <td class="tdname">制单日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.CreateDate" disabled /></td>
                             <td class="tdname">审核人：</td>
-                            <td><input class="form-control" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.ExaminePerson" disabled /></td>
                             <td class="tdname">审核日期：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="info.ExamineDate" disabled /></td>
                         </tr>
                     </table>
                     <table class="table table-bordered table-condensed table-striped">
@@ -67,12 +67,12 @@
                         </tr>
                         <tr ng-repeat="record in info.OtherExpenseListDetail">
                             <td>{{$index+1}}</td>  @*编号*@
-                            <td><input class="form-control" type="text" ng-model="record.CostItemCode" disabled placeholder="自动获取" /></td>
-                            <td><select class="form-control" ng-options=" CostItem.Name for CostItem in CostItems" ng-model="record.CurrentCostItem" ng-click="CostItemClick($index)" ng-change="CostItemChange(record.CurrentCostItem)" required></select></td>
-                            <td><input class="form-control" type="date" ng-model="record.HappenDate" required /></td>
-                            <td><input class="form-control" type="text" ng-model="record.CostDescription" required /></td>
-                            <td><input class="form-control" type="text" ng-model="record.Amount" placeholder="整数或小数" required /></td>
-                            <td><input class="form-control" type="text" ng-model="record.Remark" /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.CostItemCode" disabled placeholder="自动获取" /></td>
+                            <td><select class="form-control input-sm" ng-options=" CostItem.Name for CostItem in CostItems" ng-model="record.CurrentCostItem" ng-click="CostItemClick($index)" ng-change="CostItemChange(record.CurrentCostItem)" required></select></td>
+                            <td><input class="form-control input-sm" type="date" ng-model="record.HappenDate" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.CostDescription" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.Amount" placeholder="整数或小数" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.Remark" /></td>
                             <td style="width:70px"><button type="button" class="btn btn-danger btn-sm" ng-click="del($index)">删除</button></td>
                         </tr>
                     </table>

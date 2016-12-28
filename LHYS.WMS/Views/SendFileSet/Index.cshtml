@@ -24,7 +24,7 @@
                             <td colspan="17" style="text-align:center;border:none"><h2>发运方档案</h2></td>
                         </tr>
                         <tr>
-                            <td style="border:none" colspan="5"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                            <td style="border:none" colspan="5"><input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
                             <td style="border:none"></td>
                             <td colspan="14" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
                         </tr>
@@ -79,39 +79,39 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <td style="width:90px">发运方名称</td>
-                                            <td colspan="3"><input class="form-control" type="text" name="name" ng-model="source.Name" required /></td>
+                                            <td colspan="3"><input class="form-control input-sm" type="text" name="name" ng-model="source.Name" required /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">联系人</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Contacts" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Contacts" required /></td>
                                             <td style="width:80px">邮编</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Emailcode"  /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Emailcode"  /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">电话</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Phone"  /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Phone"  /></td>
                                             <td style="width:80px">手机</td>
                                             <td>
-                                                <input class="form-control" type="text" name="name" ng-model="source.Tel"  />
+                                                <input class="form-control input-sm" type="text" name="name" ng-model="source.Tel"  />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">地址</td>
-                                            <td><textarea class="form-control" type="text" name="name" ng-model="source.Address" required ></textarea></td>
+                                            <td><textarea class="form-control input-sm" type="text" name="name" ng-model="source.Address" required ></textarea></td>
                                             <td>所属部门</td>
-                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
+                                            <td><select class="form-control input-sm" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">邮件</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Email" /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Email" /></td>
                                             <td style="width:80px">传真</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.Fax" /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.Fax" /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">建档人</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" placeholder="自动获取" disabled /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.CreateBy" placeholder="自动获取" disabled /></td>
                                             <td style="width:80px">建档日期</td>
-                                            <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
+                                            <td><input class="form-control input-sm" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
                                         </tr>
                                     </table>
                                     <table class="table" style="border:none">

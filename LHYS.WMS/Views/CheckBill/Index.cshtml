@@ -29,10 +29,10 @@
                         <tr>
                             <td>仓库：</td>
                             <td>
-                                <select ng-disabled="Warehousedisabled" class="form-control" ng-options="Warehouse.Name for Warehouse in Warehouses" ng-model="CurrentWarehouse" ng-change="search()"></select>
+                                <select ng-disabled="Warehousedisabled" class="form-control input-sm" ng-options="Warehouse.Name for Warehouse in Warehouses" ng-model="CurrentWarehouse" ng-change="search()"></select>
                             </td>
                             <td>在结果中筛选：</td>
-                            <td><input type="text" class="form-control" name="name" value="" placeholder="在结果中筛选" ng-model="ressearchstr" /></td>
+                            <td><input type="text" class="form-control input-sm" name="name" value="" placeholder="在结果中筛选" ng-model="ressearchstr" /></td>
                             <td>排序：</td>
                             <td>
                                 <input type="radio" id="sele1" name="name" value="ItemCode" ng-model="sort" /><label for="sele1">按品项</label>
@@ -42,10 +42,10 @@
                         </tr>
                         <tr>
                             <td>盘点单号：</td>
-                            <td><input type="text" class="form-control" name="name" value="" ng-model="info.BillCode" disabled /></td>
+                            <td><input type="text" class="form-control input-sm" name="name" value="" ng-model="info.BillCode" disabled /></td>
                             <td>所属部门：</td>
                             <td>
-                                <select class="form-control" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select>
+                                <select class="form-control input-sm" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select>
                             </td>
                         </tr>
                         <tr>
@@ -81,7 +81,7 @@
                             <td>{{record.ItemLocationId}}</td>
                             <td>{{record.ItemLocation}}</td>
                             <td>{{record.Count}}</td>
-                            <td><input type="number" class="form-control" name="name" value="" ng-model="record.ChangeCount" /></td>
+                            <td><input type="number" class="form-control input-sm" name="name" value="" ng-model="record.ChangeCount" /></td>
                         </tr>
                     </table>
                     <div style="text-align:center">

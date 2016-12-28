@@ -24,7 +24,7 @@
                             <td colspan="15" style="text-align:center;border:none"><h2>物料档案</h2></td>
                         </tr>
                         <tr>
-                            <td style="border:none" colspan="2"><input type="text" class="form-control" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
+                            <td style="border:none" colspan="2"><input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
                             <td style="border:none"></td>
                             <td colspan="12" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
                         </tr>
@@ -75,22 +75,22 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <td style="width:80px">物料编码</td>
-                                            <td><input id="gooditemid" class="form-control" type="text" name="name" ng-model="source.ItemCode" required /></td>
+                                            <td><input id="gooditemid" class="form-control input-sm" type="text" name="name" ng-model="source.ItemCode" required /></td>
                                             <td style="width:80px">物料名称</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.ItemName" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.ItemName" required /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">物料分类</td>
-                                            <td><select class="form-control" ng-model="source.ItemLine" required>
+                                            <td><select class="form-control input-sm" ng-model="source.ItemLine" required>
                                                     <option ng-repeat="x in ItemLines" value="{{x.Name}}">{{x.Name}}</option>
                                                 </select>
                                             </td>
                                             <td style="width:80px">包装规格</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.ItemSpecifications" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.ItemSpecifications" required /></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">计量单位</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.ItemUnit" required /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.ItemUnit" required /></td>
                                             <td style="width:80px">是否批次处理</td>
                                             <td>
                                                 <input type="radio" id="tp1" name="name" value="是" ng-model="source.IsBatch" required /><label for="tp1">是</label>
@@ -99,15 +99,15 @@
                                         </tr>
                                         <tr>
                                             <td>单位重量(KG)</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.UnitWeight" /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.UnitWeight" /></td>
                                             <td>所属部门</td>
-                                            <td><select class="form-control" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
+                                            <td><select class="form-control input-sm" ng-options=" companyDept.DeptName  for companyDept in companyDepts" ng-model="currentDept" required><option value=""></option></select></td>
                                         </tr>
                                         <tr>
                                             <td style="width:80px">建档人</td>
-                                            <td><input class="form-control" type="text" name="name" ng-model="source.CreateBy" placeholder="自动获取" disabled /></td>
+                                            <td><input class="form-control input-sm" type="text" name="name" ng-model="source.CreateBy" placeholder="自动获取" disabled /></td>
                                             <td style="width:80px">建档日期</td>
-                                            <td><input class="form-control" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
+                                            <td><input class="form-control input-sm" type="date" name="name" ng-model="source.CreateDate" disabled /></td>
                                         </tr>
                                     </table>
                                     <table class="table" style="border:none">
@@ -273,7 +273,7 @@
             $http.post("/UserFramework/GetOnesCompanyAndDept").success(function (response) {
                 $scope.companyDepts = response;
             });
-            //获取产品线
+            //获取物料编码
             $http.post("/ItemLine/GetData").success(function (response) {
                 $scope.ItemLines = response;
             });

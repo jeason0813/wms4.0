@@ -27,11 +27,11 @@
                     <tr>
                         <td>仓库：</td>
                         <td>
-                            <select class="form-control" ng-options=" Warehouse.Id as Warehouse.Name for Warehouse in Warehouses" ng-model="WarehouseId"></select>
+                            <select class="form-control input-sm" ng-options=" Warehouse.Id as Warehouse.Name for Warehouse in Warehouses" ng-model="WarehouseId"></select>
                         </td>
                         <td><input type="button" name="name" value="查询" ng-click="search()" class="btn btn-success" /></td>
                         <td>在结果中筛选：</td>
-                        <td><input type="text" class="form-control" name="name" value="" placeholder="在结果中筛选" ng-model="ressearchstr" /></td>
+                        <td><input type="text" class="form-control input-sm" name="name" value="" placeholder="在结果中筛选" ng-model="ressearchstr" /></td>
                         <td>排序：</td>
                         <td>
                             <input type="radio" id="sele1" name="name" value="ItemCode" ng-model="sort" /><label for="sele1">按品项</label>
@@ -45,7 +45,7 @@
                     <tr>
                         <th>编号</th>
                         <th>物料编码</th>
-                        <th>产品线</th>
+                        <th>物料分类</th>
                         <th>产品名称</th>
                         <th>包装规格</th>
                         <th>单位</th>

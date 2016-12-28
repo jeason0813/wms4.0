@@ -30,19 +30,19 @@
                         </tr>
                         <tr>
                             <td>开始时间：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="timestart" /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="timestart" /></td>
                             <td>结束时间：</td>
-                            <td><input class="form-control" type="date" name="name" ng-model="timeend" /></td>
+                            <td><input class="form-control input-sm" type="date" name="name" ng-model="timeend" /></td>
                             <td>单据状态：</td>
                             <td>
                                 <input type="radio" name="name" ng-model="BillState" value="1" id="save" /><label for="save">已保存</label>
                                 <input type="radio" name="name" ng-model="BillState" value="2" id="examine" /><label for="examine">已审核</label>
                             </td>
                             <td>部门：</td>
-                            <td><select class="form-control" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId"></select></td>
+                            <td><select class="form-control input-sm" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId"></select></td>
                             @*<td>仓库：</td>
                             <td>
-                                <select class="form-control" ng-options="Warehouse.Id as Warehouse.Name for Warehouse in Warehouses" ng-model="WarehouseId"></select>
+                                <select class="form-control input-sm" ng-options="Warehouse.Id as Warehouse.Name for Warehouse in Warehouses" ng-model="WarehouseId"></select>
                             </td>*@
                             <td>
                                 <button type="button" class="btn btn-success btn-md" ng-click="searchBill(1)">&nbsp;&nbsp;&nbsp;查&nbsp;&nbsp;&nbsp;询&nbsp;&nbsp;&nbsp;</button>
