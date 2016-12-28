@@ -95,6 +95,7 @@
                         <td>{{record.ItemBatch}}</td>
                         <td>{{record.ItemLocation}}</td>
                     </tr>
+                    <tr><td><h6>合计：</h6></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span ng-bind="getTotalCount()"></span></td><td><span ng-bind="getTotalWeight()"></span></td><td></td><td></td></tr>
                 </table>
                 <br />
                 <div style="text-align:center" class="PrintOtherOutput">
@@ -135,6 +136,28 @@
                 //绑定数据源
                 $scope.info = response;
             });
+            //计算总数量
+            $scope.getTotalCount = function () {
+                if ($scope.info == undefined) return;
+                var res = 0;
+                for (var i = 0; i < $scope.info.Record.length; i++) {
+                    if ($scope.info.Record[i].Count != null && $scope.info.Record[i].Count != undefined) {
+                        res += $scope.info.Record[i].Count;
+                    }
+                }
+                return res.toFixed(2);
+            }
+            //计算总重量
+            $scope.getTotalWeight = function () {
+                if ($scope.info == undefined) return;
+                var res = 0;
+                for (var i = 0; i < $scope.info.Record.length; i++) {
+                    if ($scope.info.Record[i].Weight != null && $scope.info.Record[i].Weight != undefined) {
+                        res += parseFloat($scope.info.Record[i].Weight);
+                    }
+                }
+                return res.toFixed(2);
+            }
             //---------------------------------------------------------------------------
             //审核（examine）
             $scope.submit = function () {
