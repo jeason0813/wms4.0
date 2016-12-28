@@ -632,9 +632,6 @@ namespace BLL
                             }
                         }
                         break;
-
-
-
                     case 2://装卸费成本
 
                         var list2 = CurrentDBSession.CostUnitListDetailDal.LoadEntities(a => a.RecordType == 1 && a.ExamineDate != null && a.CostItemCode.Trim() == "6401080105" && a.CostItemName.Trim() == "人工成本-装卸费");

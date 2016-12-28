@@ -18,7 +18,7 @@
             width: 80px;
         }
     </style>
-    <title>交货单</title>
+    <title>入库单</title>
 </head>
 <body>
     <div class="container-fluid" ng-app="myApp" ng-controller="recordController">
@@ -101,7 +101,7 @@
                                 <th>删除</th>
                             </tr>
                             <tr ng-repeat="record in info.Record">
-                                <td style="width:10px">{{$index+1}}</td>  @*编号*@
+                                <td style="width:20px">{{$index+1}}</td>  @*编号*@
                                 <td><input data-toggle="modal" data-target="#itemchoose" class="form-control input-sm" type="text"  ng-model="record.ItemCode" ng-click="loadItem($index)" required /></td>
                                 <td><input class="form-control input-sm" type="text" ng-model="record.ItemLine" /></td>
                                 <td><input class="form-control input-sm" type="text" ng-model="record.ItemName" /></td>
@@ -114,6 +114,7 @@
                                 <td><input data-toggle="modal" data-target="#locationchoose" class="form-control input-sm" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)" required /></td>
                                 <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>
                             </tr>
+                            <tr><td><h6>合计：</h6></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span ng-bind="getTotalCount()"></span></td><td><span ng-bind="getTotalWeight()"></span></td><td></td><td></td><td></td></tr>
                         </table>
                         <div>
                             <button type="button" class="btn btn-info btn-sm" ng-click="add()" style="float:right">添&nbsp;加</button>
@@ -330,6 +331,26 @@
                     }
                 });
             });
+            //计算总数量
+            $scope.getTotalCount = function () {
+                var res = 0;
+                for (var i = 0; i <$scope.info.Record.length; i++) {
+                    if ($scope.info.Record[i].Count != null) {
+                        res += $scope.info.Record[i].Count;
+                    }
+                }
+                return res;
+            }
+            //计算总重量
+            $scope.getTotalWeight = function () {
+                var res = 0;
+                for (var i = 0; i < $scope.info.Record.length; i++) {
+                    if ($scope.info.Record[i].Weight != null) {
+                        res += parseFloat($scope.info.Record[i].Weight);
+                    }
+                }
+                return res;
+            }
 
             //添加行
             $scope.add = function () {
