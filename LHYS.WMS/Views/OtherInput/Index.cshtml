@@ -75,16 +75,16 @@
                         </tr>
                         <tr ng-repeat="record in info.Record">
                             <td>{{$index+1}}</td>  @*编号*@
-                            <td><input data-toggle="modal" data-target="#itemchoose" class="form-control input-sm" type="text" style="width:120px" ng-model="record.ItemCode" ng-click="loadItem($index)" required /></td>
-                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemLine" style="width:120px" /></td>
-                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemName" style="width:80px" /></td>
-                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemSpecifications " style="width:80px" /></td>
-                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemUnit" style="width:80px" /></td>
-                            <td><input class="form-control input-sm" type="text" ng-model="record.UnitWeight" style="width:80px" ng-change="changeCount(record)" disabled /></td>
-                            <td><input class="form-control input-sm" type="number" ng-model="record.Count" style="width:80px" ng-change="changeCount(record)" required /></td>
-                            <td><input class="form-control input-sm" type="text" ng-model="record.Weight" style="width:80px" /></td>
+                            <td><input data-toggle="modal" data-target="#itemchoose" class="form-control input-sm" type="text" ng-model="record.ItemCode" ng-click="loadItem($index)" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemLine"  /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemName"  /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemSpecifications "  /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.ItemUnit"  /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.UnitWeight" ng-change="changeCount(record)" disabled /></td>
+                            <td><input class="form-control input-sm" type="number" ng-model="record.Count"  ng-change="changeCount(record)" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.Weight"  /></td>
                             <td><input class="form-control input-sm" type="text" ng-model="record.ItemBatch" ng-disabled="record.IsBatch=='否'" required /></td>
-                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control input-sm" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)" style="width:120px" required /></td>
+                            <td><input data-toggle="modal" data-target="#locationchoose" class="form-control input-sm" type="text" ng-model="record.ItemLocation" ng-click="clickLocation($index)"  required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index)">删除</button></td>
                         </tr>
                     </table>
