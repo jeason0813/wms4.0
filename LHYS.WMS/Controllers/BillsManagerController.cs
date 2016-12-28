@@ -38,7 +38,7 @@ namespace LHYS.WMS.Controllers
                     billTypeName = "入库单";
                     break;
                 case "BackInput":
-                    billTypeName = "退仓单";
+                    billTypeName = "退库单";
                     break;
                 case "GiveBill":
                     billTypeName = "交货单";
