@@ -185,6 +185,7 @@
                 $scope.source.Department = $scope.currentDept.DeptName;
                 $scope.source.CompanyId = $scope.currentDept.CmopanyCode;
                 $scope.source.Company = $scope.currentDept.CompanyAbbr;
+                $scope.source.Location = null;
                 $scope.currentDept = null;
                 $http.post("/Warehouse/SaveData", {}, { params: { "Warehouse": $scope.source, "savetype": $scope.state } }).success(function (response) {
                     if (response == "保存成功！") {

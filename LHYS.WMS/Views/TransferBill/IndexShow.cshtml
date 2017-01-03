@@ -141,11 +141,11 @@
         }
         //主程序
         var myApp = angular.module('myApp', []);
-        //数据控制器
+        //数据控制器  
         myApp.controller('recordController', function ($scope, $http) {
-            //设置按钮权限
+            @*//设置按钮权限
             @{if (Session["btnPower"] != null) { Session["btnPower"] = "[]"; } }
-            $scope.btnPower = @Session["btnPower"];
+            $scope.btnPower = @Session["btnPower"];*@
             //请求表单数据
             $http.post("/TransferBill/GetData", {}, { params: { "TransferBillId": "@ViewBag.TransferBillId" } }).success(function (response) {
                 //修改时间格式
