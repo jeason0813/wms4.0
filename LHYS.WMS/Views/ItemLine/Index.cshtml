@@ -28,9 +28,9 @@
                         <th>编号</th>
                         <th>名称</th>
                         @*<th>分类</th>*@
-                        <th>创建公司</th>
-                        <th>创建部门</th>
-                        <th>备注</th>
+                        <th>所属公司</th>
+                        <th>所属部门</th>
+                        @*<th>备注</th>*@
                         <th>编辑</th>
                         <th>删除</th>
                     </tr>
@@ -40,9 +40,9 @@
                         @*<td>{{item.ItemLineType}}</td>*@
                         <td>{{item.Company}}</td>
                         <td>{{item.Department}}</td>
-                        <td>{{item.Remark}}</td>
-                        <td><button type="button" class="btn btn-info btn-xs" ng-click="edit(item)" data-toggle="modal" data-target="#editwindow">编辑</button></td>
-                        <td><button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deletecom" ng-click="del(item)">删除</button></td>
+                        @*<td>{{item.Remark}}</td>*@
+                        <td><button type="button" class="btn btn-info btn-xs" ng-click="edit(item)" data-toggle="modal" data-target="#editwindow" >&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button></td>
+                        <td><button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deletecom" ng-click="del(item)" >&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button></td>
 
                 </table>
             </div>

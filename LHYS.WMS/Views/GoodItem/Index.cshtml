@@ -19,50 +19,47 @@
         <div class="row">
             <form ng-submit="btnSave()">
                 <div class="col-xs-11 table-responsive">
-                    <table class="table table-bordered table-condensed">
-                        <tr>
-                            <td colspan="15" style="text-align:center;border:none"><h2>物料档案</h2></td>
-                        </tr>
-                        <tr>
-                            <td style="border:none" colspan="2"><input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" /></td>
-                            <td style="border:none"></td>
-                            <td colspan="12" style="border:none;text-align:right"><button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button></td>
-                        </tr>
-                        <tr>
-                            <th class="th">物料编码</th>
-                            <th class="th">物料名称</th>
-                            <th class="th">物料分类</th>
-                            <th class="th">包装规格</th>
-                            <th class="th">计量单位</th>
-                            <th>单位重量(KG)</th>
-                            <th style="width:100px;">是否批次管理</th>
-                            <th class="th">部门</th>
-                            @*<th class="th">部门ID</th>
-                            <th class="th">公司</th>
-                            <th class="th">公司ID</th>*@
-                            <th class="th">建档人</th>
-                            <th class="th">建档日期</th>
-                            <th>编辑</th>
-                            <th>删除</th>
-                        </tr>
-                        <tr ng-repeat="record in info | filter:searchstr">
-                            <td>{{record.ItemCode}}</td>
-                            <td>{{record.ItemName}}</td>
-                            <td>{{record.ItemLine}}</td>
-                            <td>{{record.ItemSpecifications}}</td>
-                            <td>{{record.ItemUnit}}</td>
-                            <td>{{record.UnitWeight}}</td>
-                            <td>{{record.IsBatch}}</td>
-                            <td>{{record.Department}}</td>
-                            @*<td>{{record.DepartmentId}}</td>
-                            <td>{{record.Company}}</td>
-                            <td>{{record.CompanyId}}</td>*@
-                            <td>{{record.CreateBy}}</td>
-                            <td>{{record.CreateDate}}</td>
-                            <td style="width:70px"><button type="button" class="btn btn-info btn-xs" ng-click="btnEdit(record)">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button></td>
-                            <td style="width:70px"><button type="button" class="btn btn-danger btn-xs" ng-click="btnDelete(record)">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button></td>
-                        </tr>
-                    </table>
+                    <div style="text-align:center"><h2>物料档案</h2></div>
+                    <div class="col-xs-8"><input type="text" class="form-control input-sm " placeholder="请输入查询条件" value="" ng-model="searchstr" /></div>
+                    <button type="button" class="btn btn-success btn-md" ng-click="btnAdd()">&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;</button>
+                    <div style="overflow:auto">
+                        <table class="table table-bordered table-condensed">
+                            <tr>
+                                <th class="th">物料编码</th>
+                                <th class="th">物料名称</th>
+                                <th class="th">物料分类</th>
+                                <th class="th">包装规格</th>
+                                <th class="th">计量单位</th>
+                                <th>单位重量(KG)</th>
+                                <th style="width:100px;">是否批次管理</th>
+                                <th class="th">部门</th>
+                                @*<th class="th">部门ID</th>
+                                    <th class="th">公司</th>
+                                    <th class="th">公司ID</th>*@
+                                <th class="th">建档人</th>
+                                <th class="th">建档日期</th>
+                                <th>编辑</th>
+                                <th>删除</th>
+                            </tr>
+                            <tr ng-repeat="record in info | filter:searchstr">
+                                <td>{{record.ItemCode}}</td>
+                                <td>{{record.ItemName}}</td>
+                                <td>{{record.ItemLine}}</td>
+                                <td>{{record.ItemSpecifications}}</td>
+                                <td>{{record.ItemUnit}}</td>
+                                <td>{{record.UnitWeight}}</td>
+                                <td>{{record.IsBatch}}</td>
+                                <td>{{record.Department}}</td>
+                                @*<td>{{record.DepartmentId}}</td>
+                                    <td>{{record.Company}}</td>
+                                    <td>{{record.CompanyId}}</td>*@
+                                <td>{{record.CreateBy}}</td>
+                                <td>{{record.CreateDate}}</td>
+                                <td style="width:70px"><button type="button" class="btn btn-info btn-xs" ng-click="btnEdit(record)">&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;&nbsp;</button></td>
+                                <td style="width:70px"><button type="button" class="btn btn-danger btn-xs" ng-click="btnDelete(record)">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button></td>
+                            </tr>
+                        </table>
+                    </div>
                     @*-------------------------------------物料档案模态框-----------------------------------------*@
                     <div class="modal fade" id="personchoose">
                         <div class="modal-dialog">
@@ -81,7 +78,8 @@
                                         </tr>
                                         <tr>
                                             <td style="width:80px">物料分类</td>
-                                            <td><select class="form-control input-sm" ng-model="source.ItemLine" required>
+                                            <td>
+                                                <select class="form-control input-sm" ng-model="source.ItemLine" required>
                                                     <option ng-repeat="x in ItemLines" value="{{x.Name}}">{{x.Name}}</option>
                                                 </select>
                                             </td>
@@ -140,8 +138,8 @@
                     </div><!-- /.modal -->
                     @*-------------------------------------编辑模态框end-----------------------------------------*@
                 </div>
-                </form>
-</div>
+            </form>
+        </div>
     </div>
     <script>
         //日期格式
@@ -182,7 +180,7 @@
                     //绑定数据源
                     for (var i = 0; i < response.length; i++) {
                         response[i].CreateDate = jsonDateFormat(response[i].CreateDate);
-                    }     
+                    }
                     $scope.info = response;
                 });
             }
