@@ -105,11 +105,11 @@
                         <th>产品名称</th>
                         <th>包装规格</th>
                         <th>单位</th>
-                        <th>单位重量</th>
+                        <th>单位重量(KG)</th>
                         <th>数量</th>
                         <!--新-->
-                        <th>单位重量</th>
-                        <th>重量</th>
+                        <th>单位重量(KG)</th>
+                        <th>重量(KG)</th>
                         <th>批次</th>
                         <th>货位</th>
                     </tr>
@@ -137,7 +137,7 @@
                     <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                     <button type="button" class="btn btn-info" ng-click="PrintBackInput()">&nbsp;&nbsp;&nbsp;打&nbsp;&nbsp;&nbsp;印&nbsp;&nbsp;&nbsp;</button>
                     <button id="print" class="btn btn-info btn-md " ng-click="exportExcel()">&nbsp;&nbsp;&nbsp;导&nbsp;&nbsp;&nbsp;出&nbsp;&nbsp;&nbsp;</button>
-
+                    <button type="button" class="print btn btn-danger btn-md " ng-click="deleteBill()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button>
                 </div>
             </div>
         </div>
@@ -221,7 +221,6 @@
                     }
 
                 })
-
             }
             //打印
             $scope.PrintBackInput = function () {
@@ -230,6 +229,16 @@
             //导出excel
             $scope.exportExcel = function () {
                 window.open("/ExportBill/ExprotExcel?billType=backInput&billId=@ViewBag.BackInputId");
+            }
+            //删除单据
+            $scope.deleteBill = function () {
+                if ($scope.info.BillState != 1) {
+                    alert('只有已保存状态的单据才可以删除！');
+                    return;
+                }
+                $http.post('/BackInput/DeleteBill', { BillId: '@ViewBag.BackInputId' }).success(function (response) {
+                    alert(response);
+                });
             }
         })
     </script>

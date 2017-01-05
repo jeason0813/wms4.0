@@ -77,5 +77,6 @@ namespace LHYS.WMS.Controllers
             }
             return Content(res?record[0].MainTableId.ToString():"保存失败！");
         }
+        
     }
 }

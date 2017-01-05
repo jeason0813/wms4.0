@@ -64,6 +64,35 @@ namespace BLL
             return CurrentDBSession.SaveChanges() ? bill.Id.ToString() : "no";
         }
         /// <summary>
+        /// 删除单据
+        /// </summary>
+        /// <param name="BillId"></param>
+        /// <returns></returns>
+        public string DeleteBill(Guid BillId)
+        {
+            var bill = CurrentDal.LoadEntities(a => a.Id == BillId).FirstOrDefault();
+            if (bill == null)
+            {
+                return "单据不存在！";
+            }
+            if (bill.BillState != 1)
+            {
+                return "只有保存状态才可以删除！";
+            }
+            else
+            {
+                //清除交货单中任务单号字段  
+               var list= CurrentDBSession.GiveBillDal.LoadEntities(a => a.LBTaskBillCode == bill.BillCode);
+                foreach (var item in list)
+                {
+                    item.LBTaskBillCode = null;
+                }
+                //删除主表
+                CurrentDal.DeleteEntity(bill);
+                return CurrentDBSession.SaveChanges() ? "删除成功！" : "删除失败！";
+            }
+        }
+        /// <summary>
         /// 生成单号
         /// </summary>
         /// <returns></returns>

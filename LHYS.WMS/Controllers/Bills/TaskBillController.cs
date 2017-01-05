@@ -128,6 +128,15 @@ namespace LHYS.WMS.Controllers
             }
             return Content(res);
         }
+        /// <summary>
+        /// 删除订单
+        /// </summary>
+        /// <param name="billCode">单号</param>
+        /// <returns></returns>
+        public ActionResult DeleteBill(Guid BillId)
+        {
+            return Content(TaskBillService.DeleteBill(BillId));
+        }
 
 
     }

@@ -15,6 +15,12 @@ namespace IBLL
         /// <returns></returns>
         string SaveData(DIYBill bill, List<Record> recordlist1, List<Record> recordlist2);
         /// <summary>
+        /// 删除表单
+        /// </summary>
+        /// <param name="BillId"></param>
+        /// <returns></returns>
+        string DeleteBill(Guid BillId);
+        /// <summary>
         /// 审核表单数据
         /// </summary>
         /// <param name="DIYBillId"></param>

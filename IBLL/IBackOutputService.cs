@@ -15,6 +15,12 @@ namespace IBLL
         /// <returns></returns>
         string SaveData(BackOutput bill);
         /// <summary>
+        /// 删除表单
+        /// </summary>
+        /// <param name="BillId"></param>
+        /// <returns></returns>
+        string DeleteBill(Guid BillId);
+        /// <summary>
         /// 审核表单数据
         /// </summary>
         /// <param name="OtherOutputId"></param>

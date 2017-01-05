@@ -60,6 +60,35 @@ namespace BLL
             //保存成功返回单据Id
             return CurrentDBSession.SaveChanges() ? CheckBill.Id.ToString() : "no";
         }
+        /// <summary>
+        /// 删除单据
+        /// </summary>
+        /// <param name="BillId"></param>
+        /// <returns></returns>
+        public string DeleteBill(Guid BillId)
+        {
+            var bill = CurrentDal.LoadEntities(a => a.Id == BillId).FirstOrDefault();
+            if (bill == null)
+            {
+                return "单据不存在！";
+            }
+            if (bill.BillState != 1)
+            {
+                return "只有保存状态才可以删除！";
+            }
+            else
+            {
+                //删除子表
+                var list = CurrentDBSession.RecordDal.LoadEntities(a => a.MainTableId == BillId);
+                foreach (var item in list)
+                {
+                    CurrentDBSession.RecordDal.DeleteEntity(item);
+                }
+                //删除主表
+                CurrentDal.DeleteEntity(bill);
+                return CurrentDBSession.SaveChanges() ? "删除成功！" : "删除失败！";
+            }
+        }
 
         public string Examine(Guid CheckBillId, string userName)
         {

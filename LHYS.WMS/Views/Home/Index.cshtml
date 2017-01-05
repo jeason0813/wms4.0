@@ -70,8 +70,13 @@
         //供子窗体调用新增页签的方法
         function sonAddTab(iframeid, name, url) {
             addTab($('#contentFather'), $('#tabs'), iframeid, name, url);
-        }
-
+        };
+        //供子窗体调用的关闭当前页方法
+        function closeCurrentPage() {
+            //查找当前iframeid
+            var iframeid = $('#tabs').find('[class="btn btn-success btn-sm tab"]').attr('iframeid');
+            closeTab($('#contentFather'), $('#tabs'), iframeid);
+        };
         //点击菜单相当于点击前面符号 也能收缩或展开菜单
         function change_tree() {
             if ($(event.target).children(".glyphicon").hasClass("glyphicon-plus") || $(event.target).children(".glyphicon").hasClass("glyphicon-minus")) {

@@ -60,7 +60,7 @@ namespace LHYS.WMS.Controllers
         {
             //参数对象可以对应接受数据
             TransferBill.MakePerson = Session["UserName"].ToString();//保存制单人
-            string result= TransferBillService.SaveData(TransferBill);//保存数据
+            string result = TransferBillService.SaveData(TransferBill);//保存数据
             return Content(result.ToString());
         }
 
@@ -68,15 +68,17 @@ namespace LHYS.WMS.Controllers
         /// 审核表单
         /// </summary>
         /// <returns></returns>
-        public ActionResult Examine() {
+        public ActionResult Examine()
+        {
             string res = "";
             string transferBillId = Request.Params["TransferBillId"];
             if (string.IsNullOrEmpty(transferBillId))
             {
                 res = "参数错误";
             }
-            else {
-               res= TransferBillService.Examine(Guid.Parse(transferBillId),Session["UserName"].ToString())?"审核成功":"审核失败";
+            else
+            {
+                res = TransferBillService.Examine(Guid.Parse(transferBillId), Session["UserName"].ToString()) ? "审核成功" : "审核失败";
             }
             return Content(res);
         }
@@ -99,6 +101,15 @@ namespace LHYS.WMS.Controllers
             }
             return Content(res);
 
+        }
+        /// <summary>
+        /// 删除订单
+        /// </summary>
+        /// <param name="billCode">单号</param>
+        /// <returns></returns>
+        public ActionResult DeleteBill(Guid BillId)
+        {
+            return Content(TransferBillService.DeleteBill(BillId));
         }
     }
 }

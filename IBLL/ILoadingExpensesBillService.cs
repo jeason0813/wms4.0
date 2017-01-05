@@ -20,6 +20,12 @@ namespace IBLL
         /// <returns></returns>
         string SaveData(LoadingExpensesBill bill,int billType);
         /// <summary>
+        /// 删除表单
+        /// </summary>
+        /// <param name="BillId"></param>
+        /// <returns></returns>
+        string DeleteBill(Guid BillId);
+        /// <summary>
         /// 初审单数据
         /// </summary>
         /// <param name="LoadingExpensesBillId"></param>

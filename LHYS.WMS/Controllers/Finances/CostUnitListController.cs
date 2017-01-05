@@ -133,6 +133,16 @@ namespace LHYS.WMS.Controllers
         }
 
         /// <summary>
+        /// 删除订单
+        /// </summary>
+        /// <param name="billCode">单号</param>
+        /// <returns></returns>
+        public ActionResult DeleteBill(Guid BillId)
+        {
+            return Content(CostUnitListService.DeleteBill(BillId));
+        }
+
+        /// <summary>
         /// 审核表单
         /// </summary>
         /// <returns></returns>

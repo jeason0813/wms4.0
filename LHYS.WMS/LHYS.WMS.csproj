@@ -1233,7 +1233,6 @@
     <Content Include="Scripts\angularJs\angular-touch.min.js.map" />
     <Content Include="Scripts\angularJs\angular.min.js.map" />
     <Content Include="Content\resources\Thumbs.db" />
-    <Content Include="Index.cshtml" />
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1279,7 +1278,6 @@
     <Content Include="Views\BackInput\IndexShow.cshtml" />
     <Content Include="Views\BackOutput\Index.cshtml" />
     <Content Include="Views\BackOutput\IndexShow.cshtml" />
-    <Content Include="Views\BillsManager\Index.cshtml" />
     <Content Include="Views\BusinessType\Index.cshtml" />
     <Content Include="Views\CheckBill\Index.cshtml" />
     <Content Include="Views\CheckBill\IndexShow.cshtml" />
@@ -1333,6 +1331,7 @@
     <Content Include="Template\退货单示例.xls" />
     <Content Include="Views\CostUnitList\QueryCostUnitList.cshtml" />
     <Content Include="Views\InOutRecord\Index.cshtml" />
+    <Content Include="Views\BillsManager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
