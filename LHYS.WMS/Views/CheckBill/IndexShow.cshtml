@@ -124,6 +124,7 @@
                         <button type="button" class="btn btn-info btn-md" ng-click="examine()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;核&nbsp;&nbsp;&nbsp;</button>
                         <button type="button" class="btn btn-info btn-md" ng-click="giveupexamine()" ng-show="info.BillState==2">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                         &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info btn-md" ng-click="PrintCheckBill()">打 　　印</button>
+                        <button type="button" class="print btn btn-danger btn-md " ng-click="deleteBill()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button>
                     </div>
                 </div>
             </form>
@@ -153,7 +154,7 @@
             //如果有单号 获取单据内容
             $http.post("/CheckBill/GetData", {}, { params: { "CheckBillId": "@ViewBag.CheckBillId" } }).success(function (response) {
                 response.CreateDate = jsonDateFormat(response.CreateDate);
-                response.ExamineDate= jsonDateFormat(response.ExamineDate);
+                response.ExamineDate = jsonDateFormat(response.ExamineDate);
                 //绑定数据源
                 $scope.info = response;
                 $scope.Records = $scope.info.CheckDetail;//子表数据
@@ -186,6 +187,20 @@
             }
             //打印盘点单
             $scope.PrintCheckBill = function () { setTimeout(window.print(), 200) };
+            //删除单据
+            $scope.deleteBill = function () {
+                if ($scope.info.BillState != 1) {
+                    alert('只有已保存状态的单据才可以删除！');
+                    return;
+                }
+                $http.post('/CheckBill/DeleteBill', { BillId: '@ViewBag.CheckBillId' }).success(function (response) {
+                    alert(response);
+                    if (response == '删除成功！') {
+                        window.parent.window.parent.closeCurrentPage();//关闭当前页
+                    }
+
+                });
+            }
         });
     </script>
 </body>

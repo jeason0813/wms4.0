@@ -230,14 +230,19 @@
             $scope.exportExcel = function () {
                 window.open("/ExportBill/ExprotExcel?billType=backInput&billId=@ViewBag.BackInputId");
             }
-            //删除单据
-            $scope.deleteBill = function () {
+           //删除单据
+            $scope.deleteBill= function () {
                 if ($scope.info.BillState != 1) {
                     alert('只有已保存状态的单据才可以删除！');
                     return;
                 }
                 $http.post('/BackInput/DeleteBill', { BillId: '@ViewBag.BackInputId' }).success(function (response) {
                     alert(response);
+                    if (response == '删除成功！')
+                    {
+                        window.parent.window.parent.closeCurrentPage();//关闭当前页
+                    }
+
                 });
             }
         })

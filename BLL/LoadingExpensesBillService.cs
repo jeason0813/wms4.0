@@ -114,10 +114,10 @@ namespace BLL
             else
             {
                 //删除子表
-                var list = CurrentDBSession.RecordDal.LoadEntities(a => a.MainTableId == BillId);
+                var list = CurrentDBSession.LoadingAndLaborCostDetailDal.LoadEntities(a => a.MainTableId == BillId);
                 foreach (var item in list)
                 {
-                    CurrentDBSession.RecordDal.DeleteEntity(item);
+                    CurrentDBSession.LoadingAndLaborCostDetailDal.DeleteEntity(item);
                 }
                 //删除主表
                 CurrentDal.DeleteEntity(bill);

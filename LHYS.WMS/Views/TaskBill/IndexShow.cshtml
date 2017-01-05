@@ -87,6 +87,7 @@
                             <button type="button" class="btn btn-success btn-md" ng-show="info.BillState==2" ng-click="giveupexamine()">&nbsp;&nbsp;&nbsp;弃&nbsp;&nbsp;&nbsp;审&nbsp;&nbsp;&nbsp;</button>
                             <!--打印-->
                             <button type="button" class="btn btn-info btn-md" ng-click="PrintTaskBill()">打　　印</button>
+                            <button type="button" class="print btn btn-danger btn-md " ng-click="deleteBill()" ng-show="info.BillState==1">&nbsp;&nbsp;&nbsp;删&nbsp;&nbsp;&nbsp;除&nbsp;&nbsp;&nbsp;</button>
                         </div>
                     </div>
                 </div>
@@ -165,7 +166,21 @@
                 })
             }
             //打印任务单
-            $scope.PrintTaskBill = function () { setTimeout(window.print(),200) };
+            $scope.PrintTaskBill = function () { setTimeout(window.print(), 200) };
+            //删除单据
+            $scope.deleteBill = function () {
+                if ($scope.info.BillState != 1) {
+                    alert('只有已保存状态的单据才可以删除！');
+                    return;
+                }
+                $http.post('/TaskBill/DeleteBill', { BillId: '@ViewBag.TaskBillId' }).success(function (response) {
+                    alert(response);
+                    if (response == '删除成功！') {
+                        window.parent.window.parent.closeCurrentPage();//关闭当前页
+                    }
+
+                });
+            }
         })
     </script>
 </body>
