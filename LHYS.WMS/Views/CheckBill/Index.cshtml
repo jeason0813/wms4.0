@@ -139,11 +139,28 @@
                                     $scope.currentOutPutType = $scope.InOutTypes[i];
                                 }
                             }
+                        } else {
+                            //默认出入库类型
+                            //出
+                            for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                                if ($scope.InOutTypes[i].Id == 22) {
+                                    $scope.currentOutPutType = $scope.InOutTypes[i];
+                                    $scope.info.OutputType = $scope.InOutTypes[i].Name;
+                                    $scope.info.OutputTypeId = $scope.InOutTypes[i].Id;
+                                }
+                            }
+                            //入
+                            for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                                if ($scope.InOutTypes[i].Id == 16) {
+                                    $scope.currentInPutType = $scope.InOutTypes[i];
+                                    $scope.info.InputType = $scope.InOutTypes[i].Name;
+                                    $scope.info.InputTypeId = $scope.InOutTypes[i].Id;
+                                }
+                            }
                         }
                     });
                 });
             });
-
             //选择了仓库  保存数据   加载库存信息
             $scope.search = function () {
                 if ($scope.CurrentWarehouse == undefined) {

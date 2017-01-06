@@ -273,7 +273,7 @@
                 $http.post("/BackInput/GetData", {}, { params: { "BackInputId": "@ViewBag.BackInputId" } }).success(function (response) {
                     //绑定数据源
                     $scope.info = response;
-                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
+                    if (response.Id != '00000000-0000-0000-0000-000000000000') //如果不是新表单
                     {
                         //修改时间格式
                         $scope.info.LBBillDate = jsonDateFormat($scope.info.LBBillDate);
@@ -304,6 +304,18 @@
                         for (var i = 0; i < $scope.InOutTypes.length; i++) {
                             if ($scope.InOutTypes[i].Id == $scope.info.OutputTypeId) {
                                 $scope.currentInOutType = $scope.InOutTypes[i];
+                            }
+                        }
+                    } else {
+                        //赋当前时间为默认
+                        $scope.info.LBBillDate = new Date();
+                        $scope.info.CreateDate = new Date();
+                        //给出入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 21) {
+                                $scope.currentInOutType = $scope.InOutTypes[i];
+                                $scope.info.OutputType = $scope.InOutTypes[i].Name;
+                                $scope.info.OutputTypeId = $scope.InOutTypes[i].Id;
                             }
                         }
                     }

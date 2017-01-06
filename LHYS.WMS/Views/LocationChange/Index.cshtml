@@ -280,6 +280,26 @@
                                 $scope.currentOutPutType = $scope.InOutTypes[i];
                             }
                         }
+                    } else {
+                        //给时间赋默认值
+                        $scope.info.CreateDate = new Date();
+                        //给出入库类型赋值
+                        //出
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 24) {
+                                $scope.currentOutPutType = $scope.InOutTypes[i];
+                                $scope.info.OutputType = $scope.InOutTypes[i].Name;
+                                $scope.info.OutputTypeId = $scope.InOutTypes[i].Id;
+                            }
+                        }
+                        //入
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 18) {
+                                $scope.currentInPutType = $scope.InOutTypes[i];
+                                $scope.info.InputType = $scope.InOutTypes[i].Name;
+                                $scope.info.InputTypeId = $scope.InOutTypes[i].Id;
+                            }
+                        }
                     }
                 });
             });

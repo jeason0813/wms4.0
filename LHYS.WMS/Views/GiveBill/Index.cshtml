@@ -333,6 +333,9 @@
                             }
                         }
                     } else {
+                        //赋当前时间为默认
+                        $scope.info.LBBillDate = new Date();
+                        $scope.info.CreateDate = new Date();
                         //空表单默认值
                         $scope.info.LoadGoodsType = "武汉-配送客户出库装货";
                         //给出入库类型赋值

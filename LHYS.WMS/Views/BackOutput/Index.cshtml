@@ -336,6 +336,20 @@
                                 $scope.currentInOutType = $scope.InOutTypes[i];
                             }
                         }
+                    } else {
+                        //赋当前时间为默认
+                        $scope.info.LBBillDate = new Date();
+                        $scope.info.CreateDate = new Date();
+                        //给出入库类型赋值
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 15) {
+                                $scope.currentInOutType = $scope.InOutTypes[i];
+                                $scope.info.InputType = $scope.InOutTypes[i].Name;
+                                $scope.info.InputTypeId = $scope.InOutTypes[i].Id;
+                            }
+                        }
+
+
                     }
                 });
             });

@@ -42,9 +42,9 @@
 
                         <tr>
                             <td class="tdname2">入库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypesIn" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType" filterstr="入库"></inouttypeselect></td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.InputType" inputtypeid="info.InputTypeId" current="currentInPutType" filterstr="入库"></inouttypeselect></td>
                             <td class="tdname2">出库类别：</td>
-                            <td><inouttypeselect inouttypes="InOutTypesOut" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType" filterstr="出库"></inouttypeselect></td>
+                            <td><inouttypeselect inouttypes="InOutTypes" inputtypename="info.OutputType" inputtypeid="info.OutputTypeId" current="currentOutPutType" filterstr="出库"></inouttypeselect></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -296,8 +296,7 @@
                 $scope.UserFrameworks = response.UserFramework;
                 $scope.LoadGoodsTypes = response.LoadGoodsType;
                 $scope.BusinessTypes = response.BusinessType;
-                $scope.InOutTypesIn = response.InOutType;
-                $scope.InOutTypesOut = response.InOutType;
+                $scope.InOutTypes = response.InOutType;
                 $scope.Departents = response.Departent;
                 //如果有单号 获取单据内容
                 $http.post("/DIYBill/GetData", {}, { params: { "DIYBillId": "@ViewBag.DIYBillId" } }).success(function (response) {
@@ -319,54 +318,42 @@
                             }
                         }
                         //给入库类型赋值
-                        for (var i = 0; i < $scope.InOutTypesIn.length; i++) {
-                            if ($scope.InOutTypesIn[i].Id == $scope.info.InputTypeId) {
-                                $scope.currentInPutType = $scope.InOutTypesIn[i];
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == $scope.info.InputTypeId) {
+                                $scope.currentInPutType = $scope.InOutTypes[i];
                             }
                         }
                         //给出库类型赋值
-                        for (var i = 0; i < $scope.InOutTypesOut.length; i++) {
-                            if ($scope.InOutTypesOut[i].Id == $scope.info.OutputTypeId) {
-                                $scope.currentOutPutType = $scope.InOutTypesOut[i];
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == $scope.info.OutputTypeId) {
+                                $scope.currentOutPutType = $scope.InOutTypes[i];
                             }
                         }
 
+                    } else {
+                        //当前时间赋值
+                        $scope.info.CreateDate = new Date();
+                        //默认出入库类型
+                        //出
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 23) {
+                                $scope.currentOutPutType = $scope.InOutTypes[i];
+                                $scope.info.OutputType = $scope.InOutTypes[i].Name;
+                                $scope.info.OutputTypeId = $scope.InOutTypes[i].Id;
+                            }
+                        }
+                        //入
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 17) {
+                                $scope.currentInPutType = $scope.InOutTypes[i];
+                                $scope.info.InputType = $scope.InOutTypes[i].Name;
+                                $scope.info.InputTypeId = $scope.InOutTypes[i].Id;
+                            }
+                        }
+
+
                     }
                 });
-            });
-            //如果有单号 获取单据内容
-            $http.post("/DIYBill/GetData", {}, { params: { "DIYBillId": "@ViewBag.DIYBillId" } }).success(function (response) {
-                //绑定数据源
-                $scope.info = response.diybill;
-                $scope.Record1 = response.recordlist1;
-                $scope.Record2 = response.recordlist2;
-                if (response.diybill.Id != '00000000-0000-0000-0000-000000000000') //如果是新表单
-                {
-                    //修改时间格式
-                    $scope.info.CreateDate = jsonDateFormat($scope.info.CreateDate);
-                    $scope.info.ExamineDate = jsonDateFormat($scope.info.ExamineDate);
-
-                    //给当前部门赋值
-                    for (var i = 0; i < $scope.Departents.length; i++) {
-                        if ($scope.Departents[i].DeptCode == $scope.info.DepartmentId) {
-                            $scope.CurrentDepartment = $scope.Departents[i];
-                            break;
-                        }
-                    }
-                    //给出入库类型赋值
-                    for (var i = 0; i < $scope.InOutTypes.length; i++) {
-                        if ($scope.InOutTypes[i].Id == $scope.info.InputTypeId) {
-                            $scope.currentInPutType = $scope.InOutTypes[i];
-                        }
-                    }
-                    //给出入库类型赋值
-                    for (var i = 0; i < $scope.InOutTypes.length; i++) {
-                        if ($scope.InOutTypes[i].Id == $scope.info.OutputTypeId) {
-                            $scope.currentOutPutType = $scope.InOutTypes[i];
-                        }
-                    }
-
-                }
             });
             //添加行
             $scope.add = function (type) {

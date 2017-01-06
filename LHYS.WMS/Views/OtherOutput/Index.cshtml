@@ -260,6 +260,18 @@
                                 $scope.currentInOutType = $scope.InOutTypes[i];
                             }
                         }
+                    } else {
+                        //给时间赋默认值
+                        $scope.info.CreateDate = new Date();
+                        //给出入库类型赋值
+                        //出
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 25) {
+                                $scope.currentInOutType = $scope.InOutTypes[i];
+                                $scope.info.OutputType = $scope.InOutTypes[i].Name;
+                                $scope.info.OutputTypeId = $scope.InOutTypes[i].Id;
+                            }
+                        }
                     }
                 });
             });

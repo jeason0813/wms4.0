@@ -321,6 +321,9 @@
                     }
                     else//新表单
                     {
+                        //赋当前时间为默认
+                        $scope.info.LBBillDate = new Date();
+                        $scope.info.CreateDate = new Date();
                         //给出入库类型赋值
                         for (var i = 0; i < $scope.InOutTypes.length; i++) {
                             if ($scope.InOutTypes[i].Id == 26) {

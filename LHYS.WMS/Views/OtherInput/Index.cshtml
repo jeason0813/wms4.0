@@ -255,6 +255,17 @@
                                 $scope.currentInOutType = $scope.InOutTypes[i];
                             }
                         }
+                    } else {
+                        //给时间赋默认值
+                        $scope.info.CreateDate = new Date();
+                        //入
+                        for (var i = 0; i < $scope.InOutTypes.length; i++) {
+                            if ($scope.InOutTypes[i].Id == 19) {
+                                $scope.currentInOutType = $scope.InOutTypes[i];
+                                $scope.info.InputType = $scope.InOutTypes[i].Name;
+                                $scope.info.InputTypeId = $scope.InOutTypes[i].Id;
+                            }
+                        }
                     }
                 });
             });
