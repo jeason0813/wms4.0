@@ -20,6 +20,10 @@ namespace LHYS.WMS.Controllers
             int f = c / d;
             return View();
         }
+        public ActionResult TestExamine(string GiveBillId)
+        {
+            return Content("审核成功");
+        }
 
         public ActionResult Test1()
         {

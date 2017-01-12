@@ -76,6 +76,15 @@ namespace LHYS.WMS.Controllers
             return View();
         }
         /// <summary>
+        /// 批量审核 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ExamineManyBills()
+        {
+
+            return View();
+        }
+        /// <summary>
         /// 单据导入
         /// </summary>
         /// <returns></returns>
@@ -90,7 +99,7 @@ namespace LHYS.WMS.Controllers
             switch (billType)
             {
                 case "TransferBill":
-                    Expression<Func<TransferBill, bool>> exp1 = TransferBillSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
+                    Expression<Func<TransferBill, bool>> exp1 = TransferBillSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode, LBBillCode);
                     List<TransferBill> res1 = TransferBillService.LoadPageEntities(exp1.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
@@ -100,7 +109,7 @@ namespace LHYS.WMS.Controllers
                     });
 
                 case "BackInput":
-                    Expression<Func<BackInput, bool>> exp2 = BackInputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
+                    Expression<Func<BackInput, bool>> exp2 = BackInputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode, LBBillCode);
                     List<BackInput> res2 = BackInputService.LoadPageEntities(exp2.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
@@ -125,7 +134,7 @@ namespace LHYS.WMS.Controllers
                         totalCount = totalCount
                     });
                 case "BackOutput":
-                    Expression<Func<BackOutput, bool>> exp5 = BackOutputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode);
+                    Expression<Func<BackOutput, bool>> exp5 = BackOutputSearchCondition(timestart, timeend, BillState, DepartmentId, WarehouseId, BillCode, LBBillCode);
                     List<BackOutput> res5 = BackOutputService.LoadPageEntities(exp5.Expand(), a => a.BillCode, pageIndex, pageSize, false, out totalCount).ToList();
                     return Json(new
                     {
@@ -179,7 +188,7 @@ namespace LHYS.WMS.Controllers
         /// 转仓单查询条件
         /// </summary>
         /// <returns></returns>
-        private static Expression<Func<TransferBill, bool>> TransferBillSearchCondition(string timestart, string timeend, string BillState, string DepartmentId, int? WarehouseId, string BillCode)
+        private static Expression<Func<TransferBill, bool>> TransferBillSearchCondition(string timestart, string timeend, string BillState, string DepartmentId, int? WarehouseId, string BillCode, string LBBillCode)
         {
             List<Expression<Func<TransferBill, bool>>> list = new List<Expression<Func<TransferBill, bool>>>();
             Expression<Func<TransferBill, bool>> exp = a => true; //初始条件
@@ -224,6 +233,12 @@ namespace LHYS.WMS.Controllers
                 Expression<Func<TransferBill, bool>> exp6 = a => last6.Invoke(a) && a.BillCode.Contains(BillCode);
                 list.Add(exp6);
             }
+            if (!string.IsNullOrEmpty(LBBillCode))
+            {
+                Expression<Func<TransferBill, bool>> last7 = list[list.Count - 1];
+                Expression<Func<TransferBill, bool>> exp7 = a => last7.Invoke(a) && a.LBBillCode.Contains(LBBillCode);
+                list.Add(exp7);
+            }
             Expression<Func<TransferBill, bool>> final = list[list.Count - 1]; //最终表达式
             return final;
 
@@ -233,7 +248,7 @@ namespace LHYS.WMS.Controllers
         /// 退仓单查询条件
         /// </summary>
         /// <returns></returns>
-        private static Expression<Func<BackInput, bool>> BackInputSearchCondition(string timestart, string timeend, string BillState, string DepartmentId, int? WarehouseId, string BillCode)
+        private static Expression<Func<BackInput, bool>> BackInputSearchCondition(string timestart, string timeend, string BillState, string DepartmentId, int? WarehouseId, string BillCode, string LBBillCode)
         {
             List<Expression<Func<BackInput, bool>>> list = new List<Expression<Func<BackInput, bool>>>();
             Expression<Func<BackInput, bool>> exp = a => true; //初始条件
@@ -275,8 +290,14 @@ namespace LHYS.WMS.Controllers
             if (!string.IsNullOrEmpty(BillCode))
             {
                 Expression<Func<BackInput, bool>> last6 = list[list.Count - 1];
-                Expression<Func<BackInput, bool>> exp6 = a => last6.Invoke(a) && a.BillCode.Contains(BillCode);
+                Expression<Func<BackInput, bool>> exp6 = a => last6.Invoke(a) && a.LBBillCode.Contains(BillCode);
                 list.Add(exp6);
+            }
+            if (!string.IsNullOrEmpty(LBBillCode))
+            {
+                Expression<Func<BackInput, bool>> last7 = list[list.Count - 1];
+                Expression<Func<BackInput, bool>> exp7 = a => last7.Invoke(a) && a.LBBillCode.Contains(LBBillCode);
+                list.Add(exp7);
             }
             Expression<Func<BackInput, bool>> final = list[list.Count - 1]; //最终表达式
             return final;
@@ -392,7 +413,7 @@ namespace LHYS.WMS.Controllers
             return final;
 
         }
-        private static Expression<Func<BackOutput, bool>> BackOutputSearchCondition(string timestart, string timeend, string BillState, string DepartmentId, int? WarehouseId, string BillCode)
+        private static Expression<Func<BackOutput, bool>> BackOutputSearchCondition(string timestart, string timeend, string BillState, string DepartmentId, int? WarehouseId, string BillCode, string LBBillCode)
         {
             List<Expression<Func<BackOutput, bool>>> list = new List<Expression<Func<BackOutput, bool>>>();
             Expression<Func<BackOutput, bool>> exp = a => true; //初始条件
@@ -436,6 +457,12 @@ namespace LHYS.WMS.Controllers
                 Expression<Func<BackOutput, bool>> last6 = list[list.Count - 1];
                 Expression<Func<BackOutput, bool>> exp6 = a => last6.Invoke(a) && a.BillCode.Contains(BillCode);
                 list.Add(exp6);
+            }
+            if (!string.IsNullOrEmpty(LBBillCode))
+            {
+                Expression<Func<BackOutput, bool>> last7 = list[list.Count - 1];
+                Expression<Func<BackOutput, bool>> exp7 = a => last7.Invoke(a) && a.LBBillCode.Contains(LBBillCode);
+                list.Add(exp7);
             }
             Expression<Func<BackOutput, bool>> final = list[list.Count - 1]; //最终表达式
             return final;

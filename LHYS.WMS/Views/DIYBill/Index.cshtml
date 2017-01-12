@@ -109,8 +109,8 @@
                             <th>单位重量(KG)</th>
                             <th>数量</th>
                             <th>重量(KG)</th>
-                            <th>批次</th>
                             <th>仓库</th>
+                            <th>批次</th>
                             <th>货位</th>
                             <th>删除</th>
                         </tr>
@@ -124,8 +124,8 @@
                             <td><input class="form-control input-sm" type="text" ng-model="record2.UnitWeight" ng-change="changeCount2(record2)" /></td>
                             <td><input class="form-control input-sm" type="number" ng-model="record2.Count" ng-change="changeCount2(record2)" required /></td>
                             <td><input class="form-control input-sm" type="text" ng-model="record2.Weight" /></td>
-                            <td><input class="form-control input-sm" type="text" ng-model="record2.ItemBatch" ng-disabled="record2.IsBatch=='否'" required /></td>
                             <td><input class="form-control input-sm" type="text" name="name" ng-model="record2.Warehouse" data-toggle="modal" data-target="#wareHousechoose" ng-click="loadWarehouse($index,'warehouse2')" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record2.ItemBatch" ng-disabled="record2.IsBatch=='否'" required /></td>
                             <td><input data-toggle="modal" data-target="#locationchoose" class="form-control input-sm" type="text" ng-model="record2.ItemLocation" ng-click="clickLocation($index,'location2')" required /></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="del($index,'del2')">删除</button></td>
                         </tr>

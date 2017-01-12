@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <title>批量审核</title>
+</head>
+<body>
+    要审核的单号：
+   <textarea  rows="40" cols="50" id="BillCodes"></textarea>
+    <input type="button" name="name" value="审核" id="start" />
+    消息：
+    <textarea rows="40" cols="160" id="messages"></textarea>
+    <script type="text/javascript">
+        $(function () {
+            //同步执行
+            $.ajaxSetup({
+                async: false
+            });
+            //开始
+            $('#start').click(function () {
+                var txt = $('#BillCodes').val();
+                var res = txt.split('\n');
+                for (var i = 0; i < res.length; i++) {
+                    $.post('/GiveBill/Examine', { GiveBillId: res[i] }, function (data) {
+                        $('#messages').val($('#messages').val() + res[i] + ':' + data+'\n');
+                    })
+                }
+            })
+        })
+
+    </script>
+</body>
+
+</html>

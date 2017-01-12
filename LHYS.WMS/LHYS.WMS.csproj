@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ReportTable\InOutRecordController.cs" />
     <Compile Include="Controllers\ReportTable\InWarehouseController.cs" />
     <Compile Include="Controllers\ExportBillController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserFrameworkController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1332,6 +1333,7 @@
     <Content Include="Views\CostUnitList\QueryCostUnitList.cshtml" />
     <Content Include="Views\InOutRecord\Index.cshtml" />
     <Content Include="Views\BillsManager\Index.cshtml" />
+    <Content Include="Views\BillsManager\ExamineManyBills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

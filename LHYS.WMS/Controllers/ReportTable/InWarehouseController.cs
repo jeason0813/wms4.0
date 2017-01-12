@@ -21,7 +21,20 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult GetDataByWarehouseId(int WarehouseId)
         {
-            var list = InWarehouseService.LoadEntities(a=>a.WarehouseId==WarehouseId);
+            var list = InWarehouseService.LoadEntities(a => a.WarehouseId == WarehouseId);
+            //查询库存中是否有重复项
+            var listBad = from a in list
+                          group a by new { a.ItemCode, a.ItemBatch, a.ItemLocationId } into g
+                          where g.Count()>1
+                          select new { g.Key.ItemBatch, g.Key.ItemCode, g.Key.ItemLocationId, TotalCount = g.Count() } ;
+            if (listBad.Count() > 0) {
+                string res = "库存中有重复项：";
+                foreach (var item in listBad)
+                {
+                    res += item.ItemCode + '-' + item.ItemBatch + '-' + item.ItemLocationId+',';
+                }
+                return Content(res);
+            }
             return Json(list);
         }
         /// <summary>

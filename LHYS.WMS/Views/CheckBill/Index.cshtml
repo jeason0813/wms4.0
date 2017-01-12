@@ -169,6 +169,11 @@
                 $scope.info.Warehouse = $scope.CurrentWarehouse.Name;
                 $scope.info.WarehouseId = $scope.CurrentWarehouse.Id;
                 $http.post('/InWarehouse/GetDataByWarehouseId', { WarehouseId: $scope.CurrentWarehouse.Id }).success(function (response) {
+                    //判断是否出错
+                    if (response.toString().substr(0,2) == '库存') {
+                        alert(response);
+                        return;
+                    }
                     for (var i = 0; i < response.length; i++) {
                         response[i].ChangeCount = response[i].Count;
                     }

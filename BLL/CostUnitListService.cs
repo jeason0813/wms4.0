@@ -6,13 +6,13 @@ using DBModel;
 using IBLL;
 namespace BLL
 {
-    public partial class CostUnitListService : BaseService<CostUnitList>,ICostUnitListService
+    public partial class CostUnitListService : BaseService<CostUnitList>, ICostUnitListService
     {
         /// <summary>
         /// 保存表单数据
         /// </summary>
         /// <returns></returns>
-        public string SaveData(CostUnitList bill,int billType)
+        public string SaveData(CostUnitList bill, int billType)
         {
             //主表id为0 新增一条记录  此时子表数据会自动插入
             if (bill.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
@@ -98,6 +98,31 @@ namespace BLL
         /// <returns></returns>
         public string DeleteBill(Guid BillId)
         {
+            #region 物理删除
+            //var bill = CurrentDal.LoadEntities(a => a.Id == BillId).FirstOrDefault();
+            //if (bill == null)
+            //{
+            //    return "单据不存在！";
+            //}
+            //if (bill.BillState != 1)
+            //{
+            //    return "只有保存状态才可以删除！";
+            //}
+            //else
+            //{
+            //    //删除子表
+            //    var list = CurrentDBSession.CostUnitListDetailDal.LoadEntities(a => a.MainTableId == BillId);
+            //    foreach (var item in list)
+            //    {
+            //        CurrentDBSession.CostUnitListDetailDal.DeleteEntity(item);
+            //    }
+            //    //删除主表
+            //    CurrentDal.DeleteEntity(bill);
+            //    return CurrentDBSession.SaveChanges() ? "删除成功！" : "删除失败！";
+            //}
+
+            #endregion
+            #region 逻辑删除
             var bill = CurrentDal.LoadEntities(a => a.Id == BillId).FirstOrDefault();
             if (bill == null)
             {
@@ -113,12 +138,16 @@ namespace BLL
                 var list = CurrentDBSession.CostUnitListDetailDal.LoadEntities(a => a.MainTableId == BillId);
                 foreach (var item in list)
                 {
-                    CurrentDBSession.CostUnitListDetailDal.DeleteEntity(item);
+                    item.state = 4;
+                    CurrentDBSession.CostUnitListDetailDal.EditEntity(item);
                 }
                 //删除主表
-                CurrentDal.DeleteEntity(bill);
+                bill.BillState = 4;
+                CurrentDal.EditEntity(bill);
                 return CurrentDBSession.SaveChanges() ? "删除成功！" : "删除失败！";
             }
+            #endregion
+
         }
         /// <summary>
         /// 审核表单

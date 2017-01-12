@@ -26,7 +26,7 @@ namespace LHYS.WMS.Controllers
         {
             if (Session["Power"] == null || Session["UserCode"] == null)
             {
-                return null;
+               return null;
             }
             else
             {

@@ -90,6 +90,31 @@ namespace BLL
         /// <returns></returns>
         public string DeleteBill(Guid BillId)
         {
+            #region 物理删除
+            //var bill = CurrentDal.LoadEntities(a => a.Id == BillId).FirstOrDefault();
+            //if (bill == null)
+            //{
+            //    return "单据不存在！";
+            //}
+            //if (bill.BillState != 1)
+            //{
+            //    return "只有保存状态才可以删除！";
+            //}
+            //else
+            //{
+            //    //删除子表
+            //    var list = CurrentDBSession.RecordDal.LoadEntities(a => a.MainTableId == BillId);
+            //    foreach (var item in list)
+            //    {
+            //        CurrentDBSession.RecordDal.DeleteEntity(item);
+            //    }
+            //    //删除主表
+            //    CurrentDal.DeleteEntity(bill);
+            //    return CurrentDBSession.SaveChanges() ? "删除成功！" : "删除失败！";
+            //}
+            #endregion
+
+            #region 逻辑删除
             var bill = CurrentDal.LoadEntities(a => a.Id == BillId).FirstOrDefault();
             if (bill == null)
             {
@@ -101,16 +126,19 @@ namespace BLL
             }
             else
             {
-                //删除子表
+                //修改子表状态
                 var list = CurrentDBSession.RecordDal.LoadEntities(a => a.MainTableId == BillId);
                 foreach (var item in list)
                 {
-                    CurrentDBSession.RecordDal.DeleteEntity(item);
+                    item.State = 4;
+                    CurrentDBSession.RecordDal.EditEntity(item);
                 }
-                //删除主表
-                CurrentDal.DeleteEntity(bill);
+                //修改主表状态
+                bill.BillState = 4;
+                CurrentDal.EditEntity(bill);
                 return CurrentDBSession.SaveChanges() ? "删除成功！" : "删除失败！";
             }
+            #endregion
         }
         /// <summary>
         /// 审核表单
@@ -119,39 +147,60 @@ namespace BLL
         /// <returns></returns>
         public string Examine(Guid BackInputId, string UserName)
         {
-            string result = "";
+            string res = "";
             BackInput bill = CurrentDal.LoadEntities(a => a.Id == BackInputId).FirstOrDefault();
             List<Record> list = bill.Record.ToList();
+            List<InWarehouse> listDel = new List<InWarehouse>();//暂存区
             foreach (Record item in list)
             {
                 item.State = 2;
                 item.ExamineDate = DateTime.Now;
                 InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
-                if (inWarehouse == null || inWarehouse.Count < item.Count) //当前库存不够 ，不允许做弃审操作
+                InWarehouse temp = listDel.Where(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();//缓存区
+                if (temp != null) //缓存区有  说明数量不足
                 {
-                    result += "物料编号：" + item.ItemCode + "物料名称：" + item.ItemName + "库存不足，审核失败\r\n";
+                   res += "物料编号：" + item.ItemCode + "，物料名称：" + item.ItemName + "，批次："+item.ItemBatch+"，库存不足，审核失败";
+                    continue;
                 }
-                else if (inWarehouse.Count ==item.Count) {
-                    CurrentDBSession.InWarehouseDal.DeleteEntity(inWarehouse);
-                    item.CurrentCount = 0;
-                }
-                else //有库存
+                if (inWarehouse == null || inWarehouse.Count < item.Count)//缓存区没有   数量为空或者小于
                 {
-                    inWarehouse.Count -= item.Count;
+                   res += "物料编号：" + item.ItemCode + "，物料名称：" + item.ItemName + "，批次："+item.ItemBatch+"，库存不足，审核失败";
+                    continue;
+                }
+
+                //缓存区没有  数量相等 应该删除 加入缓存区
+                if (inWarehouse.Count == item.Count) // 暂存区中没有 库存正好相等  删除这条记录
+                {
+                    listDel.Add(inWarehouse);//添加到删除暂存区
+                    item.CurrentCount = 0;//当前库存量
+                    continue;
+                }
+                if (inWarehouse.Count > item.Count)//库存大于记录 暂存区中没有 则相减
+                {
+                    inWarehouse.Count = inWarehouse.Count - item.Count;
+                    item.CurrentCount = inWarehouse.Count;//当前库存量
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
-                    item.CurrentCount = inWarehouse.Count;
+                }
+                else //数据异常了  应该进不来 记录错误
+                {
+                    res += "物料编号：" + item.ItemCode + ",数量：" + item.Count + "数据异常！请记下物料编号联系管理员检查！";
                 }
             }
-            if (result != "")
+            if (res != "")
             {
-                return result;
+                return res;
+            }
+            //删除缓存区数据
+            foreach (var item in listDel)
+            {
+                CurrentDBSession.InWarehouseDal.DeleteEntity(item);
             }
             bill.BillState = 2;//改成已审核状态
             bill.ExaminePerson = UserName;//审核人
             bill.ExamineDate = DateTime.Now;
             CurrentDal.EditEntity(bill);
-            result = CurrentDBSession.SaveChanges() ? "审核成功！" : "审核失败！";
-            return result;
+            res = CurrentDBSession.SaveChanges() ? "审核成功！" : "审核失败！";
+            return res;
         }
         /// <summary>
         /// 弃审
@@ -169,13 +218,21 @@ namespace BLL
                 res = "单据状态不对，无法弃审！";
                 return res;
             }
-            //对每一条记录做逆操作
+            #region 按批次 货位 物料编码相同的 合并在一起
+            //var resultq = from a in list group a by new { a.ItemBatch, a.ItemLocationId, a.ItemCode,a.ItemLine,a.ItemName,a.ItemSpecifications,a.ItemUnit,a.UnitWeight } into g
+            //              select new { Count = g.Sum(p => p.Count),Weight=g.Sum(p=>p.Weight),g.Key };
+            //resultq.ToList();
+            #endregion
+
+            List<InWarehouse> listAdd = new List<InWarehouse>();//新增列表
             foreach (Record item in list)
             {
                 item.State = 1;//修改记录状态
                 item.ExamineDate = null;//清空审核时间
-                InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
-                if (inWarehouse == null)//如果没有库存  新建一条记录
+                InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(a => a.ItemCode == item.ItemCode && a.ItemLocationId == item.ItemLocationId && a.ItemBatch == item.ItemBatch).FirstOrDefault();
+                //查暂存
+                InWarehouse temp = listAdd.Where(p => p.ItemCode == item.ItemCode && p.ItemLocationId == item.ItemLocationId && p.ItemBatch == item.ItemBatch).FirstOrDefault();
+                if (inWarehouse == null && temp == null)//如果没有库存  新建一条记录
                 {
                     inWarehouse = new InWarehouse()
                     {
@@ -184,9 +241,9 @@ namespace BLL
                         ItemCode = item.ItemCode,
                         ItemLine = item.ItemLine,
                         ItemLocation = item.ItemLocation,
-                        ItemLocationId=item.ItemLocationId,
-                        Warehouse=item.Warehouse,
-                        WarehouseId=item.WarehouseId,
+                        ItemLocationId = item.ItemLocationId,
+                        Warehouse = item.Warehouse,
+                        WarehouseId = item.WarehouseId,
                         ItemName = item.ItemName,
                         ItemSpecifications = item.ItemSpecifications,
                         ItemUnit = item.ItemUnit,
@@ -195,9 +252,14 @@ namespace BLL
                         DepartmentId = item.DepartmentId,
                         Company = bill.Company,
                         CompanyId = bill.CompanyId
-                };
+                    };
                     item.CurrentCount = item.Count;
-                    CurrentDBSession.InWarehouseDal.AddEntity(inWarehouse);
+                    listAdd.Add(inWarehouse);//添加到暂存区
+                }
+                else if (inWarehouse == null && temp != null)//只有暂存区有库存
+                {
+                    temp.Count += item.Count;
+                    item.CurrentCount = temp.Count;
                 }
                 else//库存有记录  相加
                 {
@@ -205,6 +267,11 @@ namespace BLL
                     CurrentDBSession.InWarehouseDal.EditEntity(inWarehouse);
                     item.CurrentCount = inWarehouse.Count;
                 }
+            }
+            //最后添加新增列表中数据
+            foreach (var item in listAdd)
+            {
+                CurrentDBSession.InWarehouseDal.AddEntity(item);
             }
             bill.BillState = 1;//改成编辑状态
             bill.ExaminePerson = null;//清除审核人
