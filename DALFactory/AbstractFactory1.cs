@@ -128,6 +128,14 @@ namespace DALFactory
 
         }
 		
+	    public static IInOutRecordDetailDal CreateInOutRecordDetailDal()
+        {
+
+		 string fullClassName = NameSpace + ".InOutRecordDetailDal";
+          return CreateInstance(fullClassName) as IInOutRecordDetailDal;
+
+        }
+		
 	    public static IInOutTypeDal CreateInOutTypeDal()
         {
 

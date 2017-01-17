@@ -5,10 +5,66 @@ using System.Text;
 using System.Threading.Tasks;
 using DBModel;
 using IBLL;
+using System.Web;
+
 namespace BLL
 {
     public partial class GiveBillService : BaseService<GiveBill>, IGiveBillService
     {
+        /// <summary>
+        /// 保存导入的数据（仅限LH.武汉站）
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
+        public string SaveImport(GiveBill bill)
+        {
+            //主表
+            bill.Id = Guid.NewGuid();//生成一个id
+            bill.BillCode = GetBillCode("JH");//生成单号
+            if (bill.BillCode == "no")
+            {
+                bill.BillCode = GetBillCode("JH");//再次生成单号
+            }
+            bill.BillState = 1;//保存状态
+            bill.CreateDate = DateTime.Now;
+            bill.MakePerson = HttpContext.Current.Session["UserName"].ToString();
+            bill.LoadGoodsType = "武汉-配送客户出库装货";
+            bill.BackLoadGoodsType = "武汉-客户现场卸货";
+            bill.OutputType = "配送交货出库";
+            bill.OutputTypeId = 20;
+            bill.BusinessType = "武汉-二次配送";
+            bill.Department = "LH.武汉站";
+            bill.DepartmentId = "LH7011";
+            bill.Company = "联合运输";
+            bill.CompanyId = "LH0000";
+            bill.Remark = "批量导入";
+
+            //子表
+            foreach (var item in bill.Record)//生成子表id
+            {
+                item.Id = Guid.NewGuid();
+                item.Department = bill.Department;
+                item.DepartmentId = bill.DepartmentId;
+                item.State = bill.BillState;
+                item.CreateDate = bill.CreateDate;
+                item.InOrOut = 0;
+                item.MainTableType = "GiveBill";
+                item.InOutTypeId = bill.OutputTypeId;
+                item.InOutTypeName = bill.OutputType;
+                var goodItem=  CurrentDBSession.GoodItemDal.LoadEntities(a => a.ItemCode == item.ItemCode).FirstOrDefault();
+                item.ItemLine = goodItem.ItemLine;
+                item.ItemName = goodItem.ItemName;
+                item.ItemSpecifications = goodItem.ItemSpecifications;
+                item.ItemUnit = goodItem.ItemUnit;
+                item.UnitWeight = goodItem.UnitWeight;
+                item.Remark = bill.Remark;
+            }
+            CurrentDal.AddEntity(bill);
+            return CurrentDBSession.SaveChanges() ? bill.Id.ToString() : "no";
+
+
+        }
+
         /// <summary>
         /// 保存表单数据
         /// </summary>
@@ -161,12 +217,12 @@ namespace BLL
                 InWarehouse temp = listDel.Where(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();//缓存区
                 if (temp != null) //缓存区有  说明数量不足
                 {
-                    res += "物料编号：" + item.ItemCode + "，物料名称：" + item.ItemName + "，批次："+item.ItemBatch+"，库存不足，审核失败";
+                    res += "物料编号：" + item.ItemCode + "，物料名称：" + item.ItemName + "，批次：" + item.ItemBatch + "，库存不足，审核失败";
                     continue;
                 }
                 if (inWarehouse == null || inWarehouse.Count < item.Count)//缓存区没有   数量为空或者小于
                 {
-                   res += "物料编号：" + item.ItemCode + "，物料名称：" + item.ItemName + "，批次："+item.ItemBatch+"，库存不足，审核失败";
+                    res += "物料编号：" + item.ItemCode + "，物料名称：" + item.ItemName + "，批次：" + item.ItemBatch + "，库存不足，审核失败";
                     continue;
                 }
 
@@ -191,7 +247,7 @@ namespace BLL
             if (res != "")
             {
                 return res;
-            }   
+            }
             //删除缓存区数据
             foreach (var item in listDel)
             {
@@ -230,7 +286,7 @@ namespace BLL
                 InWarehouse inWarehouse = CurrentDBSession.InWarehouseDal.LoadEntities(i => i.ItemCode == item.ItemCode && i.ItemLocationId == item.ItemLocationId && i.ItemBatch == item.ItemBatch).FirstOrDefault();
                 //查暂存
                 InWarehouse temp = listAdd.Where(p => p.ItemCode == item.ItemCode && p.ItemLocationId == item.ItemLocationId && p.ItemBatch == item.ItemBatch).FirstOrDefault();
-                if (inWarehouse == null && temp == null) 
+                if (inWarehouse == null && temp == null)
                 {
                     inWarehouse = new InWarehouse()
                     {

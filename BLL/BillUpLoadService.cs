@@ -36,7 +36,7 @@ namespace BLL
                 case "transferBill":
                     return ExportTransferBill(billId, TemplateUrl);
                 case "backOutput":
-                  return  ExportBackOutput(billId, TemplateUrl);
+                    return ExportBackOutput(billId, TemplateUrl);
                 case "backInput":
                     return ExportBackInput(billId, TemplateUrl);
                 case "giveBill":
@@ -83,7 +83,7 @@ namespace BLL
                 dr["DepartmentId"] = bill.DepartmentId;
                 dr["Company"] = bill.Company;
                 dr["CompanyId"] = bill.CompanyId;
-             
+
                 //子表
                 dr["ItemCode"] = record.ItemCode;
                 dr["ItemLocationId"] = record.ItemLocationId;
@@ -258,27 +258,35 @@ namespace BLL
             {
                 DataTable dt = ExcelHelp.ExcelToDT(item);
                 string typeTemp = dt.Rows[0][0].ToString();//首行首列
-                                                           //删除第一行
-                dt.Rows.RemoveAt(0);
-                switch (typeTemp)
+                string ColumnName = dt.Columns[0].ColumnName;//第一个列名
+                //如果是批量导入交货单
+                if (ColumnName == "交货")
                 {
-                    case "转仓单号":
-                        billCodes += AddTransferBill(dt) + "  ";
-                        break;
-                    case "退仓单号":
-                        billCodes += AddBackInput(dt) + "  ";
-                        break;
-                    case "交货单号":
-                        billCodes += AddGiveBill(dt) + "  ";
-                        break;
-                    case "退货单号":
-                        billCodes += AddBackOutput(dt) + "  ";
-                        break;
+                    bool res = AddManyGiveBills(dt);
+                    billCodes += res ? "交货单批量导入成功" : "交货单批量导入失败";
+                }
+                else {
+                    //单张单据
+                    dt.Rows.RemoveAt(0); //删除标题行
+                    switch (typeTemp)
+                    {
+                        case "转仓单号":
+                            billCodes += AddTransferBill(dt) + "  ";
+                            break;
+                        case "退仓单号":
+                            billCodes += AddBackInput(dt) + "  ";
+                            break;
+                        case "交货单号":
+                            billCodes += AddGiveBill(dt) + "  ";
+                            break;
+                        case "退货单号":
+                            billCodes += AddBackOutput(dt) + "  ";
+                            break;
+                    }
                 }
                 //删除文件
                 File.Delete(item);
             }
-
             return "导入成功，单号为：" + billCodes;
             //}
             //catch(Exception e)
@@ -286,6 +294,68 @@ namespace BLL
             //    return e.ToString();
             //}
         }
+        /// <summary>
+        /// 批量导入交货单
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        private bool AddManyGiveBills(DataTable dt)
+        {
+            GiveBillService Service = new GiveBillService();
+            //转成集合
+            List<ManyGiveBillsModel> list = new List<ManyGiveBillsModel>();
+            foreach (DataRow row in dt.Rows)
+            {
+                ManyGiveBillsModel model = new ManyGiveBillsModel()
+                {
+                    LBBillCode = row[0].ToString(),
+                    LBCustomerCode = row[1].ToString(),
+                    LBCustomerName = row[2].ToString(),
+                    ItemCode = row[4].ToString(),
+                    ItemName = row[5].ToString(),
+                    ItemBatch = row[7].ToString(),
+                    Count = Convert.ToDouble(row[8]),
+                    Weight = Convert.ToDouble(row[9])
+                };
+                list.Add(model);
+            }
+            //按立邦单号排序
+            list.Sort((x, y) =>
+            {
+                int value = x.LBBillCode.CompareTo(y.LBBillCode);
+                if (value == 0)
+                    value = x.ItemCode.CompareTo(y.ItemCode);
+                return value;
+            });
+            string CurrentLBBillCode = "";//当前立邦单号
+            GiveBill bill=null;//当前交货单
+            foreach (var item in list)
+            {
+                //新的一条单据
+                if (item.LBBillCode != CurrentLBBillCode) {
+                    //保存上一张单据
+                    if (CurrentLBBillCode != "") {
+                        Service.SaveImport(bill);
+                    }
+                    //新建下一张单据
+                    bill = new GiveBill()
+                    {
+                        LBBillCode = item.LBBillCode,
+                        LBCustomerCode = item.LBCustomerCode,
+                        LBCustomerName = item.LBCustomerName
+                    };
+                }
+                Record record = new Record() { ItemCode = item.ItemCode, ItemName = item.ItemName, ItemBatch = item.ItemBatch, Count = item.Count, Weight = item.Weight };
+                bill.Record.Add(record);
+                CurrentLBBillCode = item.LBBillCode;
+            }
+            //循环结束 保存最后一条
+            if (bill != null) {
+                Service.SaveImport(bill);
+            }
+            return true;
+        }
+
         private string AddTransferBill(DataTable dt)
         {
             TransferBill bill = DataTableToEntites.GetEntity<TransferBill>(dt.Rows[0]);

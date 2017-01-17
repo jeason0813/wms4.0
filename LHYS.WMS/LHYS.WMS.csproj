@@ -254,6 +254,12 @@
     <Content Include="Content\Login\easyui.css" />
     <Content Include="Content\Login\home.css" />
     <Content Include="Content\Login\style.css" />
+    <Content Include="Content\ng-grid-2.0.12\auto-resize.js" />
+    <Content Include="Content\ng-grid-2.0.12\ng-grid.css" />
+    <Content Include="Content\ng-grid-2.0.12\ng-grid.debug.js" />
+    <Content Include="Content\ng-grid-2.0.12\ng-grid.js" />
+    <Content Include="Content\ng-grid-2.0.12\ng-grid.min.css" />
+    <Content Include="Content\ng-grid-2.0.12\ng-grid.min.js" />
     <Content Include="Content\resources\animations\circular-dark.png" />
     <Content Include="Content\resources\animations\circular-green.png" />
     <Content Include="Content\resources\animations\circular-light.png" />
@@ -415,6 +421,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\UI-Grid4.0.2\ui-grid.css" />
+    <Content Include="Content\UI-Grid4.0.2\ui-grid.min.css" />
     <Content Include="Demo\directiveDemo.js" />
     <Content Include="Demo\sonWindowAddTab.js" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -1237,6 +1245,8 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\UI-Grid4.0.2\ui-grid.ttf" />
+    <Content Include="Content\UI-Grid4.0.2\ui-grid.woff" />
     <None Include="Properties\PublishProfiles\wms发布1.pubxml" />
     <None Include="Properties\PublishProfiles\wms预编译.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1254,6 +1264,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tabs-zy.js" />
+    <Content Include="Scripts\UI-Grid4.0.2\ui-grid.js" />
+    <Content Include="Scripts\UI-Grid4.0.2\ui-grid.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\bootstrap-datetimepicke\bootstrap-datetimepicker.min.css" />
     <Content Include="Scripts\bootstrap-datetimepicker\bootstrap-datetimepicker.min.js" />
@@ -1332,8 +1344,10 @@
     <Content Include="Template\退货单示例.xls" />
     <Content Include="Views\CostUnitList\QueryCostUnitList.cshtml" />
     <Content Include="Views\InOutRecord\Index.cshtml" />
-    <Content Include="Views\BillsManager\Index.cshtml" />
+    <Content Include="Views\BillsManager\IndexOld.cshtml" />
     <Content Include="Views\BillsManager\ExamineManyBills.cshtml" />
+    <Content Include="Views\BillsManager\Index-ngGrid.cshtml" />
+    <Content Include="Views\BillsManager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

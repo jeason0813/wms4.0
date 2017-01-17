@@ -269,6 +269,24 @@ namespace DALFactory
 
 
 
+		private IInOutRecordDetailDal _InOutRecordDetailDal;
+        public IInOutRecordDetailDal InOutRecordDetailDal
+        {
+            get
+            {
+                if(_InOutRecordDetailDal == null)
+                {
+                    _InOutRecordDetailDal = AbstractFactory.CreateInOutRecordDetailDal();
+                }
+                return _InOutRecordDetailDal;
+            }
+            set { _InOutRecordDetailDal = value; }
+        }
+	
+
+
+
+
 		private IInOutTypeDal _InOutTypeDal;
         public IInOutTypeDal InOutTypeDal
         {

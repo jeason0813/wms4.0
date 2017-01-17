@@ -18,24 +18,19 @@ namespace LHYS.WMS
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
             bundles.Add(new ScriptBundle("~/bundles/angularJs").Include(
-              "~/Scripts/angularJs/angular.js"));
+              "~/Scripts/angularJs/angular.js", "~/Scripts/angularJs/angular-touch.js", "~/Scripts/angularJs/angular-animate.js", "~/Scripts/UI-Grid4.0.2/ui-grid.js"));
             bundles.Add(new ScriptBundle("~/bundles/billsCommon").Include(
              "~/Scripts/billsCommon.js"));
-
-
             // 使用 Modernizr 的开发版本进行开发和了解信息。然后，当你做好
             // 生产准备时，请使用 http://modernizr.com 上的生成工具来仅选择所需的测试。
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include( "~/Content/bootstrap.css", "~/Content/UI-Grid4.0.2/ui-grid.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                      "~/Scripts/bootstrap.js", "~/Scripts/respond.js"
                     ));
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                    "~/Content/bootstrap.css"));
-
             //bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
             //            "~/Content/themes/base/jquery.ui.core.css",
             //            "~/Content/themes/base/jquery.ui.resizable.css",

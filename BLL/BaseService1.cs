@@ -136,6 +136,15 @@ namespace BLL
         }
     }   
 	
+	public partial class InOutRecordDetailService :BaseService<InOutRecordDetail>,IInOutRecordDetailService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.InOutRecordDetailDal;
+        }
+    }   
+	
 	public partial class InOutTypeService :BaseService<InOutType>,IInOutTypeService
     {
     

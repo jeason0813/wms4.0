@@ -1,0 +1,213 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    <link href="~/Content/ng-grid-2.0.12/ng-grid.css" rel="stylesheet" />
+    <script src="~/Content/ng-grid-2.0.12/ng-grid.min.js"></script>
+    <title>单据查看</title>
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="mainController">
+        <div class="row">
+            <div class="col-xs-11 table-responsive">
+                <table style="text-align:center" class="col-xs-12">
+                    <tr>
+                        <td colspan="8"><h2>@ViewBag.billTypeName 查询</h2></td>
+                    </tr>
+                    <tr>
+                        <td>开始时间：</td>
+                        <td><input type="date" class="form-control input-sm" ng-model="timestart" /></td>
+                        <td>结束时间：</td>
+                        <td><input type="date" class="form-control input-sm" ng-model="timeend" /></td>
+                        <td>
+                            部门：
+                        </td>
+                        <td>
+                            <select class="form-control input-sm" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId"><option value=""></option></select>
+                        </td>
+                        <td>
+                            单据状态：
+                        </td>
+                        <td>
+                            <input type="radio" name="name" ng-model="BillState" value="1" id="save" /><label for="save">已保存</label>
+                            <input type="radio" name="name" ng-model="BillState" value="2" id="examine" /><label for="examine">已审核</label>
+                            <input type="radio" name="name" ng-model="BillState" value="4" id="cancel" /><label for="cancel">已作废</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span ng-show="warehouseshow"> 仓库：</span>
+                        </td>
+                        <td>
+                            <select ng-show="warehouseshow" class="form-control input-sm" ng-options="Warehouse.Id as Warehouse.Name for Warehouse in Warehouses" ng-model="WarehouseId"><option value=""></option></select>
+                        </td>
+                        <td>单据编号：</td>
+                        <td><input type="text" ng-model="BillCode" name="name" value="" class="form-control input-sm" placeholder="请输入完整或部分单号" /></td>
+                        <td><span ng-show="ShowLBBillCode">客户单号:</span></td>
+                        <td><input type="text" ng-show="ShowLBBillCode" ng-model="LBBillCode" name="name" value="" class="form-control input-sm" placeholder="请输入完整或部分单号" /></td>
+                        <td colspan="2"><button type="button" class="btn btn-success btn-md" ng-click="searchBill(1)">&nbsp;&nbsp;&nbsp;查&nbsp;&nbsp;&nbsp;询&nbsp;&nbsp;&nbsp;</button></td>
+                    </tr>
+                </table>
+                @*内容*@
+                <div>
+                    <div style=" border: 1px solid rgb(212, 212, 212);height: 600px" ng-grid="gridOptions"></div>
+                </div>
+        </div>
+    </div>
+    <script>
+        //json日期格式转换为正常格式
+        function jsonDateFormat(jsonDate) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                return date.getFullYear() + "-" + month + "-" + day;
+            } catch (ex) {
+                return "";
+            }
+        }
+        var myApp = angular.module('myApp', ['ngGrid']);
+        myApp.controller('mainController', function ($scope, $http) {
+
+            //---------------------------------------------------------------
+            //监视当前页数改变
+            $scope.$watch('pagingOptions.currentPage', function (newVal, oldVal) {
+                $scope.searchBill(newVal);
+            })
+            //监视当前页数改变
+            $scope.$watch('pagingOptions.pageSize', function (newVal, oldVal) {
+                $scope.searchBill($scope.pagingOptions.currentPage);
+            })
+            //页数配置
+            $scope.pagingOptions = {
+                pageSizes: [5, 10, 20],
+                pageSize: 10,
+                currentPage: 1
+            };
+
+            //表格配置
+            $scope.gridOptions = {
+                data: 'data', //数据源
+                rowTemplate: '<div style="height: 100%"><div ng-style="{ \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell ">' +
+                    '<div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }"> </div>' +
+                    '<div ng-cell></div>' +
+                    '</div></div>',
+                multiSelect: false,
+                enableCellSelection: false,
+                enableRowSelection: true,
+                enablePinning: false,
+                columnDefs: [ {
+                    field: 'BillCode',
+                    displayName: '单据编号',
+
+                }, {
+                    field: 'LBBillCode',
+                    displayName: '客户单号',
+
+                }, {
+                    field: 'BillState',
+                    displayName: '单据状态',
+
+                }, {
+                    field: 'MakePerson',
+                    displayName: '制单人',
+
+                }, {
+                    field: 'ChargePerson',
+                    displayName: '仓管员',
+
+                }, {
+                    field: 'CreateDate',
+                    displayName: '单据日期',
+
+                }, {
+                    field: 'ExaminePerson',
+                    displayName: '审核人',
+
+                }, {
+                    field: 'ExamineDate',
+                    displayName: '审核日期',
+
+                }, {
+                    field: 'ExamineDate',
+                    displayName: '审核日期',
+
+                }, {
+                    field: 'Department',
+                    displayName: '所属部门',
+
+                },{
+                    field: 'Warehouse',
+                    displayName: '所属仓库',
+
+                }, {
+                    field: 'Id',
+                    displayName: '操作',
+                    enableCellEdit: false,
+                    sortable: false,
+                    pinnable: false,
+                    cellTemplate: '<div><a ng-click="itemClick(row.getProperty(col.field))">详情</a></div>'
+                }],
+                enablePaging: true,
+                showFooter: true,
+                totalServerItems: 'totalCount', //总数
+                pagingOptions: $scope.pagingOptions,
+                filterOptions: $scope.filterOptions
+            };
+            //---------------------------------------------------------------
+            //基础数据
+            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+                $scope.Warehouses = response.Warehouse;
+                $scope.Departents = response.Departent;
+            });
+            $scope.billType = '@ViewBag.billType';//单据类型
+            //仓库字段是否显示
+            $scope.warehouseshow = (['DIYBill', 'CheckBill', 'LocationChange'].indexOf($scope.billType) == -1);
+            //是否显示客户单号字段
+            $scope.ShowLBBillCode = ['TransferBill', 'BackInput', 'GiveBill', 'GiveBackBill', 'BackOutput'].indexOf($scope.billType) != -1;
+            $scope.pageSize = 10;//每页10条
+            //开始查询
+            $scope.searchBill = function (pageIndex) {
+                $scope.pageIndex = pageIndex;
+                $http.post('/BillsManager/SearchBills', { billType: $scope.billType, pageIndex: pageIndex, pageSize: $scope.pagingOptions.pageSize, timestart: $scope.timestart, timeend: $scope.timeend, BillState: $scope.BillState, DepartmentId: $scope.DepartmentId, WarehouseId: $scope.WarehouseId, BillCode: $scope.BillCode, LBBillCode: $scope.LBBillCode }).success(function (response) {
+                    //处理数据
+                    for (var i = 0; i < response.data.length; i++) {
+                        //处理时间
+                        response.data[i].ExamineDate = jsonDateFormat(response.data[i].ExamineDate);
+                        response.data[i].CreateDate = jsonDateFormat(response.data[i].CreateDate);
+                        //处理订单状态
+                        switch (response.data[i].BillState) {
+                            case 1: response.data[i].BillState = '已保存'; break;
+                            case 2: response.data[i].BillState = '已审核'; break;
+                            case 4: response.data[i].BillState = '已作废'; break;
+                            default:
+                        }
+
+                    }
+                    $scope.data = response.data;//赋值
+                    $scope.totalCount = response.totalCount;//总数
+                    $scope.pageCount = Math.ceil($scope.totalCount / $scope.pageSize);//页数
+                });
+            }
+
+            //跳转到详情页
+            $scope.itemClick = function (Id) {
+                var timestamp = Date.parse(new Date()) / 1000;//时间戳
+                window.parent.sonAddTab(timestamp, '单据详情', '/' + $scope.billType + '/IndexShow?' + $scope.billType + 'Id=' + Id);
+            }
+        });
+    </script>
+
+</body>
+</html>

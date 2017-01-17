@@ -124,6 +124,9 @@
     <Compile Include="GoodItem.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="InOutRecordDetail.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="InOutType.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -163,6 +166,7 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="LocationChangeRecordView.cs" />
+    <Compile Include="ManyGiveBillsModel.cs" />
     <Compile Include="Menu.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

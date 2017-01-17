@@ -79,6 +79,11 @@ namespace IDAL
       
     }
 	
+	public partial interface IInOutRecordDetailDal :IBaseDal<DBModel.InOutRecordDetail>
+    {
+      
+    }
+	
 	public partial interface IInOutTypeDal :IBaseDal<DBModel.InOutType>
     {
       

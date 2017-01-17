@@ -82,6 +82,11 @@ namespace DAL
 
     }
 		
+	public partial class InOutRecordDetailDal :BaseDal<InOutRecordDetail>,IInOutRecordDetailDal
+    {
+
+    }
+		
 	public partial class InOutTypeDal :BaseDal<InOutType>,IInOutTypeDal
     {
 

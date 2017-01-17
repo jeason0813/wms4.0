@@ -41,6 +41,8 @@ namespace IDAL
 	
 		IGoodItemDal GoodItemDal{get;set;}
 	
+		IInOutRecordDetailDal InOutRecordDetailDal{get;set;}
+	
 		IInOutTypeDal InOutTypeDal{get;set;}
 	
 		IInWarehouseDal InWarehouseDal{get;set;}

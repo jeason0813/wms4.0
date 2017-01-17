@@ -70,31 +70,35 @@
                         </tr>
                     </table>
                 </form>
+                @*内容*@
+                <div>
+                    <div id="dataGrid" style="height:380px;" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-auto-resize></div>
+                </div>
 
-                <table border="1" class="col-xs-12">
+                @*<table border="1" class="col-xs-12">
                     <tr>
+                        <th>系统单号</th>
+                        <th>客户单号</th>
                         <th>物料编码</th>
                         <th>物料名称</th>
                         <th>仓库名称</th>
                         <th>货位编码</th>
-                        <th>货位名称</th>
                         <th>批次</th>
                         <th>数量</th>
-                        <th>出入标记</th>
                         <th>出入库类型</th>
                     </tr>
                     <tr ng-repeat="record in Records">
+                        <td ng-bind="record.BillCode"></td>
+                        <td ng-bind="record.LBBillCode"></td>
                         <td ng-bind="record.ItemCode"></td>
                         <td ng-bind="record.ItemName"></td>
                         <td ng-bind="record.Warehouse"></td>
                         <td ng-bind="record.ItemLocationId"></td>
-                        <td ng-bind="record.ItemLocation"></td>
                         <td ng-bind="record.ItemBatch"></td>
                         <td ng-bind="record.Count"></td>
-                        <td ng-bind="record.InOrOut"></td>
                         <td ng-bind="record.InOutTypeName"></td>
                     </tr>
-                </table>
+                </table>*@
             </div>
         </div>
     </div>
@@ -184,9 +188,90 @@
             showMeridian: 1
         });
         //主程序
-        var myApp = angular.module('myApp', ["isteven-multi-select"]);
+        var myApp = angular.module('myApp', ['isteven-multi-select', 'ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize']);
         //数据控制器
-        myApp.controller('Main', function ($scope, $http) {
+        myApp.controller('Main', ['$scope', '$http', 'uiGridConstants', 'i18nService', function ($scope, $http, uiGridConstants, i18nService) {
+            i18nService.setCurrentLang('zh-cn');//设置为简体中文
+            //分页配置
+            var paginationOptions = {
+                pageNumber: 1,
+                pageSize: 10
+            };
+            //表格配置
+            $scope.gridOptions = {
+                enableRowHeaderSelection: false,//表头打钩选择
+                multiSelect: false,//多选
+                totalItems: 0,//总记录数
+                paginationPageSizes: [10, 15, 20],
+                paginationPageSize: 10,
+                useExternalPagination: true,//分页加载
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                    //分页信息改变时候调用
+                    gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                        paginationOptions.pageNumber = newPage;
+                        paginationOptions.pageSize = pageSize;
+                        if (pageSize == 10) {
+                            window.document.getElementById('dataGrid').style.height = '380px';
+                        }
+                        if (pageSize == 15) {
+                            window.document.getElementById('dataGrid').style.height = '530px';
+                        }
+
+                        if (pageSize == 20) {
+                            window.document.getElementById('dataGrid').style.height = '680px';
+                        }
+                        $scope.RecordSearch();
+                    });
+                },
+                columnDefs: [
+                    {
+                        field: 'BillCode',
+                        displayName: '系统单号',
+                        width: '120'
+
+                    }, {
+                        field: 'LBBillCode',
+                        displayName: '客户单号',
+                        width: '90'
+
+                    }, {
+                        field: 'ItemCode',
+                        displayName: '物料编码',
+                        width: '120'
+
+                    }, {
+                        field: 'ItemName',
+                        displayName: '物料名称',
+                        width: '200'
+                    }, {
+                        field: 'Warehouse',
+                        displayName: '仓库名称',
+                        width: '180'
+                    }, {
+                        field: 'ItemLocationId',
+                        displayName: '货位编码',
+                        width: '90'
+
+                    }, {
+                        field: 'ItemBatch',
+                        displayName: '批次',
+                        width: '100'
+                    }, {
+                        field: 'Count',
+                        displayName: '数量',
+                        width: '50'
+                    }, {
+                        field: 'InOutTypeName',
+                        displayName: '出入库类型',
+                        width: '120'
+                    }, {
+                        field: 'Id',
+                        displayName: '详情',
+                        cellTemplate: '<button type="button" class="btn btn-success btn-xs" ng-click="grid.appScope.itemClick(row.entity.MainTableId,row.entity.MainTableType)">查看</button>',
+                        width: '50'
+                    }]
+            };
             $scope.outInOutTypes = [];
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
                 $scope.Warehouses = response.Warehouse;
@@ -227,13 +312,17 @@
                 for (var i = 0; i <$scope.outInOutTypes.length; i++) {
                     inOutTypeIds.push($scope.outInOutTypes[i].Id);
                 }
-                $http.post('/InOutRecord/RecordSearch', { DepartmentId: $scope.DepartmentId, WarehouseId: $scope.CurrentWarehouseId, ItemLocationId: $scope.CurrentLocation == undefined ? null : $scope.CurrentLocation.Id, ItemCode: $scope.CurrentGoodItem == undefined ? null : $scope.CurrentGoodItem.ItemCode, InOutTypeId: inOutTypeIds, timestart: $scope.timestart, timeend: $scope.timeend }).success(function (response) {
-                    $scope.Records = response;
+                $http.post('/InOutRecord/RecordSearch', { DepartmentId: $scope.DepartmentId, WarehouseId: $scope.CurrentWarehouseId, ItemLocationId: $scope.CurrentLocation == undefined ? null : $scope.CurrentLocation.Id, ItemCode: $scope.CurrentGoodItem == undefined ? null : $scope.CurrentGoodItem.ItemCode, InOutTypeId: inOutTypeIds, timestart: $scope.timestart, timeend: $scope.timeend, PageIndex: paginationOptions.pageNumber, PageSize: paginationOptions.pageSize }).success(function (response) {
+                    $scope.gridOptions.data = response.data;//赋值
+                    $scope.gridOptions.totalItems = response.totalCount;
                 });
             }
-
-
-        });
+            //跳转到详情页
+            $scope.itemClick = function (Id, MainTableType) {
+                var timestamp = Date.parse(new Date()) / 1000;//时间戳
+                window.parent.sonAddTab(timestamp, '单据详情', '/' + MainTableType + '/IndexShow?' + MainTableType + 'Id=' + Id);
+            }
+        }]);
     </script>
 </body>
 </html>

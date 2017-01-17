@@ -17,11 +17,14 @@ namespace LHYS.WMS.Controllers
         }
 
        
-        public ActionResult RecordSearch(string DepartmentId, int? WarehouseId, string ItemLocationId, string ItemCode, int?[] InOutTypeId, DateTime? timestart, DateTime? timeend)
+        public ActionResult RecordSearch(string DepartmentId, int? WarehouseId, string ItemLocationId, string ItemCode, int?[] InOutTypeId, DateTime? timestart, DateTime? timeend,int PageIndex,int PageSize)
         {
-            var list = RecordService.RecordSearch(DepartmentId, WarehouseId, ItemLocationId, ItemCode, InOutTypeId, timestart, timeend).OrderByDescending(a=>a.ExamineDate);
-            return Json(list);
+            int count = 0;
+            var list = RecordService.RecordSearch(DepartmentId, WarehouseId, ItemLocationId, ItemCode, InOutTypeId, timestart, timeend, PageIndex, PageSize,out count);
+            return Json(new {
+                totalCount = count,
+                data=list
+            });
         }
-
     }
 }

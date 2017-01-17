@@ -80,6 +80,11 @@ namespace  IBLL
        
     }   
 	
+	public partial interface IInOutRecordDetailService : IBaseService<InOutRecordDetail>
+    {
+       
+    }   
+	
 	public partial interface IInOutTypeService : IBaseService<InOutType>
     {
        

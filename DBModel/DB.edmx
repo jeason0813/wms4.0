@@ -800,6 +800,43 @@
           <Property Name="AreaCode" Type="int" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“wms.dbo.InOutRecordDetail”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="InOutRecordDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="LBBillCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="InOutTypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="MainTableType" Type="nvarchar" MaxLength="100" />
+          <Property Name="InOutTypeId" Type="int" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLine" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemSpecifications" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemLocationId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Warehouse" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="ItemBatch" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemUnit" Type="nvarchar" MaxLength="100" />
+          <Property Name="UnitWeight" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Count" Type="float" />
+          <Property Name="CurrentCount" Type="float" />
+          <Property Name="InOrOut" Type="int" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="ReceiveCount" Type="float" />
+          <Property Name="ReceiveWeight" Type="float" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="State" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ExamineDate" Type="datetime" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“wms.dbo.LineWayAndDealer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="LineWayAndDealer">
           <Key>
@@ -854,18 +891,6 @@
           <Property Name="CmopanyCode" Type="varchar" MaxLength="30" />
           <Property Name="CompanyAbbr" Type="varchar" MaxLength="30" />
         </EntityType>
-        <Association Name="FK_CheckBillCheckDetail">
-          <End Role="CheckBill" Type="Self.CheckBill" Multiplicity="0..1" />
-          <End Role="CheckDetail" Type="Self.CheckDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CheckBill">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CheckDetail">
-              <PropertyRef Name="MainTableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WarehouseLocation">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
@@ -962,6 +987,40 @@
     [Departent].[AreaCode] AS [AreaCode]
     FROM [dbo].[Departent] AS [Departent]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="InOutRecordDetail" EntityType="Self.InOutRecordDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [InOutRecordDetail].[BillCode] AS [BillCode], 
+    [InOutRecordDetail].[LBBillCode] AS [LBBillCode], 
+    [InOutRecordDetail].[Id] AS [Id], 
+    [InOutRecordDetail].[MainTableId] AS [MainTableId], 
+    [InOutRecordDetail].[InOutTypeName] AS [InOutTypeName], 
+    [InOutRecordDetail].[MainTableType] AS [MainTableType], 
+    [InOutRecordDetail].[InOutTypeId] AS [InOutTypeId], 
+    [InOutRecordDetail].[ItemCode] AS [ItemCode], 
+    [InOutRecordDetail].[ItemLine] AS [ItemLine], 
+    [InOutRecordDetail].[ItemName] AS [ItemName], 
+    [InOutRecordDetail].[ItemSpecifications] AS [ItemSpecifications], 
+    [InOutRecordDetail].[ItemLocation] AS [ItemLocation], 
+    [InOutRecordDetail].[ItemLocationId] AS [ItemLocationId], 
+    [InOutRecordDetail].[Warehouse] AS [Warehouse], 
+    [InOutRecordDetail].[WarehouseId] AS [WarehouseId], 
+    [InOutRecordDetail].[ItemBatch] AS [ItemBatch], 
+    [InOutRecordDetail].[ItemUnit] AS [ItemUnit], 
+    [InOutRecordDetail].[UnitWeight] AS [UnitWeight], 
+    [InOutRecordDetail].[Count] AS [Count], 
+    [InOutRecordDetail].[CurrentCount] AS [CurrentCount], 
+    [InOutRecordDetail].[InOrOut] AS [InOrOut], 
+    [InOutRecordDetail].[Weight] AS [Weight], 
+    [InOutRecordDetail].[ReceiveCount] AS [ReceiveCount], 
+    [InOutRecordDetail].[ReceiveWeight] AS [ReceiveWeight], 
+    [InOutRecordDetail].[Remark] AS [Remark], 
+    [InOutRecordDetail].[State] AS [State], 
+    [InOutRecordDetail].[CreateDate] AS [CreateDate], 
+    [InOutRecordDetail].[ExamineDate] AS [ExamineDate], 
+    [InOutRecordDetail].[Department] AS [Department], 
+    [InOutRecordDetail].[DepartmentId] AS [DepartmentId]
+    FROM [dbo].[InOutRecordDetail] AS [InOutRecordDetail]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="LineWayAndDealer" EntityType="Self.LineWayAndDealer" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [LineWayAndDealer].[DealerCode] AS [DealerCode], 
@@ -1007,10 +1066,6 @@
     [UserFramework].[CompanyAbbr] AS [CompanyAbbr]
     FROM [dbo].[UserFramework] AS [UserFramework]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_CheckBillCheckDetail" Association="Self.FK_CheckBillCheckDetail">
-            <End Role="CheckBill" EntitySet="CheckBill" />
-            <End Role="CheckDetail" EntitySet="CheckDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_WarehouseLocation" Association="Self.FK_WarehouseLocation">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Location" EntitySet="Location" />
@@ -1121,6 +1176,7 @@
             <End Role="LoadingExpensesBill" EntitySet="LoadingExpensesBill" />
           </AssociationSet>
           <EntitySet Name="ErrorRecort" EntityType="DB.ErrorRecort" />
+          <EntitySet Name="InOutRecordDetail" EntityType="DB.InOutRecordDetail" />
         </EntityContainer>
         <EntityType Name="TransferBill">
           <Key>
@@ -2141,6 +2197,41 @@
           <Property Name="Time" Type="DateTime" Precision="3" />
           <Property Name="ErrorText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="InOutRecordDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="BillCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LBBillCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MainTableId" Type="Guid" />
+          <Property Name="InOutTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MainTableType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InOutTypeId" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLine" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemSpecifications" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLocationId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Warehouse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseId" Type="Int32" />
+          <Property Name="ItemBatch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemUnit" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Count" Type="Double" />
+          <Property Name="CurrentCount" Type="Double" />
+          <Property Name="InOrOut" Type="Int32" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="ReceiveCount" Type="Double" />
+          <Property Name="ReceiveWeight" Type="Double" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ExamineDate" Type="DateTime" Precision="3" />
+          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3024,6 +3115,42 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserCode" ColumnName="UserCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InOutRecordDetail">
+            <EntityTypeMapping TypeName="DB.InOutRecordDetail">
+              <MappingFragment StoreEntitySet="InOutRecordDetail">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="ExamineDate" ColumnName="ExamineDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ReceiveWeight" ColumnName="ReceiveWeight" />
+                <ScalarProperty Name="ReceiveCount" ColumnName="ReceiveCount" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="InOrOut" ColumnName="InOrOut" />
+                <ScalarProperty Name="CurrentCount" ColumnName="CurrentCount" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+                <ScalarProperty Name="ItemBatch" ColumnName="ItemBatch" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
+                <ScalarProperty Name="ItemLocationId" ColumnName="ItemLocationId" />
+                <ScalarProperty Name="ItemLocation" ColumnName="ItemLocation" />
+                <ScalarProperty Name="ItemSpecifications" ColumnName="ItemSpecifications" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemLine" ColumnName="ItemLine" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="InOutTypeId" ColumnName="InOutTypeId" />
+                <ScalarProperty Name="MainTableType" ColumnName="MainTableType" />
+                <ScalarProperty Name="InOutTypeName" ColumnName="InOutTypeName" />
+                <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LBBillCode" ColumnName="LBBillCode" />
+                <ScalarProperty Name="BillCode" ColumnName="BillCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
