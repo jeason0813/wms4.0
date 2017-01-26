@@ -72,4 +72,6 @@
   </object>
   <object name="BillUpLoadService" type="BLL.BillUpLoadService, BLL" singleton="false" >
   </object>
+  <object name="CostTotalService" type="BLL.CostTotalService, BLL" singleton="false" >
+  </object>
 </objects>

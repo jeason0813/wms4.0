@@ -88,6 +88,9 @@
     <Compile Include="CostItem.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="CostTotal.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="CostUnitList.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

@@ -777,6 +777,29 @@
           <Property Name="CreateDT" Type="datetime" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“wms.dbo.CostTotal”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="CostTotal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="billType" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="MainTableId" Type="uniqueidentifier" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="BillDate" Type="datetime" />
+          <Property Name="MakePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExaminePerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="CostItemCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CostItemName" Type="nvarchar" MaxLength="100" />
+          <Property Name="AllAmount" Type="float" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“wms.dbo.Departent”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Departent">
           <Key>
@@ -966,6 +989,26 @@
     [Company].[CreateBy] AS [CreateBy], 
     [Company].[CreateDT] AS [CreateDT]
     FROM [dbo].[Company] AS [Company]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CostTotal" EntityType="Self.CostTotal" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CostTotal].[Id] AS [Id], 
+    [CostTotal].[billType] AS [billType], 
+    [CostTotal].[OrderNumber] AS [OrderNumber], 
+    [CostTotal].[MainTableId] AS [MainTableId], 
+    [CostTotal].[BillCode] AS [BillCode], 
+    [CostTotal].[BillDate] AS [BillDate], 
+    [CostTotal].[MakePerson] AS [MakePerson], 
+    [CostTotal].[ExaminePerson] AS [ExaminePerson], 
+    [CostTotal].[CostItemCode] AS [CostItemCode], 
+    [CostTotal].[CostItemName] AS [CostItemName], 
+    [CostTotal].[AllAmount] AS [AllAmount], 
+    [CostTotal].[Remark] AS [Remark], 
+    [CostTotal].[Company] AS [Company], 
+    [CostTotal].[CompanyId] AS [CompanyId], 
+    [CostTotal].[Department] AS [Department], 
+    [CostTotal].[DepartmentId] AS [DepartmentId]
+    FROM [dbo].[CostTotal] AS [CostTotal]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Departent" EntityType="Self.Departent" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1177,6 +1220,7 @@
           </AssociationSet>
           <EntitySet Name="ErrorRecort" EntityType="DB.ErrorRecort" />
           <EntitySet Name="InOutRecordDetail" EntityType="DB.InOutRecordDetail" />
+          <EntitySet Name="CostTotal" EntityType="DB.CostTotal" />
         </EntityContainer>
         <EntityType Name="TransferBill">
           <Key>
@@ -2232,6 +2276,27 @@
           <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DepartmentId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="CostTotal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="billType" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="BillCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillDate" Type="DateTime" Precision="3" />
+          <Property Name="MakePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExaminePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CostItemCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CostItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AllAmount" Type="Double" />
+          <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MainTableId" Type="Guid" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3151,6 +3216,28 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="LBBillCode" ColumnName="LBBillCode" />
                 <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CostTotal">
+            <EntityTypeMapping TypeName="DB.CostTotal">
+              <MappingFragment StoreEntitySet="CostTotal">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="MainTableId" ColumnName="MainTableId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AllAmount" ColumnName="AllAmount" />
+                <ScalarProperty Name="CostItemName" ColumnName="CostItemName" />
+                <ScalarProperty Name="CostItemCode" ColumnName="CostItemCode" />
+                <ScalarProperty Name="ExaminePerson" ColumnName="ExaminePerson" />
+                <ScalarProperty Name="MakePerson" ColumnName="MakePerson" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+                <ScalarProperty Name="billType" ColumnName="billType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

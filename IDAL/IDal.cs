@@ -44,6 +44,11 @@ namespace IDAL
       
     }
 	
+	public partial interface ICostTotalDal :IBaseDal<DBModel.CostTotal>
+    {
+      
+    }
+	
 	public partial interface ICostUnitListDal :IBaseDal<DBModel.CostUnitList>
     {
       

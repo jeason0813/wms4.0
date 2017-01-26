@@ -262,32 +262,32 @@ namespace BLL
                 //如果是批量导入交货单
                 if (ColumnName == "交货")
                 {
-                    bool res = AddManyGiveBills(dt);
-                    billCodes += res ? "交货单批量导入成功" : "交货单批量导入失败";
+                     billCodes = AddManyGiveBills(dt);
                 }
-                else {
+                else
+                {
                     //单张单据
                     dt.Rows.RemoveAt(0); //删除标题行
                     switch (typeTemp)
                     {
                         case "转仓单号":
-                            billCodes += AddTransferBill(dt) + "  ";
+                            AddTransferBill(dt);
                             break;
                         case "退仓单号":
-                            billCodes += AddBackInput(dt) + "  ";
+                            AddBackInput(dt);
                             break;
                         case "交货单号":
-                            billCodes += AddGiveBill(dt) + "  ";
+                          AddGiveBill(dt);
                             break;
                         case "退货单号":
-                            billCodes += AddBackOutput(dt) + "  ";
+                           AddBackOutput(dt);
                             break;
                     }
                 }
                 //删除文件
                 File.Delete(item);
             }
-            return "导入成功，单号为：" + billCodes;
+            return billCodes==""?"导入成功":"导入异常："+billCodes;
             //}
             //catch(Exception e)
             //{
@@ -299,8 +299,9 @@ namespace BLL
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        private bool AddManyGiveBills(DataTable dt)
+        private string AddManyGiveBills(DataTable dt)
         {
+            string res = "";
             GiveBillService Service = new GiveBillService();
             //转成集合
             List<ManyGiveBillsModel> list = new List<ManyGiveBillsModel>();
@@ -328,14 +329,16 @@ namespace BLL
                 return value;
             });
             string CurrentLBBillCode = "";//当前立邦单号
-            GiveBill bill=null;//当前交货单
+            GiveBill bill = null;//当前交货单
             foreach (var item in list)
             {
                 //新的一条单据
-                if (item.LBBillCode != CurrentLBBillCode) {
+                if (item.LBBillCode != CurrentLBBillCode)
+                {
                     //保存上一张单据
-                    if (CurrentLBBillCode != "") {
-                        Service.SaveImport(bill);
+                    if (CurrentLBBillCode != "")
+                    {
+                        res += Service.SaveImport(bill);
                     }
                     //新建下一张单据
                     bill = new GiveBill()
@@ -350,10 +353,11 @@ namespace BLL
                 CurrentLBBillCode = item.LBBillCode;
             }
             //循环结束 保存最后一条
-            if (bill != null) {
-                Service.SaveImport(bill);
+            if (bill != null)
+            {
+                res += Service.SaveImport(bill);
             }
-            return true;
+            return res;
         }
 
         private string AddTransferBill(DataTable dt)

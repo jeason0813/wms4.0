@@ -69,5 +69,6 @@ namespace DBModel
         public virtual DbSet<LoadingAndLaborCostDetail> LoadingAndLaborCostDetail { get; set; }
         public virtual DbSet<ErrorRecort> ErrorRecort { get; set; }
         public virtual DbSet<InOutRecordDetail> InOutRecordDetail { get; set; }
+        public virtual DbSet<CostTotal> CostTotal { get; set; }
     }
 }

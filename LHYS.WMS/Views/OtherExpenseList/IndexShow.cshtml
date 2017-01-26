@@ -124,7 +124,7 @@
                 $http.post("/OtherExpenseList/Examine1", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
-                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
+                        window.location.href = 'IndexShow?billType=@ViewBag.billType&OtherExpenseListId=@ViewBag.OtherExpenseListId';
                     }
                     else {
                         alert(response);
@@ -136,7 +136,7 @@
                 $http.post("/OtherExpenseList/Examine2", {}, { params: { "OtherExpenseListId": "@ViewBag.OtherExpenseListId" } }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
-                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
+                        window.location.href = 'IndexShow?billType=@ViewBag.billType&OtherExpenseListId=@ViewBag.OtherExpenseListId';
                     }
                     else {
                         alert(response);
@@ -152,7 +152,7 @@
                 $http.post("/OtherExpenseList/GiveupExamine", { billCode: "@ViewBag.OtherExpenseListId" }).success(function (response) {
                     if (response == '操作成功') {
                         alert(response);
-                        window.location.href = 'IndexShow?OtherExpenseListId=@ViewBag.OtherExpenseListId';
+                        window.location.href = 'IndexShow?billType=@ViewBag.billType&OtherExpenseListId=@ViewBag.OtherExpenseListId';
                     } else {
                         alert(response);
                     }
@@ -171,10 +171,10 @@
                     if (response == '删除成功！') {
                         window.parent.window.parent.closeCurrentPage();//关闭当前页
                     }
-
                 });
             }
         })
     </script>
 </body>
 </html>
+ 

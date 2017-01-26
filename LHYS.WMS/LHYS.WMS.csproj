@@ -197,6 +197,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuManagerController.cs" />
+    <Compile Include="Controllers\ReportTable\CostTotalController.cs" />
     <Compile Include="Controllers\ReportTable\InOutRecordController.cs" />
     <Compile Include="Controllers\ReportTable\InWarehouseController.cs" />
     <Compile Include="Controllers\ExportBillController.cs" />
@@ -421,15 +422,14 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\UI-Grid4.0.2\ui-grid.css" />
-    <Content Include="Content\UI-Grid4.0.2\ui-grid.min.css" />
+    <Content Include="Content\ui-grid.css" />
+    <Content Include="Content\ui-grid.min.css" />
     <Content Include="Demo\directiveDemo.js" />
     <Content Include="Demo\sonWindowAddTab.js" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\weathericons-regular-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -1245,8 +1245,8 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\UI-Grid4.0.2\ui-grid.ttf" />
-    <Content Include="Content\UI-Grid4.0.2\ui-grid.woff" />
+    <Content Include="Content\ui-grid.ttf" />
+    <Content Include="Content\ui-grid.woff" />
     <None Include="Properties\PublishProfiles\wms发布1.pubxml" />
     <None Include="Properties\PublishProfiles\wms预编译.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1348,6 +1348,8 @@
     <Content Include="Views\BillsManager\ExamineManyBills.cshtml" />
     <Content Include="Views\BillsManager\Index-ngGrid.cshtml" />
     <Content Include="Views\BillsManager\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\CostTotal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,9 +15,9 @@ namespace LHYS.WMS.Controllers
         // GET: Test
         public ActionResult Index()
         {
-                int c = 2;
-                int d = 0;
-            int f = c / d;
+            //    int c = 2;
+            //    int d = 0;
+            //int f = c / d;
             return View();
         }
         public ActionResult TestExamine(string GiveBillId)

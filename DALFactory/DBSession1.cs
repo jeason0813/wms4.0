@@ -143,6 +143,24 @@ namespace DALFactory
 
 
 
+		private ICostTotalDal _CostTotalDal;
+        public ICostTotalDal CostTotalDal
+        {
+            get
+            {
+                if(_CostTotalDal == null)
+                {
+                    _CostTotalDal = AbstractFactory.CreateCostTotalDal();
+                }
+                return _CostTotalDal;
+            }
+            set { _CostTotalDal = value; }
+        }
+	
+
+
+
+
 		private ICostUnitListDal _CostUnitListDal;
         public ICostUnitListDal CostUnitListDal
         {

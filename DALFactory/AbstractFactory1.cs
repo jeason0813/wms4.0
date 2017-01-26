@@ -72,6 +72,14 @@ namespace DALFactory
 
         }
 		
+	    public static ICostTotalDal CreateCostTotalDal()
+        {
+
+		 string fullClassName = NameSpace + ".CostTotalDal";
+          return CreateInstance(fullClassName) as ICostTotalDal;
+
+        }
+		
 	    public static ICostUnitListDal CreateCostUnitListDal()
         {
 

@@ -48,6 +48,33 @@
                             <td><label class="control-label">物料：</label></td>
                             <td><input type="text" class="form-control input-sm" value="" data-toggle="modal" data-target="#itemchoose" ng-model="CurrentGoodItem.ItemName"></td>
                         <tr>
+                            <td><label class="control-label">开始时间</label></td>
+                            @*<td><input type="text" class="form-control input-sm" value="" id="timestart" ng-model="timestart" data-date-format="yyyy-mm-dd hh:ii"></td>*@
+                            <td><input type="date" class="form-control input-sm" ng-model="timestart"  /></td>
+                            <td><label class="control-label">结束时间</label></td>
+                            @*<td><input type="text" class="form-control input-sm" value="" id="timeend" ng-model="timeend" data-date-format="yyyy-mm-dd hh:ii"></td>*@
+                            <td><input type="date" class="form-control input-sm" ng-model="timeend" /></td>
+                            <td><label class="control-label">批次：</label></td>
+                            <td><input type="text" class="form-control input-sm" value="" ng-model="ItemBatch"></td>
+                            <td><label class="control-label">系统单号：</label></td>
+                            <td><input type="text" class="form-control input-sm" value="" ng-model="BillCode"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label">客户单号：</label></td>
+                            <td><input type="text" class="form-control input-sm" value="" ng-model="LBBillCode"></td>
+                            <td><label class="control-label">单据类型：</label></td>
+                            <td>
+                                <div style="width:100%;" isteven-multi-select
+                                     input-model="billTypesIn"
+                                     output-model="billTypesOut"
+                                     button-label="name"
+                                     item-label="name"
+                                     tick-property="ticked"
+                                     helper-elements="all none"
+                                     max-height="320px"
+                                     max-labels="2">
+                                </div>
+                            </td>
                             <td><label class="control-label">出入库类型：</label></td>
                             <td>
                                 <div style="width:100%;" isteven-multi-select
@@ -61,12 +88,8 @@
                                      max-labels="2">
                                 </div>
                             </td>
-                            <td><label class="control-label">开始时间</label></td>
-                            <td><input type="text" class="form-control input-sm" value="" id="timestart" ng-model="timestart" data-date-format="yyyy-mm-dd hh:ii"></td>
-                            <td><label class="control-label">结束时间</label></td>
-                            <td><input type="text" class="form-control input-sm" value="" id="timeend" ng-model="timeend" data-date-format="yyyy-mm-dd hh:ii"></td>
-                            <td><input type="button" class="btn btn-danger btn-md" value="清除条件" style="width:100px"  ng-click="clearSearch()"/></td>
-                            <td><input type="submit" class="btn btn-success btn-md" value="查询" style="width:100px" /></td>
+                            <td><input type="button" class="btn btn-danger btn-xs" value="清除条件"  ng-click="clearSearch()" /><input type="submit" class="btn btn-success btn-xs" value="查询"  /></td>
+                            <td>数量合计:{{sumCount}},重量合计:{{sumWeight}}kg</td>
                         </tr>
                     </table>
                 </form>
@@ -74,31 +97,6 @@
                 <div>
                     <div id="dataGrid" style="height:380px;" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-auto-resize></div>
                 </div>
-
-                @*<table border="1" class="col-xs-12">
-                    <tr>
-                        <th>系统单号</th>
-                        <th>客户单号</th>
-                        <th>物料编码</th>
-                        <th>物料名称</th>
-                        <th>仓库名称</th>
-                        <th>货位编码</th>
-                        <th>批次</th>
-                        <th>数量</th>
-                        <th>出入库类型</th>
-                    </tr>
-                    <tr ng-repeat="record in Records">
-                        <td ng-bind="record.BillCode"></td>
-                        <td ng-bind="record.LBBillCode"></td>
-                        <td ng-bind="record.ItemCode"></td>
-                        <td ng-bind="record.ItemName"></td>
-                        <td ng-bind="record.Warehouse"></td>
-                        <td ng-bind="record.ItemLocationId"></td>
-                        <td ng-bind="record.ItemBatch"></td>
-                        <td ng-bind="record.Count"></td>
-                        <td ng-bind="record.InOutTypeName"></td>
-                    </tr>
-                </table>*@
             </div>
         </div>
     </div>
@@ -131,7 +129,7 @@
 
     @*-------------------------------------品项选择模态框-----------------------------------------*@
     <div class="modal fade" id="itemchoose">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="width:850px">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -139,56 +137,76 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" />
-                    <table class="table table-bordered table-striped table-condensed">
-                        <tr>
-                            <th>编号</th>
-                            <th>物料编码</th>
-                            <th>物料分类</th>
-                            <th>产品名称</th>
-                            <th>包装规格</th>
-                            <th>单位</th>
-                            <th>单位重量(KG)</th>
-                        </tr>
-                        <tr ng-repeat="goodItem in GoodItems | filter:searchstr " ng-dblclick="selectItem(goodItem)">
-                            <td>{{$index+1}}</td>
-                            <td>{{goodItem.ItemCode}}</td>
-                            <td>{{goodItem.ItemLine}}</td>
-                            <td>{{goodItem.ItemName}}</td>
-                            <td>{{goodItem.ItemSpecifications}}</td>
-                            <td>{{goodItem.ItemUnit}}</td>
-                            <td>{{goodItem.UnitWeight}}</td>
-                        </tr>
-                    </table>
+                    <div style="height:400px;overflow:auto">
+                        <table class="table table-bordered table-striped table-condensed">
+                            <tr>
+                                <th>编号</th>
+                                <th>物料编码</th>
+                                <th>物料分类</th>
+                                <th>产品名称</th>
+                                <th>包装规格</th>
+                                <th>单位</th>
+                                <th>单位重量(KG)</th>
+                            </tr>
+                            <tr ng-repeat="goodItem in GoodItems | filter:searchstr " ng-dblclick="selectItem(goodItem)">
+                                <td>{{$index+1}}</td>
+                                <td>{{goodItem.ItemCode}}</td>
+                                <td>{{goodItem.ItemLine}}</td>
+                                <td>{{goodItem.ItemName}}</td>
+                                <td>{{goodItem.ItemSpecifications}}</td>
+                                <td>{{goodItem.ItemUnit}}</td>
+                                <td>{{goodItem.UnitWeight}}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     @*-------------------------------------品项选择模态框end-----------------------------------------*@
-
     <script>
         //初始化时间选择器
-        $('#timestart').datetimepicker({
-            language: 'zh-CN',
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            forceParse: 0,
-            showMeridian: 1
-        });
-        $('#timeend').datetimepicker({
-            language: 'zh-CN',
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            forceParse: 0,
-            showMeridian: 1
-        });
+        //$('#timestart').datetimepicker({
+        //    language: 'zh-CN',
+        //    weekStart: 1,
+        //    todayBtn: 1,
+        //    autoclose: 1,
+        //    todayHighlight: 1,
+        //    startView: 2,
+        //    forceParse: 0,
+        //    showMeridian: 1
+        //});
+        //$('#timeend').datetimepicker({
+        //    language: 'zh-CN',
+        //    weekStart: 1,
+        //    todayBtn: 1,
+        //    autoclose: 1,
+        //    todayHighlight: 1,
+        //    startView: 2,
+        //    forceParse: 0,
+        //    showMeridian: 1
+        //});
         //主程序
         var myApp = angular.module('myApp', ['isteven-multi-select', 'ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize']);
+        //定义过滤器转换单据类型
+        myApp.filter('formatBillType', function () {
+            return function (input) {
+                var res = input;
+                switch (input) {
+                    case 'TransferBill':res='入库单';break;
+                    case 'BackOutput':res='退货单';break;
+                    case 'OtherInput':res='其他入库单';break;
+                    case 'GiveBill':res='交货单';break;
+                    case 'BackInput':res='退库单';break;
+                    case 'OtherOutput':res='其他出库单';break;
+                    case 'DIYBill':res='加工单';break;
+                    case 'CheckBill':res='盘点单';break;
+                    case 'LocationChange':res='货位调整单';break;
+                    default:
+                }
+                return res;
+            }
+        })
         //数据控制器
         myApp.controller('Main', ['$scope', '$http', 'uiGridConstants', 'i18nService', function ($scope, $http, uiGridConstants, i18nService) {
             i18nService.setCurrentLang('zh-cn');//设置为简体中文
@@ -217,7 +235,6 @@
                         if (pageSize == 15) {
                             window.document.getElementById('dataGrid').style.height = '530px';
                         }
-
                         if (pageSize == 20) {
                             window.document.getElementById('dataGrid').style.height = '680px';
                         }
@@ -225,6 +242,12 @@
                     });
                 },
                 columnDefs: [
+                    {
+                        field: 'MainTableType',
+                        displayName: '单据类型',
+                        width: '120',
+                        cellFilter: 'formatBillType'//过滤器转换单据类型
+                    },
                     {
                         field: 'BillCode',
                         displayName: '系统单号',
@@ -252,7 +275,6 @@
                         field: 'ItemLocationId',
                         displayName: '货位编码',
                         width: '90'
-
                     }, {
                         field: 'ItemBatch',
                         displayName: '批次',
@@ -272,7 +294,19 @@
                         width: '50'
                     }]
             };
-            $scope.outInOutTypes = [];
+            $scope.outInOutTypes = [];//出入库类型数组
+            $scope.billTypesIn = [
+                { name: '入库单', type: 'TransferBill' },
+                { name: '退货单', type: 'BackOutput' },
+                 { name: '其他入库单', type: 'OtherInput' },
+                  { name: '交货单', type: 'GiveBill' },
+                   { name: '退库单', type: 'BackInput' },
+                    { name: '其他出库单', type: 'OtherOutput' },
+                     { name: '加工单', type: 'DIYBill' },
+                      { name: '盘点单', type: 'CheckBill' },
+                       { name: '货位调整单', type: 'LocationChange' }
+            ];//候选单据类型
+            $scope.billTypesOut = [];//已选择单据类型
             $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
                 $scope.Warehouses = response.Warehouse;
                 $scope.Departents = response.Departent;
@@ -296,7 +330,7 @@
                 //模态框关闭
                 $('#itemchoose').modal('hide');
             }
-            //复位筛选条件
+            //复位筛选条件(不包括复选框)
             $scope.clearSearch = function () {
                 $scope.CurrentWarehouseId = null;
                 $scope.CurrentLocations = null;
@@ -305,16 +339,39 @@
                 $scope.Warehouse = null;
                 $scope.timestart = null;
                 $scope.timeend = null;
+                $scope.LBBillCode = null;
+                $scope.BillCode = null;
+                $scope.ItemBatch = null;
             };
             //查找记录
             $scope.RecordSearch = function () {
                 var inOutTypeIds = [];
-                for (var i = 0; i <$scope.outInOutTypes.length; i++) {
+                for (var i = 0; i < $scope.outInOutTypes.length; i++) {
                     inOutTypeIds.push($scope.outInOutTypes[i].Id);
                 }
-                $http.post('/InOutRecord/RecordSearch', { DepartmentId: $scope.DepartmentId, WarehouseId: $scope.CurrentWarehouseId, ItemLocationId: $scope.CurrentLocation == undefined ? null : $scope.CurrentLocation.Id, ItemCode: $scope.CurrentGoodItem == undefined ? null : $scope.CurrentGoodItem.ItemCode, InOutTypeId: inOutTypeIds, timestart: $scope.timestart, timeend: $scope.timeend, PageIndex: paginationOptions.pageNumber, PageSize: paginationOptions.pageSize }).success(function (response) {
+                var billTypes = [];
+                for (var i = 0; i < $scope.billTypesOut.length; i++) {
+                    billTypes.push($scope.billTypesOut[i].type);
+                }
+                $http.post('/InOutRecord/RecordSearch', {
+                    DepartmentId: $scope.DepartmentId,
+                    WarehouseId: $scope.CurrentWarehouseId, 
+                    ItemLocationId: $scope.CurrentLocation == undefined ? null : $scope.CurrentLocation.Id,
+                    ItemCode: $scope.CurrentGoodItem == undefined ? null : $scope.CurrentGoodItem.ItemCode,
+                    InOutTypeId: inOutTypeIds,
+                    BillTypes: billTypes,
+                    ItemBatch: $scope.ItemBatch == undefined ? null : $scope.ItemBatch,
+                    LBBillCode: $scope.LBBillCode == undefined ? null : $scope.LBBillCode,
+                    BillCode: $scope.BillCode == undefined ? null : $scope.BillCode,
+                    timestart: $scope.timestart,
+                    timeend: $scope.timeend,
+                    PageIndex: paginationOptions.pageNumber, 
+                    PageSize: paginationOptions.pageSize
+            }).success(function (response) {
                     $scope.gridOptions.data = response.data;//赋值
                     $scope.gridOptions.totalItems = response.totalCount;
+                    $scope.sumCount = response.sumCount.toFixed(2);
+                    $scope.sumWeight = response.sumWeight.toFixed(2);
                 });
             }
             //跳转到详情页

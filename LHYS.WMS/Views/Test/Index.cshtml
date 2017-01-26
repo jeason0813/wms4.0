@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+    @Scripts.Render("~/bundles/billsCommon")
+   
+    <title>入库单</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function test() {
+            $.post('http://localhost:4807/api/Product/GetProduct', { Id:2,Name:'张三' }, function (data) {
+                alert(data);
+            })
+        }</script>
+    <button onclick="test()">发送post请求</button>
+</body>
+</html>
+

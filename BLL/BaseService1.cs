@@ -73,6 +73,15 @@ namespace BLL
         }
     }   
 	
+	public partial class CostTotalService :BaseService<CostTotal>,ICostTotalService
+    {
+    
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.CostTotalDal;
+        }
+    }   
+	
 	public partial class CostUnitListService :BaseService<CostUnitList>,ICostUnitListService
     {
     

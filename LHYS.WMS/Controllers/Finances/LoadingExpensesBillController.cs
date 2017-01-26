@@ -21,26 +21,20 @@ namespace LHYS.WMS.Controllers
             {
                 case "LoadingCostReceiveList":
                 case "1":
-                    Session["billType"] = 1;
-                    Session["billTypeName"] = "装卸费应收单";
+                    ViewBag.billType = 1;//单据类型
+                    ViewBag.billTypeName = "装卸费应收单";//单据类型名
                     break;
                 case "LoadingCostGiveList":
                 case "2":
-                    Session["billType"] = 2;
-                    Session["billTypeName"] = "装卸费成本单";
+                    ViewBag.billType = 2;//单据类型
+                    ViewBag.billTypeName = "装卸费成本单";//单据类型名
                     break;
                 case "LaborReceiveList":
                 case "3":
-                    Session["billType"] = 3;
-                    Session["billTypeName"] = "力资费应收单";
-                    break;
-                default:
-                    Session["billType"] = null;
-                    Session["billTypeName"] = "";
+                    ViewBag.billType = 3;//单据类型
+                    ViewBag.billTypeName = "力资费应收单";//单据类型名
                     break;
             }
-            ViewBag.billType = Session["billType"];//单据类型
-            ViewBag.billTypeName = Session["billTypeName"];//单据类型名
             //如果传入单号参数  放入ViewBag
             if (Request["LoadingExpensesBillId"] != null)
             {
@@ -59,8 +53,13 @@ namespace LHYS.WMS.Controllers
         /// <returns></returns>
         public ActionResult IndexShow()
         {
-            ViewBag.billType = Session["billType"];//单据类型
-            ViewBag.billTypeName = Session["billTypeName"];//单据类型名
+            ViewBag.billType = Request["billType"];//单据类型
+            switch (Request["billType"])
+            {
+                case "1": case "LoadingCostReceiveList": ViewBag.billTypeName="装卸费应收单"; break;
+                case "2": case "LoadingCostGiveList": ViewBag.billTypeName="装卸费成本单"; break;
+                case "3": case "LaborReceiveList": ViewBag.billTypeName="力资费应收单"; break;
+            }
             if (Request["LoadingExpensesBillId"] != null)
             {
                 ViewBag.LoadingExpensesBillId = Request["LoadingExpensesBillId"].ToString();
@@ -74,9 +73,16 @@ namespace LHYS.WMS.Controllers
         //获取表单数据
         public ActionResult GetData()
         {
-            if (Session["billType"] == null)//是否有单据类型
+            if (Request["billType"] == null)//是否有单据类型
             {
                 return Content("没有单据类型！");
+            }
+            int billtype=0;
+            switch (Request["billType"])
+            {
+                case "1": case "LoadingCostReceiveList": billtype = 1;break;
+                case "2": case "LoadingCostGiveList": billtype = 2; break;
+                case "3": case "LaborReceiveList": billtype = 3; break;
             }
             string str = Request.Params["LoadingExpensesBillId"];//单号
             //如果新单据 没有数据
@@ -84,32 +90,30 @@ namespace LHYS.WMS.Controllers
             {
                 return Json(new LoadingExpensesBill());//返回一个新建的空对象
             }
-            int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
             //如果有数据
             Guid LoadingExpensesBillId = new Guid(Request["LoadingExpensesBillId"]);//单据编号
             LoadingExpensesBill bill = LoadingExpensesBillService.LoadEntities(t => t.Id == LoadingExpensesBillId && t.BillType == billtype).FirstOrDefault();//获取表单
             return Json(bill);
         }
-        public ActionResult GetBillDetail(LoadingAndLaborQueryView A, List<LaborAndLoading3QueryConditions> Businesstype, List<LaborAndLoading3QueryConditions> LodingType , List<LaborAndLoading3QueryConditions>  Warehouseid) {
-            if (Session["billType"] == null)//是否有单据类型
+        public ActionResult GetBillDetail(LoadingAndLaborQueryView A, List<LaborAndLoading3QueryConditions> Businesstype, List<LaborAndLoading3QueryConditions> LodingType , List<LaborAndLoading3QueryConditions>  Warehouseid,int billType) {
+
+            if (billType == 0)//是否有单据类型
             {
                 return Content("没有单据类型！");
             }
-            int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
-            LoadingExpensesBill bill = LoadingExpensesBillService.GetData(A, billtype,Session["Power"].ToString().Trim(), Businesstype, LodingType, Warehouseid);
+            LoadingExpensesBill bill = LoadingExpensesBillService.GetData(A, billType, Session["Power"].ToString().Trim(), Businesstype, LodingType, Warehouseid);
             return Json(bill);
         }
         //保存表单数据
-        public ActionResult SaveData(LoadingExpensesBill LoadingExpensesBill)
+        public ActionResult SaveData(LoadingExpensesBill LoadingExpensesBill,int billType)
         {
-            if (Session["billType"] == null)//是否有单据类型
+            if (billType == 0)//是否有单据类型
             {
                 return Content("没有单据类型！");
             }
-            int billtype = Convert.ToInt32(Session["billType"].ToString().Trim());
             //参数对象可以对应接受数据
             LoadingExpensesBill.MakePerson = Session["UserName"].ToString();//保存制单人
-            string result = LoadingExpensesBillService.SaveData(LoadingExpensesBill, billtype);//保存数据
+            string result = LoadingExpensesBillService.SaveData(LoadingExpensesBill, billType);//保存数据
             return Content(result.ToString());
         }
 

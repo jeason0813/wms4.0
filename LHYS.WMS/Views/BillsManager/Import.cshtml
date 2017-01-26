@@ -39,6 +39,8 @@
                     </tr>
                 </table>
                 <button class="btn btn-success" ng-click="save()">确认提交</button>
+                <br />
+               <textarea style="width:400px;height:350px;">{{returnMsg}}</textarea>
             </div>
         </div>
     </div>
@@ -75,7 +77,6 @@
                     });
                 };
             };
-
             //删除
             $scope.selectDel = function (index) {
                 $scope.selectFilesShow.splice(index, 1);
@@ -84,7 +85,7 @@
             //保存
             $scope.save = function () {
                 $http.post("/BillUpLoad/Save", { files: $scope.selectFiles }).success(function (response) {
-                    alert(response);
+                    $scope.returnMsg = response;
                     //清空单号
                     $scope.selectFilesShow = [];
                     $scope.selectFiles = [];

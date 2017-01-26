@@ -152,5 +152,10 @@
   <object type="LHYS.WMS.Controllers.InOutRecordController,LHYS.WMS" singleton="false" >
     <property name="RecordService" ref="RecordService" />
   </object>
+  <object type="LHYS.WMS.Controllers.CostTotalController,LHYS.WMS" singleton="false" >
+    <property name="UserFrameworkService" ref="UserFrameworkService" />
+    <property name="CostItemService" ref="CostItemService" />
+    <property name="CostTotalService" ref="CostTotalService" />
+  </object>
 </objects>
 

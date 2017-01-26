@@ -47,6 +47,11 @@ namespace DAL
 
     }
 		
+	public partial class CostTotalDal :BaseDal<CostTotal>,ICostTotalDal
+    {
+
+    }
+		
 	public partial class CostUnitListDal :BaseDal<CostUnitList>,ICostUnitListDal
     {
 

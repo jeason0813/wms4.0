@@ -17,11 +17,19 @@ namespace LHYS.WMS.Controllers
         }
 
        
-        public ActionResult RecordSearch(string DepartmentId, int? WarehouseId, string ItemLocationId, string ItemCode, int?[] InOutTypeId, DateTime? timestart, DateTime? timeend,int PageIndex,int PageSize)
+        public ActionResult RecordSearch(string DepartmentId, int? WarehouseId, string ItemLocationId, string ItemCode, int?[] InOutTypeId,string[] BillTypes,string ItemBatch, string LBBillCode,string BillCode, DateTime? timestart, DateTime? timeend,int PageIndex,int PageSize)
         {
             int count = 0;
-            var list = RecordService.RecordSearch(DepartmentId, WarehouseId, ItemLocationId, ItemCode, InOutTypeId, timestart, timeend, PageIndex, PageSize,out count);
+            double? sumCount = 0;
+            double? sumWeight = 0;
+            //处理结束时间
+            if (timeend.HasValue) {
+               timeend= timeend.GetValueOrDefault().AddDays(1);
+            }
+            var list = RecordService.RecordSearch(DepartmentId, WarehouseId, ItemLocationId, ItemCode, InOutTypeId, BillTypes,ItemBatch,LBBillCode,BillCode ,timestart, timeend, PageIndex, PageSize,out count,out sumCount,out sumWeight);
             return Json(new {
+                sumCount=sumCount,
+                sumWeight=sumWeight,
                 totalCount = count,
                 data=list
             });

@@ -18,51 +18,56 @@ namespace BLL
         /// <returns></returns>
         public string SaveImport(GiveBill bill)
         {
-            //主表
-            bill.Id = Guid.NewGuid();//生成一个id
-            bill.BillCode = GetBillCode("JH");//生成单号
-            if (bill.BillCode == "no")
+            try
             {
-                bill.BillCode = GetBillCode("JH");//再次生成单号
-            }
-            bill.BillState = 1;//保存状态
-            bill.CreateDate = DateTime.Now;
-            bill.MakePerson = HttpContext.Current.Session["UserName"].ToString();
-            bill.LoadGoodsType = "武汉-配送客户出库装货";
-            bill.BackLoadGoodsType = "武汉-客户现场卸货";
-            bill.OutputType = "配送交货出库";
-            bill.OutputTypeId = 20;
-            bill.BusinessType = "武汉-二次配送";
-            bill.Department = "LH.武汉站";
-            bill.DepartmentId = "LH7011";
-            bill.Company = "联合运输";
-            bill.CompanyId = "LH0000";
-            bill.Remark = "批量导入";
+                //主表
+                bill.Id = Guid.NewGuid();//生成一个id
+                bill.BillCode = GetBillCode("JH");//生成单号
+                if (bill.BillCode == "no")
+                {
+                    bill.BillCode = GetBillCode("JH");//再次生成单号
+                }
+                bill.BillState = 1;//保存状态
+                bill.CreateDate = DateTime.Now;
+                bill.MakePerson = HttpContext.Current.Session["UserName"].ToString();
+                bill.LoadGoodsType = "武汉-配送客户出库装货";
+                bill.BackLoadGoodsType = "武汉-客户现场卸货";
+                bill.OutputType = "配送交货出库";
+                bill.OutputTypeId = 20;
+                bill.BusinessType = "武汉-二次配送";
+                bill.Department = "LH.武汉站";
+                bill.DepartmentId = "LH7011";
+                bill.Company = "联合运输";
+                bill.CompanyId = "LH0000";
+                bill.Remark = "批量导入";
 
-            //子表
-            foreach (var item in bill.Record)//生成子表id
+                //子表
+                foreach (var item in bill.Record)//生成子表id
+                {
+                    item.Id = Guid.NewGuid();
+                    item.Department = bill.Department;
+                    item.DepartmentId = bill.DepartmentId;
+                    item.State = bill.BillState;
+                    item.CreateDate = bill.CreateDate;
+                    item.InOrOut = 0;
+                    item.MainTableType = "GiveBill";
+                    item.InOutTypeId = bill.OutputTypeId;
+                    item.InOutTypeName = bill.OutputType;
+                    var goodItem = CurrentDBSession.GoodItemDal.LoadEntities(a => a.ItemCode == item.ItemCode).FirstOrDefault();
+                    item.ItemLine = goodItem.ItemLine;
+                    item.ItemName = goodItem.ItemName;
+                    item.ItemSpecifications = goodItem.ItemSpecifications;
+                    item.ItemUnit = goodItem.ItemUnit;
+                    item.UnitWeight = goodItem.UnitWeight;
+                    item.Remark = bill.Remark;
+                }
+                CurrentDal.AddEntity(bill);
+                return CurrentDBSession.SaveChanges() ? "" : bill.LBBillCode+"导入失败";
+            }
+            catch (Exception)
             {
-                item.Id = Guid.NewGuid();
-                item.Department = bill.Department;
-                item.DepartmentId = bill.DepartmentId;
-                item.State = bill.BillState;
-                item.CreateDate = bill.CreateDate;
-                item.InOrOut = 0;
-                item.MainTableType = "GiveBill";
-                item.InOutTypeId = bill.OutputTypeId;
-                item.InOutTypeName = bill.OutputType;
-                var goodItem=  CurrentDBSession.GoodItemDal.LoadEntities(a => a.ItemCode == item.ItemCode).FirstOrDefault();
-                item.ItemLine = goodItem.ItemLine;
-                item.ItemName = goodItem.ItemName;
-                item.ItemSpecifications = goodItem.ItemSpecifications;
-                item.ItemUnit = goodItem.ItemUnit;
-                item.UnitWeight = goodItem.UnitWeight;
-                item.Remark = bill.Remark;
+                return bill.LBBillCode+"导入失败!";
             }
-            CurrentDal.AddEntity(bill);
-            return CurrentDBSession.SaveChanges() ? bill.Id.ToString() : "no";
-
-
         }
 
         /// <summary>

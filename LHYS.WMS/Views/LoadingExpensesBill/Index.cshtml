@@ -313,7 +313,7 @@
                     $scope.CostItems = response.CostItem;
                     $scope.ItemLines = response.ItemLine;
                     //如果有单号 获取单据内容
-                    $http.post("/LoadingExpensesBill/GetData", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
+                    $http.post("/LoadingExpensesBill/GetData", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId", "billType": "@ViewBag.billType" } }).success(function (response) {
                         //绑定数据源
                         if (response == "没有单据类型！") {
                             alert(response);
@@ -367,7 +367,7 @@
             //--------------------------------------------------------------
             //---------------------------------------------------------------------------
             $scope.btnQuery = function () {
-                $http.post("/LoadingExpensesBill/GetBillDetail", { A: $scope.A, Businesstype: $scope.outputBusinessTypes, LodingType: $scope.outputLodingType, Warehouseid: $scope.outputWarehouseid }).success(function (response) {
+                $http.post("/LoadingExpensesBill/GetBillDetail", { A: $scope.A, Businesstype: $scope.outputBusinessTypes, LodingType: $scope.outputLodingType, Warehouseid: $scope.outputWarehouseid, billType: "@ViewBag.billType" }).success(function (response) {
                     for (var i = 0; i < response.LoadingAndLaborCostDetail.length; i++) {
                         response.LoadingAndLaborCostDetail[i].BillExamineDate = jsonDateFormat2(response.LoadingAndLaborCostDetail[i].BillExamineDate)
                         response.LoadingAndLaborCostDetail[i].BillExamineDate = response.LoadingAndLaborCostDetail[i].BillExamineDate.substr(0, 11);
@@ -376,7 +376,7 @@
                             response.LoadingAndLaborCostDetail[i].AllAmount = response.LoadingAndLaborCostDetail[i].AllAmount.toFixed(2);
                         } 
                     }
-                    $scope.info = response;
+                    $scope.info.LoadingAndLaborCostDetail = response.LoadingAndLaborCostDetail;
                     //求和
                     $scope.TotalCount = function () {
                         var total = 0;
@@ -435,7 +435,7 @@
             //--------------------------
             //提交表单
             $scope.submit = function () {
-                $http.post("/LoadingExpensesBill/SaveData", { LoadingExpensesBill: $scope.info }).success(function (response) {
+                $http.post("/LoadingExpensesBill/SaveData", { LoadingExpensesBill: $scope.info,billType:"@ViewBag.billType" }).success(function (response) {
                     if (response == 'no') {
                         alert('保存失败');
                     }
@@ -443,7 +443,7 @@
                         alert(response);
                     }
                     else {
-                        window.location.href = 'IndexShow?LoadingExpensesBillId=' + response;
+                        window.location.href = 'IndexShow?billType=@ViewBag.billType&LoadingExpensesBillId=' + response;
                     }
                 });
             }

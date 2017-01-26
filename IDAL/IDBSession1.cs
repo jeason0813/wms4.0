@@ -27,6 +27,8 @@ namespace IDAL
 	
 		ICostItemDal CostItemDal{get;set;}
 	
+		ICostTotalDal CostTotalDal{get;set;}
+	
 		ICostUnitListDal CostUnitListDal{get;set;}
 	
 		ICostUnitListDetailDal CostUnitListDetailDal{get;set;}

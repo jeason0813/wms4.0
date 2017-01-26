@@ -178,7 +178,7 @@
                 }
                 return false;
             }
-            $http.post("/LoadingExpensesBill/GetData", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
+            $http.post("/LoadingExpensesBill/GetData", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId", "billType": "@ViewBag.billType" } }).success(function (response) {
                 //修改时间格式
                 response.BillDate = jsonDateFormat(response.BillDate);
                 response.CreateDate = jsonDateFormat(response.CreateDate);
@@ -224,7 +224,7 @@
                 $http.post("/LoadingExpensesBill/Examine1", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
-                        window.location.href = 'IndexShow?LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
+                        window.location.href = 'IndexShow?billType=@ViewBag.billType&LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
                     }
                     else {
                         alert(response);
@@ -236,7 +236,7 @@
                 $http.post("/LoadingExpensesBill/Examine2", {}, { params: { "LoadingExpensesBillId": "@ViewBag.LoadingExpensesBillId" } }).success(function (response) {
                     if (response == "审核成功！") {
                         alert("审核成功！");
-                        window.location.href = 'IndexShow?LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
+                        window.location.href = 'IndexShow?billType=@ViewBag.billType&LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
                     }
                     else {
                         alert(response);
@@ -252,13 +252,11 @@
                 $http.post("/LoadingExpensesBill/GiveupExamine", { billCode: "@ViewBag.LoadingExpensesBillId" }).success(function (response) {
                     if (response == '操作成功') {
                         alert(response);
-                        window.location.href = 'IndexShow?LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
+                        window.location.href = 'IndexShow?billType=@ViewBag.billType&LoadingExpensesBillId=@ViewBag.LoadingExpensesBillId';
                     } else {
                         alert(response);
                     }
-
                 })
-
             }
             //删除单据
             $scope.deleteBill = function () {

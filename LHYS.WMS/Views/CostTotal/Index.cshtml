@@ -1,0 +1,237 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>费用汇总表</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+</head>
+<body>
+    <div class="container-fluid" ng-app="myApp" ng-controller="mainController">
+        <div class="row">
+            <form ng-submit="submit()">
+                <div class="col-xs-11 table-responsive">
+                    <table style="text-align:center" class="col-xs-12">
+                        <tr>
+                            <td colspan="8"><h2>费用项目明细表</h2></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                部门：
+                            </td>
+                            <td>
+                                <select class="form-control input-sm" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId" required><option value=""></option></select>
+                            </td>
+                            <td>
+                                费用编码：
+                            </td>
+                            <td>
+                                <input type="text" class="form-control input-sm" ng-model="currentCostItem.Code" data-toggle="modal" data-target="#CostItemchoose" />
+                            </td>
+                            <td>
+                                费用名称：
+                            </td>
+                            <td>
+                                <input type="text" class="form-control input-sm" ng-model="currentCostItem.Name" disabled />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>开始时间：</td>
+                            <td><input type="date" class="form-control input-sm" ng-model="timestart" /></td>
+                            <td>结束时间：</td>
+                            <td><input type="date" class="form-control input-sm" ng-model="timeend" /></td>
+                            <td><input type="submit" class="btn btn-success" name="name" value="查询" style="width:100%" /></td>
+                        </tr>
+                    </table>
+                    @*内容*@
+                    <div>
+                        <div id="dataGrid" style="height:380px;" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-auto-resize></div>
+                    </div>
+                    @*-------------------------------------费用项目选择模态框-----------------------------------------*@
+                    <div class="modal fade" id="CostItemchoose">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">请选择科目</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control input-sm" placeholder="请输入查询条件" value="" ng-model="searchstr" />
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <tr>
+                                            <th>费用编码</th>
+                                            <th>费用名称</th>
+                                            <th>费用类型</th>
+                                        </tr>
+                                        <tr ng-repeat="costItem in CostItems | filter:searchstr " ng-dblclick="selectCostItem(costItem)">
+                                            <td>{{costItem.Code}}</td>
+                                            <td>{{costItem.Name}}</td>
+                                            <td>{{costItem.Type}}</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    @*-------------------------------------费用项目选择模态框end-----------------------------------------*@
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //处理时间
+        function jsonDateFormat(jsonDate, type) {
+            try {
+                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var milliseconds = date.getMilliseconds();
+                var date = date.getFullYear() + "-" + month + "-" + day;
+                if (type == 1) {
+                    return date;
+                } else {
+                    return new Date(date);
+                }
+            } catch (ex) {
+                return "";
+            }
+        }
+        var myApp = angular.module('myApp', ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize']);
+        myApp.controller('mainController', ['$scope', '$http', 'uiGridConstants', 'i18nService', function ($scope, $http, uiGridConstants, i18nService) {
+            i18nService.setCurrentLang('zh-cn');//设置为简体中文
+            //分页配置
+            var paginationOptions = {
+                pageNumber: 1,
+                pageSize: 10
+            };
+            //表格配置
+            $scope.gridOptions = {
+                enableRowHeaderSelection: false,//表头打钩选择
+                multiSelect: false,//多选
+                totalItems: 0,//总记录数
+                paginationPageSizes: [10, 15, 20],
+                paginationPageSize: 10,
+                useExternalPagination: true,//分页加载
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                    //分页信息改变时候调用
+                    gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                        paginationOptions.pageNumber = newPage;
+                        paginationOptions.pageSize = pageSize;
+                        if (pageSize == 10) {
+                            window.document.getElementById('dataGrid').style.height = '380px';
+                        }
+                        if (pageSize == 15) {
+                            window.document.getElementById('dataGrid').style.height = '530px';
+                        }
+
+                        if (pageSize == 20) {
+                            window.document.getElementById('dataGrid').style.height = '680px';
+                        }
+                        $scope.submit();
+                    });
+                },
+                columnDefs: [
+                    {
+                        field: 'billType',
+                        displayName: '单据类型',
+                        width: '120'
+
+                    }, {
+                        field: 'BillCode',
+                        displayName: '单据编码',
+                        width: '120'
+
+                    }, {
+                        field: 'BillDate',
+                        displayName: '单据日期',
+                        width: '100'
+
+                    }, {
+                        field: 'MakePerson',
+                        displayName: '制单人',
+                        width: '70'
+                    }, {
+                        field: 'ExaminePerson',
+                        displayName: '审核人',
+                        width: '70'
+                    }, {
+                        field: 'CostItemCode',
+                        displayName: '费用编码',
+                        width: '100'
+                    },{
+                        field: 'CostItemName',
+                        displayName: '费用项目',
+                        width: '140'
+                    } ,{
+                        field: 'AllAmount',
+                        displayName: '金额',
+                        width: '90'
+                    }, {
+                        field: 'Remark',
+                        displayName: '备注',
+                        width: '150'
+                    }, {
+                        field: 'MainTableId',
+                        displayName: '详情',
+                        cellTemplate: '<button type="button" class="btn btn-success btn-xs" ng-click="grid.appScope.itemClick(row.entity.MainTableId,row.entity.OrderNumber)">查看</button>',
+                        width: '50'
+                    }]
+            };
+            //---------------------------------------------------------------
+            //基础数据
+            $http.post("/CostTotal/GetDepartmentAndCostItems").success(function (response) {
+                //科目编码
+                $scope.CostItems = response.CostItem;
+                $scope.Departents = response.Departent;
+            });
+            $scope.currentCostItem = null;//当前选中费用项目
+            $scope.pageSize = 10;//每页10条
+            //选择了费用
+            $scope.selectCostItem = function (costItem) {
+                $scope.currentCostItem = costItem;
+                $('#CostItemchoose').modal('hide');
+            }
+            //开始查询
+            $scope.submit = function () {
+                $http.post('/CostTotal/Search', { pageIndex: paginationOptions.pageNumber, pageSize: paginationOptions.pageSize, timestart: $scope.timestart, timeend: $scope.timeend, DepartmentId: $scope.DepartmentId, CostItemCode: $scope.currentCostItem != null ? $scope.currentCostItem.Code : null }).success(function (response) {
+                    //处理数据
+                    for (var i = 0; i < response.data.length; i++) {
+                        //处理时间
+                        response.data[i].BillDate = jsonDateFormat(response.data[i].BillDate,1);
+                    }
+                    $scope.gridOptions.data = response.data;//赋值
+                    $scope.gridOptions.totalItems = response.totalCount;
+                });
+            }
+            //跳转到详情页
+            $scope.itemClick = function (MainTableId, OrderNumber) {
+                var timestamp = Date.parse(new Date()) / 1000;//时间戳
+                switch (OrderNumber) {
+                    case 4: window.parent.sonAddTab(timestamp, '单据详情', '/OtherExpenseList/IndexShow?billType=1&OtherExpenseListId=' + MainTableId);//其他费用应收
+                        break;
+                    case 5: window.parent.sonAddTab(timestamp, '单据详情', '/OtherExpenseList/IndexShow?billType=2&OtherExpenseListId=' + MainTableId);//其他费用应付
+                        break;
+                    case 1: window.parent.sonAddTab(timestamp, '单据详情', '/LoadingExpensesBill/IndexShow?billType=LoadingCostReceiveList&LoadingExpensesBillId=' + MainTableId);
+                        break;
+                    case 2: window.parent.sonAddTab(timestamp, '单据详情', '/LoadingExpensesBill/IndexShow?billType=LoadingCostGiveList&LoadingExpensesBillId=' + MainTableId);
+                        break;
+                    case 3: window.parent.sonAddTab(timestamp, '单据详情', '/LoadingExpensesBill/IndexShow?billType=LaborReceiveList&LoadingExpensesBillId=' + MainTableId);
+                        break;
+                }
+               
+            }
+        }]);
+    </script>
+
+</body>
+</html>

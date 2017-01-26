@@ -45,6 +45,11 @@ namespace  IBLL
        
     }   
 	
+	public partial interface ICostTotalService : IBaseService<CostTotal>
+    {
+       
+    }   
+	
 	public partial interface ICostUnitListService : IBaseService<CostUnitList>
     {
        

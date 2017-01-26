@@ -124,13 +124,12 @@
 
             //跳转到详情页
             $scope.itemClick = function (Id) {
-                if($scope.listFileName=="OtherExpenseList"){
+                if ($scope.listFileName == "OtherExpenseList") {
                     window.parent.sonAddTab('500', '单据详情', '/' + $scope.listFileName + '/IndexShow?billType=' + $scope.listType + '&OtherExpenseListId=' + Id);
                 }
                 if ($scope.listFileName == "LoadingExpensesBill") {
-           window.parent.sonAddTab('500', '单据详情', '/' + $scope.listFileName + '/IndexShow?billType=' + $scope.listType + '&LoadingExpensesBillId=' + Id);
-        }
-                //  window.location.href = '/' + $scope.billType + '/IndexShow?' + $scope.billType + 'Id=' + Id;
+                    window.parent.sonAddTab('500', '单据详情', '/' + $scope.listFileName + '/IndexShow?billType=' + $scope.listType + '&LoadingExpensesBillId=' + Id);
+                }
             }
             //上一页
             $scope.lastPage = function () {
