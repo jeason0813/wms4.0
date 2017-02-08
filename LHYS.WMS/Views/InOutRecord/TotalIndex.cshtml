@@ -1,0 +1,143 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>出入库总量表</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angularJs")
+</head>
+<body ng-app="myApp" ng-controller="Main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-11 table-responsive">
+                <form ng-submit="RecordSearch()">
+                    <table style="text-align:center" class="col-xs-12">
+                        <tr><td colspan="8"><h1>出入库总量表</h1></td></tr>
+                        <tr>
+                            <td>
+                                <label class="control-label">部门：</label>
+                            </td>
+                            <td>
+                                <select class="form-control input-sm" ng-options="Departent.DeptCode as Departent.DeptName for Departent in Departents" ng-model="DepartmentId" required><option value=""></option></select>
+                            </td>
+                            <td>
+                                <label class="control-label">仓库：</label>
+                            </td>
+                            <td>
+                                <select class="form-control input-sm" ng-options="Warehouse.Name for Warehouse in Warehouses" ng-model="Warehouse" ng-change="changeWarehouse(Warehouse)"><option value=""></option></select>
+                            </td>
+                        <tr>
+                            <td><label class="control-label">开始时间</label></td>
+                            <td><input type="date" class="form-control input-sm" ng-model="timestart"  /></td>
+                            <td><label class="control-label">结束时间</label></td>
+                            <td><input type="date" class="form-control input-sm" ng-model="timeend" /></td>
+                            <td><input type="submit" class="btn btn-success" value="查询" /></td>
+                        </tr>
+                    </table>
+                </form>
+                @*内容*@
+                <div>
+                    <div id="dataGrid" style="height:380px;" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-auto-resize></div>
+                </div>
+                合计数量：{{sumCount}}     &nbsp;&nbsp;&nbsp;&nbsp;   合计重量：{{sumWeight}}KG
+            </div>
+        </div>
+    </div>
+    <script>
+        //主程序
+        var myApp = angular.module('myApp', ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize']);
+        myApp.filter('formatWeight', function () {
+            return function (input) {
+                return input.toFixed(2);
+            }
+        })
+        //数据控制器
+        myApp.controller('Main', ['$scope', '$http', 'uiGridConstants', 'i18nService', function ($scope, $http, uiGridConstants, i18nService) {
+            i18nService.setCurrentLang('zh-cn');//设置为简体中文
+            //分页配置
+            var paginationOptions = {
+                pageNumber: 1,
+                pageSize: 10
+            };
+            //表格配置
+            $scope.gridOptions = {
+                enableRowHeaderSelection: false,//表头打钩选择
+                multiSelect: false,//多选
+                totalItems: 0,//总记录数
+                paginationPageSizes: [10, 15, 20],
+                paginationPageSize: 10,
+                useExternalPagination: true,//分页加载
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                    //分页信息改变时候调用
+                    gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                        paginationOptions.pageNumber = newPage;
+                        paginationOptions.pageSize = pageSize;
+                        if (pageSize == 10) {
+                            window.document.getElementById('dataGrid').style.height = '380px';
+                        }
+                        if (pageSize == 15) {
+                            window.document.getElementById('dataGrid').style.height = '530px';
+                        }
+                        if (pageSize == 20) {
+                            window.document.getElementById('dataGrid').style.height = '680px';
+                        }
+                        $scope.RecordSearch();
+                    });
+                },
+                columnDefs: [
+                    {
+                        field: 'Date',
+                        displayName: '日期',
+                        width: '120'
+
+                    }, {
+                        field: 'Count',
+                        displayName: '数量',
+                        width: '120'
+
+                    }, {
+                        field: 'Weight',
+                        displayName: '重量(KG)',
+                        width: '150',
+                        cellFilter: 'formatWeight'
+                    }
+                    ]
+            };
+            $http.post("/BaseInfo/GetBaseInfo").success(function (response) {
+                $scope.Warehouses = response.Warehouse;
+                $scope.Departents = response.Departent;
+            });
+            //选择了仓库
+            $scope.changeWarehouse = function (Warehouse) {
+                $scope.CurrentWarehouseId = Warehouse.Id;//仓库ID
+                $scope.CurrentLocations = Warehouse.Location;
+            }
+            //查找记录
+            $scope.RecordSearch = function () {
+                $http.post('/InOutRecord/TotalSearch', {
+                    DepartmentId: $scope.DepartmentId,
+                    WarehouseId: $scope.CurrentWarehouseId, 
+                    timestart: $scope.timestart,
+                    timeend: $scope.timeend,
+                    PageIndex: paginationOptions.pageNumber, 
+                    PageSize: paginationOptions.pageSize
+            }).success(function (response) {
+                    $scope.gridOptions.data = response.data;//赋值
+                    $scope.gridOptions.totalItems = response.totalCount;
+                    $scope.sumCount = response.sumCount.toFixed(2);
+                    $scope.sumWeight = response.sumWeight.toFixed(2);
+                });
+            }
+        }]);
+    </script>
+</body>
+</html>

@@ -9,15 +9,18 @@ namespace LHYS.WMS.Controllers
 {
     public class CostItemTotalController : Controller
     {
-        private IUserFrameworkService UserFrameworkService { get; set; }
-        private ICostItemService CostItemService { get; set; }
-        private ICostTotalService CostTotalService { get; set; }
+        private ILoadingAndLaborCostDetailService LoadingAndLaborCostDetailService { get; set; }
+        private IOtherExpenseListDetailService OtherExpenseListDetailService { get; set; }
+        /// <summary>
+        /// 费用项目汇总表
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
         //查询记录
-        public ActionResult Search(DateTime? timestart,DateTime? timeend, string DepartmentId)
+        public ActionResult Search(int pageIndex, int pageSize, DateTime? timestart, DateTime? timeend, string DepartmentId)
         {
             if (Session["Power"] == null || Session["UserCode"] == null)
             {
@@ -25,37 +28,46 @@ namespace LHYS.WMS.Controllers
             }
             else
             {
-                string UserCode = Session["UserCode"].ToString();//员工编号
                 string Power = Session["Power"].ToString();//权限字符串
-                var list = CostTotalService.LoadEntities(a => Power.Contains(a.DepartmentId));
+                //获取装卸费力资费明细
+                var list1 = LoadingAndLaborCostDetailService.LoadEntities(a => Power.Contains(a.DepartmentId)).ToList();
                 if (timestart != null)
                 {
-                    list = list.Where(a => a.BillDate >= timestart);
+                    list1 = list1.Where(a => a.ExaminaDate >= timestart).ToList();
                 }
                 if (timeend != null)
                 {
-                    list = list.Where(a => a.BillDate < timeend.GetValueOrDefault().AddDays(1));
+                    list1 = list1.Where(a => a.ExaminaDate < timeend.GetValueOrDefault().AddDays(1)).ToList();
                 }
-                return Json(new {
-                    data = list
+                //获取其他明细
+                var list2 = LoadingAndLaborCostDetailService.LoadEntities(a => Power.Contains(a.DepartmentId)).ToList();
+                if (timestart != null)
+                {
+                    list2 = list2.Where(a => a.ExaminaDate >= timestart).ToList();
+                }
+                if (timeend != null)
+                {
+                    list2 = list2.Where(a => a.ExaminaDate < timeend.GetValueOrDefault().AddDays(1)).ToList();
+                }
+                //合并list1  list2   提取有用字段  返回
+                var res = list1.Select(a => new { a.CostItemCode, a.CostItemName, a.AllAmount }).ToList();
+                var res2 = list2.Select(a => new { a.CostItemCode, a.CostItemName, a.AllAmount }).ToList();
+                //合并成一个list
+                res.AddRange(res2);
+                //分组求和
+                var temp = from a in res
+                           group a by new { a.CostItemCode, a.CostItemName } into g
+                           select new { g.Key.CostItemCode, g.Key.CostItemName, Price = g.Sum(a => a.AllAmount) };
+                var tempNew= temp.ToList().Select(a => new { a.CostItemCode, a.CostItemName, a.Price, Type = a.CostItemCode.Substring(0, 2) == "64" ? "成本" : "收入" });
+                int count = tempNew.Count();
+                //分页
+                var result= tempNew.OrderBy(a=>a.CostItemCode).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                return Json(new
+                {
+                    data = result,
+                    totalCount = count
                 });
             }
-        }
-        //获取基础数据：部门、费用项目
-        public ActionResult GetDepartmentAndCostItems()
-        {
-            if (Session["Power"] == null || Session["UserCode"] == null)
-            {
-                return null;
-            }
-            else
-            {
-                string UserCode = Session["UserCode"].ToString();//员工编号
-                string Power = Session["Power"].ToString();//权限字符串
-                var list1 = UserFrameworkService.LoadEntities(u => u.UserCode == UserCode);//部门
-                return Json(list1);
-            }
-
         }
     }
 }

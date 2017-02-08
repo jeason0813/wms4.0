@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{93DC726F-F724-4963-9C1C-F015D0AC8A18}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LHYS.WMS</RootNamespace>
@@ -162,6 +162,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\JsonDotNetValueProviderFactory.cs" />
     <Compile Include="Controllers\Bills\GetBatchAndLocationController.cs" />
     <Compile Include="Controllers\BillUpLoadController.cs" />
     <Compile Include="Controllers\BaseInfoController.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuManagerController.cs" />
+    <Compile Include="Controllers\ReportTable\CostItemTotalController.cs" />
     <Compile Include="Controllers\ReportTable\CostTotalController.cs" />
     <Compile Include="Controllers\ReportTable\InOutRecordController.cs" />
     <Compile Include="Controllers\ReportTable\InWarehouseController.cs" />
@@ -1350,6 +1352,8 @@
     <Content Include="Views\BillsManager\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\CostTotal\Index.cshtml" />
+    <Content Include="Views\InOutRecord\TotalIndex.cshtml" />
+    <Content Include="Views\CostItemTotal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -157,5 +157,9 @@
     <property name="CostItemService" ref="CostItemService" />
     <property name="CostTotalService" ref="CostTotalService" />
   </object>
+  <object type="LHYS.WMS.Controllers.CostItemTotalController,LHYS.WMS" singleton="false" >
+    <property name="LoadingAndLaborCostDetailService" ref="LoadingAndLaborCostDetailService" />
+    <property name="OtherExpenseListDetailService" ref="OtherExpenseListDetailService" />
+  </object>
 </objects>
 

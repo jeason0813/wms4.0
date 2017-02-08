@@ -33,36 +33,28 @@
                             <td><input type="date" class="form-control input-sm" ng-model="timeend" /></td>
                             <td><input type="submit" class="btn btn-success" name="name" value="查询" style="width:100%" /></td>
                         </tr>
-                       
                     </table>
+                    @*内容*@
+                    <div>
+                        <div id="dataGrid" style="height:380px;" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-auto-resize></div>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
     <script>
-        //处理时间
-        function jsonDateFormat(jsonDate, type) {
-            try {
-                var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
-                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-                var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var seconds = date.getSeconds();
-                var milliseconds = date.getMilliseconds();
-                var date = date.getFullYear() + "-" + month + "-" + day;
-                if (type == 1) {
-                    return date;
-                } else {
-                    return new Date(date);
-                }
-            } catch (ex) {
-                return "";
-            }
-        }
         var myApp = angular.module('myApp', ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize']);
+        myApp.filter('priceFilter', function () {
+            return function (input) {
+                return input.toFixed(2);
+            };
+        })
         myApp.controller('mainController', ['$scope', '$http', 'uiGridConstants', 'i18nService', function ($scope, $http, uiGridConstants, i18nService) {
             i18nService.setCurrentLang('zh-cn');//设置为简体中文
+            //基础数据
+            $http.post("/CostTotal/GetDepartmentAndCostItems").success(function (response) {
+                $scope.Departents = response.Departent;
+            });
             //分页配置
             var paginationOptions = {
                 pageNumber: 1,
@@ -97,96 +89,37 @@
                 },
                 columnDefs: [
                     {
-                        field: 'billType',
-                        displayName: '单据类型',
-                        width: '120'
-
-                    }, {
-                        field: 'BillCode',
-                        displayName: '单据编码',
-                        width: '120'
-
-                    }, {
-                        field: 'BillDate',
-                        displayName: '单据日期',
-                        width: '100'
-
-                    }, {
-                        field: 'MakePerson',
-                        displayName: '制单人',
-                        width: '70'
-                    }, {
-                        field: 'ExaminePerson',
-                        displayName: '审核人',
-                        width: '70'
-                    }, {
                         field: 'CostItemCode',
-                        displayName: '费用编码',
-                        width: '100'
-                    },{
+                        displayName: '科目编码',
+                        width: '120'
+
+                    }, {
                         field: 'CostItemName',
-                        displayName: '费用项目',
-                        width: '140'
-                    } ,{
-                        field: 'AllAmount',
-                        displayName: '金额',
-                        width: '90'
+                        displayName: '科目名称',
+                        width: '200'
+
                     }, {
-                        field: 'Remark',
-                        displayName: '备注',
-                        width: '150'
+                        field: 'Type',
+                        displayName: '科目分类',
+                        width: '100'
+
                     }, {
-                        field: 'MainTableId',
-                        displayName: '详情',
-                        cellTemplate: '<button type="button" class="btn btn-success btn-xs" ng-click="grid.appScope.itemClick(row.entity.MainTableId,row.entity.OrderNumber)">查看</button>',
-                        width: '50'
+                        field: 'Price',
+                        displayName: '发生金额',
+                        width: '150',
+                        cellFilter: 'priceFilter'
                     }]
             };
             //---------------------------------------------------------------
-            //基础数据
-            $http.post("/CostTotal/GetDepartmentAndCostItems").success(function (response) {
-                //科目编码
-                $scope.CostItems = response.CostItem;
-                $scope.Departents = response.Departent;
-            });
-            $scope.currentCostItem = null;//当前选中费用项目
             $scope.pageSize = 10;//每页10条
-            //选择了费用
-            $scope.selectCostItem = function (costItem) {
-                $scope.currentCostItem = costItem;
-                $('#CostItemchoose').modal('hide');
-            }
             //开始查询
             $scope.submit = function () {
-                $http.post('/CostTotal/Search', { pageIndex: paginationOptions.pageNumber, pageSize: paginationOptions.pageSize, timestart: $scope.timestart, timeend: $scope.timeend, DepartmentId: $scope.DepartmentId, CostItemCode: $scope.currentCostItem != null ? $scope.currentCostItem.Code : null }).success(function (response) {
-                    //处理数据
-                    for (var i = 0; i < response.data.length; i++) {
-                        //处理时间
-                        response.data[i].BillDate = jsonDateFormat(response.data[i].BillDate,1);
-                    }
-                    $scope.gridOptions.data = response.data;//赋值
-                    $scope.gridOptions.totalItems = response.totalCount;
+                $http.post('/CostItemTotal/Search', { pageIndex: paginationOptions.pageNumber, pageSize: paginationOptions.pageSize, timestart: $scope.timestart, timeend: $scope.timeend, DepartmentId: $scope.DepartmentId}).success(function (response) {
+                    $scope.gridOptions.data = response.data;//数据
+                    $scope.gridOptions.totalItems = response.totalCount;//总数
                 });
-            }
-            //跳转到详情页
-            $scope.itemClick = function (MainTableId, OrderNumber) {
-                var timestamp = Date.parse(new Date()) / 1000;//时间戳
-                switch (OrderNumber) {
-                    case 4: window.parent.sonAddTab(timestamp, '单据详情', '/OtherExpenseList/IndexShow?billType=1&OtherExpenseListId=' + MainTableId);//其他费用应收
-                        break;
-                    case 5: window.parent.sonAddTab(timestamp, '单据详情', '/OtherExpenseList/IndexShow?billType=2&OtherExpenseListId=' + MainTableId);//其他费用应付
-                        break;
-                    case 1: window.parent.sonAddTab(timestamp, '单据详情', '/LoadingExpensesBill/IndexShow?billType=LoadingCostReceiveList&LoadingExpensesBillId=' + MainTableId);
-                        break;
-                    case 2: window.parent.sonAddTab(timestamp, '单据详情', '/LoadingExpensesBill/IndexShow?billType=LoadingCostGiveList&LoadingExpensesBillId=' + MainTableId);
-                        break;
-                    case 3: window.parent.sonAddTab(timestamp, '单据详情', '/LoadingExpensesBill/IndexShow?billType=LaborReceiveList&LoadingExpensesBillId=' + MainTableId);
-                        break;
-                }
-               
             }
         }]);
     </script>
-
 </body>
 </html>

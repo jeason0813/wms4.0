@@ -449,10 +449,10 @@
             }
             //-------------------------------------
             $scope.loadingAllAmount = function (record) {
-                record.AllAmount = (record.LoadingUnitPrice * record.Weight).toFixed(2);
+                record.AllAmount =((record.LoadingUnitPrice * record.Weight)/1000).toFixed(2);
             }
             $scope.laborAllAmount = function (record) {
-                record.AllAmount = (record.LaborUnitPrice * record.Weight).toFixed(2);
+                record.AllAmount = ((record.LaborUnitPrice * record.Weight)/1000).toFixed(2);
             }
         })
     </script>

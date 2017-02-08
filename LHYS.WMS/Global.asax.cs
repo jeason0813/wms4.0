@@ -1,4 +1,5 @@
-﻿using Spring.Web.Mvc;
+﻿using LHYS.WMS.Common;
+using Spring.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,10 @@ namespace LHYS.WMS
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             log4net.Config.XmlConfigurator.Configure();
+            //使用json.net替换javascriptserializer （这种方法有问题 控制器接收对象接收不到，所以还是采用修改webConfig）
+            //ValueProviderFactories.Factories.Remove(ValueProviderFactories.Factories.OfType<JsonValueProviderFactory>().FirstOrDefault());
+            //ValueProviderFactories.Factories.Add(new JsonDotNetValueProviderFactory());
+
         }
     }
 }

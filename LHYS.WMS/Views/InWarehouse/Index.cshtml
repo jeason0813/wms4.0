@@ -81,6 +81,7 @@
                     alert('请选择仓库！'); return;
                 }
                 $http.post('/InWarehouse/GetDataByWarehouseId', { WarehouseId: $scope.WarehouseId }).success(function (response) {
+                    if (typeof (response) == 'string') { alert(response); return;}
                     $scope.Records = response;
                 });
             }
