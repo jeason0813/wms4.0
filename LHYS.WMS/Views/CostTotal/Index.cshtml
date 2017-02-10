@@ -46,6 +46,7 @@
                             <td>结束时间：</td>
                             <td><input type="date" class="form-control input-sm" ng-model="timeend" /></td>
                             <td><input type="submit" class="btn btn-success" name="name" value="查询" style="width:100%" /></td>
+                            <td><input type="button" class="btn btn-info" name="name" value="导出" style="width:100%" ng-click="exportTable()" /></td>
                         </tr>
                     </table>
                     @*内容*@
@@ -229,6 +230,16 @@
                         break;
                 }
                
+            }
+            //导出Excel
+            $scope.exportTable = function () {
+                if ($scope.gridOptions.data == null || $scope.gridOptions.data.length == 0 || $scope.gridOptions.data == undefined) {
+                    alert('无数据可导出！');
+                    return;
+                }
+                var CostItemCode = $scope.currentCostItem != null ? $scope.currentCostItem.Code : '';
+                window.open("/CostTotal/ExportTable?timestart=" + $scope.timestart + "&timeend=" + $scope.timeend + "&DepartmentId=" + $scope.DepartmentId + "&CostItemCode=" + CostItemCode);
+                
             }
         }]);
     </script>
