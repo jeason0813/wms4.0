@@ -20,6 +20,10 @@ namespace BLL
         {
             try
             {
+                //查询数据库中有没有重复项
+                if (CurrentDal.LoadEntities(a => a.LBBillCode == bill.LBBillCode).Count() > 0) {
+                    return bill.LBBillCode + "导入失败!客户单号重复！\r\n";
+                };
                 //主表
                 bill.Id = Guid.NewGuid();//生成一个id
                 bill.BillCode = GetBillCode("JH");//生成单号
@@ -62,11 +66,11 @@ namespace BLL
                     item.Remark = bill.Remark;
                 }
                 CurrentDal.AddEntity(bill);
-                return CurrentDBSession.SaveChanges() ? "" : bill.LBBillCode+"导入失败";
+                return CurrentDBSession.SaveChanges() ? "" : bill.LBBillCode+"导入失败!\r\n";
             }
             catch (Exception)
             {
-                return bill.LBBillCode+"导入失败!";
+                return bill.LBBillCode+"导入失败!\r\n";
             }
         }
 
