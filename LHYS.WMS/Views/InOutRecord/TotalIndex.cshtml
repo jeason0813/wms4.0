@@ -47,7 +47,8 @@
                 <div>
                     <div id="dataGrid" style="height:380px;" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-auto-resize></div>
                 </div>
-                合计数量：{{sumCount}}     &nbsp;&nbsp;&nbsp;&nbsp;   合计重量：{{sumWeight}}KG
+                入库：合计数量：{{sumCountIn}}     &nbsp;&nbsp;&nbsp;&nbsp;   合计重量：{{sumWeightIn}}吨<br />
+                出库：合计数量：{{sumCountOut}}     &nbsp;&nbsp;&nbsp;&nbsp;   合计重量：{{sumWeightOut}}吨
             </div>
         </div>
     </div>
@@ -56,7 +57,7 @@
         var myApp = angular.module('myApp', ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize']);
         myApp.filter('formatWeight', function () {
             return function (input) {
-                return input.toFixed(2);
+                return (input/1000).toFixed(2);
             }
         })
         //数据控制器
@@ -100,13 +101,23 @@
                         width: '120'
 
                     }, {
-                        field: 'Count',
-                        displayName: '数量',
+                        field: 'CountIn',
+                        displayName: '入库数量',
                         width: '120'
 
                     }, {
-                        field: 'Weight',
-                        displayName: '重量(KG)',
+                        field: 'WeightIn',
+                        displayName: '入库重量(吨)',
+                        width: '150',
+                        cellFilter: 'formatWeight'
+                    }, {
+                        field: 'CountOut',
+                        displayName: '出库数量',
+                        width: '120'
+
+                    }, {
+                        field: 'WeightOut',
+                        displayName: '出库重量(吨)',
                         width: '150',
                         cellFilter: 'formatWeight'
                     }
@@ -133,8 +144,10 @@
             }).success(function (response) {
                     $scope.gridOptions.data = response.data;//赋值
                     $scope.gridOptions.totalItems = response.totalCount;
-                    $scope.sumCount = response.sumCount.toFixed(2);
-                    $scope.sumWeight = response.sumWeight.toFixed(2);
+                    $scope.sumCountIn = (response.sumCountIn).toFixed();
+                    $scope.sumWeightIn = (response.sumWeightIn/1000).toFixed(2);
+                    $scope.sumCountOut = (response.sumCountOut).toFixed(0);
+                    $scope.sumWeightOut = (response.sumWeightOut/1000).toFixed(2);
                 });
             }
         }]);

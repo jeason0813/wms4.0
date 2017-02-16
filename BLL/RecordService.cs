@@ -72,7 +72,7 @@ namespace BLL
             list = list.OrderByDescending(a => a.ExamineDate).Skip((PageIndex-1)*PageSize).Take(PageSize);//按审核时间排序
             return list;
         }
-        public object TotalSearch(string DepartmentId, int? WarehouseId, DateTime? timestart, DateTime? timeend, int PageIndex, int PageSize, out int totalCount, out double? sumCount, out double? sumWeight)
+        public object TotalSearch(string DepartmentId, int? WarehouseId, DateTime? timestart, DateTime? timeend, int PageIndex, int PageSize, out int totalCount, out double? sumCountIn, out double? sumWeightIn, out double? sumCountOut, out double? sumWeightOut)
         {
             var list = CurrentDBSession.InOutRecordDetailDal.LoadEntities(a => a.State == 2 && a.DepartmentId == DepartmentId);
           
@@ -88,18 +88,23 @@ namespace BLL
             {
                 list = list.Where(a => a.ExamineDate < timeend);
             }
-            var  listNew = list.ToList().Select(a=>new { a.Count, ExamineDate=a.ExamineDate.Value.ToString("yyyy-MM-dd"),a.Weight});//去除无用字段
+            var ListNew=list.Select(a => new { a.Count, a.ExamineDate, a.Weight ,a.InOrOut}).ToList().Select(a=>new { a.Count, ExamineDate =a.ExamineDate.Value.ToString("yyyy-MM-dd"),a.Weight,a.InOrOut});
+            
             //计算总数量 总质量
-            sumCount = listNew.Sum(a => a.Count);
-            sumWeight = listNew.Sum(a => a.Weight);
+            sumCountIn = ListNew.Where(a => a.InOrOut == 1).Sum(a => a.Count);
+            sumWeightIn = ListNew.Where(a => a.InOrOut == 1).Sum(a => a.Weight);
+            sumCountOut = ListNew.Where(a => a.InOrOut == 0).Sum(a => a.Count);
+            sumWeightOut = ListNew.Where(a => a.InOrOut == 0).Sum(a => a.Weight);
             //按日期汇总
-            var res = from a in listNew
+            var res = from a in ListNew
                       group a by a.ExamineDate into g
                       select new
                       {
                           Date= g.Key,
-                          Count = g.Sum(b => b.Count),
-                          Weight = g.Sum(b => b.Weight)
+                          CountIn=g.Where(b => b.InOrOut == 1).Sum(b=>b.Count),
+                          WeightIn=g.Where(b=>b.InOrOut==1).Sum(b=>b.Weight),
+                          CountOut = g.Where(b=>b.InOrOut==0).Sum(b => b.Count),
+                          WeightOut = g.Where(b => b.InOrOut == 0).Sum(b => b.Weight)
                       };
             totalCount = res.Count();
             res = res.OrderByDescending(a=>a.Date).Skip((PageIndex - 1) * PageSize).Take(PageSize);

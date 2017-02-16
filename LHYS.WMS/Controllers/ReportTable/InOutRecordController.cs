@@ -27,18 +27,22 @@ namespace LHYS.WMS.Controllers
         public ActionResult TotalSearch(string DepartmentId, int? WarehouseId, DateTime? timestart, DateTime? timeend, int PageIndex, int PageSize)
         {
             int count = 0;
-            double? sumCount = 0;
-            double? sumWeight = 0;
+            double? sumCountIn = 0;
+            double? sumWeightIn = 0;
+            double? sumCountOut = 0;
+            double? sumWeightOut = 0;
             //处理结束时间
             if (timeend.HasValue)
             {
                 timeend = timeend.GetValueOrDefault().AddDays(1);
             }
-            var list = RecordService.TotalSearch(DepartmentId, WarehouseId, timestart, timeend, PageIndex, PageSize, out count, out sumCount, out sumWeight);
+            var list = RecordService.TotalSearch(DepartmentId, WarehouseId, timestart, timeend, PageIndex, PageSize, out count, out sumCountIn, out sumWeightIn,out  sumCountOut,out sumWeightOut);
             return Json(new
             {
-                sumCount = sumCount,
-                sumWeight = sumWeight,
+                sumCountIn = sumCountIn,
+                sumWeightIn = sumWeightIn,
+                sumCountOut = sumCountOut,
+                sumWeightOut = sumWeightOut,
                 totalCount = count,
                 data = list
             });
