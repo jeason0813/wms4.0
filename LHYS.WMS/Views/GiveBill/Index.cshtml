@@ -37,7 +37,7 @@
                             <td class="tdname">立邦客户编号：</td>
                             <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBCustomerCode" placeholder="请先选择线路" required /></td>
                             <td class="tdname">联系人：</td>
-                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBContacts" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBContacts"  /></td>
                             <td class="tdname">任务单号：</td>
                             <td><input class="form-control input-sm" type="text" name="name" ng-model="info.TaskBillCode" disabled /></td>
                             <td class="tdname">交货日期：</td>
@@ -47,7 +47,7 @@
                             <td>立邦客户名称：</td>
                             <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBCustomerName" required /></td>
                             <td>电话：</td>
-                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBPhone" required /></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBPhone"  /></td>
                             <td>立邦交货单号：</td>
                             <td><input class="form-control input-sm" type="text" name="name" ng-model="info.LBBillCode"  /></td>
                             <td>备注：</td>
@@ -72,12 +72,12 @@
                             <td class="tdname2">仓库：</td>
                             <td><input class="form-control input-sm" type="text" name="name" ng-model="info.Warehouse" data-toggle="modal" data-target="#wareHousechoose" required /></td>
                             <td class="tdname2">业务模式：</td>
-                            <td><select class="form-control input-sm" ng-options=" BusinessType for BusinessType in BusinessTypes" ng-model="info.BusinessType" required></select></td>
+                            <td><select class="form-control input-sm" ng-options="BusinessType for BusinessType in BusinessTypes" ng-model="info.BusinessType" required></select></td>
 
                         </tr>
                         <tr>
                             <td>装卸类型：</td>
-                            <td><select class="form-control input-sm" ng-options=" LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="info.LoadGoodsType" required></select></td>
+                            <td><select class="form-control input-sm" ng-options="LoadGoodsType for LoadGoodsType in LoadGoodsTypes" ng-model="info.LoadGoodsType" required></select></td>
                             <td>仓管员：</td>
                             <td><input data-toggle="modal" data-target="#personchoose" class="form-control input-sm" type="text" name="name" ng-model="info.ChargePerson" ng-click="loadperson('ChargePerson')" required /></td>
                             <td>部门：</td>
@@ -89,7 +89,7 @@
                         </tr>
                         <tr>
                             <td>线路：<span class="glyphicon glyphicon-search" data-toggle="modal" data-target="#lineWay"></span></td>
-                            <td colspan="3"><input class="form-control input-sm" type="text" name="name" ng-model="info.LineWay" required /></td>
+                            <td colspan="3"><input class="form-control input-sm" type="text" name="name" ng-model="info.LineWay"/></td>
                             <td>备注：</td>
                             <td colspan="3"><input class="form-control input-sm" type="text" name="name" ng-model="info.Remark" /></td>
                             <td>制单人：</td>

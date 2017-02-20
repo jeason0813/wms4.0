@@ -16,7 +16,7 @@
     <div class="container" ng-app="myApp" ng-controller="mainController">
         <div class="row">
             <div class="col-xs-12" style="text-align:center"><h1>单据导入</h1></div>
-            <div class="col-xs-6">
+            @*<div class="col-xs-6">
                 <h3>模板下载:</h3>
                 <a href="~/Template/入库单模板.xls"><span class="glyphicon glyphicon-list-alt"></span>入库单模板</a><br />
                 <a href="~/Template/退货单模板.xls"><span class="glyphicon glyphicon-list-alt"></span>退货单模板</a><br />
@@ -27,7 +27,7 @@
                 <a href="~/Template/退货单示例.xls"><span class="glyphicon glyphicon-list-alt"></span>退货单示例</a><br />
                 <a href="~/Template/交货单示例.xls"><span class="glyphicon glyphicon-list-alt"></span>交货单示例</a><br />
                 <a href="~/Template/退仓单示例.xls"><span class="glyphicon glyphicon-list-alt"></span>退仓单示例</a>
-            </div>
+            </div>*@
             <div class="col-xs-6">
                 <table class="table table-condensed titletable">
                     <tr>
@@ -60,7 +60,8 @@
                         //headers: {'header-key': 'header-value'},
                         //withCredentials: true,
                         data: { myObj: $scope.myModelObj },
-                        file: file, // or list of files ($files) for html5 only
+                        file: file,
+                        // or list of files ($files) for html5 only
                         //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
                         // customize file formData name ('Content-Disposition'), server side file variable name.
                         //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file'

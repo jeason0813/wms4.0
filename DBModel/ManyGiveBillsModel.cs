@@ -15,6 +15,18 @@ namespace DBModel
         public string ItemBatch { get; set; }
         public double Count{get;set;}
         public double Weight { get; set; }
+        public string LBContacts { get; set; }
+        public string LBPhone { get; set; }
+        public string LBSendAddress { get; set; }
+        public string LBMailCode { get; set; }
+        public DateTime? LBBillDate{get;set;}
+        public int WarehouseId { get; set; }
+        public string Warehouse { get; set; }
+        public string ChargePerson { get; set; }
+
+
+
+
 
     }
 }

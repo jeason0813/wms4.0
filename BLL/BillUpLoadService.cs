@@ -262,7 +262,7 @@ namespace BLL
                 //如果是批量导入交货单
                 if (ColumnName == "交货")
                 {
-                     billCodes = AddManyGiveBills(dt);
+                    billCodes = AddManyGiveBills(dt);
                 }
                 else
                 {
@@ -277,17 +277,17 @@ namespace BLL
                             AddBackInput(dt);
                             break;
                         case "交货单号":
-                          AddGiveBill(dt);
+                            AddGiveBill(dt);
                             break;
                         case "退货单号":
-                           AddBackOutput(dt);
+                            AddBackOutput(dt);
                             break;
                     }
                 }
                 //删除文件
                 File.Delete(item);
             }
-            return billCodes==""?"导入成功":"导入异常："+billCodes;
+            return billCodes == "" ? "导入成功" : "导入异常：" + billCodes;
             //}
             //catch(Exception e)
             //{
@@ -316,7 +316,15 @@ namespace BLL
                     ItemName = row[5].ToString(),
                     ItemBatch = row[7].ToString(),
                     Count = Convert.ToDouble(row[8]),
-                    Weight = Convert.ToDouble(row[9])
+                    Weight = Convert.ToDouble(row[9]),
+                    LBContacts = row[10].ToString(),
+                    LBPhone = row[11].ToString(),
+                    LBSendAddress = row[12].ToString(),
+                    LBMailCode = row[13].ToString(),
+                    LBBillDate = Convert.ToDateTime(row[14]),
+                    WarehouseId = Convert.ToInt32(row[15]),
+                    Warehouse = row[16].ToString(),
+                    ChargePerson = row[17].ToString()
                 };
                 list.Add(model);
             }
@@ -345,7 +353,15 @@ namespace BLL
                     {
                         LBBillCode = item.LBBillCode,
                         LBCustomerCode = item.LBCustomerCode,
-                        LBCustomerName = item.LBCustomerName
+                        LBCustomerName = item.LBCustomerName,
+                        LBContacts = item.LBContacts,
+                        LBPhone = item.LBPhone,
+                        LBSendAddress = item.LBSendAddress,
+                        LBMailCode = item.LBMailCode,
+                        LBBillDate = item.LBBillDate,
+                        WarehouseId = item.WarehouseId,
+                        Warehouse = item.Warehouse,
+                        ChargePerson = item.ChargePerson
                     };
                 }
                 Record record = new Record() { ItemCode = item.ItemCode, ItemName = item.ItemName, ItemBatch = item.ItemBatch, Count = item.Count, Weight = item.Weight };
