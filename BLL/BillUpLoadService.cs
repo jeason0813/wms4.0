@@ -317,14 +317,16 @@ namespace BLL
                     ItemBatch = row[7].ToString(),
                     Count = Convert.ToDouble(row[8]),
                     Weight = Convert.ToDouble(row[9]),
-                    LBContacts = row[10].ToString(),
-                    LBPhone = row[11].ToString(),
-                    LBSendAddress = row[12].ToString(),
-                    LBMailCode = row[13].ToString(),
-                    LBBillDate = Convert.ToDateTime(row[14]),
-                    WarehouseId = Convert.ToInt32(row[15]),
-                    Warehouse = row[16].ToString(),
-                    ChargePerson = row[17].ToString()
+                    ItemLocationId=row[10].ToString(),
+                    ItemLocation=row[11].ToString(),
+                    LBContacts = row[12].ToString(),
+                    LBPhone = row[13].ToString(),
+                    LBSendAddress = row[14].ToString(),
+                    LBMailCode = row[15].ToString(),
+                    LBBillDate = Convert.ToDateTime(row[16]),
+                    WarehouseId = Convert.ToInt32(row[17]),
+                    Warehouse = row[18].ToString(),
+                    ChargePerson = row[19].ToString()
                 };
                 list.Add(model);
             }
@@ -364,7 +366,7 @@ namespace BLL
                         ChargePerson = item.ChargePerson
                     };
                 }
-                Record record = new Record() { ItemCode = item.ItemCode, ItemName = item.ItemName, ItemBatch = item.ItemBatch, Count = item.Count, Weight = item.Weight };
+                Record record = new Record() { ItemCode = item.ItemCode, ItemName = item.ItemName, ItemBatch = item.ItemBatch, Count = item.Count, Weight = item.Weight,ItemLocation=item.ItemLocation, ItemLocationId=item.ItemLocationId};
                 bill.Record.Add(record);
                 CurrentLBBillCode = item.LBBillCode;
             }

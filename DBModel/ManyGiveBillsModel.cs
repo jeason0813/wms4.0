@@ -15,6 +15,8 @@ namespace DBModel
         public string ItemBatch { get; set; }
         public double Count{get;set;}
         public double Weight { get; set; }
+        public string ItemLocationId { get; set; }
+        public string ItemLocation { get; set; }
         public string LBContacts { get; set; }
         public string LBPhone { get; set; }
         public string LBSendAddress { get; set; }
@@ -23,6 +25,7 @@ namespace DBModel
         public int WarehouseId { get; set; }
         public string Warehouse { get; set; }
         public string ChargePerson { get; set; }
+
 
 
 
