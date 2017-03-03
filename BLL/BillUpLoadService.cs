@@ -425,7 +425,7 @@ namespace BLL
                 {
                     record.ItemName = res.ItemName;
                     record.ItemLine = res.ItemLine;
-                    record.ItemSpecifications = res.ItemSpecifications;
+                    record.ItemSpecifications = res.ItemSpecifications;     
                     record.ItemUnit = res.ItemUnit;
                     record.UnitWeight = res.UnitWeight;
                     record.Weight = Math.Round((double)(record.Count * Convert.ToDouble(res.UnitWeight)), 2);

@@ -23,7 +23,7 @@
                         </tr>
                         <tr>
                             <td>任务单号：</td>
-                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.BillCode"  required/></td>
+                            <td><input class="form-control input-sm" type="text" name="name" ng-model="info.BillCode" required /></td>
                             <td>部门：</td>
                             <td>
                                 <select class="form-control input-sm" ng-options="Departent.DeptName for Departent in Departents" ng-model="CurrentDepartment" required ng-change="departentChange(CurrentDepartment)"><option value=""></option></select>
@@ -82,16 +82,17 @@
                                     <div class="modal-body">
                                         <table>
                                             <tr>
-                                                <td><input type="text" name="name" value="" placeholder="交货单号" class="form-control input-sm"  ng-model="giveBillId"/></td>
+                                                <td><input type="text" name="name" value="" placeholder="交货单号" class="form-control input-sm" ng-model="giveBillId" /></td>
                                                 <td><input type="text" name="name" value="" placeholder="立邦单号" class="form-control input-sm" ng-model="LBBillCode" /></td>
                                                 <td><input type="date" name="name" value="" class="form-control input-sm" ng-model="timestart" /></td>
                                                 <td><input type="date" name="name" value="" class="form-control input-sm" ng-model="timeend" /></td>
-                                                <td><input type="button" class="btn btn-success" value="查询" ng-click="GiveBillSearch()" /></td>
+                                                <td><input type="button" class="btn btn-info" value="查询" ng-click="GiveBillSearch()" /></td>
+                                                <td><input type="button" class="btn btn-success" value="确定" ng-click="selectGiveBill()" /></td>
                                             </tr>
                                         </table>
-
                                         <table class="table table-bordered table-striped table-condensed">
                                             <tr>
+                                                <th>选择</th>
                                                 <th>编号</th>
                                                 <th>系统单号</th>
                                                 <th>立邦交货单号</th>
@@ -99,7 +100,8 @@
                                                 <th>客户名称</th>
                                                 <th>交货日期</th>
                                             </tr>
-                                            <tr ng-repeat="GiveBill in GiveBills" ng-dblclick="selectGiveBill(GiveBill)">
+                                            <tr ng-repeat="GiveBill in GiveBills">
+                                                <td><input type="checkbox" id={{GiveBill.BillCode}} name="{{GiveBill.BillCode}}" ng-checked="isSelected(GiveBill.BillCode)" ng-click="updateSelection($event,GiveBill.BillCode,GiveBill)"></td>
                                                 <td>{{$index+1}}</td>
                                                 <td>{{GiveBill.BillCode}}</td>
                                                 <td>{{GiveBill.LBBillCode}}</td>
@@ -121,7 +123,7 @@
 
     <script>
         //json日期格式转换为正常格式
-        function jsonDateFormat(jsonDate,state) {
+        function jsonDateFormat(jsonDate, state) {
             try {
                 var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
                 var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
@@ -166,8 +168,8 @@
                     //获取交货单记录
                     $http.post("/GiveBill/GetTaskBillsGiveBill", { TaskBillCode: response.BillCode }).success(function (res) {
                         //修改时间
-                        for (var i = 0; i <res.length; i++) {
-                            res[i].LBBillDate = jsonDateFormat(res[i].LBBillDate,1);
+                        for (var i = 0; i < res.length; i++) {
+                            res[i].LBBillDate = jsonDateFormat(res[i].LBBillDate, 1);
                         }
                         $scope.Records = res;
                     });
@@ -191,22 +193,55 @@
             //异步查询交货单号
             $scope.GiveBillSearch = function () {
                 $http.post("/BillsManager/SearchBills", { billType: 'GiveBill', pageIndex: 1, pageSize: 100, BillCode: $scope.giveBillId, timestart: $scope.timestart, timeend: $scope.timeend, LBBillCode: $scope.LBBillCode }).success(function (response) {
-                    for (var i = 0; i <response.data.length; i++) {
-                        response.data[i].LBBillDate = jsonDateFormat(response.data[i].LBBillDate,1); //转换时间格式
+                    for (var i = 0; i < response.data.length; i++) {
+                        response.data[i].LBBillDate = jsonDateFormat(response.data[i].LBBillDate, 1); //转换时间格式
                     }
                     $scope.GiveBills = response.data;
                 });
             }
-            //选择了一个交货单
-            $scope.selectGiveBill = function (GiveBill) {
-                for (var i = 0; i < $scope.Records.length; i++) {
-                    if ($scope.Records[i].BillCode == GiveBill.BillCode) {
-                        alert("不能选择重复的记录！"); return;
+            //----------------------------------多选交货单--------------------------------------
+            $scope.selected = [];//选中交货单号
+            $scope.selectTarget = [];//选中交货单对象集合
+            var updateSelected = function (action, id, target) {
+                if (action == 'add' && $scope.selected.indexOf(id) == -1) {
+                    $scope.selected.push(id);
+                    $scope.selectTarget.push(target);
+                }
+                if (action == 'remove' && $scope.selected.indexOf(id) != -1) {
+                    var idx = $scope.selected.indexOf(id);
+                    $scope.selected.splice(idx, 1);
+                    $scope.selectTarget.splice(idx, 1);
+                }
+            }
+            $scope.updateSelection = function ($event, id, target) {
+                var checkbox = $event.target;
+                var action = (checkbox.checked ? 'add' : 'remove');
+                updateSelected(action, id, target);
+            }
+            $scope.isSelected = function (id) {
+                return $scope.selected.indexOf(id) >= 0;
+            }
+            //添加交货单
+            $scope.selectGiveBill = function () {
+                //把本次选中的交货单批量添加到表单中
+                for (var i = 0; i < $scope.selectTarget.length; i++) {
+                    var resTemp = true;
+                    for (var j = 0; j < $scope.Records.length; j++) {
+                        if ($scope.Records[j].BillCode == $scope.selectTarget[i].BillCode) {
+                            alert("不能选择重复的记录(" + $scope.Records[j].BillCode + ")！");
+                            resTemp = false;
+                        }
+                    }
+                    if (resTemp) {
+                        $scope.Records.push($scope.selectTarget[i]);
                     }
                 }
-                $scope.Records.push(GiveBill);//添加交货单
+                //清空记录
+                $scope.selected = [];
+                $scope.selectTarget = [];
                 $('#givebll').modal('hide');
             }
+            //----------------------------------多选交货单end--------------------------------------
             //提交表单
             $scope.submit = function () {
                 recordBillCodes = [];

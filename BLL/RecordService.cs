@@ -110,5 +110,58 @@ namespace BLL
             res = res.OrderByDescending(a=>a.Date).Skip((PageIndex - 1) * PageSize).Take(PageSize);
             return res;
         }
+        /// <summary>
+        /// 导出Excel
+        /// </summary>
+        /// <returns></returns>
+        public List<InOutRecordDetail> ExportExcel(string DepartmentId, int? WarehouseId, string ItemLocationId, string ItemCode, int?[] InOutTypeId, string[] BillTypes, string ItemBatch, string LBBillCode, string BillCode, DateTime? timestart, DateTime? timeend)
+        {
+            var list = CurrentDBSession.InOutRecordDetailDal.LoadEntities(a => a.State == 2 && a.DepartmentId == DepartmentId);
+            //var list = CurrentDal.LoadEntities(a => a.State == 2 && a.DepartmentId == DepartmentId);
+            if (WarehouseId != null)
+            {
+                list = list.Where(a => a.WarehouseId == WarehouseId);
+            }
+            if (!string.IsNullOrEmpty(ItemLocationId))
+            {
+                list = list.Where(a => a.ItemLocationId == ItemLocationId);
+            }
+            if (!string.IsNullOrEmpty(ItemCode))
+            {
+
+                list = list.Where(a => a.ItemCode == ItemCode);
+            }
+            if (InOutTypeId != null && InOutTypeId.Length != 0)
+            {
+                list = list.Where(a => InOutTypeId.Contains(a.InOutTypeId));
+            }
+            if (BillTypes != null && BillTypes.Length != 0)
+            {
+                list = list.Where(a => BillTypes.Contains(a.MainTableType));
+            }
+            if (ItemBatch != null)
+            {
+                list = list.Where(a => a.ItemBatch == ItemBatch);
+            }
+            if (LBBillCode != null)
+            {
+                list = list.Where(a => a.LBBillCode == LBBillCode);
+            }
+            if (BillCode != null)
+            {
+                list = list.Where(a => a.BillCode == BillCode);
+            }
+            if (timestart != null)
+            {
+                list = list.Where(a => a.ExamineDate >= timestart);
+            }
+            if (timeend != null)
+            {
+                list = list.Where(a => a.ExamineDate < timeend);
+            }
+            list = list.OrderByDescending(a => a.ExamineDate);//按审核时间排序
+            return list.ToList();
+        }
+
     }
 }

@@ -66,7 +66,6 @@ namespace LHYS.WMS.Controllers
             else {
                 return Json(bill);
             }
-           
         }
         /// <summary>
         /// 查找任务单下的交货单

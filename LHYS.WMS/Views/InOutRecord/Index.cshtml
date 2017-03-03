@@ -88,8 +88,8 @@
                                      max-labels="2">
                                 </div>
                             </td>
-                            <td><input type="button" class="btn btn-danger btn-xs" value="清除条件"  ng-click="clearSearch()" /><input type="submit" class="btn btn-success btn-xs" value="查询"  /></td>
-                            <td>数量合计:{{sumCount}},重量合计:{{sumWeight}}kg</td>
+                            <td><input type="submit" class="btn btn-success btn" value="查询"  /></td>
+                            <td><input type="button" class="btn btn-danger btn-xs" value="清除条件" ng-click="clearSearch()" /><input type="button" class="btn btn-info btn-xs" ng-click="exportExcel()" value="导出Excel"  />&nbsp;&nbsp;数量合计:{{sumCount}},重量合计:{{sumWeight}}kg</td>
                         </tr>
                     </table>
                 </form>
@@ -165,6 +165,21 @@
     </div><!-- /.modal -->
     @*-------------------------------------品项选择模态框end-----------------------------------------*@
     <script>
+        Date.prototype.Format = function (fmt) { //author: meizz 
+            var o = {
+                "M+": this.getMonth() + 1, //月份 
+                "d+": this.getDate(), //日 
+                "h+": this.getHours(), //小时 
+                "m+": this.getMinutes(), //分 
+                "s+": this.getSeconds(), //秒 
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                "S": this.getMilliseconds() //毫秒 
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
         //初始化时间选择器
         //$('#timestart').datetimepicker({
         //    language: 'zh-CN',
@@ -373,6 +388,32 @@
                     $scope.sumCount = response.sumCount.toFixed(2);
                     $scope.sumWeight = response.sumWeight.toFixed(2);
                 });
+            }
+            //导出Excel
+            $scope.exportExcel = function () {
+                //判断 数据为空 不导出
+                //if ($scope.gridOptions.data == null || $scope.gridOptions.data.length == 0 || $scope.gridOptions.data == undefined) {
+                //    alert('无数据可导出！');
+                //    return;
+                //}
+                //处理条件数据
+                var inOutTypeIds = '';
+                for (var i = 0; i < $scope.outInOutTypes.length; i++) {
+                    inOutTypeIds += $scope.outInOutTypes[i].Id+'-';
+                }
+                var billTypes = '';
+                for (var i = 0; i < $scope.billTypesOut.length; i++) {
+                    billTypes += $scope.billTypesOut[i].type+'-';
+                }
+                var ItemLocationId = $scope.CurrentLocation == undefined ? '' : $scope.CurrentLocation.Id;
+                var ItemCode = $scope.CurrentGoodItem == undefined ? '' : $scope.CurrentGoodItem.ItemCode;
+                var ItemBatch = $scope.ItemBatch == undefined ? '' : $scope.ItemBatch;
+                var LBBillCode = $scope.LBBillCode == undefined ? '' : $scope.LBBillCode;
+                var BillCode = $scope.BillCode == undefined ? '' : $scope.BillCode;
+               
+                var timestart =$scope.timestart==null?'': $scope.timestart.Format("yyyy-MM-dd");
+                var timeend = $scope.timeend==null?'': $scope.timeend.Format("yyyy-MM-dd");
+                window.open("/InOutRecord/ExportExcel?timestart=" + timestart + "&timeend=" + timeend + "&DepartmentId=" + $scope.DepartmentId + "&WarehouseId=" + $scope.CurrentWarehouseId + "&ItemLocationId=" + ItemLocationId + "&ItemCode=" + ItemCode + "&InOutTypeId=" + inOutTypeIds + "&BillTypes=" + billTypes + "&ItemBatch=" + ItemBatch + "&LBBillCode=" + LBBillCode + "&BillCode=" + BillCode);
             }
             //跳转到详情页
             $scope.itemClick = function (Id, MainTableType) {

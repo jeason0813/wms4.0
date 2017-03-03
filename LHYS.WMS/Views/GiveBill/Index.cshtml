@@ -120,7 +120,7 @@
                             <td><input class="form-control input-sm" type="text" ng-model="record.ItemSpecifications " /></td>
                             <td><input class="form-control input-sm" type="text" ng-model="record.ItemUnit" /></td>
                             <td><input class="form-control input-sm" type="text" ng-model="record.UnitWeight" ng-change="changeCount($index,record)" disabled /></td>
-                            <td><input class="form-control input-sm" type="number" ng-model="record.Count" ng-change="changeCount($index,record)" required /></td>
+                            <td><input class="form-control input-sm" type="text" ng-model="record.Count" ng-change="changeCount($index,record)" required /></td>
                             <td><input class="form-control input-sm" type="text" ng-model="record.Weight" /></td>
                             <td><input class="form-control input-sm" type="text" ng-model="record.ItemBatch" ng-disabled="record.IsBatch=='否'" ng-click="clickLocation($index)" required /></td>
                             <td><input class="form-control input-sm" type="text" ng-model="record.ItemLocation" ng-disabled="record.IsBatch=='是'" ng-click="clickLocation($index)" required /></td>
